@@ -1,0 +1,18 @@
+passwordUpdateInquire:
+  post:
+    summary: Demande de modification de mot de passe
+    description: Envoie un e-mail avec un lien de modification contenant un token éphémère (10 minutes).
+    tags: [Password]
+    operationId: passwordUpdateInquire
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema: { $ref: "../../openapi.yml#/components/schemas/PasswordUpdateInquireRequest" }
+    responses:
+      '204':
+        description: Email de modification envoyé
+      '400':
+        $ref: "../../openapi.yml#/components/responses/Error400"
+      '404':
+        $ref: "../../openapi.yml#/components/responses/Error404"

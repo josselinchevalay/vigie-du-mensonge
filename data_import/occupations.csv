@@ -1,0 +1,699 @@
+id,gouvernement,code_fonction,prenom,nom,fonction,date_debut_fonction,date_fin_fonction
+532,François Fillon n°1,PM,François,Fillon,Premier ministre,2007-05-18,2007-06-18
+532,François Fillon n°1,ME,Alain,Juppé,"Ministre d'État, Ministre de l'écologie, du développement et de l'aménagement durables",2007-05-18,2007-06-18
+532,François Fillon n°1,M,Rachida,Dati,"Garde des sceaux, ministre de la justice",2007-05-18,2007-06-18
+532,François Fillon n°1,M,Christine,Albanel,"Ministre de la culture et de la communication, porte-parole du Gouvernement",2007-05-18,2007-06-18
+532,François Fillon n°1,M,Hervé,Morin,Ministre de la défense,2007-05-18,2007-06-18
+532,François Fillon n°1,M,Roselyne,Bachelot-Narquin,"Ministre de la santé, de la jeunesse et des sports",2007-05-18,2007-06-18
+532,François Fillon n°1,M,Christine,Lagarde,Ministre de l'agriculture et de la pêche,2007-05-18,2007-06-18
+532,François Fillon n°1,M,Jean-Louis,Borloo,"Ministre de l'économie, des finances et de l'emploi",2007-05-18,2007-06-18
+532,François Fillon n°1,M,Xavier,Darcos,Ministre de l'éducation nationale,2007-05-18,2007-06-18
+532,François Fillon n°1,M,Valérie,Pécresse,Ministre de l'enseignement supérieur et de la recherche,2007-05-18,2007-06-18
+532,François Fillon n°1,M,Brice,Hortefeux,"Ministre de l'immigration, de l'intégration, de l'identité nationale et du codéveloppement",2007-05-18,2007-06-18
+532,François Fillon n°1,M,Michèle,Alliot-Marie,"Ministre de l'intérieur, de l'outre-mer et des collectivités territoriales",2007-05-18,2007-06-18
+532,François Fillon n°1,M,Bernard,Kouchner,Ministre des affaires étrangères et européennes,2007-05-18,2007-06-18
+532,François Fillon n°1,M,Éric,Woerth,"Ministre du budget, des comptes publics et de la fonction publique",2007-05-18,2007-06-18
+532,François Fillon n°1,M,Christine,Boutin,Ministre du logement et de la ville,2007-05-18,2007-06-18
+532,François Fillon n°1,M,Xavier,Bertrand,"Ministre du travail, des relations sociales et de la solidarité",2007-05-18,2007-06-18
+532,François Fillon n°1,SE,Jean-Pierre,Jouyet,"Secrétaire d'État auprès du Ministre des affaires étrangères et européennes, chargé des affaires européennes",2007-05-18,2007-06-18
+532,François Fillon n°1,SE,Dominique,Bussereau,"Secrétaire d'État auprès du ministre d'État, Ministre de l'écologie, du développement et de l'aménagement durables, chargé des transports",2007-05-18,2007-06-18
+532,François Fillon n°1,SE,Éric,Besson,"Secrétaire d'État auprès du Premier ministre, chargé de la prospective et de l'évaluation des politiques publiques",2007-05-18,2007-06-18
+532,François Fillon n°1,SE,Roger,Karoutchi,"Secrétaire d'État auprès du Premier ministre, chargé des relations avec le Parlement",2007-05-18,2007-06-18
+532,François Fillon n°1,HC,Martin,Hirsch,Haut-commissaire aux solidarités actives contre la pauvreté auprès du Premier ministre,2007-05-18,2007-06-18
+533,François Fillon n°2,PM,François,Fillon,Premier ministre,2007-06-19,2010-11-13
+533,François Fillon n°2,ME,Jean-Louis,Borloo,"Ministre d'État, Ministre de l'écologie, du développement et de l'aménagement durables",2007-06-19,2008-03-18
+533,François Fillon n°2,M,Rachida,Dati,"Garde des sceaux, ministre de la justice",2007-06-19,2009-06-23
+533,François Fillon n°2,M,Christine,Albanel,Ministre de la culture et de la communication,2007-06-19,2009-06-23
+533,François Fillon n°2,M,Hervé,Morin,Ministre de la défense,2007-06-19,2010-11-13
+533,François Fillon n°2,M,Roselyne,Bachelot-Narquin,"Ministre de la santé, de la jeunesse et des sports",2007-06-19,2008-03-18
+533,François Fillon n°2,M,Michel,Barnier,Ministre de l'agriculture et de la pêche,2007-06-19,2009-06-23
+533,François Fillon n°2,M,Christine,Lagarde,"Ministre de l'économie, des finances et de l'emploi",2007-06-19,2008-03-18
+533,François Fillon n°2,M,Xavier,Darcos,Ministre de l'éducation nationale,2007-06-19,2009-06-23
+533,François Fillon n°2,M,Valérie,Pécresse,Ministre de l'enseignement supérieur et de la recherche,2007-06-19,2010-11-13
+533,François Fillon n°2,M,Brice,Hortefeux,"Ministre de l'immigration, de l'intégration, de l'identité nationale et du codéveloppement",2007-06-19,2008-03-18
+533,François Fillon n°2,M,Michèle,Alliot-Marie,"Ministre de l'intérieur, de l'outre-mer et des collectivités territoriales",2007-06-19,2009-06-23
+533,François Fillon n°2,M,Bernard,Kouchner,Ministre des affaires étrangères et européennes,2007-06-19,2010-11-13
+533,François Fillon n°2,M,Éric,Woerth,"Ministre du budget, des comptes publics et de la fonction publique",2007-06-19,2009-06-23
+533,François Fillon n°2,M,Christine,Boutin,Ministre du logement et de la ville,2007-06-19,2009-01-15
+533,François Fillon n°2,M,Xavier,Bertrand,"Ministre du travail, des relations sociales et de la solidarité",2007-06-19,2008-03-18
+533,François Fillon n°2,SE,Luc,Chatel,"Secrétaire d'État auprès de la Ministre de l'économie, des finances et de l'emploi, chargé de la consommation et du tourisme",2007-06-19,2008-03-18
+533,François Fillon n°2,SE,Hervé,Novelli,"Secrétaire d'État auprès de la Ministre de l'économie, des finances et de l'emploi, chargé des entreprises et du commerce extérieur",2007-06-19,2008-03-18
+533,François Fillon n°2,SE,Christian,Estrosi,"Secrétaire d'État auprès de la Ministre de l'intérieur, de l'outre-mer et des collectivités territoriales, chargé de l'outre-mer",2007-06-19,2008-03-18
+533,François Fillon n°2,SE,Fadela,Amara,"Secrétaire d'État auprès de la Ministre du logement et de la ville, chargée de la politique de la ville",2007-06-19,2009-01-15
+533,François Fillon n°2,SE,Alain,Marleix,"Secrétaire d'État auprès du Ministre de la défense, chargé des anciens combattants",2007-06-19,2007-07-07
+533,François Fillon n°2,SE,Jean-Marie,Bockel,"Secrétaire d'État auprès du Ministre des affaires étrangères et européennes, chargé de la coopération et de la francophonie",2007-06-19,2008-03-18
+533,François Fillon n°2,SE,Jean-Pierre,Jouyet,"Secrétaire d'État auprès du Ministre des affaires étrangères et européennes, chargé des affaires européennes",2007-06-19,2008-12-12
+533,François Fillon n°2,SE,Rama,Yade,"Secrétaire d'État auprès du Ministre des affaires étrangères et européennes, chargée des affaires étrangères et des droits de l'homme",2007-06-19,2009-06-23
+533,François Fillon n°2,SE,Dominique,Bussereau,"Secrétaire d'État auprès du ministre d'État, Ministre de l'écologie, du développement et de l'aménagement durables, chargé des transports",2007-06-19,2009-06-23
+533,François Fillon n°2,SE,Nathalie,Kosciusko-Morizet,"Secrétaire d'État auprès du ministre d'État, Ministre de l'écologie, du développement et de l'aménagement durables, chargée de l'écologie",2007-06-19,2009-01-15
+533,François Fillon n°2,SE,André,Santini,"Secrétaire d'État auprès du Ministre du budget, des comptes publics et de la fonction publique, chargé de la fonction publique",2007-06-19,2009-06-23
+533,François Fillon n°2,SE,Valérie,Létard,"Secrétaire d'État auprès du Ministre du travail, des relations sociales et de la solidarité, chargée de la solidarité",2007-06-19,2009-01-15
+533,François Fillon n°2,SE,Éric,Besson,"Secrétaire d'État auprès du Premier ministre, chargé de la prospective et de l'évaluation des politiques publiques",2007-06-19,2008-03-18
+533,François Fillon n°2,SE,Roger,Karoutchi,"Secrétaire d'État auprès du Premier ministre, chargé des relations avec le Parlement",2007-06-19,2009-06-23
+533,François Fillon n°2,SE,Laurent,Wauquiez,"Secrétaire d'État auprès du Premier ministre, porte-parole du gouvernement",2007-06-19,2008-03-18
+533,François Fillon n°2,HC,Martin,Hirsch,Haut-commissaire aux solidarités actives contre la pauvreté auprès du Premier ministre,2007-06-19,2009-01-12
+533,François Fillon n°2,SE,Alain,Marleix,"Secrétaire d'État à la défense auprès du Ministre de la défense, chargé des anciens combattants",2007-07-07,2008-03-18
+533,François Fillon n°2,SE,Bernard,Laporte,"Secrétaire d'État auprès de la Ministre de la santé, de la jeunesse et des sports, chargé des sports",2007-10-22,2008-03-18
+533,François Fillon n°2,ME,Jean-Louis,Borloo,"Ministre d'État, Ministre de l'écologie, de l'énergie, du développement durable et de l'aménagement du territoire",2008-03-18,2009-06-23
+533,François Fillon n°2,M,Roselyne,Bachelot-Narquin,"Ministre de la santé, de la jeunesse, des sports et de la vie associative",2008-03-18,2009-01-12
+533,François Fillon n°2,M,Christine,Lagarde,"Ministre de l'économie, de l'industrie et de l'emploi",2008-03-18,2010-11-13
+533,François Fillon n°2,M,Brice,Hortefeux,"Ministre de l'immigration, de l'intégration, de l'identité nationale et du développement solidaire",2008-03-18,2009-01-15
+533,François Fillon n°2,M,Xavier,Bertrand,"Ministre du travail, des relations sociales, de la famille et de la solidarité",2008-03-18,2009-01-15
+533,François Fillon n°2,SE,Jean-Marie,Bockel,"Secrétaire d'État à la défense et aux anciens combattants, auprès du Ministre de la défense",2008-03-18,2009-06-23
+533,François Fillon n°2,SE,Alain,Marleix,"Secrétaire d'État à l'intérieur et aux collectivités territoriales, auprès de la Ministre de l'intérieur, de l'outre-mer et des collectivités territoriales",2008-03-18,2009-06-23
+533,François Fillon n°2,SE,Bernard,Laporte,"Secrétaire d'État auprès de la Ministre de la santé, de la jeunesse, des sports et de la vie associative, chargé des sports, de la jeunesse et de la vie associative",2008-03-18,2009-01-12
+533,François Fillon n°2,SE,Laurent,Wauquiez,"Secrétaire d'État auprès de la Ministre de l'économie, de l'industrie et de l'emploi, chargé de l'emploi",2008-03-18,2010-11-13
+533,François Fillon n°2,SE,Luc,Chatel,"Secrétaire d'État auprès de la Ministre de l'économie, de l'industrie et de l'emploi, chargé de l'industrie et de la consommation, porte parole du gouvernement",2008-03-18,2009-06-23
+533,François Fillon n°2,SE,Anne-Marie,Idrac,"Secrétaire d'État auprès de la Ministre de l'économie, de l'industrie et de l'emploi, chargé du commerce extérieur",2008-03-18,2010-11-13
+533,François Fillon n°2,SE,Hervé,Novelli,"Secrétaire d'État auprès de la Ministre de l'économie, de l'industrie et de l'emploi, chargé du commerce, de l'artisanat, des petites et moyennes entreprises, du tourisme et des services",2008-03-18,2009-06-23
+533,François Fillon n°2,SE,Yves,Jégo,"Secrétaire d'État auprès de la Ministre de l'intérieur, de l'outre-mer et des collectivités territoriales, chargé de l'outre-mer",2008-03-18,2009-06-23
+533,François Fillon n°2,SE,Alain,Joyandet,"Secrétaire d'État auprès du Ministre des Affaires étrangères et européennes, chargé de la coopération et de la francophonie",2008-03-18,2010-07-04
+533,François Fillon n°2,SE,Hubert,Falco,"Secrétaire d'État auprès du ministre d'État, Ministre de l'écologie, de l'énergie, du développement durable et de l'aménagement du territoire, chargé de l'aménagement du territoire",2008-03-18,2009-06-23
+533,François Fillon n°2,SE,Christian,Blanc,"Secrétaire d'État auprès du ministre d'État, Ministre de l'écologie, de l'énergie, du développement durable et de l'aménagement du territoire, chargé du développement de la région capitale",2008-03-18,2009-06-23
+533,François Fillon n°2,SE,Nadine,Morano,"Secrétaire d'État auprès du Ministre du travail, des relations sociales, de la famille et de la solidarité, chargée de la famille",2008-03-18,2009-01-15
+533,François Fillon n°2,SE,Éric,Besson,"Secrétaire d'État auprès du Premier ministre, chargé de la prospective, de l'évaluation des politiques publiques et du développement de l'économie numérique",2008-03-18,2009-01-15
+533,François Fillon n°2,MD,Patrick,Devedjian,"Ministre auprès du Premier ministre, chargé de la mise en œuvre du plan de relance",2008-12-05,2010-11-13
+533,François Fillon n°2,SE,Bruno,Le Maire,"Secrétaire d'État auprès du Ministre des affaires étrangères et européennes, chargé des affaires européennes",2008-12-12,2009-06-23
+533,François Fillon n°2,M,Roselyne,Bachelot-Narquin,Ministre de la santé et des sports,2009-01-12,2010-11-13
+533,François Fillon n°2,SE,Bernard,Laporte,"Secrétaire d'État auprès de la Ministre de la santé et des sports, chargé des sports",2009-01-12,2009-06-23
+533,François Fillon n°2,HC,Martin,Hirsch,Haut-commissaire aux solidarités actives contre la pauvreté et haut-commissaire à la jeunesse auprès du Premier ministre,2009-01-12,2010-03-22
+533,François Fillon n°2,M,Éric,Besson,"Ministre de l'immigration, de l'intégration, de l'identité nationale et du développement solidaire",2009-01-15,2010-11-13
+533,François Fillon n°2,M,Christine,Boutin,Ministre du logement,2009-01-15,2009-06-23
+533,François Fillon n°2,M,Brice,Hortefeux,"Ministre du travail, des relations sociales, de la famille, de la solidarité et de la ville",2009-01-15,2009-06-23
+533,François Fillon n°2,SE,Nadine,Morano,"Secrétaire d'État auprès du Ministre du travail, des relations sociales, de la famille, de la solidarité et de la ville, chargée de la famille",2009-01-15,2010-11-13
+533,François Fillon n°2,SE,Fadela,Amara,"Secrétaire d'État auprès du Ministre du travail, des relations sociales, de la famille, de la solidarité et de la ville, chargée de la politique de la ville",2009-01-15,2010-11-13
+533,François Fillon n°2,SE,Valérie,Létard,"Secrétaire d'État auprès du Ministre du travail, des relations sociales, de la famille, de la solidarité et de la ville, chargée de la solidarité",2009-01-15,2009-06-23
+533,François Fillon n°2,SE,Nathalie,Kosciusko-Morizet,"Secrétaire d'État auprès du Premier ministre, chargé de la prospective, de l'évaluation des politiques publiques et du développement de l'économie numérique",2009-01-15,2009-06-23
+533,François Fillon n°2,SE,Chantal,Jouanno,"Secrétaire d'État auprès du ministre d'État, Ministre de l'écologie, de l'énergie, du développement durable et de l'aménagement du territoire, chargée de l'écologie",2009-01-21,2009-06-23
+533,François Fillon n°2,ME,Michèle,Alliot-Marie,"Ministre d'État, Garde des sceaux, ministre de la justice et des libertés",2009-06-23,2010-11-13
+533,François Fillon n°2,ME,Jean-Louis,Borloo,"Ministre d'État, Ministre de l'écologie, de l'énergie, du développement durable et de la Mer, en charge des technologies vertes et des négociations sur le climat",2009-06-23,2010-11-13
+533,François Fillon n°2,M,Frédéric,Mitterrand,Ministre de la culture et de la communication,2009-06-23,2010-11-13
+533,François Fillon n°2,M,Bruno,Le Maire,"Ministre de l'alimentation, de l'agriculture et de la pêche",2009-06-23,2010-11-13
+533,François Fillon n°2,M,Luc,Chatel,"Ministre de l'éducation nationale, porte-parole du gouvernement",2009-06-23,2010-11-13
+533,François Fillon n°2,M,Michel,Mercier,Ministre de l'espace rural et de l'aménagement du territoire,2009-06-23,2010-11-13
+533,François Fillon n°2,M,Brice,Hortefeux,"Ministre de l'intérieur, de l'outre-mer et des collectivités territoriales",2009-06-23,2010-11-13
+533,François Fillon n°2,M,Éric,Woerth,"Ministre du budget, des comptes publics, de la fonction publique et de la réforme de l'État",2009-06-23,2010-03-22
+533,François Fillon n°2,M,Xavier,Darcos,"Ministre du travail, des relations sociales, de la famille, de la solidarité et de la ville",2009-06-23,2010-03-22
+533,François Fillon n°2,MD,Christian,Estrosi,"Ministre auprès de la Ministre de l'économie, de l'industrie et de l'emploi, chargé de l'industrie",2009-06-23,2010-11-13
+533,François Fillon n°2,MD,Henri,De Raincourt,"Ministre auprès du Premier ministre, chargé des relations avec le Parlement",2009-06-23,2010-11-13
+533,François Fillon n°2,SE,Jean-Marie,Bockel,"Secrétaire d'État à la justice auprès de la ministre d'État, Garde des sceaux, ministre de la justice et des libertés",2009-06-23,2010-11-13
+533,François Fillon n°2,SE,Rama,Yade,"Secrétaire d'État auprès de la Ministre de la santé et des sports, chargée des sports",2009-06-23,2010-11-13
+533,François Fillon n°2,SE,Hervé,Novelli,"Secrétaire d'État auprès de la Ministre de l'économie, de l'industrie et de l'emploi, chargé du commerce, de l'artisanat, des petites et moyennes entreprises, du tourisme, des services et de la consommation",2009-06-23,2010-11-13
+533,François Fillon n°2,SE,Hubert,Falco,"Secrétaire d'État auprès du Ministre de la défense, chargé de la défense et des anciens combattants",2009-06-23,2010-11-13
+533,François Fillon n°2,SE,Alain,Marleix,"Secrétaire d'État auprès du Ministre de l'intérieur, de l'outre-mer et des collectivités territoriales, chargé de l'intérieur et des collectivités territoriales",2009-06-23,2010-11-13
+533,François Fillon n°2,SE,Marie-Luce,Penchard,"Secrétaire d'État auprès du Ministre de l'intérieur, de l'outre-mer et des collectivités territoriales, chargée de l'outre-mer",2009-06-23,2009-11-06
+533,François Fillon n°2,SE,Pierre,Lellouche,"Secrétaire d'État auprès du Ministre des Affaires étrangères et européennes, chargé des affaires européennes",2009-06-23,2010-11-13
+533,François Fillon n°2,SE,Dominique,Bussereau,"Secrétaire d'État auprès du ministre d'État, Ministre de l'écologie, de l'énergie, du développement durable et de la mer, chargé des transports",2009-06-23,2010-11-13
+533,François Fillon n°2,SE,Benoist,Apparu,"Secrétaire d'État auprès du ministre d'État, Ministre de l'écologie, de l'énergie, du développement durable et de la mer, chargé du logement et de l'urbanisme",2009-06-23,2010-11-13
+533,François Fillon n°2,SE,Chantal,Jouanno,"Secrétaire d'État auprès du ministre d'État, Ministre de l'écologie, de l'énergie, du développement durable et de la mer, chargée de l'écologie",2009-06-23,2010-11-13
+533,François Fillon n°2,SE,Valérie,Létard,"Secrétaire d'État auprès du ministre d'État, Ministre de l'écologie, de l'énergie, du développement durable et de la mer, chargée des technologies vertes et des négociations sur le climat",2009-06-23,2010-11-13
+533,François Fillon n°2,SE,Nora,Berra,"Secrétaire d'État auprès du Ministre du travail, des relations sociales, de la famille, de la solidarité et de la ville, chargée des aînés",2009-06-23,2010-11-13
+533,François Fillon n°2,SE,Christian,Blanc,"Secrétaire d'État auprès du Premier ministre, chargé du développement de la région capitale",2009-06-23,2010-07-04
+533,François Fillon n°2,SE,Nathalie,Kosciusko-Morizet,"Secrétaire d'État auprès du Premier ministre, chargée de la prospective et du développement de l'économie numérique",2009-06-23,2010-11-13
+533,François Fillon n°2,MD,Marie-Luce,Penchard,"Ministre auprès du Ministre de l'Intérieur, de l'outre-mer et des collectivités territoriales, chargée de l'outre-mer",2009-11-06,2010-11-13
+533,François Fillon n°2,M,Marc-Philippe,Daubresse,Ministre de la jeunesse et des solidarités actives,2010-03-22,2010-11-13
+533,François Fillon n°2,M,François,Baroin,"Ministre du budget, des comptes publics et de la réforme de l'État",2010-03-22,2010-11-13
+533,François Fillon n°2,M,Éric,Woerth,"Ministre du travail, de la solidarité et de la fonction publique",2010-03-22,2010-11-13
+533,François Fillon n°2,SE,Georges,Tron,"Secrétaire d'État auprès du Ministre du travail, de la solidarité et de la fonction publique, chargé de la fonction publique",2010-03-22,2010-11-13
+534,François Fillon n°3,PM,François,Fillon,Premier ministre,2010-11-14,2012-05-10
+534,François Fillon n°3,ME,Alain,Juppé,"Ministre d'État, ministre de la Défense et des Anciens combattants",2010-11-14,2011-02-27
+534,François Fillon n°3,ME,Michèle,Alliot-Marie,"Ministre d'État, ministre des Affaires étrangères et européennes",2010-11-14,2011-02-27
+534,François Fillon n°3,M,Michel,Mercier,"Garde des Sceaux, ministre de la Justice et des Libertés",2010-11-14,2012-05-10
+534,François Fillon n°3,M,Frédéric,Mitterrand,Ministre de la Culture et de la Communication,2010-11-14,2012-05-10
+534,François Fillon n°3,M,Maurice,Leroy,Ministre de la Ville,2010-11-14,2012-05-10
+534,François Fillon n°3,M,Bruno,Le Maire,"Ministre de l'Agriculture, de l'Alimentation, de la Pêche, de la Ruralité et de l'Aménagement du territoire",2010-11-14,2012-05-10
+534,François Fillon n°3,M,Nathalie,Kosciusko-Morizet,"Ministre de l'Écologie, du Développement durable, des Transports et du Logement",2010-11-14,2012-02-22
+534,François Fillon n°3,M,Christine,Lagarde,"Ministre de l'Économie, des Finances et de l'Industrie",2010-11-14,2011-06-29
+534,François Fillon n°3,M,Luc,Chatel,"Ministre de l'Éducation nationale, de la Jeunesse et de la Vie associative",2010-11-14,2012-05-10
+534,François Fillon n°3,M,Valérie,Pécresse,Ministre de l'enseignement supérieur et de la recherche,2010-11-14,2011-06-29
+534,François Fillon n°3,M,Brice,Hortefeux,"Ministre de l'Intérieur, de l'Outre-mer, des Collectivités territoriales et de l'Immigration",2010-11-14,2011-02-27
+534,François Fillon n°3,M,Roselyne,Bachelot-Narquin,Ministre des Solidarités et de la Cohésion sociale,2010-11-14,2012-05-10
+534,François Fillon n°3,M,Chantal,Jouanno,Ministre des Sports,2010-11-14,2011-09-26
+534,François Fillon n°3,M,François,Baroin,"Ministre du Budget, des Comptes publics, de la Fonction publique et de la Réforme de l'État, porte-parole du gouvernement",2010-11-14,2011-06-29
+534,François Fillon n°3,M,Xavier,Bertrand,"Ministre du Travail, de l'Emploi et de la Santé",2010-11-14,2012-05-10
+534,François Fillon n°3,MD,Éric,Besson,"Ministre auprès de la Ministre de l'Économie, des Finances et de l'Industrie, chargé de l'Industrie, de l'Énergie et de l'Économie numérique",2010-11-14,2012-05-10
+534,François Fillon n°3,MD,Henri,De Raincourt,"Ministre auprès de la Ministre des Affaires étrangères et européennes, chargé de la Coopération",2010-11-14,2012-05-10
+534,François Fillon n°3,MD,Laurent,Wauquiez,"Ministre auprès de la Ministre des Affaires étrangères et européennes, chargé des Affaires européennes",2010-11-14,2011-06-29
+534,François Fillon n°3,MD,Philippe,Richert,"Ministre auprès du Ministre de l'Intérieur, de l'Outre-mer, des Collectivités territoriales et de l'Immigration, chargé des Collectivités territoriales",2010-11-14,2012-05-10
+534,François Fillon n°3,MD,Marie-Luce,Penchard,"Ministre auprès du Ministre de l'Intérieur, de l'Outre-mer, des Collectivités territoriales et de l'Immigration, chargée de l'Outre-mer",2010-11-14,2012-05-10
+534,François Fillon n°3,MD,Nadine,Morano,"Ministre auprès du Ministre du Travail, de l'Emploi et de la Santé, chargée de l'Apprentissage et de la Formation professionnelle",2010-11-14,2012-05-10
+534,François Fillon n°3,MD,Patrick,Ollier,"Ministre auprès du Premier ministre, chargé des Relations avec le Parlement",2010-11-14,2012-05-10
+534,François Fillon n°3,SE,Thierry,Mariani,"Secrétaire d'État auprès de la Ministre de l'Écologie, du Développement durable, des Transports et du Logement, chargé des Transports",2010-11-14,2011-06-29
+534,François Fillon n°3,SE,Benoist,Apparu,"Secrétaire d'État auprès de la Ministre de l'Écologie, du Développement durable, des Transports et du Logement, chargé du Logement",2010-11-14,2012-05-10
+534,François Fillon n°3,SE,Pierre,Lellouche,"Secrétaire d'État auprès de la Ministre de l'Économie, des Finances et de l'Industrie, chargé du Commerce extérieur",2010-11-14,2012-05-10
+534,François Fillon n°3,SE,Frédéric,Lefebvre,"Secrétaire d'État auprès de la Ministre de l'Économie, des Finances et de l'Industrie, chargé du Commerce, de l'Artisanat, des Petites et Moyennes Entreprises, du Tourisme, des Services, des Professions libérales et de la Consommation",2010-11-14,2012-05-10
+534,François Fillon n°3,SE,Marie-Anne,Montchamp,"Secrétaire d'État auprès de la Ministre des Solidarités et de la Cohésion sociale, chargée de la Cohésion sociale",2010-11-14,2012-05-10
+534,François Fillon n°3,SE,Jeannette,Bougrab,"Secrétaire d'État auprès du Ministre de l'Éducation nationale, de la Jeunesse et de la Vie associative, chargée de la Jeunesse et de la Vie associative",2010-11-14,2012-05-10
+534,François Fillon n°3,SE,Georges,Tron,"Secrétaire d'État auprès du Ministre du Budget, des Comptes publics, de la Fonction publique et de la Réforme de l'État, chargé de la Fonction publique",2010-11-14,2011-05-29
+534,François Fillon n°3,SE,Nora,Berra,"Secrétaire d'État auprès du Ministre du Travail, de l'Emploi et de la Santé, chargée de la Santé",2010-11-14,2012-05-10
+534,François Fillon n°3,HC,Martin,Hirsch,Haut-commissaire aux solidarités actives contre la pauvreté auprès du Premier ministre,2010-11-14,2012-05-10
+534,François Fillon n°3,ME,Alain,Juppé,"Ministre d'État, ministre des Affaires étrangères et européennes",2011-02-27,2012-05-10
+534,François Fillon n°3,M,Gérard,Longuet,Ministre de la défense et des Anciens combattants,2011-02-27,2012-05-10
+534,François Fillon n°3,M,Claude,Guéant,"Ministre de l'Intérieur, de l'Outre-mer, des Collectivités territoriales et de l'Immigration",2011-02-27,2012-05-10
+534,François Fillon n°3,M,François,Sauvadet,Ministre de la Fonction publique,2011-06-29,2012-05-10
+534,François Fillon n°3,M,François,Baroin,"Ministre de l'Économie, des Finance et de l'Industrie",2011-06-29,2012-05-10
+534,François Fillon n°3,M,Laurent,Wauquiez,Ministre de l'enseignement supérieur et de la recherche,2011-06-29,2012-05-10
+534,François Fillon n°3,M,Valérie,Pécresse,"Ministre du Budget, des Comptes publics et de la Réforme de l'État, porte-parole du gouvernement",2011-06-29,2012-05-10
+534,François Fillon n°3,MD,Thierry,Mariani,"Ministre auprès de la Ministre de l'Écologie, du Développement durable, des Transports et du Logement, chargé des Transports",2011-06-29,2012-05-10
+534,François Fillon n°3,MD,Jean,Leonetti,"Ministre auprès du Ministre d'État, Ministre des Affaires étrangères et européennes, chargé des Affaires européennes.",2011-06-29,2012-05-10
+534,François Fillon n°3,SE,Claude,Greff,"Secrétaire d'État auprès de la Ministre des Solidarités et de la Cohésion sociale, chargée de la Famille",2011-06-29,2012-05-10
+534,François Fillon n°3,SE,Marc,Laffineur,Secrétaire d'État auprès du Ministre de la Défense et des Anciens combattants,2011-06-29,2012-05-10
+534,François Fillon n°3,SE,David,Douillet,"Secrétaire d'État auprès du Ministre d'État, ministre des Affaires étrangères et européennes, chargé des Français de l'étranger",2011-06-29,2011-09-26
+534,François Fillon n°3,M,David,Douillet,Ministre des Sports,2011-09-26,2012-05-10
+534,François Fillon n°3,SE,Edouard,Courtial,"Secrétaire d'État auprès du Ministre d'État, ministre des Affaires étrangères et européennes, chargé des Français de l'étranger",2011-09-28,2012-05-10
+535,Jean-Marc Ayrault n°1,PM,Jean-Marc,Ayrault,Premier ministre,2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Christiane,Taubira,"Garde des sceaux, ministre de la Justice",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Aurélie,Filippetti,Ministre de la Culture et de la Communication,2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Jean-Yves,Le Drian,Ministre de la Défense,2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Marylise,Lebranchu,"Ministre de la Réforme de l'État, de la Décentralisation et de la Fonction publique",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Stéphane,Le Foll,Ministre de l'Agriculture et de l'Agroalimentaire,2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Nicole,Bricq,"Ministre de l'Ecologie, du Développement durable et de l'Energie",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Pierre,Moscovici,"Ministre de l'Economie, des Finances et du Commerce extérieur",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Vincent,Peillon,Ministre de l'Education nationale,2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Cécile,Duflot,Ministre de l'Egalité des territoires et du Logement,2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Geneviève,Fioraso,Ministre de l'Enseignement supérieur et de la Recherche,2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Manuel,Valls,Ministre de l'Intérieur,2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Laurent,Fabius,Ministre des Affaires étrangères,2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Marisol,Touraine,Ministre des affaires sociales et de la santé,2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Najat,Vallaud-Belkacem,"Ministre des Droits des femmes, Porte-parole du Gouvernement",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Victorin,Lurel,Ministre des Outre-mer,2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Valérie,Fourneyron,"Ministre des Sports, de la Jeunesse, de l'Education populaire et de la Vie associative",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Arnaud,Montebourg,Ministre du Redressement productif,2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,M,Michel,Sapin,"Ministre du Travail, de l'Emploi, de la Formation professionnelle et du Dialogue social",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,Frédéric,Cuvillier,"Ministre délégué auprès de la Ministre de l'Ecologie, du Développement durable et de l'Energie, chargé des Transports et de l'Economie maritime",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,François,Lamy,"Ministre délégué auprès de la Ministre de l'Egalité des territoires et du Logement, chargé de la Ville",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,Kader,Arif,"Ministre délégué auprès du Ministre de la Défense, chargé des Anciens combattants",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,Benoît,Hamon,"Ministre délégué auprès du Ministre de l'Economie, des Finances et du Commerce extérieur, chargé de l'Economie sociale et solidaire",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,Jérôme,Cahuzac,"Ministre délégué auprès du Ministre de l'Economie, des Finances et du Commerce extérieur, chargé du Budget",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,Bernard,Cazeneuve,"Ministre délégué auprès du Ministre des Affaires étrangères, chargé des Affaires européennes",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,Pascal,Canfin,"Ministre délégué auprès du Ministre des Affaires étrangères, chargé du Développement",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,Alain,Vidalies,"Ministre délégué auprès du Premier ministre, chargé des Relations avec le Parlement",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,Delphine,Batho,"Ministre déléguée auprès de la Garde des sceaux, Ministre de la justice",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,Dominique,Bertinotti,"Ministre déléguée auprès de la Ministre des Affaires sociales et de la Santé, chargée de la Famille",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,Michèle,Delaunay,"Ministre déléguée auprès de la Ministre des Affaires sociales et de la Santé, chargée des Personnes âgées et de la Dépendance",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,Marie-Arlette,Carlotti,"Ministre déléguée auprès de la Ministre des Affaires sociales et de la Santé, chargée des Personnes handicapées",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,George,Pau-Langevin,"Ministre déléguée auprès du Ministre de l'Education nationale, chargée de la Réussite éducative",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,Yamina,Benguigui,"Ministre déléguée auprès du Ministre des Affaires étrangères, chargée des Français de l'étranger et de la Francophonie",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,Sylvia,Pinel,"Ministre déléguée auprès du Ministre du Redressement productif, chargée de l'Artisanat, du Commerce et du Tourisme",2012-05-16,2012-06-18
+535,Jean-Marc Ayrault n°1,MD,Fleur,Pellerin,"Ministre déléguée auprès du Ministre du Redressement productif, chargée des Petites et moyennes entreprises, de l'Innovation et de l'Economie numérique",2012-05-16,2012-06-18
+536,Jean-Marc Ayrault n°2,PM,Jean-Marc,Ayrault,Premier ministre,2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Christiane,Taubira,"Garde des sceaux, ministre de la Justice",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Aurélie,Filippetti,Ministre de la Culture et de la Communication,2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Jean-Yves,Le Drian,Ministre de la Défense,2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Marylise,Lebranchu,"Ministre de la Réforme de l'État, de la Décentralisation et de la Fonction publique",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Stéphane,Le Foll,"Ministre de l'Agriculture, de l'Agroalimentaire et de la Forêt",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Sylvia,Pinel,"Ministre de l'Artisanat, du Commerce et du Tourisme",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Delphine,Batho,"Ministre de l'Ecologie, du Développement durable et de l'Energie",2012-06-21,2013-07-02
+536,Jean-Marc Ayrault n°2,M,Pierre,Moscovici,Ministre de l'Economie et des Finances,2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Vincent,Peillon,Ministre de l'Education nationale,2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Cécile,Duflot,Ministre de l'Egalité des territoires et du Logement,2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Geneviève,Fioraso,Ministre de l'Enseignement supérieur et de la Recherche,2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Manuel,Valls,Ministre de l'Intérieur,2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Laurent,Fabius,Ministre des Affaires étrangères,2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Marisol,Touraine,Ministre des affaires sociales et de la santé,2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Najat,Vallaud-Belkacem,"Ministre des Droits des femmes, Porte-parole du Gouvernement",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Victorin,Lurel,Ministre des Outre-mer,2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Valérie,Fourneyron,"Ministre des Sports, de la Jeunesse, de l'Education populaire et de la Vie associative",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Nicole,Bricq,Ministre du Commerce extérieur,2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Arnaud,Montebourg,Ministre du Redressement productif,2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Michel,Sapin,"Ministre du Travail, de l'Emploi, de la Formation professionnelle et du Dialogue social",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Guillaume,Garot,"Ministre délégué auprès de la Ministre de l'Agriculture, de l'Agroalimentaire et de la Forêt, chargé de l'agroalimentaire",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Frédéric,Cuvillier,"Ministre délégué auprès de la Ministre de l'Ecologie, du Développement durable et de l'Energie, chargé des Transports, de la Mer et de la Pêche",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,François,Lamy,"Ministre délégué auprès de la Ministre de l'Egalité des territoires et du Logement, chargé de la Ville",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Kader,Arif,"Ministre délégué auprès du Ministre de la Défense, chargé des Anciens combattants",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Benoît,Hamon,"Ministre délégué auprès du Ministre de l'Economie, des Finances et du Commerce extérieur, chargé de l'Economie sociale et solidaire et de la Consommation",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Jérôme,Cahuzac,"Ministre délégué auprès du Ministre de l'Economie, des Finances, chargé du Budget",2012-06-21,2013-03-19
+536,Jean-Marc Ayrault n°2,MD,Bernard,Cazeneuve,"Ministre délégué auprès du Ministre des Affaires étrangères, chargé des Affaires européennes",2012-06-21,2013-03-19
+536,Jean-Marc Ayrault n°2,MD,Pascal,Canfin,"Ministre délégué auprès du Ministre des Affaires étrangères, chargé du Développement",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Thierry,Repentin,"Ministre délégué auprès du Ministre du Travail, de l'Emploi, de la Formation professionnelle et du Dialogue social, chargé de la Formation professionnelle et de l'Apprentissage",2012-06-21,2013-03-19
+536,Jean-Marc Ayrault n°2,MD,Alain,Vidalies,"Ministre délégué auprès du Premier ministre, chargé des Relations avec le Parlement",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Anne-Marie,Escoffier,"Ministre déléguée auprès de la Ministre de la Réforme de l'État, de la Décentralisation et de la Fonction publique, chargée de la Décentralisation",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Dominique,Bertinotti,"Ministre déléguée auprès de la Ministre des Affaires sociales et de la Santé, chargée de la Famille",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Michèle,Delaunay,"Ministre déléguée auprès de la Ministre des Affaires sociales et de la Santé, chargée des Personnes âgées et de l'Autonomie",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Marie-Arlette,Carlotti,"Ministre déléguée auprès de la Ministre des Affaires sociales et de la Santé, chargée des Personnes handicapées et de la Lutte contre l'exclusion",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,George,Pau-Langevin,"Ministre déléguée auprès du Ministre de l'Education nationale, chargée de la Réussite éducative",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Yamina,Benguigui,"Ministre déléguée auprès du Ministre des Affaires étrangères, chargée de la Francophonie",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Hélène,Conway-Mouret,"Ministre déléguée auprès du Ministre des Affaires étrangères, chargée des Français de l'étranger",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Fleur,Pellerin,"Ministre déléguée auprès du Ministre du Redressement productif, chargée des Petites et moyennes entreprises, de l'Innovation et de l'Economie numérique",2012-06-21,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Bernard,Cazeneuve,"Ministre délégué auprès du Ministre de l'Economie et des Finances, chargé du Budget",2013-03-19,2014-03-31
+536,Jean-Marc Ayrault n°2,MD,Thierry,Repentin,"Ministre délégué auprès du Ministre des Affaires étrangères, chargé des Affaires européennes",2013-03-19,2014-03-31
+536,Jean-Marc Ayrault n°2,M,Philippe,Martin,"Ministre de l'Ecologie, du Développement durable et de l'Energie",2013-07-02,2014-03-31
+537,Manuel Valls n°1,PM,Manuel,Valls,Premier ministre,2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,Christiane,Taubira,"Garde des sceaux, ministre de la Justice",2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,Aurélie,Filippetti,Ministre de la Culture et de la Communication,2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,Marylise,Lebranchu,"Ministre de la Décentralisation, de la Réforme de l'État et de la Fonction publique",2014-04-02,2014-06-03
+537,Manuel Valls n°1,M,Jean-Yves,Le Drian,Ministre de la Défense,2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,Stéphane,Le Foll,"Ministre de l'Agriculture, de l'Agroalimentaire et de la Forêt, porte-parole du gouvernement",2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,Ségolène,Royal,"Ministre de l'Ecologie, du Développement durable et de l'Energie",2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,Arnaud,Montebourg,"Ministre de l'Economie, du Redressement productif et du Numérique",2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,Benoît,Hamon,"Ministre de l'Education nationale, de l'Enseignement supérieur et de la Recherche",2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,Bernard,Cazeneuve,Ministre de l'Intérieur,2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,Laurent,Fabius,Ministre des Affaires étrangères et du Développement international,2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,Marisol,Touraine,Ministre des Affaires sociales et de la Santé,2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,Najat,Vallaud-Belkacem,"Ministre des Droits des femmes, de la Ville, de la Jeunesse et des Sports",2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,Michel,Sapin,Ministre des Finances et des Comptes publics,2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,George,Pau-Langevin,Ministre des Outre-mer,2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,Sylvia,Pinel,Ministre du Logement et de l'Egalité des territoires,2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,François,Rebsamen,"Ministre du Travail, de l'Emploi et du Dialogue social",2014-04-02,2014-08-25
+537,Manuel Valls n°1,SE,André,Vallini,"Secrétaire d'État auprès de la ministre de la Décentralisation, de la Réforme de l'État et de la Fonction publique chargé de la Réforme territoriale",2014-04-02,2014-08-25
+537,Manuel Valls n°1,SE,Frédéric,Cuvillier,"Secrétaire d'État auprès de la Ministre de l'Ecologie, du Développement durable et de l'Energie, chargé des Transports, de la Mer et de la Pêche",2014-04-02,2014-08-25
+537,Manuel Valls n°1,SE,Laurence,Rossignol,"Secrétaire d'État auprès de la ministre des Affaires sociales et de la Santé chargée de la Famille, des Personnes âgées et de l'Autonomie",2014-04-02,2014-08-25
+537,Manuel Valls n°1,SE,Ségolène,Neuville,Secrétaire d'État auprès de la ministre des Affaires sociales et de la Santé chargée des Personnes handicapées et de la Lutte contre l'exclusion,2014-04-02,2014-08-25
+537,Manuel Valls n°1,SE,Thierry,Braillard,"Secrétaire d'État auprès de la ministre des Droits des femmes, de la Ville, de la Jeunesse et des Sports chargé des Sports",2014-04-02,2014-08-25
+537,Manuel Valls n°1,SE,Kader,Arif,"Secrétaire d'État auprès du Ministre de la Défense, chargé des Anciens combattants et de la Mémoire",2014-04-02,2014-08-25
+537,Manuel Valls n°1,SE,Valérie,Fourneyron,"Secrétaire d'État auprès du ministre de l'Economie, du Redressement productif et du Numérique, chargée du Commerce, de l'Artisanat, de la Consommation et de l'Economie sociale et solidaire",2014-04-02,2014-06-03
+537,Manuel Valls n°1,SE,Axelle,Lemaire,"Secrétaire d'État auprès du ministre de l'Economie, du Redressement productif et du Numérique, chargée du Numérique",2014-04-02,2014-08-25
+537,Manuel Valls n°1,SE,Geneviève,Fioraso,"Secrétaire d'État auprès du ministre de l'Education nationale, de l'Enseignement supérieur et de la Recherche, chargée de l'Enseignement supérieur et de la Recherche",2014-04-02,2014-08-25
+537,Manuel Valls n°1,SE,Harlem,Désir,"Secrétaire d'État auprès du ministre des Affaires étrangères et du Développement international, chargé des Affaires européennes",2014-04-02,2014-08-25
+537,Manuel Valls n°1,SE,Fleur,Pellerin,"Secrétaire d'État auprès du ministre des Affaires étrangères et du Développement international, chargée du Commerce extérieur, de la Promotion du tourisme et des Français de l'étranger",2014-04-02,2014-08-25
+537,Manuel Valls n°1,SE,Annick,Girardin,"Secrétaire d'État auprès du ministre des Affaires étrangères et du Développement international, chargée du Développement et de la Francophonie",2014-04-02,2014-08-25
+537,Manuel Valls n°1,SE,Christian,Eckert,"Secrétaire d'État auprès du ministre des Finances et des Comptes publics, chargé du Budget",2014-04-02,2014-08-25
+537,Manuel Valls n°1,SE,Jean-Marie,Le Guen,"Secrétaire d'État auprès du Premier ministre, chargé des Relations avec le Parlement",2014-04-02,2014-08-25
+537,Manuel Valls n°1,M,Marylise,Lebranchu,Ministre de la Décentralisation et de la Fonction publique,2014-06-03,2014-08-25
+537,Manuel Valls n°1,SE,Carole,Delga,"Secrétaire d'État auprès du ministre de l'Economie, du Redressement productif et du Numérique, chargée du Commerce, de l'Artisanat, de la Consommation et de l'Economie sociale et solidaire",2014-06-03,2014-08-25
+537,Manuel Valls n°1,SE,Thierry,Mandon,"Secrétaire d'État auprès du Premier ministre, chargé de la Réforme de l'État et de la Simplification",2014-06-03,2014-08-25
+538,Manuel Valls n°2,PM,Manuel,Valls,Premier ministre,2014-08-26,2016-12-06
+538,Manuel Valls n°2,M,Christiane,Taubira,"Garde des sceaux, ministre de la Justice",2014-08-26,2016-01-27
+538,Manuel Valls n°2,M,Fleur,Pellerin,Ministre de la Culture et de la Communication,2014-08-26,2016-02-11
+538,Manuel Valls n°2,M,Marylise,Lebranchu,Ministre de la Décentralisation et de la Fonction publique,2014-08-26,2016-02-11
+538,Manuel Valls n°2,M,Jean-Yves,Le Drian,Ministre de la Défense,2014-08-26,2016-12-06
+538,Manuel Valls n°2,M,Patrick,Kanner,"Ministre de la Ville, de la Jeunesse et des Sports",2014-08-26,2016-12-06
+538,Manuel Valls n°2,M,Stéphane,Le Foll,"Ministre de l'Agriculture, de l'Agroalimentaire et de la Forêt, porte-parole du gouvernement",2014-08-26,2016-12-06
+538,Manuel Valls n°2,M,Ségolène,Royal,"Ministre de l'Ecologie, du Développement durable et de l'Energie",2014-08-26,2016-02-11
+538,Manuel Valls n°2,M,Emmanuel,Macron,"Ministre de l'Économie, de l'Industrie et du Numérique",2014-08-26,2016-08-30
+538,Manuel Valls n°2,M,Najat,Vallaud-Belkacem,"Ministre de l'Education nationale, de l'Enseignement supérieur et de la Recherche",2014-08-26,2016-12-06
+538,Manuel Valls n°2,M,Bernard,Cazeneuve,Ministre de l'Intérieur,2014-08-26,2016-12-06
+538,Manuel Valls n°2,M,Laurent,Fabius,Ministre des Affaires étrangères et du Développement international,2014-08-26,2016-02-11
+538,Manuel Valls n°2,M,Marisol,Touraine,"Ministre des Affaires sociales, de la Santé et des Droits des femmes",2014-08-26,2016-02-11
+538,Manuel Valls n°2,M,Michel,Sapin,Ministre des Finances et des Comptes publics,2014-08-26,2016-08-30
+538,Manuel Valls n°2,M,George,Pau-Langevin,Ministre des Outre-mer,2014-08-26,2016-08-30
+538,Manuel Valls n°2,M,Sylvia,Pinel,"Ministre du Logement, de l'Egalité des territoires et de la Ruralité",2014-08-26,2016-02-11
+538,Manuel Valls n°2,M,François,Rebsamen,"Ministre du Travail, de l'Emploi, de la Formation professionnelle et du Dialogue social",2014-08-26,2015-09-02
+538,Manuel Valls n°2,SE,André,Vallini,"Secrétaire d'État auprès de la ministre de la Décentralisation, de la Réforme de l'État et de la Fonction publique chargé de la Réforme territoriale",2014-08-26,2016-02-11
+538,Manuel Valls n°2,SE,Alain,Vidalies,"Secrétaire d'État auprès de la Ministre de l'Ecologie, du Développement durable et de l'Energie, chargé des Transports, de la Mer et de la Pêche",2014-08-26,2016-02-11
+538,Manuel Valls n°2,SE,Laurence,Rossignol,"Secrétaire d'État auprès de la ministre des Affaires sociales et de la Santé chargée de la Famille, des Personnes âgées et de l'Autonomie",2014-08-26,2015-06-17
+538,Manuel Valls n°2,SE,Ségolène,Neuville,Secrétaire d'État auprès de la ministre des Affaires sociales et de la Santé chargée des Personnes handicapées et de la Lutte contre l'exclusion,2014-08-26,2016-12-06
+538,Manuel Valls n°2,SE,Pascale,Boistard,"Secrétaire d'État auprès de la ministre des Affaires sociales, de la Santé et des Droits des femmes, chargée des Droits des femmes",2014-08-26,2016-02-11
+538,Manuel Valls n°2,SE,Thierry,Braillard,"Secrétaire d'État auprès de la ministre des Droits des femmes, de la Ville, de la Jeunesse et des Sports chargé des Sports",2014-08-26,2016-12-06
+538,Manuel Valls n°2,SE,Kader,Arif,"Secrétaire d'État auprès du Ministre de la Défense, chargé des Anciens combattants et de la Mémoire",2014-08-26,2014-11-21
+538,Manuel Valls n°2,SE,Myriam,El Khomri,"Secrétaire d'État auprès du Ministre de la Ville, de la Jeunesse et des Sports chargée de la Politique de la ville",2014-08-26,2016-12-06
+538,Manuel Valls n°2,SE,Carole,Delga,"Secrétaire d'État auprès du ministre de l'Économie, de l'Industrie et du Numérique, chargée du Commerce, de l'Artisanat, de la Consommation et de l'Économie sociale et solidaire",2014-08-26,2015-06-17
+538,Manuel Valls n°2,SE,Axelle,Lemaire,"Secrétaire d'État auprès du ministre de l'Économie, de l'Industrie et du Numérique, chargée du Numérique",2014-08-26,2016-08-30
+538,Manuel Valls n°2,SE,Geneviève,Fioraso,"Secrétaire d'État auprès du ministre de l'Education nationale, de l'Enseignement supérieur et de la Recherche, chargée de l'Enseignement supérieur et de la Recherche",2014-08-26,2015-03-05
+538,Manuel Valls n°2,SE,Thomas,Thévenoud,"Secrétaire d'État auprès du ministre des Affaires étrangères et du Développement international chargée du Commerce extérieur, de la Promotion du tourisme et des Français de l'étranger",2014-08-26,2014-09-04
+538,Manuel Valls n°2,SE,Harlem,Désir,"Secrétaire d'État auprès du ministre des Affaires étrangères et du Développement international, chargé des Affaires européennes",2014-08-26,2016-12-06
+538,Manuel Valls n°2,SE,Annick,Girardin,"Secrétaire d'État auprès du ministre des Affaires étrangères et du Développement international, chargée du Développement et de la Francophonie",2014-08-26,2016-02-11
+538,Manuel Valls n°2,SE,Christian,Eckert,"Secrétaire d'État auprès du ministre des Finances et des Comptes publics, chargé du Budget",2014-08-26,2016-08-30
+538,Manuel Valls n°2,SE,Thierry,Mandon,Secrétaire d'État auprès du Premier ministre chargé de la Réforme de l'État et de la Simplification,2014-08-26,2015-06-17
+538,Manuel Valls n°2,SE,Jean-Marie,Le Guen,"Secrétaire d'État auprès du Premier ministre, chargé des Relations avec le Parlement",2014-08-26,2016-12-06
+538,Manuel Valls n°2,SE,Matthias,Fekl,"Secrétaire d'État auprès du ministre des Affaires étrangères et du Développement international chargée du Commerce extérieur, du Développement du tourisme et des Français de l'étranger",2014-09-04,2016-12-06
+538,Manuel Valls n°2,SE,Jean-Marc,Todeschini,"Secrétaire d'État auprès du Ministre de la Défense, chargé des Anciens combattants et de la Mémoire",2014-11-21,2016-12-06
+538,Manuel Valls n°2,SE,Thierry,Mandon,"Secrétaire d'État auprès de la ministre de l'Education nationale, de l'Enseignement supérieur et de la Recherche, chargé de l'Enseignement supérieur et de la Recherche.",2015-06-17,2016-12-06
+538,Manuel Valls n°2,SE,Laurence,Rossignol,"Secrétaire d'État auprès de la ministre des Affaires sociales et de la Santé chargée de la Famille, de l'Enfance, des Personnes âgées et de l'Autonomie",2015-06-17,2016-02-11
+538,Manuel Valls n°2,SE,Martine,Pinvile,"Secrétaire d'État auprès du ministre de l'Economie, de l'Industrie et du Numérique, chargée du Commerce, de l'Artisanat, de la Consommation et de l'Economie sociale et solidaire",2015-06-17,2016-08-30
+538,Manuel Valls n°2,SE,Clotilde,Valter,"Secrétaire d'État auprès du Premier ministre, chargée de la Réforme de l'État et de la Simplification",2015-06-17,2016-02-11
+538,Manuel Valls n°2,M,Myriam,El Khomri,"Ministre du Travail, de l'Emploi, de la Formation professionnelle et du Dialogue social",2015-09-02,2016-12-06
+538,Manuel Valls n°2,M,Jean-Jacques,Urvoas,"Garde des sceaux, ministre de la Justice",2016-01-27,2016-12-06
+538,Manuel Valls n°2,M,Audrey,Azoulay,Ministre de la culture et de la communication,2016-02-11,2016-12-06
+538,Manuel Valls n°2,M,Annick,Girardin,Ministre de la fonction publique,2016-02-11,2016-12-06
+538,Manuel Valls n°2,M,Jean-Michel,Baylet,"Ministre de l'Aménagement du territoire, de la Ruralité et des Collectivités territoriales",2016-02-11,2016-12-06
+538,Manuel Valls n°2,M,Ségolène,Royal,"Ministre de l'environnement, de l'énergie et de la mer, chargée des relations internationales sur le climat",2016-02-11,2016-12-06
+538,Manuel Valls n°2,M,Jean-Marc,Ayrault,Ministre des affaires étrangères et du développement international,2016-02-11,2016-12-06
+538,Manuel Valls n°2,M,Marisol,Touraine,Ministre des affaires sociales et de la santé,2016-02-11,2016-12-06
+538,Manuel Valls n°2,M,Laurence,Rossignol,"Ministre des familles, de l'enfance et des droits des femmes",2016-02-11,2016-12-06
+538,Manuel Valls n°2,M,Emmanuelle,Cosse,Ministre du logement et de l'habitat durable,2016-02-11,2016-12-06
+538,Manuel Valls n°2,SE,Alain,Vidalies,"Secrétaire d'État auprès de la ministre de l'environnement, de l'énergie et de la mer, chargée des relations internationales sur le climat, chargé des transports, de la mer et de la pêche",2016-02-11,2016-12-06
+538,Manuel Valls n°2,SE,Barbara,Pompili,"Secrétaire d'État auprès de la ministre de l'environnement, de l'énergie et de la mer, chargée des relations internationales sur le climat, chargée de la biodiversité",2016-02-11,2016-12-06
+538,Manuel Valls n°2,SE,Pascale,Boistard,"Secrétaire d'État auprès de la ministre des affaires sociales et de la santé, chargée des personnes âgées et de l'autonomie",2016-02-11,2016-12-06
+538,Manuel Valls n°2,SE,Clotilde,Valter,"Secrétaire d'État auprès de la ministre du travail, de l'emploi, de la formation professionnelle et du dialogue social, chargée de la formation professionnelle et de l'apprentissage",2016-02-11,2016-12-06
+538,Manuel Valls n°2,SE,Hélène,Geoffroy,"Secrétaire d'État auprès du ministre de la ville, de la jeunesse et des sports, chargée de la ville",2016-02-11,2016-12-06
+538,Manuel Valls n°2,SE,Estelle,Grelier,"Secrétaire d'État auprès du ministre de l'aménagement du territoire, de la ruralité et des collectivités territoriales, chargée des collectivités territoriales",2016-02-11,2016-12-06
+538,Manuel Valls n°2,SE,André,Vallini,"Secrétaire d'État auprès du ministre des affaires étrangères et du développement international, chargé du développement et de la francophonie",2016-02-11,2016-12-06
+538,Manuel Valls n°2,SE,Jean-Vincent,Placé,"Secrétaire d'État auprès du Premier ministre, chargé de la réforme de l'État et de la simplification",2016-02-11,2016-12-06
+538,Manuel Valls n°2,SE,Juliette,Méadel,"Secrétaire d'État auprès du Premier ministre, chargée de l'aide aux victimes",2016-02-11,2016-12-06
+538,Manuel Valls n°2,SE,Ericka,Bareigts,"Secrétaire d'État auprès du Premier ministre, chargée de l'égalité réelle",2016-02-11,2016-08-30
+538,Manuel Valls n°2,M,Ericka,Bareigts,Ministre des Outre-mer,2016-08-30,2016-12-06
+538,Manuel Valls n°2,M,Michel,Sapin,Ministre l'Economie et des Finances,2016-08-30,2016-12-06
+538,Manuel Valls n°2,SE,Christian,Eckert,"Secrétaire d'État auprès du ministre de l'Economie et des Finances, chargé du Budget et des Comptes publics",2016-08-30,2016-12-06
+538,Manuel Valls n°2,SE,Christophe,Sirugue,"Secrétaire d'État auprès du ministre de l'Economie et des Finances, chargée de l'Industrie",2016-08-30,2016-12-06
+538,Manuel Valls n°2,SE,Martine,Pinvile,"Secrétaire d'État auprès du ministre de l'Economie et des Finances, chargée du Commerce, de l'Artisanat, de la Consommation et de l'Economie sociale et solidaire",2016-08-30,2016-12-06
+538,Manuel Valls n°2,SE,Axelle,Lemaire,"Secrétaire d'État auprès du ministre de l'Economie et des Finances, chargée du Numérique et de l'Innovation",2016-08-30,2016-12-06
+539,Bernard Cazeneuve,PM,Bernard,Cazeneuve,Premier ministre,2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Jean-Jacques,Urvoas,"Garde des sceaux, ministre de la Justice",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Audrey,Azoulay,Ministre de la culture et de la communication,2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Jean-Yves,Le Drian,Ministre de la Défense,2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Annick,Girardin,Ministre de la fonction publique,2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Patrick,Kanner,"Ministre de la Ville, de la Jeunesse et des Sports",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Stéphane,Le Foll,"Ministre de l'Agriculture, de l'Agroalimentaire et de la Forêt, porte-parole du gouvernement",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Jean-Michel,Baylet,"Ministre de l'Aménagement du territoire, de la Ruralité et des Collectivités territoriales",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Michel,Sapin,Ministre de l'Economie et des Finances,2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Najat,Vallaud-Belkacem,"Ministre de l'Education nationale, de l'Enseignement supérieur et de la Recherche",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Ségolène,Royal,"Ministre de l'Environnement, de l'Energie et de la Mer, chargée des Relations internationales sur le climat",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Bruno,Le Roux,Ministre de l'Intérieur,2016-12-06,2017-03-21
+539,Bernard Cazeneuve,M,Jean-Marc,Ayrault,Ministre des affaires étrangères et du développement international,2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Marisol,Touraine,Ministre des Affaires sociales et de la Santé,2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Laurence,Rossignol,"Ministre des Familles, de l'Enfance et des Droits des femmes",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Ericka,Bareigts,Ministre des Outre-mer,2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Emmanuelle,Cosse,Ministre du logement et de l'habitat durable,2016-12-06,2017-05-10
+539,Bernard Cazeneuve,M,Myriam,El Khomri,"Ministre du Travail, de l'Emploi, de la Formation professionnelle et du Dialogue social",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Thierry,Braillard,"Secrétaire d'État auprès de la ministre de la Ville, de la Jeunesse et des Sports chargé des Sports",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Thierry,Mandon,"Secrétaire d'État auprès de la ministre de l'Education nationale, de l'Enseignement supérieur et de la Recherche, chargé de l'Enseignement supérieur et de la Recherche",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Alain,Vidalies,"Secrétaire d'État auprès de la ministre de l'environnement, de l'énergie et de la mer, chargée des relations internationales sur le climat, chargé des transports, de la mer et de la pêche",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Barbara,Pompili,"Secrétaire d'État auprès de la ministre de l'environnement, de l'énergie et de la mer, chargée des relations internationales sur le climat, chargée de la biodiversité",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Ségolène,Neuville,Secrétaire d'État auprès de la ministre des Affaires sociales et de la Santé chargée des Personnes handicapées et de la Lutte contre l'exclusion,2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Pascale,Boistard,"Secrétaire d'État auprès de la ministre des affaires sociales et de la santé, chargée des personnes âgées et de l'autonomie",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Clotilde,Valter,"Secrétaire d'État auprès de la ministre du travail, de l'emploi, de la formation professionnelle et du dialogue social, chargée de la formation professionnelle et de l'apprentissage",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Jean-Marc,Todeschini,"Secrétaire d'État auprès du Ministre de la Défense, chargé des Anciens combattants et de la Mémoire",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Hélène,Geoffroy,"Secrétaire d'État auprès du ministre de la ville, de la jeunesse et des sports, chargée de la ville",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Estelle,Grelier,"Secrétaire d'État auprès du ministre de l'aménagement du territoire, de la ruralité et des collectivités territoriales, chargée des collectivités territoriales",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Christian,Eckert,"Secrétaire d'État auprès du ministre de l'Economie et des Finances, chargé du Budget et des Comptes publics",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Christophe,Sirugue,"Secrétaire d'État auprès du ministre de l'Economie et des Finances, chargée de l'Industrie",2016-12-06,2017-02-27
+539,Bernard Cazeneuve,SE,Martine,Pinvile,"Secrétaire d'État auprès du ministre de l'Economie et des Finances, chargée du Commerce, de l'Artisanat, de la Consommation et de l'Economie sociale et solidaire",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Axelle,Lemaire,"Secrétaire d'État auprès du ministre de l'Economie et des Finances, chargée du Numérique et de l'Innovation",2016-12-06,2017-02-27
+539,Bernard Cazeneuve,SE,Matthias,Fekl,"Secrétaire d'État auprès du ministre des Affaires étrangères et du Développement international chargé du Commerce extérieur, du Développement du tourisme et des Français de l'étranger",2016-12-06,2017-03-21
+539,Bernard Cazeneuve,SE,Harlem,Désir,"Secrétaire d'État auprès du ministre des Affaires étrangères et du Développement international, chargé des Affaires européennes",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Jean-Marie,Le Guen,"Secrétaire d'État auprès du ministre des Affaires étrangères et du Développement international, chargé du Développement et de la Francophonie",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Jean-Vincent,Placé,"Secrétaire d'État auprès du Premier ministre, chargé de la réforme de l'État et de la simplification",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,André,Vallini,"Secrétaire d'État auprès du premier ministre, chargé des Relations avec le Parlement",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Juliette,Méadel,"Secrétaire d'État auprès du Premier ministre, chargée de l'aide aux victimes",2016-12-06,2017-05-10
+539,Bernard Cazeneuve,SE,Christophe,Sirugue,"Secrétaire d'État auprès du ministre de l'Economie et des Finances, chargée de l'Industrie, du Numérique et de l'Innovation",2017-02-27,2017-05-10
+539,Bernard Cazeneuve,M,Matthias,Fekl,Ministre de l'Intérieur,2017-03-21,2017-05-10
+540,Edouard Philippe n°1,PM,Edouard,Philippe,Premier ministre,2017-05-17,2017-06-19
+540,Edouard Philippe n°1,ME,François,Bayrou,"Ministre d'État, Garde des sceaux, ministre de la Justice",2017-05-17,2017-06-19
+540,Edouard Philippe n°1,ME,Nicolas,Hulot,"Ministre d'État, ministre de la Transition écologique et solidaire",2017-05-17,2017-06-19
+540,Edouard Philippe n°1,ME,Gérard,Collomb,"Ministre d'État, ministre de l'Intérieur",2017-05-17,2017-06-19
+540,Edouard Philippe n°1,M,Richard,Ferrand,Ministre de la Cohésion des territoires,2017-05-17,2017-06-19
+540,Edouard Philippe n°1,M,Françoise,Nyssen,Ministre de la Culture,2017-05-17,2017-06-19
+540,Edouard Philippe n°1,M,Gérald,Darmanin,Ministre de l'Action et des Comptes publics,2017-05-17,2017-06-19
+540,Edouard Philippe n°1,M,Jacques,Mézard,Ministre de l'Agriculture et de l'Alimentation,2017-05-17,2017-06-19
+540,Edouard Philippe n°1,M,Bruno,Le Maire,Ministre de l'Economie,2017-05-17,2017-06-19
+540,Edouard Philippe n°1,M,Jean-Michel,Blanquer,Ministre de l'Education nationale,2017-05-17,2017-06-19
+540,Edouard Philippe n°1,M,Frédérique,Vidal,"Ministre de l'Enseignement supérieur, de la Recherche et de l'Innovation",2017-05-17,2017-06-19
+540,Edouard Philippe n°1,M,Jean-Yves,Le Drian,Ministre de l'Europe et des Affaires étrangères,2017-05-17,2017-06-19
+540,Edouard Philippe n°1,M,Sylvie,Goulard,Ministre des Armées,2017-05-17,2017-06-19
+540,Edouard Philippe n°1,M,Annick,Girardin,Ministre des Outre-mer,2017-05-17,2017-06-19
+540,Edouard Philippe n°1,M,Agnès,Buzyn,Ministre des Solidarités et de la santé,2017-05-17,2017-06-19
+540,Edouard Philippe n°1,M,Laura,Flessel,Ministre des Sports,2017-05-17,2017-06-19
+540,Edouard Philippe n°1,M,Muriel,Pénicaud,Ministre du Travail,2017-05-17,2017-06-19
+540,Edouard Philippe n°1,MD,Marielle,De Sarnez,"Ministre auprès du ministre de l'Europe et des Affaires étrangères, chargée des Affaires européennes",2017-05-17,2017-06-19
+540,Edouard Philippe n°1,MD,Elisabeth,Borne,"Ministre auprès du ministre d'État, ministre de la Transition écologique et solidaire, chargée des Transports",2017-05-17,2017-06-19
+540,Edouard Philippe n°1,SE,Christophe,Castaner,"Secrétaire d'État auprès du Premier ministre, chargé des Relations avec le Parlement, porte-parole du Gouvernement",2017-05-17,2017-06-19
+540,Edouard Philippe n°1,SE,Mounir,Mahjoubi,"Secrétaire d'État auprès du Premier ministre, chargé du Numérique",2017-05-17,2017-06-19
+540,Edouard Philippe n°1,SE,Marlène,Schiappa,"Secrétaire d'État auprès du Premier ministre, chargée de l'Egalité entre les femmes et les hommes",2017-05-17,2017-06-19
+540,Edouard Philippe n°1,SE,Sophie,Cluzel,"Secrétaire d'État auprès du Premier ministre, chargée des Personnes handicapées",2017-05-17,2017-06-19
+541,Edouard Philippe n°2,PM,Edouard,Philippe,Premier ministre,2017-06-21,2018-10-03
+541,Edouard Philippe n°2,ME,Nicole,Belloubet,"Ministre d'État, Garde des sceaux, ministre de la Justice",2017-06-21,2020-07-03
+541,Edouard Philippe n°2,ME,Nicolas,Hulot,"Ministre d'État, ministre de la Transition écologique et solidaire",2017-06-21,2018-09-04
+541,Edouard Philippe n°2,ME,Gérard,Collomb,"Ministre d'État, ministre de l'Intérieur",2017-06-21,2018-10-03
+541,Edouard Philippe n°2,M,Jacques,Mézard,Ministre de la Cohésion des territoires,2017-06-21,2018-10-16
+541,Edouard Philippe n°2,M,Françoise,Nyssen,Ministre de la Culture,2017-06-21,2018-10-16
+541,Edouard Philippe n°2,M,Gérald,Darmanin,Ministre de l'Action et des Comptes publics,2017-06-21,2020-07-03
+541,Edouard Philippe n°2,M,Stéphane,Travert,Ministre de l'Agriculture et de l'Alimentation,2017-06-21,2018-10-16
+541,Edouard Philippe n°2,M,Bruno,Le Maire,Ministre de l'Economie,2017-06-21,2020-07-03
+541,Edouard Philippe n°2,M,Jean-Michel,Blanquer,Ministre de l'Education nationale,2017-06-21,2018-10-16
+541,Edouard Philippe n°2,M,Frédérique,Vidal,"Ministre de l'Enseignement supérieur, de la Recherche et de l'Innovation",2017-06-21,2020-07-03
+541,Edouard Philippe n°2,M,Jean-Yves,Le Drian,Ministre de l'Europe et des Affaires étrangères,2017-06-21,2020-07-03
+541,Edouard Philippe n°2,M,Florence,Parly,Ministre des Armées,2017-06-21,2020-07-03
+541,Edouard Philippe n°2,M,Annick,Girardin,Ministre des Outre-mer,2017-06-21,2020-07-03
+541,Edouard Philippe n°2,M,Agnès,Buzyn,Ministre des Solidarités et de la santé,2017-06-21,2020-02-16
+541,Edouard Philippe n°2,M,Laura,Flessel,Ministre des Sports,2017-06-21,2018-09-04
+541,Edouard Philippe n°2,M,Muriel,Pénicaud,Ministre du Travail,2017-06-21,2020-07-03
+541,Edouard Philippe n°2,MD,Nathalie,Loiseau,"Ministre auprès du ministre de l'Europe et des Affaires étrangères, chargée des Affaires européennes",2017-06-21,2019-03-27
+541,Edouard Philippe n°2,MD,Jacqueline,Gourault,Ministre auprès du ministre de l'Intérieur,2017-06-21,2018-10-16
+541,Edouard Philippe n°2,MD,Elisabeth,Borne,"Ministre auprès du ministre d'État, ministre de la Transition écologique et solidaire, chargée des Transports",2017-06-21,2019-07-16
+541,Edouard Philippe n°2,SE,Julien,Denormandie,Secrétaire d'État auprès du ministre de la Cohésion des territoires,2017-06-21,2018-10-16
+541,Edouard Philippe n°2,SE,Brune,Poirson,Secrétaire d'État auprès du ministre de la Transition écologique et solidaire,2017-06-21,2019-07-16
+541,Edouard Philippe n°2,SE,Sébastien,Lecornu,Secrétaire d'État auprès du ministre de la Transition écologique et solidaire,2017-06-21,2018-10-16
+541,Edouard Philippe n°2,SE,Benjamin,Griveaux,Secrétaire d'État auprès du ministre de l'Économie et des Finances,2017-06-21,2017-11-24
+541,Edouard Philippe n°2,SE,Jean-Baptiste,Lemoyne,Secrétaire d'État auprès du ministre de l'Europe et des Affaires étrangères,2017-06-21,2020-07-03
+541,Edouard Philippe n°2,SE,Geneviève,Darrieussecq,Secrétaire d'État auprès du ministre des Armées,2017-06-21,2020-07-03
+541,Edouard Philippe n°2,SE,Christophe,Castaner,"Secrétaire d'État auprès du Premier ministre, chargé des Relations avec le Parlement, porte-parole du Gouvernement",2017-06-21,2017-11-24
+541,Edouard Philippe n°2,SE,Mounir,Mahjoubi,"Secrétaire d'État auprès du Premier ministre, chargé du Numérique",2017-06-21,2020-07-03
+541,Edouard Philippe n°2,SE,Marlène,Schiappa,"Secrétaire d'État auprès du Premier ministre, chargée de l'Egalité entre les femmes et les hommes",2017-06-21,2018-10-16
+541,Edouard Philippe n°2,SE,Sophie,Cluzel,"Secrétaire d'État auprès du Premier ministre, chargée des Personnes handicapées",2017-06-21,2020-07-03
+541,Edouard Philippe n°2,SE,Olivier,Dussopt,Secrétaire d'État auprès du ministre de l'action et des comptes publics,2017-11-24,2020-07-03
+541,Edouard Philippe n°2,SE,Delphine,Gény-Stephann,Secrétaire d'État auprès du ministre de l'économie et des finances,2017-11-24,2018-10-16
+541,Edouard Philippe n°2,SE,Benjamin,Griveaux,"Secrétaire d'État auprès du Premier ministre, porte-parole du Gouvernement",2017-11-24,2019-03-27
+541,Edouard Philippe n°2,ME,François,De Rugy,"Ministre d'État, ministre de la transition écologique et solidaire",2018-09-04,2019-07-16
+541,Edouard Philippe n°2,M,Roxana,Maracineanu,Ministre des sports,2018-09-04,2020-07-03
+541,Edouard Philippe n°2,PM,Edouard,Philippe,"Premier ministre, ministre de l'intérieur",2018-10-03,2018-10-16
+541,Edouard Philippe n°2,PM,Edouard,Philippe,Premier ministre,2018-10-16,2020-07-03
+541,Edouard Philippe n°2,M,Jacqueline,Gourault,Ministre de la cohésion des territoires et des relations avec les collectivités territoriales,2018-10-16,2020-07-03
+541,Edouard Philippe n°2,M,Franck,Riester,Ministre de la culture,2018-10-16,2020-07-03
+541,Edouard Philippe n°2,M,Didier,Guillaume,Ministre de l'agriculture et de l'alimentation,2018-10-16,2020-07-03
+541,Edouard Philippe n°2,M,Jean-Michel,Blanquer,Ministre de l'éducation nationale et de la jeunesse,2018-10-16,2020-07-03
+541,Edouard Philippe n°2,M,Christophe,Castaner,Ministre de l'intérieur,2018-10-16,2020-07-03
+541,Edouard Philippe n°2,MD,Julien,Denormandie,"Ministre auprès du Premier ministre, chargé de la ville et du logement",2018-10-16,2020-07-03
+541,Edouard Philippe n°2,MD,Sébastien,Lecornu,"Ministre auprès du Premier ministre, chargé des collectivités territoriales",2018-10-16,2020-07-03
+541,Edouard Philippe n°2,MD,Marc,Fesneau,"Ministre auprès du Premier ministre, chargé des relations avec le Parlement",2018-10-16,2020-07-03
+541,Edouard Philippe n°2,SE,Christelle,Dubos,Secrétaire d'État auprès de la ministre des solidarités et de la santé,2018-10-16,2020-07-03
+541,Edouard Philippe n°2,SE,Agnès,Pannier-Runacher,Secrétaire d'État auprès du ministre de l'économie et des finances,2018-10-16,2020-07-03
+541,Edouard Philippe n°2,SE,Mounir,Mahjoubi,"Secrétaire d'État auprès du ministre de l'économie et des finances et du ministre de l'action et des comptes publics, chargé du numérique",2018-10-16,2019-03-27
+541,Edouard Philippe n°2,SE,Gabriel,Attal,Secrétaire d'État auprès du ministre de l'éducation nationale et de la jeunesse,2018-10-16,2020-07-03
+541,Edouard Philippe n°2,SE,Laurent,Nunez,Secrétaire d'État auprès du ministre de l'intérieur,2018-10-16,2020-07-03
+541,Edouard Philippe n°2,SE,Emmanuelle,Wargon,"Secrétaire d'État auprès du ministre d'État, ministre de la transition écologique et solidaire",2018-10-16,2019-07-16
+541,Edouard Philippe n°2,SE,Marlène,Schiappa,"Secrétaire d'État auprès du Premier ministre, chargée de l'égalité entre les femmes et les hommes et de la lutte contre les discriminations",2018-10-16,2020-07-03
+541,Edouard Philippe n°2,SE,Adrien,Taquet,Secrétaire d'État auprès de la ministre des solidarités et de la santé,2019-01-25,2020-02-16
+541,Edouard Philippe n°2,SE,Cédric,O,"Secrétaire d'État auprès du ministre de l'économie et des finances et du ministre de l'action et des comptes publics, chargé du numérique.",2019-03-31,2020-07-03
+541,Edouard Philippe n°2,SE,Amélie,De Montchalin,"Secrétaire d'État auprès du ministre de l'Europe et des affaires étrangères, chargée des affaires européennes",2019-03-31,2020-07-03
+541,Edouard Philippe n°2,SE,Sibeth,Ndiaye,"Secrétaire d'État auprès du Premier ministre, porte-parole du Gouvernement",2019-03-31,2020-07-03
+541,Edouard Philippe n°2,M,Elisabeth,Borne,Ministre de la transition écologique et solidaire,2019-07-16,2020-07-03
+541,Edouard Philippe n°2,SE,Brune,Poirson,Secrétaire d'État auprès de la ministre de la transition écologique et solidaire,2019-07-16,2020-07-03
+541,Edouard Philippe n°2,SE,Emmanuelle,Wargon,Secrétaire d'État auprès de la ministre de la transition écologique et solidaire,2019-07-16,2020-07-03
+541,Edouard Philippe n°2,SE,Jean-Baptiste,Djebbari,"Secrétaire d'État auprès de la ministre de la transition écologique et solidaire, chargé des transports",2019-09-03,2020-07-03
+541,Edouard Philippe n°2,HC,Jean-Paul,Delevoye,"Haut-commissaire auprès de la ministre des solidarités et de la santé, chargé des retraites",2019-09-03,2019-12-17
+541,Edouard Philippe n°2,SE,Laurent,Pietraszewski,"Secrétaire d'État auprès de la ministre des solidarités et de la santé, chargé des retraites",2019-12-17,2020-05-19
+541,Edouard Philippe n°2,M,Olivier,Véran,Ministre des Solidarités et de la santé,2020-02-16,2020-07-03
+541,Edouard Philippe n°2,SE,Laurent,Pietraszewski,"Secrétaire d'État auprès du ministre des solidarités et de la santé, chargé des retraites et auprès de la ministre du travail, chargé de la protection de la santé des salariés contre l'épidémie de covid-19.",2020-05-19,2020-07-03
+542,Jean Castex,PM,Jean,Castex,Premier ministre,2020-07-06,2022-05-16
+542,Jean Castex,M,Éric,Dupond-Moretti,"garde des sceaux, ministre de la justice",2020-07-06,2022-05-16
+542,Jean Castex,M,Jacqueline,Gourault,Ministre de la cohésion des territoires et des relations avec les collectivités territoriales,2020-07-06,2022-03-05
+542,Jean Castex,M,Roselyne,Bachelot,Ministre de la culture,2020-07-06,2022-05-16
+542,Jean Castex,M,Annick,Girardin,Ministre de la mer,2020-07-06,2022-05-16
+542,Jean Castex,M,Amélie,De Montchalin,Ministre de la transformation et de la fonction publiques,2020-07-06,2022-05-16
+542,Jean Castex,M,Barbara,Pompili,Ministre de la transition écologique,2020-07-06,2022-05-16
+542,Jean Castex,M,Julien,Denormandie,Ministre de l'agriculture et de l'alimentation,2020-07-06,2022-05-16
+542,Jean Castex,M,Bruno,Le Maire,"Ministre de l'économie, des finances et de la relance",2020-07-06,2022-05-16
+542,Jean Castex,M,Jean-Michel,Blanquer,"Ministre de l'éducation nationale, de la jeunesse et des sports",2020-07-06,2022-05-16
+542,Jean Castex,M,Frédérique,Vidal,"Ministre de l'enseignement supérieur, de la recherche et de l'innovation",2020-07-06,2022-05-16
+542,Jean Castex,M,Jean-Yves,Le Drian,Ministre de l'Europe et des affaires étrangères,2020-07-06,2022-05-16
+542,Jean Castex,M,Gérald,Darmanin,Ministre de l'intérieur,2020-07-06,2022-05-16
+542,Jean Castex,M,Florence,Parly,Ministre des armées,2020-07-06,2022-05-16
+542,Jean Castex,M,Sébastien,Lecornu,Ministre des outre-mer,2020-07-06,2022-05-16
+542,Jean Castex,M,Olivier,Véran,Ministre des solidarités et de la santé,2020-07-06,2022-05-16
+542,Jean Castex,M,Elisabeth,Borne,"Ministre du travail, de l'emploi et de l'insertion",2020-07-06,2022-05-16
+542,Jean Castex,MD,Nadia,Hai,"Ministre délégué auprès de la ministre de la cohésion des territoires et des relations avec les collectivités territoriales, chargée de la ville",2020-07-06,2022-03-05
+542,Jean Castex,MD,Jean-Baptiste,Djebbari,"Ministre délégué auprès de la ministre de la transition écologique, chargé des transports",2020-07-06,2022-05-16
+542,Jean Castex,MD,Emmanuelle,Wargon,"Ministre délégué auprès de la ministre de la transition écologique, chargée du logement",2020-07-06,2022-05-16
+542,Jean Castex,MD,Geneviève,Darrieussecq,"Ministre délégué auprès de la ministre des armées, chargée de la mémoire et des anciens combattants",2020-07-06,2022-05-16
+542,Jean Castex,MD,Brigitte,Klinkert,"Ministre délégué auprès de la ministre du travail, de l'emploi et de l'insertion, chargée de l'insertion ;",2020-07-06,2022-05-16
+542,Jean Castex,MD,Olivier,Dussopt,"Ministre délégué auprès du ministre de l'économie, des finances et de la relance,chargé des comptes publics",2020-07-06,2022-05-16
+542,Jean Castex,MD,Alain,Griset,"Ministre délégué auprès du ministre de l'économie, des finances et de la relance,chargé des petites et moyennes entreprises",2020-07-06,2021-12-08
+542,Jean Castex,MD,Agnès,Pannier-Runacher,"Ministre délégué auprès du ministre de l'économie, des finances et de la relance,chargée de l'industrie",2020-07-06,2022-05-16
+542,Jean Castex,MD,Roxana,Maracineanu,"Ministre délégué auprès du ministre de l'éducation nationale, de la jeunesse et des sports, chargée des sports",2020-07-06,2022-05-16
+542,Jean Castex,MD,Franck,Riester,"Ministre délégué auprès du ministre de l'Europe et des affaires étrangères, chargé du commerce extérieur et de l'attractivité",2020-07-06,2022-05-16
+542,Jean Castex,MD,Marlène,Schiappa,"Ministre délégué auprès du ministre de l'intérieur, chargée de la citoyenneté",2020-07-06,2022-05-16
+542,Jean Castex,MD,Brigitte,Bourguignon,"Ministre délégué auprès du ministre des solidarités et de la santé, chargée de l'autonomie",2020-07-06,2022-05-16
+542,Jean Castex,MD,Marc,Fesneau,"Ministre délégué auprès du Premier ministre , chargé des relations avec le Parlement et de la participation citoyenne",2020-07-06,2022-05-16
+542,Jean Castex,MD,Elisabeth,Moreno,"Ministre délégué auprès du Premier ministre, chargée de l'égalité entre les femmes et les hommes, de la diversité et de l'égalité des chance",2020-07-06,2022-05-16
+542,Jean Castex,SE,Gabriel,Attal,"Secrétaire d'État auprès du Premier ministre, porte-parole du Gouvernement",2020-07-06,2022-05-16
+542,Jean Castex,SE,Joël,Giraud,"Secrétaire d'État auprès de la ministre de la cohésion des territoires et des relations avec les collectivités territoriales, chargé de la ruralité",2020-07-26,2022-03-05
+542,Jean Castex,SE,Bérangère,Abba,"Secrétaire d'État auprès de la ministre de la transition écologique, chargée de la biodiversité",2020-07-26,2022-05-16
+542,Jean Castex,SE,Laurent,Pietraszewski,"Secrétaire d'État auprès de la ministre du travail, de l'emploi et de l'insertion, chargé des retraites et de la santé au travail",2020-07-26,2022-05-16
+542,Jean Castex,SE,Cédric,O,"Secrétaire d'État auprès du ministre de l'économie, des finances et de la relance et de la ministre de la cohésion des territoires et des relations avec les collectivités territoriales, chargé de la transition numérique et des communications électroniques",2020-07-26,2022-05-16
+542,Jean Castex,SE,Olivia,Gregoire,"Secrétaire d'État auprès du ministre de l'économie, des finances et de la relance, chargée de l'économie sociale, solidaire et responsable",2020-07-26,2022-05-16
+542,Jean Castex,SE,Sarah,El Hairy,"Secrétaire d'État auprès du ministre de l'éducation nationale, de la jeunesse et des sports, chargée de la jeunesse et de l'engagement",2020-07-26,2022-05-16
+542,Jean Castex,SE,Nathalie,Elimas,"Secrétaire d'État auprès du ministre de l'éducation nationale, de la jeunesse et des sports, chargée de l'éducation prioritaire",2020-07-26,2022-03-05
+542,Jean Castex,SE,Clément,Beaune,"Secrétaire d'État auprès du ministre de l'Europe et des affaires étrangères, chargé des affaires européennes",2020-07-26,2022-05-16
+542,Jean Castex,SE,Jean-Baptiste,Lemoyne,"Secrétaire d'État auprès du ministre de l'Europe et des affaires étrangères, chargé du tourisme, des Français de l'étranger et de la francophonie",2020-07-26,2021-12-08
+542,Jean Castex,SE,Adrien,Taquet,"Secrétaire d'État auprès du ministre des solidarités et de la santé, chargé de l'enfance et des familles",2020-07-26,2022-05-16
+542,Jean Castex,SE,Sophie,Cluzel,"Secrétaire d'État auprès du Premier ministre, chargée des personnes handicapées",2020-07-26,2022-05-16
+542,Jean Castex,MD,Jean-Baptiste,Lemoyne,"Ministre délégué auprès du ministre de l'Europe et des affaires étrangères, chargé du tourisme, des Français de l'étranger et de la francophonie, et auprès du ministre de l'économie, des finances et de la relance, chargé des petites et moyennes entreprises",2021-12-08,2022-05-16
+542,Jean Castex,M,Joël,Giraud,Ministre de la cohésion des territoires et des relations avec les collectivités territoriales,2022-03-05,2022-05-16
+542,Jean Castex,MD,Nadia,Hai,"Ministre déléguée auprès du ministre de la cohésion des territoires et des relations avec les collectivités territoriales, chargée de la ville",2022-03-05,2022-05-16
+542,Jean Castex,SE,Cédric,O,"Secrétaire d'État auprès du ministre de l'économie, des finances et de la relance et du de la cohésion des territoires et des relations avec les collectivités territoriales, chargé de la transition numérique et des communications électroniques",2022-03-05,2022-05-16
+543,Élisabeth Borne,PM,Élisabeth,Borne,Première ministre,2022-05-16,2024-01-09
+543,Élisabeth Borne,M,Eric,Dupond-Moretti,"garde des sceaux, ministre de la justice",2022-05-20,2024-01-09
+543,Élisabeth Borne,M,Rima,Abdul-Malak,Ministre de la culture,2022-05-20,2024-01-09
+543,Élisabeth Borne,M,Brigitte,Bourguignon,Ministre de la santé et de la prévention,2022-05-20,2022-07-04
+543,Élisabeth Borne,M,Stanislas,Guerini,Ministre de la transformation et de la fonction publiques,2022-05-20,2024-01-09
+543,Élisabeth Borne,M,Amélie,de Montchalin,Ministre de la transition écologique et de la cohésion des territoires,2022-05-20,2022-07-04
+543,Élisabeth Borne,M,Agnès,Pannier-Runacher,Ministre de la transition énergétique,2022-05-20,2024-01-09
+543,Élisabeth Borne,M,Marc,Fesneau,Ministre de l'agriculture et de la souveraineté alimentaire,2022-05-20,2024-01-09
+543,Élisabeth Borne,M,Bruno,Le Maire,"Ministre de l'économie, des finances et de la souveraineté industrielle et numérique",2022-05-20,2024-01-09
+543,Élisabeth Borne,M,Pap,Ndiaye,Ministre de l'éducation nationale et de la jeunesse,2022-05-20,2023-07-20
+543,Élisabeth Borne,M,Sylvie,Retailleau,Ministre de l'enseignement supérieur et de la recherche,2022-05-20,2024-01-09
+543,Élisabeth Borne,M,Catherine,Colonna,Ministre de l'Europe et des affaires étrangères,2022-05-20,2024-01-09
+543,Élisabeth Borne,M,Gérald,Darmanin,Ministre de l'intérieur,2022-05-20,2022-07-04
+543,Élisabeth Borne,M,Sébastien,Lecornu,Ministre des armées,2022-05-20,2024-01-09
+543,Élisabeth Borne,M,Yaël,Braun-Pivet,Ministre des outre-mer,2022-05-20,2022-06-25
+543,Élisabeth Borne,M,Damien,Abad,"Ministre des solidarités, de l'autonomie et des personnes handicapées",2022-05-20,2022-07-04
+543,Élisabeth Borne,M,Amélie,Oudea-Castera,Ministre des sports et des jeux Olympiques et Paralympiques,2022-05-20,2024-01-09
+543,Élisabeth Borne,M,Olivier,Dussopt,"Ministre du travail, du plein emploi et de l'insertion",2022-05-20,2024-01-09
+543,Élisabeth Borne,MD,Clément,Beaune,"Ministre délégué auprès de la ministre de l'Europe et des affaires étrangères, chargé de l'Europe",2022-05-20,2022-07-04
+543,Élisabeth Borne,MD,Franck,Riester,"Ministre délégué auprès de la ministre de l'Europe et des affaires étrangères, chargé du commerce extérieur et de l'attractivité",2022-05-20,2022-07-04
+543,Élisabeth Borne,MD,Olivier,Veran,"Ministre délégué auprès de la Première ministre, chargé des relations avec le Parlement et de la vie démocratique",2022-05-20,2022-07-04
+543,Élisabeth Borne,MD,Isabelle,Rome,"Ministre délégué auprès de la Première ministre, chargée de l'égalité entre les femmes et les hommes, de la diversité et de l'égalité des chances",2022-05-20,2023-07-20
+543,Élisabeth Borne,MD,Gabriel,Attal,"Ministre délégué auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargé des comptes publics",2022-05-20,2023-07-20
+543,Élisabeth Borne,MD,Christophe,Bechu,"Ministre délégué auprès du ministre de l'intérieur et de la ministre de la transition écologique et de la cohésion des territoires, chargé des collectivités territoriales",2022-05-20,2022-07-04
+543,Élisabeth Borne,SE,Chrysoula,Zacharopoulou,"Secrétaire d'État auprès de la ministre de l'Europe et des affaires étrangères, chargée du développement, de la francophonie et des partenariats internationaux",2022-05-20,2024-01-09
+543,Élisabeth Borne,SE,Justine,Benin,"Secrétaire d'État auprès de la Première ministre, chargée de la mer",2022-05-20,2022-07-04
+543,Élisabeth Borne,SE,Charlotte,Caubel,"Secrétaire d'État auprès de la Première ministre, chargée de l'enfance",2022-05-20,2024-01-09
+543,Élisabeth Borne,SE,Olivia,Gregoire,"Secrétaire d'État auprès de la Première ministre, porte-parole du Gouvernement",2022-05-20,2022-07-04
+543,Élisabeth Borne,PM,Élisabeth,Borne,"Première ministre, ministre des outre-mer",2022-06-25,2024-01-09
+543,Élisabeth Borne,PM,Élisabeth,Borne,Première ministre,2022-07-04,2024-01-09
+543,Élisabeth Borne,M,François,Braun,Ministre de la santé et de la prévention,2022-07-04,2023-07-20
+543,Élisabeth Borne,M,Christophe,Béchu,Ministre de la transition écologique et de la cohésion des territoires,2022-07-04,2024-01-09
+543,Élisabeth Borne,M,Gérald,Darmanin,Ministre de l'intérieur et des outre-mer,2022-07-04,2024-01-09
+543,Élisabeth Borne,M,Jean-Christophe,Combe,"Ministre des solidarités, de l'autonomie et des personnes handicapées",2022-07-04,2023-07-20
+543,Élisabeth Borne,MD,Olivier,Becht,"Ministre délégué auprès de la ministre de l'Europe et des affaires étrangères, chargé du commerce extérieur, de l'attractivité et des Français de l'étranger",2022-07-04,2024-01-09
+543,Élisabeth Borne,MD,Franck,Riester,"Ministre délégué auprès de la Première ministre, chargé des relations avec le Parlement",2022-07-04,2024-01-09
+543,Élisabeth Borne,MD,Olivier,Véran,"Ministre délégué auprès de la Première ministre, chargé du renouveau démocratique, porte-parole du Gouvernement",2022-07-04,2024-01-09
+543,Élisabeth Borne,MD,Olivier,Klein,"Ministre délégué auprès du ministre de la transition écologique et de la cohésion des territoires, chargé de la ville et du logement",2022-07-04,2023-07-20
+543,Élisabeth Borne,MD,Clément,Beaune,"Ministre délégué auprès du ministre de la transition écologique et de la cohésion des territoires, chargé des transports",2022-07-04,2024-01-09
+543,Élisabeth Borne,MD,Jean-Noël,Barrot,"Ministre délégué auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargé de la transition numérique et des télécommunications",2022-07-04,2023-07-20
+543,Élisabeth Borne,MD,Roland,Lescure,"Ministre délégué auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargé de l'industrie",2022-07-04,2024-01-09
+543,Élisabeth Borne,MD,Jean-François,Carenco,"Ministre délégué auprès du ministre de l'intérieur et des outre-mer, chargé des outre-mer",2022-07-04,2023-07-20
+543,Élisabeth Borne,MD,Agnès,Firmin Le Bodo,"Ministre déléguée auprès du ministre de la santé et de la prévention, chargée de l'organisation territoriale et des professions de santé",2022-07-04,2024-01-09
+543,Élisabeth Borne,MD,Olivia,Grégoire,"Ministre déléguée auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargée des petites et moyennes entreprises, du commerce, de l'artisanat et du tourisme",2022-07-04,2024-01-09
+543,Élisabeth Borne,MD,Caroline,Cayeux,"Ministre déléguée auprès du ministre de l'intérieur et des outre-mer et du ministre de la transition écologique et de la cohésion des territoires, chargée des collectivités territoriales",2022-07-04,2022-11-28
+543,Élisabeth Borne,MD,Geneviève,Darrieussecq,"Ministre déléguée auprès du ministre des solidarités, de l'autonomie et des personnes handicapées, chargée des personnes handicapées",2022-07-04,2023-07-20
+543,Élisabeth Borne,MD,Carole,Grandjean,"Ministre déléguée auprès du ministre du travail, du plein emploi et de l'insertion et du ministre de l'éducation nationale et de la jeunesse, chargée de l'enseignement et de la formation professionnels",2022-07-04,2024-01-09
+543,Élisabeth Borne,SE,Laurence,Boone,"Secrétaire d'État auprès de la ministre de l'Europe et des affaires étrangères, chargée de l'Europe",2022-07-04,2024-01-09
+543,Élisabeth Borne,SE,Hervé,Berville,"Secrétaire d'État auprès de la Première ministre, chargé de la mer",2022-07-04,2024-01-09
+543,Élisabeth Borne,SE,Marlène,Schiappa,"Secrétaire d'État auprès de la Première ministre, chargée de l'économie sociale et solidaire et de la vie associative",2022-07-04,2023-07-20
+543,Élisabeth Borne,SE,Dominique,Faure,"Secrétaire d'État auprès du ministre de la transition écologique et de la cohésion des territoires, chargée de la ruralité",2022-07-04,2022-11-28
+543,Élisabeth Borne,SE,Bérangère,Couillard,"Secrétaire d'État auprès du ministre de la transition écologique et de la cohésion des territoires, chargée de l'écologie",2022-07-04,2023-07-20
+543,Élisabeth Borne,SE,Sonia,Backès,"Secrétaire d'État auprès du ministre de l'intérieur et des outre-mer, chargée de la citoyenneté",2022-07-04,2023-10-10
+543,Élisabeth Borne,SE,Sarah,El Haïry,"Secrétaire d'État auprès du ministre des armées et du ministre de l'éducation nationale et de la jeunesse, chargée de la jeunesse et du service national universel",2022-07-04,2023-07-20
+543,Élisabeth Borne,SE,Patricia,Mirallès,"Secrétaire d'État auprès du ministre des armées, chargée des anciens combattants et de la mémoire",2022-07-04,2024-01-09
+543,Élisabeth Borne,MD,Dominique,Faure,"Ministre déléguée auprès du ministre de l'intérieur et des outre-mer et du ministre de la transition écologique et de la cohésion des territoires, chargée des collectivités territoriales, et auprès du ministre de la transition écologique et de la cohésion des territoires, chargée de la ruralité",2022-11-28,2023-07-20
+543,Élisabeth Borne,M,Aurélien,Rousseau,Ministre de la santé et de la prévention,2023-07-20,2023-12-20
+543,Élisabeth Borne,M,Gabriel,Attal,Ministre de l'éducation nationale et de la jeunesse,2023-07-20,2024-01-09
+543,Élisabeth Borne,M,Aurore,Bergé,Ministre des solidarités et des familles,2023-07-20,2024-01-09
+543,Élisabeth Borne,MD,Patrice,Vergriete,"Ministre délégué auprès du ministre de la transition écologique et de la cohésion des territoires, chargé du logement",2023-07-20,2024-01-09
+543,Élisabeth Borne,MD,Thomas,Cazenave,"Ministre délégué auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargé des comptes publics",2023-07-20,2024-01-09
+543,Élisabeth Borne,MD,Jean-Noël,Barrot,"Ministre délégué auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargé du numérique",2023-07-20,2024-01-09
+543,Élisabeth Borne,MD,Philippe,Vigier,"Ministre délégué auprès du ministre de l'intérieur et des outre-mer, chargé des outre-mer",2023-07-20,2024-01-09
+543,Élisabeth Borne,MD,Fadila,Khattabi,"Ministre déléguée auprès de la ministre des solidarités et des familles, chargée des personnes handicapées",2023-07-20,2024-01-09
+543,Élisabeth Borne,MD,Bérangère,Couillard,"Ministre déléguée auprès de la Première ministre, chargée de l'égalité entre les femmes et les hommes et de la lutte contre les discriminations",2023-07-20,2024-01-09
+543,Élisabeth Borne,MD,Dominique,Faure,"Ministre déléguée auprès du ministre de l'intérieur et des outre-mer et du ministre de la transition écologique et de la cohésion des territoires, chargée des collectivités territoriales et de la ruralité",2023-07-20,2024-01-09
+543,Élisabeth Borne,SE,Sarah,El Haïry,"Secrétaire d'État auprès du ministre de la transition écologique et de la cohésion des territoires, chargée de la biodiversité",2023-07-20,2024-01-09
+543,Élisabeth Borne,SE,Sabrina,Agresti-Roubache,"Secrétaire d'État auprès du ministre de l'intérieur et des outre-mer et du ministre de la transition écologique et de la cohésion des territoires, chargée de la ville",2023-07-20,2023-10-10
+543,Élisabeth Borne,SE,Prisca,Thevenot,"Secrétaire d'État auprès du ministre des armées et du ministre de l'éducation nationale et de la jeunesse, chargée de la jeunesse et du service national universel",2023-07-20,2024-01-09
+543,Élisabeth Borne,SE,Sabrina,Agresti-Roubache,"Secrétaire d'État auprès du ministre de l'intérieur et des outre-mer, chargée de la citoyenneté, et auprès du ministre de l'intérieur et des outre-mer et du ministre de la transition écologique et de la cohésion des territoires, chargée de la ville",2023-10-10,2024-01-09
+543,Élisabeth Borne,M,Agnès,Firmin Le Bodo,Ministre de la santé et de la prévention,2023-12-20,2024-01-09
+544,Gabriel Attal,PM,Gabriel,Attal,Premier ministre,2024-01-09,2024-07-16
+544,Gabriel Attal,M,Éric,Dupond-Moretti,"garde des sceaux, ministre de la justice",2024-01-11,2024-07-16
+544,Gabriel Attal,M,Rachida,Dati,Ministre de la culture,2024-01-11,2024-07-16
+544,Gabriel Attal,M,Christophe,Béchu,Ministre de la transition écologique et de la cohésion des territoires,2024-01-11,2024-07-16
+544,Gabriel Attal,M,Marc,Fesneau,Ministre de l'agriculture et de la souveraineté alimentaire,2024-01-11,2024-07-16
+544,Gabriel Attal,M,Bruno,Le Maire,"Ministre de l'économie, des finances et de la souveraineté industrielle et numérique",2024-01-11,2024-07-16
+544,Gabriel Attal,M,Amélie,Oudéa-Castéra,"Ministre de l'éducation nationale, de la jeunesse, des sports et des jeux Olympiques et Paralympiques",2024-01-11,2024-07-16
+544,Gabriel Attal,M,Sylvie,Retailleau,Ministre de l'enseignement supérieur et de la recherche,2024-01-11,2024-07-16
+544,Gabriel Attal,M,Stéphane,Séjourné,Ministre de l'Europe et des affaires étrangères,2024-01-11,2024-07-16
+544,Gabriel Attal,M,Gérald,Darmanin,Ministre de l'intérieur et des outre-mer,2024-01-11,2024-07-16
+544,Gabriel Attal,M,Sébastien,Lecornu,Ministre des armées,2024-01-11,2024-07-16
+544,Gabriel Attal,M,Catherine,Vautrin,"Ministre du travail, de la santé et des solidarités",2024-01-11,2024-07-16
+544,Gabriel Attal,MD,Aurore,Bergé,"Ministre déléguée auprès du Premier ministre, chargée de l'égalité entre les femmes et les hommes et de la lutte contre les discriminations",2024-01-11,2024-07-16
+544,Gabriel Attal,MD,Marie,Lebec,"Ministre déléguée auprès du Premier ministre, chargée des relations avec le Parlement",2024-01-11,2024-07-16
+544,Gabriel Attal,MD,Prisca,Thevenot,"Ministre déléguée auprès du Premier ministre, chargée du renouveau démocratique, porte-parole du Gouvernement",2024-01-11,2024-07-16
+544,Gabriel Attal,M,Stanislas,Guerini,Ministre de la transformation et de la fonction publiques,2024-02-08,2024-07-16
+544,Gabriel Attal,M,Nicole,Belloubet,Ministre de l'éducation nationale et de la jeunesse,2024-02-08,2024-07-16
+544,Gabriel Attal,M,Amélie,Oudéa-Castéra,Ministre des sports et des jeux Olympiques et Paralympiques,2024-02-08,2024-07-16
+544,Gabriel Attal,MD,Frédéric,Valletoux,"Ministre délégué auprès de la ministre du travail, de la santé et des solidarités, chargé de la santé et de la prévention",2024-02-08,2024-07-16
+544,Gabriel Attal,MD,Patrice,Vergriete,"Ministre délégué auprès du ministre de la transition écologique et de la cohésion des territoires, chargé des transports",2024-02-08,2024-07-16
+544,Gabriel Attal,MD,Guillaume,Kasbarian,"Ministre délégué auprès du ministre de la transition écologique et de la cohésion des territoires, chargé du logement",2024-02-08,2024-07-16
+544,Gabriel Attal,MD,Agnès,Pannier-Runacher,Ministre délégué auprès du ministre de l'agriculture et de la souveraineté alimentaire,2024-02-08,2024-07-16
+544,Gabriel Attal,MD,Roland,Lescure,"Ministre délégué auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargé de l'industrie et de l'énergie",2024-02-08,2024-07-16
+544,Gabriel Attal,MD,Thomas,Cazenave,"Ministre délégué auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargé des comptes publics",2024-02-08,2024-07-16
+544,Gabriel Attal,MD,Jean-Noël,Barrot,"Ministre délégué auprès du ministre de l'Europe et des affaires étrangères, chargé de l'Europe",2024-02-08,2024-07-16
+544,Gabriel Attal,MD,Franck,Riester,"Ministre délégué auprès du ministre de l'Europe et des affaires étrangères, chargé du commerce extérieur, de l'attractivité, de la francophonie et des Français de l'étranger",2024-02-08,2024-07-16
+544,Gabriel Attal,MD,Fadila,Khattabi,"Ministre déléguée auprès de la ministre du travail, de la santé et des solidarités, chargée des personnes âgées et des personnes handicapées",2024-02-08,2024-07-16
+544,Gabriel Attal,MD,Sarah,El Haïry,"Ministre déléguée auprès de la ministre du travail, de la santé et des solidarités, de la ministre de l'éducation nationale et de la jeunesse et du garde des sceaux, ministre de la justice, chargée de l'enfance, de la jeunesse et des familles",2024-02-08,2024-07-16
+544,Gabriel Attal,MD,Olivia,Grégoire,"Ministre déléguée auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargée des entreprises, du tourisme et de la consommation",2024-02-08,2024-07-16
+544,Gabriel Attal,MD,Dominique,Faure,"Ministre déléguée auprès du ministre de l'intérieur et des outre-mer et du ministre de la transition écologique et de la cohésion des territoires, chargée des collectivités territoriales et de la ruralité",2024-02-08,2024-07-16
+544,Gabriel Attal,MD,Marie,Guévenoux,"Ministre déléguée auprès du ministre de l'intérieur et des outre-mer, chargée des outre-mer",2024-02-08,2024-07-16
+544,Gabriel Attal,SE,Hervé,Berville,"Secrétaire d'État auprès du ministre de la transition écologique et de la cohésion des territoires, chargé de la mer et de la biodiversité",2024-02-08,2024-07-16
+544,Gabriel Attal,SE,Marina,Ferrari,"Secrétaire d'État auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargée du numérique",2024-02-08,2024-07-16
+544,Gabriel Attal,SE,Chrysoula,Zacharopoulou,"Secrétaire d'État auprès du ministre de l'Europe et des affaires étrangères, chargée du développement et des partenariats internationaux",2024-02-08,2024-07-16
+544,Gabriel Attal,SE,Sabrina,Agresti-Roubache,"Secrétaire d'État auprès du ministre de l'intérieur et des outre-mer et du ministre de la transition écologique et de la cohésion des territoires, chargée de la ville, et auprès du ministre de l'intérieur et des outre-mer, chargée de la citoyenneté",2024-02-08,2024-07-16
+544,Gabriel Attal,SE,Patricia,Mirallès,"Secrétaire d'État auprès du ministre des armées, chargée des anciens combattants et de la mémoire",2024-02-08,2024-07-16
+545,Michel Barnier,PE,Michel,Barnier,Premier ministre,2024-09-05,2024-12-05
+545,Michel Barnier,M,Didier,Migaud,"Garde des sceaux, Ministre de la justice",2024-09-21,2024-12-05
+545,Michel Barnier,M,Catherine,Vautrin,Ministre du partenariat avec les territoires et de la décentralisation,2024-09-21,2024-12-05
+545,Michel Barnier,M,Bruno,Retailleau,Ministre de l'intérieur,2024-09-21,2024-12-05
+545,Michel Barnier,M,Anne,Genetet,Ministre de l'éducation nationale,2024-09-21,2024-12-05
+545,Michel Barnier,M,Jean-Noël,Barrot,Ministre de l'Europe et des affaires étrangères,2024-09-21,2024-12-05
+545,Michel Barnier,M,Rachida,Dati,Ministre de la culture,2024-09-21,2024-12-05
+545,Michel Barnier,M,Sébastien,Lecornu,Ministre des armées et des anciens combattants,2024-09-21,2024-12-05
+545,Michel Barnier,M,Agnès,Pannier-Runacher,"Ministre de la transition écologique, de l'énergie, du climat et de la prévention des risques",2024-09-21,2024-12-05
+545,Michel Barnier,M,Antoine,Armand,"Ministre de l'économie, des finances et de l'industrie",2024-09-21,2024-12-05
+545,Michel Barnier,M,Geneviève,Darrieussecq,Ministre de la santé et de l'accès aux soins,2024-09-21,2024-12-05
+545,Michel Barnier,M,Paul,Christophe,"Ministre des solidarités, de l'autonomie et de l'égalité entre les femmes et les hommes",2024-09-21,2024-12-05
+545,Michel Barnier,M,Valérie,Létard,Ministre du logement et de la rénovation urbaine,2024-09-21,2024-12-05
+545,Michel Barnier,M,Annie,Genevard,"Ministre de l'agriculture, de la souveraineté alimentaire et de la forêt",2024-09-21,2024-12-05
+545,Michel Barnier,M,Astrid,Panosyan-Bouvet,Ministre du travail et de l'emploi,2024-09-21,2024-12-05
+545,Michel Barnier,M,Gil,Avérous,"Ministre des sports, de la jeunesse et de la vie associative",2024-09-21,2024-12-05
+545,Michel Barnier,M,Patrick,Hetzel,Ministre de l'enseignement supérieur et de la recherche,2024-09-21,2024-12-05
+545,Michel Barnier,M,Guillaume,Kasbarian,"Ministre de la fonction publique, de la simplification et de la transformation de l'action publique",2024-09-21,2024-12-05
+545,Michel Barnier,M,François-Noël,Buffet,"Ministre auprès du Premier Ministre, chargé des outre-mer",2024-09-21,2024-12-05
+545,Michel Barnier,M,Laurent,Saint-Martin,"Ministre auprès du Premier Ministre, chargé du budget et des comptes publics",2024-09-21,2024-12-05
+545,Michel Barnier,MD,Benjamin,Haddad,Ministre délégué auprès du Premier ministre et du ministre de l'Eurupe et des affaires étrangères,2024-09-21,2024-12-05
+545,Michel Barnier,MD,Nathalie,Delattre,"Ministre déléguée auprès du Premier ministre, chargée des relations avec le Parlement",2024-09-21,2024-12-05
+545,Michel Barnier,MD,Maud,Bregeon,"Ministre déléguée auprès du Premier ministre, porte-parole du Gouvernement",2024-09-21,2024-12-05
+545,Michel Barnier,MD,Marie-Claire,Carrère-Gée,"Ministre déléguée auprès du Premier ministre, chargée de la coordination gouvernementale",2024-09-21,2024-12-05
+545,Michel Barnier,MD,Françoise,Gatel,"Ministre déléguée auprès du ministre du partenariat avec les territoires et de la décentralisation, chargée de la ruralité, du commerce et de l'artisanat",2024-09-21,2024-12-05
+545,Michel Barnier,MD,François,Durovray,"Ministre délégué auprès du ministre du partenariat avec les territoires et de la décentralisation, chargé des transports",2024-09-21,2024-12-05
+545,Michel Barnier,MD,Fabrice,Loher,"Ministre délégué auprès du ministre du partenariat avec les territoires et de la décentralisation, chargé de la mer et de la pêche",2024-09-21,2024-12-05
+545,Michel Barnier,MD,Nicolas,Daragon,"Ministre délégué auprès du ministre de l'intérieur, chargé de la sécurité du quotidien",2024-09-21,2024-12-05
+545,Michel Barnier,MD,Alexandre,Portier,"Ministre délégué auprès de la ministre de l'éducation nationale,  chargé de la réussite scolaire et de l'enseignement professionnel",2024-09-21,2024-12-05
+545,Michel Barnier,MD,Sophie,Primas,"Ministre délégué auprès du ministre de l'Europe et des affaires étrangères,  chargée du commerce extérieur et des Français de l'étranger",2024-09-21,2024-12-05
+545,Michel Barnier,MD,Olga,Givernet,"Ministre déléguée auprès de la ministre de la transition écologique, de l'énergie, du climat et de la prévention des risques, chargée de l'énergie",2024-09-21,2024-12-05
+545,Michel Barnier,MD,Marc,Ferracci,"Ministre déléguée auprès du ministre de l'économie, des finances et de l'industrie, chargé de l'industrie",2024-09-21,2024-12-05
+545,Michel Barnier,MD,Marie-Agnès,Poussier-Winsback,"Ministre déléguée auprès du ministre de l'économie, des finances et de l'industrie, chargée de l'économie sociale et solidaire, de l'intéressement et de la participation ",2024-09-21,2024-12-05
+545,Michel Barnier,MD,Marina,Ferrari,"Ministre déléguée auprès du ministre de l'économie, des finances et de l'industrie, chargée de l'économie du tourisme",2024-09-21,2024-12-05
+545,Michel Barnier,MD,Agnès,Canayer,"Ministre déléguée auprès du ministre des solidarités, de l'autonomie et de l'égalité entre les femmes et les hommes, chargée de la famille et de la petite enfance",2024-09-21,2024-12-05
+545,Michel Barnier,SE,Othman,Nasrou,"Secrétaire d'État auprès du ministre de l'intérieur, chargé de la citoyenneté et de la lutte contre les discriminations",2024-09-21,2024-12-05
+545,Michel Barnier,SE,Thani,Mohemd Soilihi,"Secrétaire d'État auprès du ministre de l'Europe et des affaires étrangères, chargé de la francophonie et des partenariats internationaux",2024-09-21,2024-12-05
+545,Michel Barnier,SE,Laurence,Garnier,"Secrétaire d'État auprès du ministre de l'économie, des finances et de l'industrie, chargée de la consommation",2024-09-21,2024-12-05
+545,Michel Barnier,SE,Salima,Saa,"Secrétaire d'État auprès du ministre des solidarités, de l'autonomie et de l'égalité entre les femmes et les hommes, chargée de l'égalité entre les femmes et les hommes",2024-09-21,2024-12-05
+545,Michel Barnier,SE,Clara,Chappaz,"Secrétaire d'État auprès du ministre de l'enseignement supérieur et de la recherche, chargée de l'intelligence artificielle et du numérique",2024-09-21,2024-12-05
+545,Michel Barnier,MD,Jean-Louis,Thiériot,Ministre délégué auprès du ministre des armées et des anciens combattants,2024-09-27,2024-12-05
+545,Michel Barnier,MD,Charlotte,Parmentier-Lecocq,"Ministre déléguée auprès du ministre des solidarités, de l'autonomie et de l'égalité entre les femmes et les hommes, chargée des personnes en situation de handicap",2024-09-27,2024-12-05
+546,François Bayrou,PE,François,Bayrou,Premier ministre,2024-12-13,
+546,François Bayrou,ME,Elisabeth,Borne,"Ministre d'Etat, ministre de l'éducation nationale, de l'enseignement supérieur et de la recherche",2024-12-13,
+546,François Bayrou,ME,Manuel,Valls,"Ministre d'Etat, ministre des outre-mer",2024-12-13,
+546,François Bayrou,ME,Gérald,Darmanin,"Ministre d'Etat, garde des sceaux, ministre de la justice",2024-12-13,
+546,François Bayrou,ME,Bruno,Retailleau,"Ministre d'Etat, ministre de l'intérieur",2024-12-13,
+546,François Bayrou,M,Catherine,Vautrin,"Ministre du travail, de la santé, des solidarités et des familles",2024-12-13,
+546,François Bayrou,M,Eric,Lombard,"Ministre de l'économie, des finances et de la souveraineté industrielle et numérique",2024-12-13,
+546,François Bayrou,M,Sébastien,Lecornu,Ministre des armées,2024-12-13,
+546,François Bayrou,M,Rachida,Dati,Ministre de la culture,2024-12-13,
+546,François Bayrou,M,François,Rebsamen,Ministre de l'aménagement du territoire et de la décentralisation,2024-12-13,
+546,François Bayrou,M,Jean-Noël,Barrot,Ministre de l'Europe et des affaires étrangères,2024-12-13,
+546,François Bayrou,M,Agnès,Pannier-Runacher,"Ministre de la transition écologique, de la biodiversité, de la forêt, de la mer et de la pêche",2024-12-13,
+546,François Bayrou,M,Annie,Genevard,Ministre de l'agriculture et de la souveraineté alimentaire,2024-12-13,
+546,François Bayrou,M,Laurent,Marcangeli,"Ministre de l'action publique, de la fonction publique et de la simplification",2024-12-13,
+546,François Bayrou,M,Marie,Barsacq,"Ministre des sports, de la jeunesse et de la vie associative",2024-12-13,
+546,François Bayrou,MD,Patrick,Mignola,"Ministre déléguée auprès du Premier ministre, chargé des relations avec le Parlement",2024-12-13,
+546,François Bayrou,MD,Sophie,Primas,"Ministre déléguée auprès du Premier ministre, porte-parole du Gouvernement",2024-12-13,
+546,François Bayrou,MD,Aurore,Bergé,"Ministre déléguée auprès du Premier ministre, chargée de l'égalité entre les femmes et les hommes et de la lutte contre les discriminations",2024-12-13,
+546,François Bayrou,MD,Philippe,Baptiste,"Ministre délégué auprès de la ministre d'Etat, ministre de l'éducation nationale, de l'enseignement supérieur et de la recherche, chargé de l'enseignement supérieur et de la recherche",2024-12-13,
+546,François Bayrou,MD,François-Noël,Buffet,"Ministre délégué auprès du ministre d'Etat, ministre de l'intérieur",2024-12-13,
+546,François Bayrou,MD,Astrid,Panosyan-Bouvet,"Ministre déléguée auprès de la ministre du travail, de la santé, de la solidarité et des familles, chargée du travail et de l'emploi",2024-12-13,
+546,François Bayrou,MD,Yannick,Neuder,"Ministre délégué auprès de la ministre du travail, de la santé, de la solidarité et des familles, chargé de la santé et de l'accès aux soins",2024-12-13,
+546,François Bayrou,MD,Charlotte,Parmentier-Lecocq,"Ministre déléguée auprès de la ministre du travail, de la santé, de la solidarité et des familles, chargée de l'autonomie et du handicap",2024-12-13,
+546,François Bayrou,MD,Amélie,de Montchalin,"Ministre déléguée auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargée des comptes publics",2024-12-13,
+546,François Bayrou,MD,Marc,Ferracci,"Ministre délégué auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargé de l'industrie et de l'énergie",2024-12-13,
+546,François Bayrou,MD,Véronique,Louwagie,"Ministre déléguée auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargée du commerce, de l'artisanat, des petites et moyennes entreprises et de l'économie sociale et solidaire",2024-12-13,
+546,François Bayrou,MD,Clara,Chappaz,"Ministre déléguée auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargée de l'intelligence artificielle et du numérique",2024-12-13,
+546,François Bayrou,MD,Nathalie,Delattre,"Ministre déléguée auprès du ministre de l'économie, des finances et de la souveraineté industrielle et numérique, chargée du tourisme",2024-12-13,
+546,François Bayrou,MD,Patricia,Mirallès,"Ministre déléguée auprès du ministre des armées, chargée de la mémoire et des anciens combattants",2024-12-13,
+546,François Bayrou,MD,Valérie,Létard,"Ministre déléguée auprès du ministre de l'aménagement du territoire et de la décentralisation, chargée du logement",2024-12-13,
+546,François Bayrou,MD,Philippe,Tabarot,"Ministre délégué auprès du ministre de l'aménagement du territoire et de la décentralisation, chargé des transports",2024-12-13,
+546,François Bayrou,MD,Françoise,Gatel,"Ministre déléguée auprès du ministre de l'aménagement du territoire et de la décentralisation, chargée de la ruralité",2024-12-13,
+546,François Bayrou,MD,Juliette,Méadel,"Ministre déléguée auprès du ministre de l'aménagement du territoire et de la décentralisation, chargée de la ville",2024-12-13,
+546,François Bayrou,MD,Benjamin,Haddad,"Ministre déléguée auprès du ministre de l'Europe et des affaires étrangères, chargé de l'Europe",2024-12-13,
+546,François Bayrou,MD,Laurent,Saint-Martin,"Ministre délégué auprès du ministre de l'Europe et des affaires étrangères, chargé du commerce extérieur et des Français de l'étranger",2024-12-13,
+546,François Bayrou,MD,Thani,Mohamed Soilihi,"Ministre délégué auprès du ministre de l'Europe et des affaires étrangères, chargé de la francophonie et des partenariats internationaux",2024-12-13,

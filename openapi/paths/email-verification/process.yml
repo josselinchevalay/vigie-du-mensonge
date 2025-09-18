@@ -1,0 +1,18 @@
+emailVerificationProcess:
+  post:
+    summary: Valider l’adresse email
+    description: Valide l’adresse email à partir du token reçu par e-mail.
+    tags: [Email Verification]
+    operationId: emailVerificationProcess
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema: { $ref: "../../openapi.yml#/components/schemas/EmailVerificationProcessRequest" }
+    responses:
+      '204':
+        description: Email vérifié
+      '400':
+        $ref: "../../openapi.yml#/components/responses/Error400"
+      '401':
+        $ref: "../../openapi.yml#/components/responses/Error401"

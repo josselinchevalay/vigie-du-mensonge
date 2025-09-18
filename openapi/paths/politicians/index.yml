@@ -1,0 +1,12 @@
+politiciansRoot:
+  get:
+    summary: Listing des politiciens
+    description: Liste les politiciens.
+    tags: [ Politicians ]
+    operationId: listPoliticians
+    responses:
+      '200':
+        description: Liste de politiciens retournée
+        content:
+          application/json:
+            schema: { $ref: "../../openapi.yml#/components/schemas/PoliticianListResponse" }

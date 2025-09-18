@@ -1,0 +1,9 @@
+securitySchemes:
+  accessCookie:
+    type: apiKey
+    in: cookie
+    name: accessToken
+  refreshCookie:
+    type: apiKey
+    in: cookie
+    name: refreshToken

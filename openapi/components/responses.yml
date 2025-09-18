@@ -1,0 +1,11 @@
+responses:
+  Error400:
+    description: Requête invalide
+  Error401:
+    description: Authentification requise
+  Error403:
+    description: Permissions insuffisantes
+  Error404:
+    description: Ressource inexistante
+  Error409:
+    description: Données conflictuelles

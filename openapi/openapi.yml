@@ -1,0 +1,54 @@
+openapi: 3.0.3
+info:
+  title: Vigi du mensonge API
+  version: "1.0"
+
+servers:
+  - url: https://vigi-du-mensonge.com/api/v1
+    description: production
+  - url: http://localhost:3000/api/v1
+    description: local
+
+paths:
+  /auth/sign-in:
+    $ref: "./paths/auth/sign-in.yml#/signIn"
+  /auth/sign-up:
+    $ref: "./paths/auth/sign-up.yml#/signUp"
+  /auth/refresh:
+    $ref: "./paths/auth/refresh.yml#/refresh"
+  /auth/sign-out:
+    $ref: "./paths/auth/sign-out.yml#/signOut"
+  /email-verification/inquire:
+    $ref: "./paths/email-verification/inquire.yml#/emailVerificationInquire"
+  /email-verification/process:
+    $ref: "./paths/email-verification/process.yml#/emailVerificationProcess"
+  /password-update/inquire:
+    $ref: "./paths/password-update/inquire.yml#/passwordUpdateInquire"
+  /password-update/process:
+    $ref: "./paths/password-update/process.yml#/passwordUpdateProcess"
+  /politicians:
+    $ref: "./paths/politicians/index.yml#/politiciansRoot"
+  /articles:
+    $ref: "./paths/articles/index.yml#/articlesRoot"
+  /articles/{articleId}:
+    $ref: "./paths/articles/article.yml#/article"
+  /articles/{articleId}/submit:
+    $ref: "./paths/articles/submit.yml#/articleSubmit"
+  /articles/{articleId}/moderation:
+    $ref: "./paths/articles/moderation.yml#/articleModeration"
+  /articles/{articleId}/review:
+    $ref: "./paths/articles/review.yml#/articleReview"
+  /roles/{roleId}/users:
+    $ref: "./paths/roles/users.yml#/roleUsers"
+
+components:
+  securitySchemes:
+    $ref: "./components/security.yml#/securitySchemes"
+  headers:
+    $ref: "./components/headers.yml#/headers"
+  schemas:
+    $ref: "./components/schemas.yml#/schemas"
+  parameters:
+    $ref: "./components/parameters.yml#/parameters"
+  responses:
+    $ref: "./components/responses.yml#/responses"

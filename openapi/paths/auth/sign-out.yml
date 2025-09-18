@@ -1,0 +1,15 @@
+signOut:
+  post:
+    summary: Déconnexion
+    description: Invalide les cookies d’authentification.
+    tags: [Auth]
+    operationId: authSignOut
+    security:
+      - accessCookie: []
+    responses:
+      '204':
+        description: Déconnexion réussie
+        Set-Cookie:
+          $ref: "../../components/headers.yml#/headers/ClearAuthCookies"
+      '401':
+        $ref: "../../openapi.yml#/components/responses/Error401"

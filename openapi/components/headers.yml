@@ -1,0 +1,18 @@
+headers:
+  SetAuthCookies:
+    description: |
+      Sets HttpOnly, Secure, SameSite=Strict cookies:
+      - accessToken (JWT)
+      - refreshToken (uuid)
+    schema:
+      type: string
+    examples:
+      access:
+        value: accessToken=eyJhbGciOi...; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=900
+      refresh:
+        value: refreshToken=be6f7e3e-...; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=2592000
+
+  ClearAuthCookies:
+    description: Clears auth cookies (Max-Age=0).
+    schema:
+      type: string

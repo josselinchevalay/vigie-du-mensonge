@@ -1,0 +1,18 @@
+services:
+
+  db:
+    build:
+      context: database
+    container_name: vdm_db
+    volumes:
+      - vdm_pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  vdm_pg_data:

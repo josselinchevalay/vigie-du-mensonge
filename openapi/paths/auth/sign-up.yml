@@ -1,0 +1,24 @@
+signUp:
+  post:
+    summary: Inscription
+    description: Crée un compte puis définit les cookies d’authentification.
+    tags: [Auth]
+    operationId: authSignUp
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema: { $ref: "../../openapi.yml#/components/schemas/AuthCredentials" }
+    responses:
+      '201':
+        description: Inscription réussie
+        headers:
+          Set-Cookie:
+            $ref: "../../openapi.yml#/components/headers/SetAuthCookies"
+        content:
+          application/json:
+            schema: { $ref: "../../openapi.yml#/components/schemas/SignUpResponse" }
+      '400':
+        $ref: "../../openapi.yml#/components/responses/Error400"
+      '409':
+        $ref: "../../openapi.yml#/components/responses/Error409"
