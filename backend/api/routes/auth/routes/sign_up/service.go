@@ -9,7 +9,6 @@ import (
 	"vdm/core/models"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -26,7 +25,7 @@ type service struct {
 }
 
 func (s *service) signUp(req SignUpRequest) (locals.AccessToken, locals.RefreshToken, error) {
-	user := &models.User{ID: uuid.New(), Email: req.Email}
+	user := &models.User{Email: req.Email}
 
 	if hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost); err != nil {
 		return locals.AccessToken{}, locals.RefreshToken{}, fmt.Errorf("failed to hash password: %v", err)
@@ -34,7 +33,7 @@ func (s *service) signUp(req SignUpRequest) (locals.AccessToken, locals.RefreshT
 		user.Password = string(hashedPassword)
 	}
 
-	rft := &models.RefreshToken{ID: uuid.New(), UserID: user.ID, Expiry: time.Now().Add(s.refreshTokenTTL)}
+	rft := &models.RefreshToken{UserID: user.ID, Expiry: time.Now().Add(s.refreshTokenTTL)}
 
 	if err := s.repo.createUserAndRefreshToken(user, rft); err != nil {
 		if errors.Is(err, gorm.ErrDuplicatedKey) {

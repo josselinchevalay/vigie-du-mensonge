@@ -10,10 +10,13 @@ import (
 // User represents the users table
 
 type User struct {
-	ID            uuid.UUID      `gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
-	Email         string         `gorm:"column:email;unique;not null"`
-	EmailVerified bool           `gorm:"column:email_verified;not null;default:false"`
-	Password      string         `gorm:"column:password;not null"`
+	ID uuid.UUID `gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
+
+	Roles []*Role `gorm:"many2many:user_roles;"`
+
+	Email         string `gorm:"column:email;unique;not null"`
+	EmailVerified bool   `gorm:"column:email_verified;not null;default:false"`
+	Password      string `gorm:"column:password;not null"`
 
 	CreatedAt time.Time      `gorm:"column:created_at;not null;default:now()"`
 	UpdatedAt time.Time      `gorm:"column:updated_at;not null;default:now()"`
@@ -21,3 +24,14 @@ type User struct {
 }
 
 func (User) TableName() string { return "users" }
+
+func (u User) MapRoles() []string {
+	var roles []string
+	for _, r := range u.Roles {
+		if r == nil {
+			continue
+		}
+		roles = append(roles, r.Name)
+	}
+	return roles
+}

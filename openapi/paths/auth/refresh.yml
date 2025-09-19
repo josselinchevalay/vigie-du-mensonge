@@ -14,6 +14,6 @@ refresh:
             $ref: "../../openapi.yml#/components/headers/SetAuthCookies"
         content:
           application/json:
-            schema: { $ref: "../../openapi.yml#/components/schemas/RefreshResponse" }
+            schema: { $ref: "../../openapi.yml#/components/schemas/AuthResponse" }
       '401':
         $ref: "../../openapi.yml#/components/responses/Error401"

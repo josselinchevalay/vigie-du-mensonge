@@ -17,7 +17,7 @@ signIn:
             $ref: "../../openapi.yml#/components/headers/SetAuthCookies"
         content:
           application/json:
-            schema: { $ref: "../../openapi.yml#/components/schemas/SignInResponse" }
+            schema: { $ref: "../../openapi.yml#/components/schemas/AuthResponse" }
       '400':
         $ref: "../../openapi.yml#/components/responses/Error400"
       '401':

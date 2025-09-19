@@ -11,7 +11,7 @@ export class Auth {
     public emailVerified: boolean;
     public roles: string[];
 
-    private static readonly STORAGE_KEY = 'vdm_auth';
+    public static readonly STORAGE_KEY = 'vdm_auth';
 
     constructor(
         accessTokenExpiry: Date,

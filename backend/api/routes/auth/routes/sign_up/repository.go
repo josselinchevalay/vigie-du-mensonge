@@ -28,11 +28,12 @@ func (r *repository) createUserAndRefreshToken(user *models.User, rft *models.Re
 
 			var pgErr *pgconn.PgError
 			if errors.As(err, &pgErr) && pgErr.Code == "23505" {
-				err = gorm.ErrDuplicatedKey
+				err = gorm.ErrDuplicatedKey // email already exists
 			}
 
 			return
 		}
+
 		if cmErr := tx.Commit().Error; cmErr != nil {
 			logger.Error("failed to commit transaction", logger.Err(cmErr))
 			err = cmErr
@@ -42,6 +43,8 @@ func (r *repository) createUserAndRefreshToken(user *models.User, rft *models.Re
 	if err = tx.Create(user).Error; err != nil {
 		return
 	}
+
+	rft.UserID = user.ID
 
 	if err = tx.Create(rft).Error; err != nil {
 		return
