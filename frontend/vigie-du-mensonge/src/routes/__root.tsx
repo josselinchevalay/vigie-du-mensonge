@@ -1,4 +1,5 @@
 import AppBar from "@/core/components/app-bar";
+import {Toaster} from "@/core/shadcn/components/ui/sonner";
 import {createRootRoute, Outlet} from '@tanstack/react-router';
 import {TanStackRouterDevtools} from '@tanstack/react-router-devtools';
 
@@ -14,6 +15,7 @@ const RootLayout = () => (
             </main>
         </div>
 
+        <Toaster position="top-center" duration={3000}/>
 
         {import.meta.env.DEV ? <TanStackRouterDevtools/> : null}
     </>
