@@ -21,10 +21,10 @@ jobs:
           cache-dependency-path: |
             backend/go.sum
 
-            - name: Download dependencies
-              working-directory: ./backend
-              run: go mod download
+      - name: Download dependencies
+        working-directory: ./backend
+        run: go mod download
 
-            - name: Run tests
-              working-directory: ./backend
-              run: go test ./... -v
+      - name: Run tests
+        working-directory: ./backend
+        run: go test ./... -v
