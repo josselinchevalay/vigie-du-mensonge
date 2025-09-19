@@ -10,6 +10,8 @@ import (
 	"vdm/core/dependencies/database"
 	"vdm/core/fiberx"
 	"vdm/core/logger"
+
+	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
 func main() {
@@ -28,8 +30,9 @@ func main() {
 	deps := dependencies.New(dbConn)
 
 	app := fiberx.NewApp()
+	app.Use(recover.New())
 
-	api.FiberGroup(deps).Register(app)
+	api.Group(deps).Register(app)
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()

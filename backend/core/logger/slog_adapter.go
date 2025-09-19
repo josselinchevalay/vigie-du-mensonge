@@ -7,15 +7,15 @@ type slogAdapter struct {
 }
 
 func (a slogAdapter) Debug(s string, fields ...Field) {
-	a.inner.Debug(s, fieldsToAttr(fields))
+	a.inner.Debug(s, fieldsToAttr(fields)...)
 }
 
 func (a slogAdapter) Info(s string, fields ...Field) {
-	a.inner.Info(s, fieldsToAttr(fields))
+	a.inner.Info(s, fieldsToAttr(fields)...)
 }
 
 func (a slogAdapter) Error(s string, fields ...Field) {
-	a.inner.Error(s, fieldsToAttr(fields))
+	a.inner.Error(s, fieldsToAttr(fields)...)
 }
 
 func newSlogAdapter(inner *slog.Logger) *slogAdapter {

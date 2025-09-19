@@ -111,7 +111,7 @@ CREATE TABLE refresh_tokens
     CONSTRAINT pk_refresh_tokens PRIMARY KEY (id),
 
     user_id UUID        NOT NULL,
-    CONSTRAINT fk_refresh_tokens_user FOREIGN KEY (user_id) REFERENCES users (id),
+    CONSTRAINT fk_refresh_tokens_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
 
     expiry  TIMESTAMPTZ NOT NULL
 );

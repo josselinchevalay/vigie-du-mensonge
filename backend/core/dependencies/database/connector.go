@@ -54,7 +54,7 @@ func (p *pgConnector) GormDB() *gorm.DB { return p.db }
 func (p *pgConnector) Migrate() error {
 	return p.db.AutoMigrate(
 		&models.Politician{}, &models.Occupation{}, &models.Government{},
-		&models.User{}, &models.Role{}, &models.UserRole{},
+		&models.User{}, &models.Role{}, &models.UserRole{}, &models.RefreshToken{},
 		&models.Article{}, &models.ArticlePolitician{}, &models.ArticleReview{}, &models.ArticleTag{}, &models.ArticleSource{},
 	)
 }

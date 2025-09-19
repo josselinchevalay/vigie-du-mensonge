@@ -40,6 +40,7 @@ func (cfg Database) DSN() string {
 
 type Env struct {
 	ActiveProfile string
+	AllowOrigins  string
 	Database      Database
 	Security      Security
 }
@@ -126,6 +127,7 @@ func load() (Env, error) {
 
 	c := Env{
 		ActiveProfile: getEnv("ACTIVE_PROFILE", "test"),
+		AllowOrigins:  getEnv("ALLOW_ORIGINS", ""),
 		Database:      dbConfig,
 		Security:      securityConfig,
 	}

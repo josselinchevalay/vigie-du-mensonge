@@ -15,5 +15,7 @@ func (d *Dependencies) GormDB() *gorm.DB {
 }
 
 func New(dbConnector database.Connector) *Dependencies {
-	return &Dependencies{dbConnector: dbConnector}
+	return &Dependencies{
+		dbConnector: dbConnector,
+	}
 }
