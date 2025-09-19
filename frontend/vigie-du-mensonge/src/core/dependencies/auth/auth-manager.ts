@@ -4,7 +4,7 @@ import {AuthClient} from "@/core/dependencies/auth/auth-client.ts";
 import {toast} from "sonner";
 
 class AuthManager {
-    private readonly authClient = new AuthClient();
+    private readonly client = new AuthClient();
     private refreshing = false;
 
     authStore = new Store<Auth | null>(null);
@@ -15,7 +15,7 @@ class AuthManager {
     }
 
     async signIn(credentials: { email: string; password: string }): Promise<Auth> {
-        const auth = await this.authClient.signIn(credentials);
+        const auth = await this.client.signIn(credentials);
 
         auth.saveToStorage();
 
@@ -24,7 +24,7 @@ class AuthManager {
     }
 
     async signUp(credentials: { email: string; password: string }): Promise<Auth> {
-        const auth = await this.authClient.signUp(credentials);
+        const auth = await this.client.signUp(credentials);
 
         auth.saveToStorage();
 
@@ -39,23 +39,25 @@ class AuthManager {
         this.refreshing = true;
 
         try {
-            const freshAuth = await this.authClient.refresh();
+            const freshAuth = await this.client.refresh();
             freshAuth.saveToStorage();
 
             this.authStore.setState(() => freshAuth);
             return freshAuth;
         } catch {
             this.authStore.setState(() => null);
-            try {
-                localStorage.removeItem(Auth.STORAGE_KEY);
-            } catch {
-                /* ignore storage removal errors */
-            }
+            Auth.clearStorage();
             toast('Votre session a expiré.');
             return null;
         } finally {
             this.refreshing = false;
         }
+    }
+
+    signOut() {
+        Auth.clearStorage();
+        this.authStore.setState(() => null);
+        this.client.signOut();
     }
 }
 

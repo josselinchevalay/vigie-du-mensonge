@@ -11,5 +11,3 @@ signOut:
         description: Déconnexion réussie
         Set-Cookie:
           $ref: "../../components/headers.yml#/headers/ClearAuthCookies"
-      '401':
-        $ref: "../../openapi.yml#/components/responses/Error401"

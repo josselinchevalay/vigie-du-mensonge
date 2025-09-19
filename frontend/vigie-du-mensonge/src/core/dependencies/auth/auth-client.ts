@@ -8,6 +8,16 @@ export type AuthCredentials = {
 
 export class AuthClient {
 
+    async signIn(credentials: AuthCredentials): Promise<Auth> {
+        const res = await api
+            .post("auth/sign-in", {
+                json: credentials,
+            })
+            .json<AuthJson>();
+
+        return Auth.fromJson(res);
+    }
+
     async signUp(credentials: AuthCredentials): Promise<Auth> {
         const res = await api
             .post("auth/sign-up", {
@@ -26,13 +36,7 @@ export class AuthClient {
         return Auth.fromJson(res);
     }
 
-    async signIn(credentials: AuthCredentials): Promise<Auth> {
-        const res = await api
-            .post("auth/sign-in", {
-                json: credentials,
-            })
-            .json<AuthJson>();
-
-        return Auth.fromJson(res);
+    async signOut(): Promise<void> {
+        await api.post("auth/sign-out");
     }
 }

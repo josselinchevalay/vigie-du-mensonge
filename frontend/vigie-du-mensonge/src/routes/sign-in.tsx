@@ -1,13 +1,13 @@
 import {createFileRoute, redirect} from "@tanstack/react-router";
 import {authManager} from "@/core/dependencies/auth/auth-manager.ts";
-import {SignUpForm} from "@/core/components/auth/SignUpForm.tsx";
+import { SignInForm } from "@/core/components/auth/SignInForm";
 
-export const Route = createFileRoute('/sign-up')({
+export const Route = createFileRoute('/sign-in')({
     beforeLoad: () => {
         const isAuthenticated = authManager.authStore.state !== null;
         if (isAuthenticated) {
             throw redirect({to: '/', replace: true});
         }
     },
-    component: SignUpForm,
+    component: SignInForm,
 });

@@ -146,6 +146,12 @@ func (e Env) validate() error {
 		if len(e.Security.AccessTokenSecret) == 0 {
 			return fmt.Errorf("ACCESS_TOKEN_SECRET is required in prod")
 		}
+		if len(e.Security.EmailVerificationTokenSecret) == 0 {
+			return fmt.Errorf("EMAIL_VERIFICATION_TOKEN_SECRET is required in prod")
+		}
+		if len(e.Security.PasswordUpdateTokenSecret) == 0 {
+			return fmt.Errorf("PASSWORD_UPDATE_TOKEN_SECRET is required in prod")
+		}
 		if e.Database.Host == "" || e.Database.User == "" || e.Database.Name == "" {
 			return fmt.Errorf("DB_* vars (host,user,name) are required in prod")
 		}

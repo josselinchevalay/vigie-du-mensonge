@@ -8,6 +8,7 @@ import {Button} from "@/core/shadcn/components/ui/button";
 import {authManager} from "@/core/dependencies/auth/auth-manager";
 import {useNavigate} from "@tanstack/react-router";
 import { toast } from "sonner";
+import { Eye, EyeOff } from "lucide-react";
 
 // Schema aligned with AuthClient.signUp requirements
 const signUpSchema = z
@@ -38,6 +39,8 @@ export function SignUpForm() {
         mode: "onSubmit",
     });
 
+    const [showPassword, setShowPassword] = React.useState(false);
+
     const onSubmit = async (values: SignUpInput) => {
         setSuccess(false);
         try {
@@ -57,7 +60,7 @@ export function SignUpForm() {
                 status = e.response?.status;
             }
             const message = status === 409
-                ? 'Cette adresse email est déjà associée à un compte'
+                ? 'Cette adresse email est déjà associée à un compte.'
                 : 'Une erreur est survenue. Veuillez réessayer.';
             toast.error(message);
         }
@@ -80,7 +83,7 @@ export function SignUpForm() {
                             <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input type="email" placeholder="vous@example.com"
+                                    <Input type="email" placeholder="vous@exemple.com"
                                            autoComplete="email" {...field} />
                                 </FormControl>
                                 <FormMessage/>
@@ -95,8 +98,27 @@ export function SignUpForm() {
                             <FormItem>
                                 <FormLabel>Mot de passe</FormLabel>
                                 <FormControl>
-                                    <Input type="password" placeholder="••••••••"
-                                           autoComplete="new-password" {...field} />
+                                    <div className="relative">
+                                        <Input
+                                            type={showPassword ? "text" : "password"}
+                                            placeholder="••••••••"
+                                            autoComplete="new-password"
+                                            className="pr-10"
+                                            {...field}
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowPassword(v => !v)}
+                                            className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground hover:text-foreground"
+                                            aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+                                        >
+                                            {showPassword ? (
+                                                <EyeOff className="h-4 w-4" aria-hidden="true" />
+                                            ) : (
+                                                <Eye className="h-4 w-4" aria-hidden="true" />
+                                            )}
+                                        </button>
+                                    </div>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
@@ -110,8 +132,27 @@ export function SignUpForm() {
                             <FormItem>
                                 <FormLabel>Confirmer le mot de passe</FormLabel>
                                 <FormControl>
-                                    <Input type="password" placeholder="••••••••"
-                                           autoComplete="new-password" {...field} />
+                                    <div className="relative">
+                                        <Input
+                                            type={showPassword ? "text" : "password"}
+                                            placeholder="••••••••"
+                                            autoComplete="new-password"
+                                            className="pr-10"
+                                            {...field}
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowPassword(v => !v)}
+                                            className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground hover:text-foreground"
+                                            aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+                                        >
+                                            {showPassword ? (
+                                                <EyeOff className="h-4 w-4" aria-hidden="true" />
+                                            ) : (
+                                                <Eye className="h-4 w-4" aria-hidden="true" />
+                                            )}
+                                        </button>
+                                    </div>
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>

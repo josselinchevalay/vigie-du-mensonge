@@ -81,4 +81,12 @@ export class Auth {
             // ignore if storage not available
         }
     }
+
+    public static clearStorage(): void {
+        try {
+            localStorage.removeItem(Auth.STORAGE_KEY);
+        } catch {
+            // ignore storage errors
+        }
+    }
 }

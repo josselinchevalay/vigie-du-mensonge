@@ -90,7 +90,7 @@ func TestIntegration_Refresh_Success(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	var resDTO Response
+	var resDTO RefreshResponse
 	if err = json.Unmarshal(resBody, &resDTO); err != nil {
 		t.Fatal(err)
 	}
