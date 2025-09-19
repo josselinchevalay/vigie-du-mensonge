@@ -4,8 +4,8 @@ services:
     build:
       context: database
     container_name: vdm_db
-#    volumes:
-#      - vdm_pg_data:/var/lib/postgresql/data
+    volumes:
+      - vdm_pg_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
@@ -39,5 +39,5 @@ services:
       db:
         condition: service_healthy
 
-#volumes:
-#  vdm_pg_data:
+volumes:
+  vdm_pg_data:
