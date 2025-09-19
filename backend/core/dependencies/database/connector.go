@@ -2,7 +2,6 @@ package database
 
 import (
 	"fmt"
-	"time"
 	"vdm/core/env"
 	"vdm/core/models"
 
@@ -22,16 +21,11 @@ type pgConnector struct {
 }
 
 func NewConnector() (Connector, error) {
-	dsn := "host=" + env.DatabaseHost() +
-		" user=" + env.DatabaseUser() +
-		" password=" + env.DatabasePassword() +
-		" dbname=" + env.DatabaseName() +
-		" port=" + env.DatabasePort() +
-		" sslmode=" + env.DatabaseSSLMode()
-
 	gormConfig := &gorm.Config{
 		Logger: gormLogger.Default.LogMode(gormLogger.Silent),
 	}
+
+	dsn := env.Config.Database.DSN()
 
 	gormDB, err := gorm.Open(postgres.Open(dsn), gormConfig)
 	if err != nil {
@@ -43,10 +37,10 @@ func NewConnector() (Connector, error) {
 		return nil, fmt.Errorf("failed to get sql.DB from gorm.DB: %v", err)
 	}
 
-	sqlDB.SetConnMaxLifetime(time.Hour)
-	sqlDB.SetConnMaxIdleTime(time.Minute * 30)
-	sqlDB.SetMaxOpenConns(10)
-	sqlDB.SetMaxIdleConns(5)
+	sqlDB.SetConnMaxLifetime(env.Config.Database.ConnMaxLifetime)
+	sqlDB.SetConnMaxIdleTime(env.Config.Database.ConnMaxIdleTime)
+	sqlDB.SetMaxOpenConns(env.Config.Database.MaxOpenConns)
+	sqlDB.SetMaxIdleConns(env.Config.Database.MaxIdleConns)
 
 	if err := sqlDB.Ping(); err != nil {
 		return nil, fmt.Errorf("failed to ping database: %v", err)

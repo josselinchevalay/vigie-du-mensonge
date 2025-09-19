@@ -1,5 +1,5 @@
 # Utiliser l'image officielle PostgreSQL
-FROM postgres:16
+FROM postgres:17
 
 # Définir les variables d'environnement pour PostgreSQL
 ENV POSTGRES_DB=vdm_db

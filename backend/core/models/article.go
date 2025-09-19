@@ -14,14 +14,14 @@ type ArticleStatus string
 type ArticleCategory string
 
 const (
-	ArticleStatusDraft          ArticleStatus = "DRAFT"
-	ArticleStatusPublished      ArticleStatus = "PUBLISHED"
-	ArticleStatusArchived       ArticleStatus = "ARCHIVED"
-	ArticleStatusUnderReview    ArticleStatus = "UNDER_REVIEW"
+	ArticleStatusDraft           ArticleStatus = "DRAFT"
+	ArticleStatusPublished       ArticleStatus = "PUBLISHED"
+	ArticleStatusArchived        ArticleStatus = "ARCHIVED"
+	ArticleStatusUnderReview     ArticleStatus = "UNDER_REVIEW"
 	ArticleStatusChangeRequested ArticleStatus = "CHANGE_REQUESTED"
 
-	ArticleCategoryLie          ArticleCategory = "LIE"
-	ArticleCategoryCounterTruth ArticleCategory = "COUNTER_TRUTH"
+	ArticleCategoryLie       ArticleCategory = "LIE"
+	ArticleCategoryFalsehood ArticleCategory = "FALSEHOOD"
 )
 
 // Article represents the articles table

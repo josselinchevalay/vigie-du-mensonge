@@ -81,7 +81,7 @@ CREATE TABLE roles
 CREATE TABLE users
 (
     id             UUID        NOT NULL DEFAULT gen_random_uuid(),
-    CONSTRAINT pk_articles PRIMARY KEY (id),
+    CONSTRAINT pk_users PRIMARY KEY (id),
 
     email          TEXT        NOT NULL,
     CONSTRAINT uq_users_email UNIQUE (email),
@@ -105,6 +105,20 @@ CREATE TABLE user_roles
 );
 
 
+CREATE TABLE refresh_tokens
+(
+    id      UUID        NOT NULL DEFAULT gen_random_uuid(),
+    CONSTRAINT pk_refresh_tokens PRIMARY KEY (id),
+
+    user_id UUID        NOT NULL,
+    CONSTRAINT fk_refresh_tokens_user FOREIGN KEY (user_id) REFERENCES users (id),
+
+    expiry  TIMESTAMPTZ NOT NULL
+);
+
+CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_refresh_tokens_expiry ON refresh_tokens (expiry);
+
+
 CREATE TABLE articles
 (
     id           UUID        NOT NULL DEFAULT gen_random_uuid(),
@@ -121,7 +135,7 @@ CREATE TABLE articles
                                          ('DRAFT', 'PUBLISHED', 'ARCHIVED', 'UNDER_REVIEW', 'CHANGE_REQUESTED')),
 
     category     TEXT        NOT NULL,
-    CONSTRAINT ck_articles_category CHECK (category IN ('LIE', 'COUNTER_TRUTH')),
+    CONSTRAINT ck_articles_category CHECK (category IN ('LIE', 'FALSEHOOD')),
 
     title        TEXT        NOT NULL,
     body         TEXT        NOT NULL,

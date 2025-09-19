@@ -146,7 +146,7 @@ schemas:
       notes: { type: string }
   ArticleCategory:
     type: string
-    enum: [ COUNTER_TRUTH, LIE ]
+    enum: [ FALSEHOOD, LIE ]
   UserRole:
     type: string
     enum: [ ADMIN, MODERATOR, REDACTOR ]

@@ -8,6 +8,7 @@ erDiagram
         UUID id PK
         TEXT last_name
         TEXT first_name
+        TEXT image_url
         TIMESTAMPTZ created_at
         TIMESTAMPTZ updated_at
         TIMESTAMPTZ deleted_at
@@ -59,6 +60,12 @@ erDiagram
     USER_ROLES {
         UUID user_id PK
         UUID role_id PK
+    }
+    
+    REFRESH_TOKENS {
+        UUID id PK
+        UUID user_id FK
+        TIMESTAMPTZ expiry
     }
 
     ARTICLES {
