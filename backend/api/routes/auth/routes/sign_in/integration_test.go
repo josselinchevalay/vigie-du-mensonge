@@ -97,7 +97,7 @@ func TestIntegration_SignIn_Success(t *testing.T) {
 	if err := json.Unmarshal(body, &dto); err != nil {
 		t.Fatal(err)
 	}
-	assert.Equal(t, 2, len(dto.Roles))
+	assert.Equal(t, testUser.MapRoles(), dto.Roles)
 }
 
 func TestIntegration_SignIn_Unauthorized(t *testing.T) {

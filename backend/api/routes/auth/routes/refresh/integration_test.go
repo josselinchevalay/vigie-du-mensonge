@@ -96,7 +96,7 @@ func TestIntegration_Refresh_Success(t *testing.T) {
 	}
 
 	assert.True(t, resDTO.EmailVerified)
-	assert.Equal(t, 2, len(resDTO.Roles))
+	assert.Equal(t, testUser.MapRoles(), resDTO.Roles)
 }
 
 func TestIntegration_Refresh_ErrUnauthorized(t *testing.T) {
