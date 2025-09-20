@@ -1,7 +1,7 @@
 import {Link} from '@tanstack/react-router';
 import {useEffect, useMemo, useState} from 'react';
 import {Moon, Sun} from 'lucide-react';
-import {authManager} from "@/core/dependencies/auth/auth-manager.ts";
+import {authManager} from "@/core/dependencies/auth/authManager.ts";
 import {useStore} from "@tanstack/react-store";
 import {Button} from "../shadcn/components/ui/button";
 

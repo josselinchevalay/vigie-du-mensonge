@@ -5,7 +5,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/core/shadcn/components/ui/form";
 import {Input} from "@/core/shadcn/components/ui/input";
 import {Button} from "@/core/shadcn/components/ui/button";
-import {authManager} from "@/core/dependencies/auth/auth-manager";
+import {authManager} from "@/core/dependencies/auth/authManager.ts";
 import {useNavigate} from "@tanstack/react-router";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";

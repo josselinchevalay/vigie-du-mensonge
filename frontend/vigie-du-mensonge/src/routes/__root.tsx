@@ -1,10 +1,10 @@
-import AppBar from "@/core/components/app-bar";
+import AppBar from "@/core/components/AppBar.tsx";
 import {Toaster} from "@/core/shadcn/components/ui/sonner";
 import {createRootRoute, Outlet} from '@tanstack/react-router';
 import {TanStackRouterDevtools} from '@tanstack/react-router-devtools';
 import { useEffect, useRef } from 'react';
-import { authManager } from '@/core/dependencies/auth/auth-manager';
-import { AuthRefreshScheduler } from '@/core/dependencies/auth/auth-refresh-scheduler';
+import { authManager } from '@/core/dependencies/auth/authManager.ts';
+import { AuthRefreshScheduler } from '@/core/dependencies/auth/authRefreshScheduler.ts';
 
 const RootLayout = () => {
     const schedulerRef = useRef<AuthRefreshScheduler | null>(null);
