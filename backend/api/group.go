@@ -2,7 +2,9 @@ package api
 
 import (
 	"vdm/api/middlewares/cors"
+	"vdm/api/middlewares/locals_authed_user"
 	"vdm/api/routes/auth"
+	"vdm/api/routes/email_verification"
 	"vdm/core/dependencies"
 	"vdm/core/fiberx"
 
@@ -15,8 +17,13 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	group := fiberx.NewGroup(Prefix)
 
 	group.Add(
-		cors.Middleware(),
+		cors.Middleware(deps.Config.AllowOrigins),
+
 		auth.Group(deps),
+
+		locals_authed_user.Middleware(deps.Config.Security),
+
+		email_verification.Group(deps),
 	)
 
 	return group

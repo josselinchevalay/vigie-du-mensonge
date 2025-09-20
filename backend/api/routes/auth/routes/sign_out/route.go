@@ -14,11 +14,11 @@ const (
 	Method = fiber.MethodPost
 )
 
-func Route(db *gorm.DB) *fiberx.Route {
+func Route(db *gorm.DB, cfg env.SecurityConfig) *fiberx.Route {
 	repo := &repository{db}
 	service := &service{
 		repo:              repo,
-		accessTokenSecret: env.Config.Security.AccessTokenSecret,
+		accessTokenSecret: cfg.AccessTokenSecret,
 	}
 	handler := &handler{service}
 

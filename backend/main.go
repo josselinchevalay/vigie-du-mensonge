@@ -17,7 +17,17 @@ import (
 )
 
 func main() {
-	dbConn, err := database.NewConnector(env.Config.Database)
+	cfg, err := env.LoadConfig()
+	if err != nil {
+		logger.Error("failed to load config", logger.Err(err))
+		os.Exit(1)
+	}
+	if err := cfg.Validate(); err != nil {
+		logger.Error("invalid config", logger.Err(err))
+		os.Exit(1)
+	}
+
+	dbConn, err := database.NewConnector(cfg.Database)
 	if err != nil {
 		logger.Error("failed to init database", logger.Err(err))
 		os.Exit(1)
@@ -29,7 +39,7 @@ func main() {
 		}
 	}(dbConn)
 
-	deps := dependencies.New(dbConn, mailer.New(env.Config.Mailer))
+	deps := dependencies.New(cfg, dbConn, mailer.New(cfg.Mailer))
 
 	app := fiberx.NewApp()
 	app.Use(recover.New())

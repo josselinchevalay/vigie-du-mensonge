@@ -16,12 +16,12 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	group := fiberx.NewGroup(Prefix)
 
 	group.Add(
-		set_auth_cookies.Middleware(),
+		set_auth_cookies.Middleware(deps.Config.ActiveProfile == "prod"),
 
-		sign_up.Route(deps.GormDB()),
-		sign_in.Route(deps.GormDB()),
-		refresh.Route(deps.GormDB()),
-		sign_out.Route(deps.GormDB()),
+		sign_up.Route(deps.GormDB(), deps.Config.Security),
+		sign_in.Route(deps.GormDB(), deps.Config.Security),
+		refresh.Route(deps.GormDB(), deps.Config.Security),
+		sign_out.Route(deps.GormDB(), deps.Config.Security),
 	)
 
 	return group

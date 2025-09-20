@@ -1,6 +1,7 @@
 package set_auth_cookies
 
 import (
+	"net/http"
 	"net/http/httptest"
 	"testing"
 	"time"
@@ -16,7 +17,7 @@ import (
 func TestHandler_Success(t *testing.T) {
 	app := fiberx.NewApp()
 
-	Middleware().Register(app)
+	Middleware(true).Register(app)
 
 	accessToken := locals.AccessToken{Token: "test", Expiry: time.Now()}
 	refreshToken := locals.RefreshToken{Token: uuid.New(), Expiry: time.Now()}
@@ -36,5 +37,7 @@ func TestHandler_Success(t *testing.T) {
 
 	assert.Equal(t, fiber.StatusOK, res.StatusCode)
 	assert.Equal(t, accessToken.Token, res.Cookies()[0].Value)
+	assert.Equal(t, http.SameSiteStrictMode, res.Cookies()[0].SameSite)
 	assert.Equal(t, refreshToken.Token.String(), res.Cookies()[1].Value)
+	assert.Equal(t, http.SameSiteStrictMode, res.Cookies()[1].SameSite)
 }

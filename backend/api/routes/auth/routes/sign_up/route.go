@@ -13,13 +13,13 @@ const (
 	Method = fiber.MethodPost
 )
 
-func Route(db *gorm.DB) *fiberx.Route {
+func Route(db *gorm.DB, cfg env.SecurityConfig) *fiberx.Route {
 	repo := &repository{db}
 	svc := &service{
 		repo:              repo,
-		accessTokenSecret: env.Config.Security.AccessTokenSecret,
-		accessTokenTTL:    env.Config.Security.AccessTokenTTL,
-		refreshTokenTTL:   env.Config.Security.RefreshTokenTTL,
+		accessTokenSecret: cfg.AccessTokenSecret,
+		accessTokenTTL:    cfg.AccessTokenTTL,
+		refreshTokenTTL:   cfg.RefreshTokenTTL,
 	}
 	handler := &handler{svc: svc}
 

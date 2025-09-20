@@ -1,10 +1,11 @@
-package database
+package test_utils
 
 import (
 	"context"
 	"fmt"
 	"testing"
 	"time"
+	"vdm/core/dependencies/database"
 
 	"github.com/docker/go-connections/nat"
 	"github.com/testcontainers/testcontainers-go"
@@ -13,7 +14,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func NewTestContainerConnector(c context.Context, t *testing.T) (testcontainers.Container, Connector) {
+func NewTestContainerConnector(c context.Context, t *testing.T) (testcontainers.Container, database.Connector) {
 	container, ip, port := startPostgresContainer(c, t)
 
 	connector, err := newPostgresTestContainerConnector(ip, port.Port(), "disable")
@@ -77,7 +78,7 @@ func startPostgresContainer(c context.Context, t *testing.T) (testcontainers.Con
 	return postgresC, ip, port
 }
 
-func newPostgresTestContainerConnector(host, port, sslMode string) (Connector, error) {
+func newPostgresTestContainerConnector(host, port, sslMode string) (database.Connector, error) {
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
 		host, "postgres", "postgres", "test_db", port, sslMode)
 
@@ -100,5 +101,5 @@ func newPostgresTestContainerConnector(host, port, sslMode string) (Connector, e
 		return nil, fmt.Errorf("failed to connect to postgres: %w", err)
 	}
 
-	return &pgConnector{db: db}, nil
+	return &database.PostgresConnector{DB: db}, nil
 }

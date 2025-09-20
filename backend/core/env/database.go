@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-type Database struct {
+type DatabaseConfig struct {
 	Host            string
 	User            string
 	Password        string
@@ -19,33 +19,33 @@ type Database struct {
 	MaxIdleConns    int
 }
 
-func (cfg Database) DSN() string {
+func (cfg DatabaseConfig) DSN() string {
 	return fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
 		cfg.Host, cfg.User, cfg.Password, cfg.Name, cfg.Port, cfg.SSLMode)
 }
 
-func loadDatabaseConfig() (Database, error) {
+func loadDatabaseConfig() (DatabaseConfig, error) {
 	dbConnMaxLifetime, err := time.ParseDuration(getEnv("DB_CONN_MAX_LIFETIME", "10m"))
 	if err != nil {
-		return Database{}, fmt.Errorf("failed to parse DB_CONN_MAX_LIFETIME: %v", err)
+		return DatabaseConfig{}, fmt.Errorf("failed to parse DB_CONN_MAX_LIFETIME: %v", err)
 	}
 
 	dbConnMaxIdleTime, err := time.ParseDuration(getEnv("DB_CONN_MAX_IDLE_TIME", "5m"))
 	if err != nil {
-		return Database{}, fmt.Errorf("failed to parse DB_CONN_MAX_IDLE_TIME: %v", err)
+		return DatabaseConfig{}, fmt.Errorf("failed to parse DB_CONN_MAX_IDLE_TIME: %v", err)
 	}
 
 	dbMaxOpenConns, err := strconv.Atoi(getEnv("DB_MAX_OPEN_CONNS", "2"))
 	if err != nil {
-		return Database{}, fmt.Errorf("failed to parse DB_MAX_OPEN_CONNS: %v", err)
+		return DatabaseConfig{}, fmt.Errorf("failed to parse DB_MAX_OPEN_CONNS: %v", err)
 	}
 
 	dbMaxIdleConns, err := strconv.Atoi(getEnv("DB_MAX_IDLE_CONNS", "1"))
 	if err != nil {
-		return Database{}, fmt.Errorf("failed to parse DB_MAX_IDLE_CONNS: %v", err)
+		return DatabaseConfig{}, fmt.Errorf("failed to parse DB_MAX_IDLE_CONNS: %v", err)
 	}
 
-	return Database{
+	return DatabaseConfig{
 		Host:            getEnv("DB_HOST", ""),
 		User:            getEnv("DB_USER", ""),
 		Password:        getEnv("DB_PASSWORD", ""),

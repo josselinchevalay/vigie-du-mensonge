@@ -1,12 +1,11 @@
 package set_auth_cookies
 
 import (
-	"vdm/core/env"
 	"vdm/core/fiberx"
 )
 
-func Middleware() *fiberx.Middleware {
-	handler := &handler{isProd: env.Config.ActiveProfile == "prod"}
+func Middleware(isProd bool) *fiberx.Middleware {
+	handler := &handler{isProd: isProd}
 
 	if handler.isProd {
 		handler.sameSite = "Strict"

@@ -2,60 +2,46 @@ package env
 
 import (
 	"fmt"
-	"log"
 	"os"
 )
 
-type Env struct {
+type Config struct {
 	ActiveProfile string
 	AllowOrigins  string
-	Database      Database
-	Security      Security
-	Mailer        Mailer
+	BaseURL       string
+	Database      DatabaseConfig
+	Security      SecurityConfig
+	Mailer        MailerConfig
 }
 
-var Config = mustLoad()
-
-func mustLoad() Env {
-	config, err := load()
-
-	if err != nil {
-		log.Fatalf("failed to load env: %v", err)
-	}
-
-	if err = config.validate(); err != nil {
-		log.Fatalf("invalid env: %v", err)
-	}
-
-	return config
-}
-
-func load() (Env, error) {
+func LoadConfig() (Config, error) {
 	securityConfig, err := loadSecurityConfig()
 	if err != nil {
-		return Env{}, fmt.Errorf("failed to load security config: %v", err)
+		return Config{}, fmt.Errorf("failed to load security config: %v", err)
 	}
 
 	dbConfig, err := loadDatabaseConfig()
 	if err != nil {
-		return Env{}, fmt.Errorf("failed to load database config: %v", err)
+		return Config{}, fmt.Errorf("failed to load database config: %v", err)
 	}
 
 	mailerConfig, err := loadMailerConfig()
 	if err != nil {
-		return Env{}, fmt.Errorf("failed to load mailer config: %v", err)
+		return Config{}, fmt.Errorf("failed to load mailer config: %v", err)
 	}
 
-	return Env{
+	return Config{
 		ActiveProfile: getEnv("ACTIVE_PROFILE", "test"),
 		AllowOrigins:  getEnv("ALLOW_ORIGINS", ""),
+		BaseURL:       getEnv("BASE_URL", ""),
 		Database:      dbConfig,
 		Security:      securityConfig,
 		Mailer:        mailerConfig,
 	}, nil
 }
 
-func (e Env) validate() error {
+func (e Config) Validate() error {
+	//TODO: split validation into separate functions
 	if e.Security.AccessTokenTTL <= 0 {
 		return fmt.Errorf("ACCESS_TOKEN_TTL must be > 0")
 	}

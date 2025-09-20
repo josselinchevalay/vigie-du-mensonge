@@ -9,9 +9,11 @@ import (
 	"testing"
 	"time"
 	"vdm/core/dependencies/database"
+	"vdm/core/env"
 	"vdm/core/fiberx"
 	"vdm/core/locals/local_keys"
 	"vdm/core/models"
+	"vdm/test_utils"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
@@ -29,7 +31,7 @@ var validRft = &models.RefreshToken{UserID: testUser.ID, Expiry: time.Now().Add(
 var expiredRft = &models.RefreshToken{UserID: testUser.ID, Expiry: time.Now().Add(-1 * time.Minute)}
 
 func loadTestData(c context.Context, t *testing.T) (container testcontainers.Container, connector database.Connector) {
-	container, connector = database.NewTestContainerConnector(c, t)
+	container, connector = test_utils.NewTestContainerConnector(c, t)
 
 	db := connector.GormDB()
 
@@ -71,7 +73,10 @@ func TestIntegration_Refresh_Success(t *testing.T) {
 	t.Cleanup(func() { cleanupTestData(c, t, container, connector) })
 
 	app := fiberx.NewApp()
-	Route(connector.GormDB()).Register(app)
+
+	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret"), AccessTokenTTL: 1 * time.Minute, RefreshTokenTTL: 1 * time.Minute}
+
+	Route(connector.GormDB(), dummyCfg).Register(app)
 
 	req := httptest.NewRequest(Method, Path, nil)
 	req.AddCookie(&http.Cookie{Name: local_keys.RefreshToken, Value: validRft.ID.String()})
@@ -105,7 +110,10 @@ func TestIntegration_Refresh_ErrUnauthorized(t *testing.T) {
 	t.Cleanup(func() { cleanupTestData(c, t, container, connector) })
 
 	app := fiberx.NewApp()
-	Route(connector.GormDB()).Register(app)
+
+	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret"), AccessTokenTTL: 1 * time.Minute, RefreshTokenTTL: 1 * time.Minute}
+
+	Route(connector.GormDB(), dummyCfg).Register(app)
 
 	req := httptest.NewRequest(Method, Path, nil)
 	req.AddCookie(&http.Cookie{Name: local_keys.RefreshToken, Value: expiredRft.ID.String()})

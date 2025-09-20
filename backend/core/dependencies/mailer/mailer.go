@@ -16,7 +16,7 @@ type mailer struct {
 	from string
 }
 
-func New(config env.Mailer) Mailer {
+func New(config env.MailerConfig) Mailer {
 	return &mailer{
 		Dialer: gomail.NewDialer(config.Host, config.Port, config.Address, config.Password),
 		from:   config.Address,

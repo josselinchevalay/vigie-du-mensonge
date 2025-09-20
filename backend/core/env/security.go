@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type Security struct {
+type SecurityConfig struct {
 	AccessTokenSecret []byte
 	AccessTokenTTL    time.Duration
 	RefreshTokenTTL   time.Duration
@@ -17,28 +17,28 @@ type Security struct {
 	PasswordUpdateTokenTTL    time.Duration
 }
 
-func loadSecurityConfig() (Security, error) {
+func loadSecurityConfig() (SecurityConfig, error) {
 	accessTokenTTL, err := time.ParseDuration(getEnv("ACCESS_TOKEN_TTL", "45s"))
 	if err != nil {
-		return Security{}, fmt.Errorf("failed to parse ACCESS_TOKEN_TTL: %v", err)
+		return SecurityConfig{}, fmt.Errorf("failed to parse ACCESS_TOKEN_TTL: %v", err)
 	}
 
 	refreshTokenTTL, err := time.ParseDuration(getEnv("REFRESH_TOKEN_TTL", "60s"))
 	if err != nil {
-		return Security{}, fmt.Errorf("failed to parse REFRESH_TOKEN_TTL: %v", err)
+		return SecurityConfig{}, fmt.Errorf("failed to parse REFRESH_TOKEN_TTL: %v", err)
 	}
 
 	emailVerificationTokenTTL, err := time.ParseDuration(getEnv("EMAIL_VERIFICATION_TOKEN_TTL", "45s"))
 	if err != nil {
-		return Security{}, fmt.Errorf("failed to parse EMAIL_VERIFICATION_TOKEN_TTL: %v", err)
+		return SecurityConfig{}, fmt.Errorf("failed to parse EMAIL_VERIFICATION_TOKEN_TTL: %v", err)
 	}
 
 	passwordUpdateTokenTTL, err := time.ParseDuration(getEnv("PASSWORD_UPDATE_TOKEN_TTL", "45s"))
 	if err != nil {
-		return Security{}, fmt.Errorf("failed to parse PASSWORD_UPDATE_TOKEN_TTL: %v", err)
+		return SecurityConfig{}, fmt.Errorf("failed to parse PASSWORD_UPDATE_TOKEN_TTL: %v", err)
 	}
 
-	return Security{
+	return SecurityConfig{
 		AccessTokenSecret:            []byte(getEnv("ACCESS_TOKEN_SECRET", "")),
 		AccessTokenTTL:               accessTokenTTL,
 		RefreshTokenTTL:              refreshTokenTTL,

@@ -5,8 +5,8 @@ import (
 	"vdm/core/fiberx"
 )
 
-func Middleware() *fiberx.Middleware {
-	handler := &handler{env.Config.Security.AccessTokenSecret}
+func Middleware(cfg env.SecurityConfig) *fiberx.Middleware {
+	handler := &handler{cfg.AccessTokenSecret}
 
 	return fiberx.NewMiddleware(handler.localsAuthedUser)
 }

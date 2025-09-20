@@ -16,11 +16,11 @@ type Connector interface {
 	GormDB() *gorm.DB
 }
 
-type pgConnector struct {
-	db *gorm.DB
+type PostgresConnector struct {
+	DB *gorm.DB
 }
 
-func NewConnector(config env.Database) (Connector, error) {
+func NewConnector(config env.DatabaseConfig) (Connector, error) {
 	gormConfig := &gorm.Config{
 		Logger: gormLogger.Default.LogMode(gormLogger.Silent),
 	}
@@ -46,21 +46,21 @@ func NewConnector(config env.Database) (Connector, error) {
 		return nil, fmt.Errorf("failed to ping database: %v", err)
 	}
 
-	return &pgConnector{db: gormDB}, nil
+	return &PostgresConnector{DB: gormDB}, nil
 }
 
-func (p *pgConnector) GormDB() *gorm.DB { return p.db }
+func (p *PostgresConnector) GormDB() *gorm.DB { return p.DB }
 
-func (p *pgConnector) Migrate() error {
-	return p.db.AutoMigrate(
+func (p *PostgresConnector) Migrate() error {
+	return p.DB.AutoMigrate(
 		&models.Politician{}, &models.Occupation{}, &models.Government{},
 		&models.User{}, &models.Role{}, &models.UserRole{}, &models.RefreshToken{},
 		&models.Article{}, &models.ArticlePolitician{}, &models.ArticleReview{}, &models.ArticleTag{}, &models.ArticleSource{},
 	)
 }
 
-func (p *pgConnector) Close() error {
-	sqlDB, err := p.db.DB()
+func (p *PostgresConnector) Close() error {
+	sqlDB, err := p.DB.DB()
 	if err != nil {
 		return err
 	}

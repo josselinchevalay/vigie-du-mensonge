@@ -6,9 +6,12 @@ import (
 	"encoding/json"
 	"net/http/httptest"
 	"testing"
+	"time"
 	"vdm/core/dependencies/database"
+	"vdm/core/env"
 	"vdm/core/fiberx"
 	"vdm/core/models"
+	"vdm/test_utils"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/stretchr/testify/assert"
@@ -18,7 +21,7 @@ import (
 var testUser = &models.User{Email: "user0@email.com"}
 
 func loadTestData(c context.Context, t *testing.T) (container testcontainers.Container, connector database.Connector) {
-	container, connector = database.NewTestContainerConnector(c, t)
+	container, connector = test_utils.NewTestContainerConnector(c, t)
 
 	db := connector.GormDB()
 
@@ -52,7 +55,10 @@ func TestIntegration_Success(t *testing.T) {
 	t.Cleanup(func() { cleanupTestData(c, t, container, connector) })
 
 	app := fiberx.NewApp()
-	Route(connector.GormDB()).Register(app)
+
+	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret"), AccessTokenTTL: 1 * time.Minute, RefreshTokenTTL: 1 * time.Minute}
+
+	Route(connector.GormDB(), dummyCfg).Register(app)
 
 	reqDTO := SignUpRequest{
 		Email:    "user1@email.com",
@@ -82,7 +88,10 @@ func TestIntegration_ErrConflict(t *testing.T) {
 	t.Cleanup(func() { cleanupTestData(c, t, container, connector) })
 
 	app := fiberx.NewApp()
-	Route(connector.GormDB()).Register(app)
+
+	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret"), AccessTokenTTL: 1 * time.Minute, RefreshTokenTTL: 1 * time.Minute}
+
+	Route(connector.GormDB(), dummyCfg).Register(app)
 
 	reqDTO := SignUpRequest{
 		Email:    testUser.Email,

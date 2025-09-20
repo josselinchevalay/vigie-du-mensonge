@@ -6,11 +6,13 @@ import (
 	"net/http/httptest"
 	"testing"
 	"vdm/core/dependencies/database"
+	"vdm/core/env"
 	"vdm/core/fiberx"
 	"vdm/core/jwt_utils"
 	"vdm/core/locals"
 	"vdm/core/locals/local_keys"
 	"vdm/core/models"
+	"vdm/test_utils"
 
 	"time"
 
@@ -23,7 +25,7 @@ import (
 var testUser = &models.User{ID: uuid.New(), Email: "signout_user0@email.com", EmailVerified: true}
 
 func loadTestData(c context.Context, t *testing.T) (container testcontainers.Container, connector database.Connector) {
-	container, connector = database.NewTestContainerConnector(c, t)
+	container, connector = test_utils.NewTestContainerConnector(c, t)
 
 	db := connector.GormDB()
 
@@ -64,10 +66,13 @@ func TestIntegration_SignOut_Success(t *testing.T) {
 	t.Cleanup(func() { cleanupTestData(c, t, container, connector) })
 
 	app := fiberx.NewApp()
-	Route(connector.GormDB()).Register(app)
+
+	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret")}
+
+	Route(connector.GormDB(), dummyCfg).Register(app)
 
 	// Generate access token for the user using the same secret as in route (defaults are OK in tests)
-	jwt, err := jwt_utils.GenerateJWT(locals.NewAuthedUser(*testUser), []byte(""), time.Now().Add(time.Minute))
+	jwt, err := jwt_utils.GenerateJWT(locals.NewAuthedUser(*testUser), dummyCfg.AccessTokenSecret, time.Now().Add(time.Minute))
 	if err != nil {
 		t.Fatal(err)
 	}

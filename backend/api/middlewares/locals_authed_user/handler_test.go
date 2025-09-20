@@ -19,7 +19,9 @@ import (
 func TestHandler_Success(t *testing.T) {
 	app := fiberx.NewApp()
 
-	Middleware().Register(app)
+	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret")}
+
+	Middleware(dummyCfg).Register(app)
 
 	input := locals.AuthedUser{ID: uuid.New(), Email: "test@email.com"}
 
@@ -36,7 +38,7 @@ func TestHandler_Success(t *testing.T) {
 
 	req := httptest.NewRequest("GET", "/", nil)
 
-	if jwt, err := jwt_utils.GenerateJWT(input, env.Config.Security.AccessTokenSecret, time.Now().Add(time.Minute)); err != nil {
+	if jwt, err := jwt_utils.GenerateJWT(input, dummyCfg.AccessTokenSecret, time.Now().Add(time.Minute)); err != nil {
 		t.Fatal(err)
 	} else {
 		req.AddCookie(&http.Cookie{Name: local_keys.AccessToken, Value: jwt})
@@ -54,7 +56,9 @@ func TestHandler_Success(t *testing.T) {
 func TestHandler_ErrUnauthorized(t *testing.T) {
 	app := fiberx.NewApp()
 
-	Middleware().Register(app)
+	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret")}
+
+	Middleware(dummyCfg).Register(app)
 
 	input := locals.AuthedUser{ID: uuid.New(), Email: "test@email.com"}
 
@@ -71,7 +75,7 @@ func TestHandler_ErrUnauthorized(t *testing.T) {
 
 	req := httptest.NewRequest("GET", "/", nil)
 
-	if jwt, err := jwt_utils.GenerateJWT(input, env.Config.Security.AccessTokenSecret, time.Now().Add(-time.Minute)); err != nil {
+	if jwt, err := jwt_utils.GenerateJWT(input, dummyCfg.AccessTokenSecret, time.Now().Add(-time.Minute)); err != nil {
 		t.Fatal(err)
 	} else {
 		req.AddCookie(&http.Cookie{Name: local_keys.AccessToken, Value: jwt})

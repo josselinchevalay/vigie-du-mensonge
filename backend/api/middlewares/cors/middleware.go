@@ -2,16 +2,15 @@ package cors
 
 import (
 	"strings"
-	"vdm/core/env"
 	"vdm/core/fiberx"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
-func Middleware() *fiberx.Middleware {
+func Middleware(allowOrigins string) *fiberx.Middleware {
 	return fiberx.NewMiddleware(cors.New(cors.Config{
-		AllowOrigins:     env.Config.AllowOrigins,
+		AllowOrigins:     allowOrigins,
 		AllowHeaders:     allowHeaders(),
 		AllowCredentials: true,
 	}))
