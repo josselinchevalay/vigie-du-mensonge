@@ -36,4 +36,6 @@ jobs:
           fi
 
       - name: Run frontend tests (vitest)
+        env:
+          VITE_API_URL: /api/v1
         run: npm run test:ci
