@@ -1,4 +1,4 @@
-package initiate_email_verification
+package inquire_email_verification
 
 import (
 	"errors"
@@ -19,7 +19,7 @@ type Handler interface {
 type handler struct {
 	emailVerificationTokenSecret []byte
 	emailVerificationTokenTTL    time.Duration
-	fullPath                     string
+	clientURL                    string
 	mailer                       mailer.Mailer
 }
 
@@ -41,8 +41,8 @@ func (h *handler) inquireEmailVerification(c *fiber.Ctx) error {
 	subject := "Vérification de votre adresse e-mail"
 
 	body := fmt.Sprintf(
-		"Cliquez sur le lien ci-dessous pour vérifier l'adresse email de votre compte Vigie du mensonge:\n\n%s?token=%s",
-		h.fullPath, token,
+		"Cliquez sur le lien ci-dessous pour vérifier l'adresse e-mail de votre compte Vigie du mensonge:\n\n%s?token=%s",
+		h.clientURL+"/email-verification", token,
 	)
 
 	if err := h.mailer.Send(authedUser.Email, subject, body); err != nil {

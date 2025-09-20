@@ -5,13 +5,27 @@ import {toast} from "sonner";
 
 class AuthManager {
     private readonly client = new AuthClient();
-    private refreshing = false;
+    private _refreshing = false;
 
-    authStore = new Store<Auth | null>(null);
+    public get refreshing(): boolean {
+        return this._refreshing;
+    }
 
-    init() {
+    public readonly authStore = new Store<Auth | null>(null);
+
+    constructor() {
         const stored = Auth.fromStorage();
+
+        if (!stored || stored.refreshTokenExpired) {
+            this.authStore.setState(() => null);
+            return;
+        }
+
         this.authStore.setState(() => stored);
+
+        if (stored.accessTokenExpired) {
+            void this.refresh();
+        }
     }
 
     async signIn(credentials: { email: string; password: string }): Promise<Auth> {
@@ -33,10 +47,10 @@ class AuthManager {
     }
 
     async refresh(): Promise<Auth | null> {
-        if (this.refreshing) {
+        if (this._refreshing) {
             return this.authStore.state;
         }
-        this.refreshing = true;
+        this._refreshing = true;
 
         try {
             const freshAuth = await this.client.refresh();
@@ -50,14 +64,14 @@ class AuthManager {
             toast('Votre session a expiré.');
             return null;
         } finally {
-            this.refreshing = false;
+            this._refreshing = false;
         }
     }
 
     signOut() {
         Auth.clearStorage();
         this.authStore.setState(() => null);
-        this.client.signOut();
+        void this.client.signOut();
     }
 }
 

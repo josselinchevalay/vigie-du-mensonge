@@ -10,7 +10,7 @@ var globalLogger = initLogger()
 func initLogger() Logger {
 	return newSlogAdapter(
 		slog.New(
-			slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{})))
+			slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug})))
 }
 
 type Field struct {

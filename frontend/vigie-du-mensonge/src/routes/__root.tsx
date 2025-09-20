@@ -10,9 +10,6 @@ const RootLayout = () => {
     const schedulerRef = useRef<AuthRefreshScheduler | null>(null);
 
     useEffect(() => {
-        // Initialize auth from storage on app load
-        authManager.init();
-
         // Create and start scheduler
         const scheduler = new AuthRefreshScheduler({
             getAuth: () => authManager.authStore.state,

@@ -17,6 +17,11 @@ type mailer struct {
 }
 
 func New(config env.MailerConfig) Mailer {
+	logger.Debug("mailer config",
+		logger.Any("host", config.Host),
+		logger.Any("port", config.Port),
+		logger.Any("address", config.Address),
+		logger.Any("password", config.Password))
 	return &mailer{
 		Dialer: gomail.NewDialer(config.Host, config.Port, config.Address, config.Password),
 		from:   config.Address,

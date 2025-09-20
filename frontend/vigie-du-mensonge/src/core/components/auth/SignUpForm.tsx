@@ -7,8 +7,8 @@ import {Input} from "@/core/shadcn/components/ui/input";
 import {Button} from "@/core/shadcn/components/ui/button";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
 import {useNavigate} from "@tanstack/react-router";
-import { toast } from "sonner";
-import { Eye, EyeOff } from "lucide-react";
+import {toast} from "sonner";
+import {Eye, EyeOff} from "lucide-react";
 
 // Schema aligned with AuthClient.signUp requirements
 const signUpSchema = z
@@ -51,7 +51,7 @@ export function SignUpForm() {
 
             setSuccess(true);
             // Navigate to home (or another page if needed later)
-            await navigate({to: "/"});
+            await navigate({to: "/email-verification", search: {token: undefined}});
         } catch (e: unknown) {
             // Inspect error for HTTP status (ky HTTPError has a `response` with `status`)
             let status: number | undefined;
@@ -113,9 +113,9 @@ export function SignUpForm() {
                                             aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
                                         >
                                             {showPassword ? (
-                                                <EyeOff className="h-4 w-4" aria-hidden="true" />
+                                                <EyeOff className="h-4 w-4" aria-hidden="true"/>
                                             ) : (
-                                                <Eye className="h-4 w-4" aria-hidden="true" />
+                                                <Eye className="h-4 w-4" aria-hidden="true"/>
                                             )}
                                         </button>
                                     </div>
@@ -147,9 +147,9 @@ export function SignUpForm() {
                                             aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
                                         >
                                             {showPassword ? (
-                                                <EyeOff className="h-4 w-4" aria-hidden="true" />
+                                                <EyeOff className="h-4 w-4" aria-hidden="true"/>
                                             ) : (
-                                                <Eye className="h-4 w-4" aria-hidden="true" />
+                                                <Eye className="h-4 w-4" aria-hidden="true"/>
                                             )}
                                         </button>
                                     </div>

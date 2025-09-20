@@ -1,4 +1,4 @@
-package initiate_email_verification
+package inquire_email_verification
 
 import (
 	"errors"
@@ -26,7 +26,7 @@ func TestHandler_Inquire_NoAuthedUser_ReturnsInternalServerError(t *testing.T) {
 	h := &handler{
 		emailVerificationTokenSecret: []byte("secret"),
 		emailVerificationTokenTTL:    time.Minute,
-		fullPath:                     "https://example.com/verify",
+		clientURL:                    "https://example.com/verify",
 		mailer:                       m,
 	}
 
@@ -56,7 +56,7 @@ func TestHandler_Inquire_MailerFails_ReturnsInternalServerError(t *testing.T) {
 	h := &handler{
 		emailVerificationTokenSecret: []byte("secret"),
 		emailVerificationTokenTTL:    time.Minute,
-		fullPath:                     "https://example.com/verify",
+		clientURL:                    "https://example.com/verify",
 		mailer:                       m,
 	}
 
@@ -91,7 +91,7 @@ func TestHandler_Inquire_Success_ReturnsNoContent(t *testing.T) {
 	h := &handler{
 		emailVerificationTokenSecret: []byte("secret"),
 		emailVerificationTokenTTL:    time.Minute,
-		fullPath:                     "https://example.com/verify",
+		clientURL:                    "https://example.com/verify",
 		mailer:                       m,
 	}
 

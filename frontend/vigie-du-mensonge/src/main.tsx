@@ -7,7 +7,7 @@ import './index.css';
 import {routeTree} from './routeTree.gen';
 
 // Create a new router instance
-const router = createRouter({
+export const router = createRouter({
     routeTree,
 });
 

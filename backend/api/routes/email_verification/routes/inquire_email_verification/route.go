@@ -1,4 +1,4 @@
-package initiate_email_verification
+package inquire_email_verification
 
 import (
 	"vdm/core/dependencies/mailer"
@@ -9,15 +9,16 @@ import (
 )
 
 const (
-	Path   = "/initiate"
+	Path   = "/inquire"
 	Method = fiber.MethodPost
 )
 
-func Route(cfg env.SecurityConfig, mailer mailer.Mailer) *fiberx.Route {
+func Route(cfg env.SecurityConfig, clientURL string, mailer mailer.Mailer) *fiberx.Route {
 	h := &handler{
 		emailVerificationTokenSecret: cfg.EmailVerificationTokenSecret,
 		emailVerificationTokenTTL:    cfg.EmailVerificationTokenTTL,
 		mailer:                       mailer,
+		clientURL:                    clientURL,
 	}
 	return fiberx.NewRoute(Method, Path, h.inquireEmailVerification)
 }

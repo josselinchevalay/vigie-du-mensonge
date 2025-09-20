@@ -8,7 +8,7 @@ import {Button} from "@/core/shadcn/components/ui/button";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
 import {useNavigate} from "@tanstack/react-router";
 import {toast} from "sonner";
-import { Eye, EyeOff } from "lucide-react";
+import {Eye, EyeOff} from "lucide-react";
 
 const signInSchema = z.object({
     email: z.email("Adresse e-mail invalide"),
@@ -30,7 +30,15 @@ export function SignInForm() {
     const onSubmit = async (values: SignInInput) => {
         try {
             await authManager.signIn({email: values.email, password: values.password});
-            await navigate({to: "/"});
+
+            const auth = authManager.authStore.state;
+
+            if (auth?.emailVerified) {
+                await navigate({to: "/"});
+            } else {
+                await navigate({to: "/email-verification", search: {token: undefined}});
+            }
+
         } catch (e: unknown) {
             let status: number | undefined;
             if (e && typeof e === "object" && "response" in e) {
@@ -94,9 +102,9 @@ export function SignInForm() {
                                             aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
                                         >
                                             {showPassword ? (
-                                                <EyeOff className="h-4 w-4" aria-hidden="true" />
+                                                <EyeOff className="h-4 w-4" aria-hidden="true"/>
                                             ) : (
-                                                <Eye className="h-4 w-4" aria-hidden="true" />
+                                                <Eye className="h-4 w-4" aria-hidden="true"/>
                                             )}
                                         </button>
                                     </div>

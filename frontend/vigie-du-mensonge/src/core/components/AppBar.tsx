@@ -1,4 +1,4 @@
-import {Link} from '@tanstack/react-router';
+import {Link, useLocation} from '@tanstack/react-router';
 import {useEffect, useMemo, useState} from 'react';
 import {Moon, Sun} from 'lucide-react';
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
@@ -36,6 +36,7 @@ export default function AppBar() {
     }, []);
 
     const auth = useStore(authManager.authStore);
+    const location = useLocation();
 
     const [isDark, setIsDark] = useState<boolean>(initialIsDark);
 
@@ -83,17 +84,17 @@ export default function AppBar() {
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-14 items-center justify-between">
                     <Link to="/" className="text-base font-semibold text-foreground">
-                        Vigie du Mensonge
+                        Vigie du mensonge
                     </Link>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
                         <button
                             type="button"
                             aria-label={isDark ? 'Activer le thème clair' : 'Activer le thème sombre'}
                             title={isDark ? 'Mode clair' : 'Mode sombre'}
                             aria-pressed={isDark}
                             onClick={() => setIsDark(v => !v)}
-                            className="inline-flex h-9 w-9 items-center justify-center rounded-md border bg-background text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                            className="inline-flex items-center justify-center rounded-md bg-background text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                         >
                             {isDark ? (
                                 <Sun className="h-4 w-4" aria-hidden="true"/>
@@ -118,7 +119,17 @@ export default function AppBar() {
                                 </Link>
                             </>
                         ) : (
-                            <Button onClick={() => authManager.signOut()}>Déconnexion</Button>
+                            <>
+                                {(!auth.emailVerified && location.pathname !== '/email-verification') && (
+                                    <Link
+                                        to="/email-verification"
+                                        className="inline-flex items-center rounded-md border px-3 py-2 font-medium hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background shrink max-w-[50vw] sm:max-w-none whitespace-nowrap leading-tight text-[clamp(0.625rem,2vw,0.875rem)]"
+                                        search={{token: undefined}}>
+                                        Vérifier mon email
+                                    </Link>
+                                )}
+                                <Button onClick={() => authManager.signOut()}>Déconnexion</Button>
+                            </>
                         )}
                     </div>
                 </div>

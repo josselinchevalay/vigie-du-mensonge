@@ -23,6 +23,7 @@ services:
     environment:
       - "ACTIVE_PROFILE=docker"
       - "ALLOW_ORIGINS=http://localhost:5173"
+      - "CLIENT_URL=http://localhost:5173"
       - "DB_HOST=db"
       - "DB_USER=root"
       - "DB_PASSWORD=root"
@@ -31,6 +32,10 @@ services:
       - "ACCESS_TOKEN_SECRET=dummy_access_token_secret"
       - "ACCESS_TOKEN_TTL=45s"
       - "REFRESH_TOKEN_TTL=60s"
+      - "MAILER_ADDRESS=vigiedumenzonge@gmail.com"
+      - "MAILER_PASSWORD=imnycyndajvzryyd"
+      - "MAILER_HOST=smtp.gmail.com"
+      - "MAILER_PORT=587"
       - "EMAIL_VERIFICATION_TOKEN_SECRET=dummy_email_verification_secret"
       - "EMAIL_VERIFICATION_TOKEN_TTL=10m"
       - "PASSWORD_UPDATE_TOKEN_SECRET=dummy_password_update_secret"

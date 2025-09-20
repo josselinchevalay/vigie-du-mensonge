@@ -18,3 +18,5 @@ emailVerificationProcess:
         $ref: "../../openapi.yml#/components/responses/Error400"
       '401':
         $ref: "../../openapi.yml#/components/responses/Error401"
+      '403':
+        $ref: "../../openapi.yml#/components/responses/Error403"

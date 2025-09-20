@@ -40,13 +40,13 @@ function buildTestRouter(initialPath: string) {
     });
 
     // Minimal home route to navigate to
-    const homeRoute = createRoute({
+    const emailVerificationRoute = createRoute({
         getParentRoute: () => rootRoute,
-        path: '/',
-        component: () => <h3>Welcome Home!</h3>,
+        path: '/email-verification',
+        component: () => <h3>Email Verification</h3>,
     });
 
-    const routeTree = rootRoute.addChildren([homeRoute]);
+    const routeTree = rootRoute.addChildren([emailVerificationRoute]);
     const history = createMemoryHistory({initialEntries: [initialPath]});
     return createRouter({routeTree, history});
 }
@@ -105,7 +105,7 @@ describe('SignUpForm integration (MSW)', () => {
         await vi.waitFor(() => expect(resolver).toHaveBeenCalledTimes(1));
 
         // After MSW sign-up, component should navigate to '/'
-        expect(router.state.location.pathname).toBe('/');
+        expect(router.state.location.pathname).toBe('/email-verification');
     });
 
     it('shows error toast on 409 and stays on the page', async () => {
