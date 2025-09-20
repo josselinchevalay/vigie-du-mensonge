@@ -13,7 +13,7 @@ type Mailer struct {
 }
 
 func loadMailerConfig() (Mailer, error) {
-	mailerPort, err := strconv.Atoi(getEnv("MAILER_PORT", ""))
+	mailerPort, err := strconv.Atoi(getEnv("MAILER_PORT", "587"))
 	if err != nil {
 		return Mailer{}, fmt.Errorf("failed to parse MAILER_PORT: %v", err)
 	}
