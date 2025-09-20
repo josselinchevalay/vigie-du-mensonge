@@ -16,7 +16,7 @@ type handler struct {
 }
 
 func (h *handler) signUp(c *fiber.Ctx) error {
-	var req SignUpRequest
+	var req RequestDTO
 	if err := c.BodyParser(&req); err != nil {
 		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "invalid request body"}
 	}
@@ -32,7 +32,7 @@ func (h *handler) signUp(c *fiber.Ctx) error {
 	c.Locals(local_keys.AccessToken, accessToken)
 	c.Locals(local_keys.RefreshToken, refreshToken)
 
-	return c.Status(fiber.StatusCreated).JSON(SignUpResponse{
+	return c.Status(fiber.StatusCreated).JSON(ResponseDTO{
 		AccessTokenExpiry:  accessToken.Expiry,
 		RefreshTokenExpiry: refreshToken.Expiry,
 	})

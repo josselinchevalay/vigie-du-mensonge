@@ -60,7 +60,7 @@ func TestIntegration_Success(t *testing.T) {
 
 	Route(connector.GormDB(), dummyCfg).Register(app)
 
-	reqDTO := SignUpRequest{
+	reqDTO := RequestDTO{
 		Email:    "user1@email.com",
 		Password: "Test123!",
 	}
@@ -93,7 +93,7 @@ func TestIntegration_ErrConflict(t *testing.T) {
 
 	Route(connector.GormDB(), dummyCfg).Register(app)
 
-	reqDTO := SignUpRequest{
+	reqDTO := RequestDTO{
 		Email:    testUser.Email,
 		Password: "Test123!",
 	}

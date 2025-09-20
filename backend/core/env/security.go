@@ -15,6 +15,9 @@ type SecurityConfig struct {
 
 	PasswordUpdateTokenSecret []byte
 	PasswordUpdateTokenTTL    time.Duration
+
+	CsrfTokenSecret []byte
+	CsrfTokenTTL    time.Duration
 }
 
 func loadSecurityConfig() (SecurityConfig, error) {

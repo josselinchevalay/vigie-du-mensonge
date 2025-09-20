@@ -5,6 +5,7 @@ import (
 	"vdm/api/middlewares/locals_authed_user"
 	"vdm/api/routes/auth"
 	"vdm/api/routes/email_verification"
+	"vdm/api/routes/password_update"
 	"vdm/core/dependencies"
 	"vdm/core/fiberx"
 
@@ -20,6 +21,7 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 		cors.Middleware(deps.Config.AllowOrigins),
 
 		auth.Group(deps),
+		password_update.Group(deps),
 
 		locals_authed_user.Middleware(deps.Config.Security),
 

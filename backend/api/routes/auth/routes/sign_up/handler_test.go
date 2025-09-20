@@ -14,7 +14,7 @@ import (
 
 type nullService struct{}
 
-func (nullService) signUp(req SignUpRequest) (locals.AccessToken, locals.RefreshToken, error) {
+func (nullService) signUp(req RequestDTO) (locals.AccessToken, locals.RefreshToken, error) {
 	return locals.AccessToken{}, locals.RefreshToken{}, nil
 }
 
@@ -42,7 +42,7 @@ func TestHandler_ErrBadRequest2(t *testing.T) {
 	app := fiberx.NewApp()
 	app.Add(Method, Path, h.signUp)
 
-	reqBody, err := json.Marshal(SignUpRequest{})
+	reqBody, err := json.Marshal(RequestDTO{})
 	if err != nil {
 		t.Fatal(err)
 	}

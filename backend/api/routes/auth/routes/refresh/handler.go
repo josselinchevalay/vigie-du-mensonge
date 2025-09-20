@@ -29,7 +29,7 @@ func (h *handler) refresh(c *fiber.Ctx) error {
 	c.Locals(local_keys.AccessToken, accessToken)
 	c.Locals(local_keys.RefreshToken, refreshToken)
 
-	return c.Status(fiber.StatusOK).JSON(RefreshResponse{
+	return c.Status(fiber.StatusOK).JSON(ResponseDTO{
 		AccessTokenExpiry:  accessToken.Expiry,
 		RefreshTokenExpiry: refreshToken.Expiry,
 		EmailVerified:      user.EmailVerified,

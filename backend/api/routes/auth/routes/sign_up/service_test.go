@@ -16,7 +16,7 @@ func TestService_ErrConflict(t *testing.T) {
 	repo := NewMockRepository(mockCtrl)
 	s := &service{repo: repo}
 
-	req := SignUpRequest{
+	req := RequestDTO{
 		Email:    "hello@world.com",
 		Password: "HelloWorld123!",
 	}

@@ -76,7 +76,7 @@ func TestIntegration_SignIn_Success(t *testing.T) {
 
 	Route(connector.GormDB(), dummyCfg).Register(app)
 
-	reqDTO := SignInRequest{
+	reqDTO := RequestDTO{
 		Email:    testUser.Email,
 		Password: "Test123!",
 	}
@@ -98,7 +98,7 @@ func TestIntegration_SignIn_Success(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	var dto SignInResponse
+	var dto ResponseDTO
 	if err := json.Unmarshal(body, &dto); err != nil {
 		t.Fatal(err)
 	}
@@ -116,7 +116,7 @@ func TestIntegration_SignIn_Unauthorized(t *testing.T) {
 
 	Route(connector.GormDB(), dummyCfg).Register(app)
 
-	reqDTO := SignInRequest{
+	reqDTO := RequestDTO{
 		Email:    testUser.Email,
 		Password: "WrongPassword" + time.Now().String(),
 	}
@@ -145,7 +145,7 @@ func TestIntegration_SignIn_NotFound(t *testing.T) {
 
 	Route(connector.GormDB(), dummyCfg).Register(app)
 
-	reqDTO := SignInRequest{
+	reqDTO := RequestDTO{
 		Email:    "unknown_" + strconv.FormatInt(time.Now().UnixNano(), 10) + "@email.com",
 		Password: "SomePassword1!",
 	}

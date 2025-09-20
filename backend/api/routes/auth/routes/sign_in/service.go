@@ -12,7 +12,7 @@ import (
 )
 
 type Service interface {
-	signIn(req SignInRequest) (models.User, locals.AccessToken, locals.RefreshToken, error)
+	signIn(req RequestDTO) (models.User, locals.AccessToken, locals.RefreshToken, error)
 }
 
 type service struct {
@@ -22,7 +22,7 @@ type service struct {
 	repo              Repository
 }
 
-func (s *service) signIn(req SignInRequest) (models.User, locals.AccessToken, locals.RefreshToken, error) {
+func (s *service) signIn(req RequestDTO) (models.User, locals.AccessToken, locals.RefreshToken, error) {
 	user, err := s.repo.findUserByEmail(req.Email)
 	if err != nil {
 		return models.User{}, locals.AccessToken{}, locals.RefreshToken{}, &fiber.Error{Code: fiber.StatusNotFound, Message: "invalid credentials"}

@@ -14,7 +14,7 @@ import (
 )
 
 type Service interface {
-	signUp(req SignUpRequest) (locals.AccessToken, locals.RefreshToken, error)
+	signUp(req RequestDTO) (locals.AccessToken, locals.RefreshToken, error)
 }
 
 type service struct {
@@ -24,7 +24,7 @@ type service struct {
 	repo              Repository
 }
 
-func (s *service) signUp(req SignUpRequest) (locals.AccessToken, locals.RefreshToken, error) {
+func (s *service) signUp(req RequestDTO) (locals.AccessToken, locals.RefreshToken, error) {
 	user := &models.User{Email: req.Email}
 
 	if hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost); err != nil {
