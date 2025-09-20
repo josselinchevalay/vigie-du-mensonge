@@ -4,6 +4,8 @@ emailVerificationProcess:
     description: Valide l’adresse email à partir du token reçu par e-mail.
     tags: [Email Verification]
     operationId: emailVerificationProcess
+    security:
+      - accessCookie: []
     requestBody:
       required: true
       content:
