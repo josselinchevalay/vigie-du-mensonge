@@ -12,7 +12,8 @@ type Handler interface {
 }
 
 type handler struct {
-	isProd bool
+	isProd   bool
+	sameSite string
 }
 
 func (h *handler) setAuthCookies(c *fiber.Ctx) error {
@@ -30,18 +31,11 @@ func (h *handler) setAuthCookies(c *fiber.Ctx) error {
 		return &fiber.Error{Code: fiber.StatusInternalServerError, Message: "refresh token not found"}
 	}
 
-	var sameSite string
-	if h.isProd {
-		sameSite = "Strict"
-	} else {
-		sameSite = "Lax"
-	}
-
 	c.Cookie(&fiber.Cookie{
 		Name:     local_keys.AccessToken,
 		Value:    accessToken.Token,
 		Expires:  accessToken.Expiry,
-		SameSite: sameSite,
+		SameSite: h.sameSite,
 		Secure:   h.isProd,
 		HTTPOnly: true,
 		Path:     "/",
@@ -51,7 +45,7 @@ func (h *handler) setAuthCookies(c *fiber.Ctx) error {
 		Name:     local_keys.RefreshToken,
 		Value:    refreshToken.Token.String(),
 		Expires:  refreshToken.Expiry,
-		SameSite: sameSite,
+		SameSite: h.sameSite,
 		Secure:   h.isProd,
 		HTTPOnly: true,
 		Path:     "/",

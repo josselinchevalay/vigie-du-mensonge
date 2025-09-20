@@ -32,7 +32,7 @@ func main() {
 	app := fiberx.NewApp()
 	app.Use(recover.New())
 
-	api.Group(deps).Register(app)
+	api.Register(app, deps)
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()

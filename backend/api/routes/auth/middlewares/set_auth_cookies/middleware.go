@@ -6,6 +6,13 @@ import (
 )
 
 func Middleware() *fiberx.Middleware {
-	handler := &handler{env.Config.ActiveProfile == "prod"}
+	handler := &handler{isProd: env.Config.ActiveProfile == "prod"}
+
+	if handler.isProd {
+		handler.sameSite = "Strict"
+	} else {
+		handler.sameSite = "Lax"
+	}
+
 	return fiberx.NewMiddleware(handler.setAuthCookies)
 }

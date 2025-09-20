@@ -5,6 +5,8 @@ import (
 	"vdm/api/routes/auth"
 	"vdm/core/dependencies"
 	"vdm/core/fiberx"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 const Prefix = "/api/v1"
@@ -18,4 +20,8 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	)
 
 	return group
+}
+
+func Register(router fiber.Router, deps *dependencies.Dependencies) {
+	Group(deps).Register(router)
 }
