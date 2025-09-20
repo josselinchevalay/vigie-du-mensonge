@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {EmailVerificationController} from '@/core/dependencies/email_verification/emailVerificationController';
-import {toast} from 'sonner';
+import {toast} from '@/core/utils/toast';
 import {useStore} from "@tanstack/react-store";
 
 export type EmailVerificationProps = {

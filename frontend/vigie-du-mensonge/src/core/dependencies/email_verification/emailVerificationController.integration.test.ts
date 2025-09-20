@@ -5,22 +5,18 @@ import {EmailVerificationController} from './emailVerificationController';
 import {authManager} from '@/core/dependencies/auth/authManager';
 import {Auth} from '@/core/models/auth';
 import {router as appRouter} from '@/main';
-import * as sonner from 'sonner';
-import {toast} from 'sonner';
+import {toast} from '@/core/utils/toast';
 
 // Keep tests small and simple: focus on controller side-effects with MSW
 
-vi.mock('sonner', () => {
+vi.mock('@/core/utils/toast', () => {
     const toast = Object.assign(vi.fn(), {
         success: vi.fn(),
         error: vi.fn(),
         message: vi.fn(),
         dismiss: vi.fn(),
     });
-    return {
-        Toaster: () => null,
-        toast,
-    };
+    return { toast };
 });
 
 beforeEach(() => {
@@ -108,7 +104,7 @@ describe('EmailVerificationController (integration with MSW)', () => {
             http.post('http://localhost:8080/api/v1/email-verification/process', processErrorResolver),
         );
 
-        const errorSpy = vi.spyOn(sonner.toast, 'error');
+        const errorSpy = vi.spyOn(toast, 'error');
 
         const controller = new EmailVerificationController('bad-token');
 

@@ -1,7 +1,7 @@
 import {EmailVerificationClient} from "@/core/dependencies/email_verification/emailVerificationClient.ts";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
 import {router} from "@/main.tsx";
-import {toast} from "sonner";
+import {toast} from "@/core/utils/toast";
 import {Store} from "@tanstack/react-store";
 
 export class EmailVerificationController {

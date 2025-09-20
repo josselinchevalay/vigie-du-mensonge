@@ -7,7 +7,7 @@ import {Input} from "@/core/shadcn/components/ui/input";
 import {Button} from "@/core/shadcn/components/ui/button";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
 import {useNavigate} from "@tanstack/react-router";
-import {toast} from "sonner";
+import {toast} from "@/core/utils/toast";
 import {Eye, EyeOff} from "lucide-react";
 
 const signInSchema = z.object({

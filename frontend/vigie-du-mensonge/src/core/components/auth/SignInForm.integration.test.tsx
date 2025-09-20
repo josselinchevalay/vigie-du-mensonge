@@ -1,12 +1,29 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {beforeAll, describe, expect, it, vi } from 'vitest';
+import {beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createMemoryHistory, createRootRoute, createRoute, createRouter, RouterProvider } from '@tanstack/react-router';
 import { Suspense } from 'react';
 import { SignInForm } from './SignInForm';
 import { http, HttpResponse } from 'msw';
 import { server } from '@/test/testServer';
 import { Toaster } from '@/core/shadcn/components/ui/sonner';
+import { toast } from '@/core/utils/toast';
+
+// Mock the adapter toast so no timers fire and we can assert calls
+vi.mock('@/core/utils/toast', () => {
+  const toast = Object.assign(vi.fn(), {
+    success: vi.fn(),
+    error: vi.fn(),
+    message: vi.fn(),
+    dismiss: vi.fn(),
+  });
+  return { toast };
+});
+
+// Mock Toaster to a no-op component to avoid auto-dismiss timers
+vi.mock('@/core/shadcn/components/ui/sonner', () => ({
+  Toaster: () => null,
+}));
 
 // Provide a matchMedia stub for jsdom (Toaster uses it internally)
 function ensureMatchMediaStub() {
@@ -54,6 +71,10 @@ function buildTestRouter(initialPath: string) {
 
 beforeAll(() => {
     ensureMatchMediaStub();
+});
+
+beforeEach(() => {
+    vi.clearAllMocks();
 });
 
 describe('SignInForm integration (MSW)', () => {
@@ -130,8 +151,8 @@ describe('SignInForm integration (MSW)', () => {
 
         await vi.waitFor(() => expect(resolver401).toHaveBeenCalledTimes(1));
 
-        // Assert the specific toast message for 401
-        expect(await screen.findByText('Identifiants invalides.')).toBeInTheDocument();
+        // Assert the specific toast message for 401 via adapter
+        expect(toast.error).toHaveBeenCalledWith('Identifiants invalides.');
     });
 
     it('shows error toast on 404 and stays on the page', async () => {
@@ -159,7 +180,7 @@ describe('SignInForm integration (MSW)', () => {
 
         await vi.waitFor(() => expect(resolver404).toHaveBeenCalledTimes(1));
 
-        // Assert the specific toast message for 404
-        expect(await screen.findByText('Aucun compte ne correspond à cette adresse email.')).toBeInTheDocument();
+        // Assert the specific toast message for 404 via adapter
+        expect(toast.error).toHaveBeenCalledWith('Aucun compte ne correspond à cette adresse email.');
     });
 });

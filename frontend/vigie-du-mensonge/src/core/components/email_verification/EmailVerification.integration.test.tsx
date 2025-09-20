@@ -11,6 +11,23 @@ import {EmailVerificationController} from '@/core/dependencies/email_verificatio
 import {authManager} from '@/core/dependencies/auth/authManager';
 import {Auth} from '@/core/models/auth';
 import {router as appRouter} from '@/main';
+import { toast } from '@/core/utils/toast';
+
+// Mock the adapter toast to prevent timers and allow call assertions
+vi.mock('@/core/utils/toast', () => {
+    const toast = Object.assign(vi.fn(), {
+        success: vi.fn(),
+        error: vi.fn(),
+        message: vi.fn(),
+        dismiss: vi.fn(),
+    });
+    return { toast };
+});
+
+// Mock the Toaster component to a no-op so no timers or matchMedia are used
+vi.mock('@/core/shadcn/components/ui/sonner', () => ({
+    Toaster: () => null,
+}));
 
 // Provide a matchMedia stub for jsdom (Toaster uses it internally)
 function ensureMatchMediaStub() {
@@ -60,6 +77,7 @@ beforeEach(() => {
     // Reset auth state and local storage between tests
     authManager.authStore.setState(() => null);
     Auth.clearStorage();
+    vi.clearAllMocks();
 });
 
 describe('EmailVerification integration (MSW)', () => {
@@ -94,8 +112,8 @@ describe('EmailVerification integration (MSW)', () => {
         // Assert request happened
         await vi.waitFor(() => expect(inquireResolver).toHaveBeenCalledTimes(1));
 
-        // Success toast appears
-        expect(await screen.findByText("L'email de validation a été envoyé")).toBeInTheDocument();
+        // Success toast was triggered via adapter
+        expect(toast).toHaveBeenCalledWith("L'email de validation a été envoyé");
     });
 
     it('process: with token processes successfully, marks email verified and navigates home', async () => {
@@ -149,7 +167,8 @@ describe('EmailVerification integration (MSW)', () => {
 
         navSpy.mockRestore();
     });
-
+    
+    //TODO: fix error Transitioner not wrapped in act
     it('process: shows error toast on failure and returns to inquire UI', async () => {
         // Prepare an authenticated state with emailVerified=false
         const now = Date.now();
@@ -173,7 +192,6 @@ describe('EmailVerification integration (MSW)', () => {
 
         const controller = new EmailVerificationController('bad-token');
 
-
         const router = buildTestRouter(<EmailVerification controller={controller}/>);
         render(
             <Suspense fallback={<div>Loading…</div>}>
@@ -184,8 +202,8 @@ describe('EmailVerification integration (MSW)', () => {
         // Wait for the request to be performed
         await vi.waitFor(() => expect(processErrorResolver).toHaveBeenCalledTimes(1));
 
-        // Error toast appears
-        expect(await screen.findByText('Une erreur est survenue. Veuillez réessayer.')).toBeInTheDocument();
+        // Error toast was triggered via adapter
+        expect(toast.error).toHaveBeenCalledWith('Une erreur est survenue. Veuillez réessayer.');
 
         // Token should be cleared, switching to inquire UI -> button should be present
         expect(
