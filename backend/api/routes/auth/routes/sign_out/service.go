@@ -15,13 +15,13 @@ type service struct {
 }
 
 func (s *service) signOut(accessToken string) {
-	userID, err := jwt_utils.ParseJWT(accessToken, s.accessTokenSecret)
+	authedUser, err := jwt_utils.ParseJWT(accessToken, s.accessTokenSecret)
 	if err != nil {
 		logger.Error("Failed to parse access token", logger.Err(err))
 		return
 	}
 
-	if err = s.repo.deleteRefreshTokens(userID); err != nil {
+	if err = s.repo.deleteRefreshTokens(authedUser.ID); err != nil {
 		logger.Error("Failed to delete refresh tokens", logger.Err(err))
 	}
 }

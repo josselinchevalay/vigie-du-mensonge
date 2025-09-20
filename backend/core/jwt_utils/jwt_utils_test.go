@@ -3,33 +3,34 @@ package jwt_utils
 import (
 	"testing"
 	"time"
+	"vdm/core/locals"
 
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestJwtUtils(t *testing.T) {
-	inputID := uuid.New()
+	input := locals.AuthedUser{ID: uuid.New(), Email: "test@email.com"}
 
 	dummySecret := []byte("dummySecret")
 
-	jwt, err := GenerateJWT(inputID, dummySecret, time.Now().Add(time.Minute))
+	jwt, err := GenerateJWT(input, dummySecret, time.Now().Add(time.Minute))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	parsedID, err := ParseJWT(jwt, dummySecret)
+	output, err := ParseJWT(jwt, dummySecret)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	assert.Equal(t, inputID, parsedID)
+	assert.Equal(t, input, output)
 }
 
 func TestJwtUtils_WrongSecret(t *testing.T) {
-	id := uuid.New()
+	input := locals.AuthedUser{ID: uuid.New(), Email: "test@email.com"}
 
-	jwt, err := GenerateJWT(id, []byte("dummySecret"), time.Now().Add(time.Minute))
+	jwt, err := GenerateJWT(input, []byte("dummySecret"), time.Now().Add(time.Minute))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -39,9 +40,9 @@ func TestJwtUtils_WrongSecret(t *testing.T) {
 }
 
 func TestJwtUtils_Expired(t *testing.T) {
-	id := uuid.New()
+	input := locals.AuthedUser{ID: uuid.New(), Email: "test@email.com"}
 
-	jwt, err := GenerateJWT(id, []byte("dummySecret"), time.Now().Add(-time.Minute))
+	jwt, err := GenerateJWT(input, []byte("dummySecret"), time.Now().Add(-time.Minute))
 	if err != nil {
 		t.Fatal(err)
 	}

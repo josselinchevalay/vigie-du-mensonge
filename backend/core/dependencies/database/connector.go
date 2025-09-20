@@ -20,12 +20,12 @@ type pgConnector struct {
 	db *gorm.DB
 }
 
-func NewConnector() (Connector, error) {
+func NewConnector(config env.Database) (Connector, error) {
 	gormConfig := &gorm.Config{
 		Logger: gormLogger.Default.LogMode(gormLogger.Silent),
 	}
 
-	dsn := env.Config.Database.DSN()
+	dsn := config.DSN()
 
 	gormDB, err := gorm.Open(postgres.Open(dsn), gormConfig)
 	if err != nil {
@@ -37,10 +37,10 @@ func NewConnector() (Connector, error) {
 		return nil, fmt.Errorf("failed to get sql.DB from gorm.DB: %v", err)
 	}
 
-	sqlDB.SetConnMaxLifetime(env.Config.Database.ConnMaxLifetime)
-	sqlDB.SetConnMaxIdleTime(env.Config.Database.ConnMaxIdleTime)
-	sqlDB.SetMaxOpenConns(env.Config.Database.MaxOpenConns)
-	sqlDB.SetMaxIdleConns(env.Config.Database.MaxIdleConns)
+	sqlDB.SetConnMaxLifetime(config.ConnMaxLifetime)
+	sqlDB.SetConnMaxIdleTime(config.ConnMaxIdleTime)
+	sqlDB.SetMaxOpenConns(config.MaxOpenConns)
+	sqlDB.SetMaxIdleConns(config.MaxIdleConns)
 
 	if err := sqlDB.Ping(); err != nil {
 		return nil, fmt.Errorf("failed to ping database: %v", err)

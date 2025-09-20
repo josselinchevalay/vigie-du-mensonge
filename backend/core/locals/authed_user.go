@@ -1,8 +1,19 @@
 package locals
 
-import "github.com/google/uuid"
+import (
+	"vdm/core/models"
+
+	"github.com/google/uuid"
+)
 
 type AuthedUser struct {
 	ID    uuid.UUID
-	Roles []string
+	Email string
+}
+
+func NewAuthedUser(u models.User) AuthedUser {
+	return AuthedUser{
+		ID:    u.ID,
+		Email: u.Email,
+	}
 }

@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 	"vdm/core/jwt_utils"
+	"vdm/core/locals"
 
 	"github.com/golang/mock/gomock"
 	"github.com/google/uuid"
@@ -16,7 +17,7 @@ func TestService_SignOut_ValidToken_DeletesRefreshTokens(t *testing.T) {
 	s := &service{repo: repo, accessTokenSecret: []byte("dummy")}
 
 	userID := uuid.New()
-	jwt, err := jwt_utils.GenerateJWT(userID, s.accessTokenSecret, time.Now().Add(time.Minute))
+	jwt, err := jwt_utils.GenerateJWT(locals.AuthedUser{ID: userID}, s.accessTokenSecret, time.Now().Add(time.Minute))
 	if err != nil {
 		t.Fatal(err)
 	}

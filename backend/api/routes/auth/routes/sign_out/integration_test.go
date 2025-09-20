@@ -8,6 +8,7 @@ import (
 	"vdm/core/dependencies/database"
 	"vdm/core/fiberx"
 	"vdm/core/jwt_utils"
+	"vdm/core/locals"
 	"vdm/core/locals/local_keys"
 	"vdm/core/models"
 
@@ -66,7 +67,7 @@ func TestIntegration_SignOut_Success(t *testing.T) {
 	Route(connector.GormDB()).Register(app)
 
 	// Generate access token for the user using the same secret as in route (defaults are OK in tests)
-	jwt, err := jwt_utils.GenerateJWT(testUser.ID, []byte(""), time.Now().Add(time.Minute))
+	jwt, err := jwt_utils.GenerateJWT(locals.NewAuthedUser(*testUser), []byte(""), time.Now().Add(time.Minute))
 	if err != nil {
 		t.Fatal(err)
 	}

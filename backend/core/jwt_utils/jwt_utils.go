@@ -3,19 +3,19 @@ package jwt_utils
 import (
 	"fmt"
 	"time"
+	"vdm/core/locals"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/google/uuid"
 )
 
 type Claims struct {
-	UserID uuid.UUID `json:"userId"`
+	AuthedUser locals.AuthedUser
 	jwt.RegisteredClaims
 }
 
-func GenerateJWT(userID uuid.UUID, secretKey []byte, expiry time.Time) (string, error) {
+func GenerateJWT(authedUser locals.AuthedUser, secretKey []byte, expiry time.Time) (string, error) {
 	claims := Claims{
-		UserID: userID,
+		AuthedUser: authedUser,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(expiry),
 		},
@@ -25,7 +25,7 @@ func GenerateJWT(userID uuid.UUID, secretKey []byte, expiry time.Time) (string, 
 	return token.SignedString(secretKey)
 }
 
-func ParseJWT(tokenString string, secretKey []byte) (uuid.UUID, error) {
+func ParseJWT(tokenString string, secretKey []byte) (locals.AuthedUser, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (any, error) {
 		if token.Method != jwt.SigningMethodHS256 {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
@@ -33,12 +33,12 @@ func ParseJWT(tokenString string, secretKey []byte) (uuid.UUID, error) {
 		return secretKey, nil
 	})
 	if err != nil {
-		return uuid.UUID{}, err
+		return locals.AuthedUser{}, err
 	}
 
 	if claims, ok := token.Claims.(*Claims); ok && token.Valid {
-		return claims.UserID, nil
+		return claims.AuthedUser, nil
 	}
 
-	return uuid.UUID{}, fmt.Errorf("invalid token")
+	return locals.AuthedUser{}, fmt.Errorf("invalid token")
 }

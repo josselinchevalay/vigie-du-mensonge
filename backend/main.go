@@ -8,6 +8,8 @@ import (
 	"vdm/api"
 	"vdm/core/dependencies"
 	"vdm/core/dependencies/database"
+	"vdm/core/dependencies/mailer"
+	"vdm/core/env"
 	"vdm/core/fiberx"
 	"vdm/core/logger"
 
@@ -15,7 +17,7 @@ import (
 )
 
 func main() {
-	dbConn, err := database.NewConnector()
+	dbConn, err := database.NewConnector(env.Config.Database)
 	if err != nil {
 		logger.Error("failed to init database", logger.Err(err))
 		os.Exit(1)
@@ -27,7 +29,7 @@ func main() {
 		}
 	}(dbConn)
 
-	deps := dependencies.New(dbConn)
+	deps := dependencies.New(dbConn, mailer.New(env.Config.Mailer))
 
 	app := fiberx.NewApp()
 	app.Use(recover.New())
