@@ -19,7 +19,8 @@ export const api = ky.create({
                 }
 
                 const csrfToken = await fetchCSRF();
-                request.headers.set("csrf-token", csrfToken);
+                console.log("CSRF Token:", csrfToken);
+                request.headers.set("X-Csrf-Token", csrfToken);
             }
         ]
     }

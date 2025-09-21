@@ -1,8 +1,8 @@
 package get_csrf
 
 import (
-	"vdm/core/env"
 	"vdm/core/fiberx"
+	"vdm/core/locals/local_keys"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -12,11 +12,12 @@ const (
 	Method = fiber.MethodGet
 )
 
-func Route(cfg env.SecurityConfig) *fiberx.Route {
-	handler := &handler{
-		csrfTokenSecret: cfg.CsrfTokenSecret,
-		csrfTokenTTL:    cfg.CsrfTokenTTL,
-	}
+func Route() *fiberx.Route {
+	return fiberx.NewRoute(Method, Path, func(c *fiber.Ctx) error {
+		token := c.Locals(local_keys.CsrfToken)
 
-	return fiberx.NewRoute(Method, Path, handler.getCsrf)
+		return c.Status(fiber.StatusOK).JSON(fiber.Map{
+			"csrfToken": token,
+		})
+	})
 }

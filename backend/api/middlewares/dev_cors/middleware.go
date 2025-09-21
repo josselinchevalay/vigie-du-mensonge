@@ -1,4 +1,4 @@
-package cors
+package dev_cors
 
 import (
 	"strings"
@@ -8,6 +8,8 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
+// for development purposes only
+// not required for production since client is hosted on the same domain
 func Middleware(allowOrigins string) *fiberx.Middleware {
 	return fiberx.NewMiddleware(cors.New(cors.Config{
 		AllowOrigins:     allowOrigins,
@@ -18,12 +20,8 @@ func Middleware(allowOrigins string) *fiberx.Middleware {
 
 func allowHeaders() string {
 	headers := []string{
-		fiber.HeaderAccessControlAllowOrigin,
-		fiber.HeaderOrigin,
 		fiber.HeaderContentType,
-		fiber.HeaderAccept,
-		fiber.HeaderCookie,
-		"csrf-token",
+		"X-Csrf-Token",
 	}
 
 	return strings.Join(headers, ",")
