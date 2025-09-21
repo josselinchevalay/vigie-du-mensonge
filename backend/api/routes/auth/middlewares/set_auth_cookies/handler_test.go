@@ -5,6 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 	"time"
+	"vdm/core/env"
 	"vdm/core/fiberx"
 	"vdm/core/locals"
 	"vdm/core/locals/local_keys"
@@ -17,7 +18,17 @@ import (
 func TestHandler_Success(t *testing.T) {
 	app := fiberx.NewApp()
 
-	Middleware(true).Register(app)
+	dummyCfg := env.SecurityConfig{
+		AccessTokenSecret: []byte("dummySecret"),
+		AccessTokenTTL:    1 * time.Minute,
+		RefreshTokenTTL:   1 * time.Minute,
+		AccessCookieName:  "jwt",
+		RefreshCookieName: "rft",
+		CookieSecure:      true,
+		CookieSameSite:    "strict",
+	}
+
+	Middleware(dummyCfg).Register(app)
 
 	accessToken := locals.AccessToken{Token: "test", Expiry: time.Now()}
 	refreshToken := locals.RefreshToken{Token: uuid.New(), Expiry: time.Now()}

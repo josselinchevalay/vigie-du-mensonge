@@ -2,6 +2,7 @@ package validate_csrf
 
 import (
 	"time"
+	"vdm/core/env"
 	"vdm/core/fiberx"
 	"vdm/core/locals/local_keys"
 
@@ -9,19 +10,12 @@ import (
 	"github.com/gofiber/fiber/v2/utils"
 )
 
-func Middleware(isProd bool) *fiberx.Middleware {
-	var sameSite string
-	if isProd {
-		sameSite = "Strict"
-	} else {
-		sameSite = "Lax"
-	}
-
+func Middleware(cfg env.SecurityConfig) *fiberx.Middleware {
 	return fiberx.NewMiddleware(csrf.New(csrf.Config{
 		KeyLookup:      "header:X-Csrf-Token",
-		CookieName:     "__Host-csrf_",
-		CookieSameSite: sameSite,
-		CookieSecure:   isProd,
+		CookieName:     cfg.CsrfCookieName,
+		CookieSameSite: cfg.CookieSameSite,
+		CookieSecure:   cfg.CookieSecure,
 		CookieHTTPOnly: true,
 		SingleUseToken: true,
 		CookiePath:     "/",

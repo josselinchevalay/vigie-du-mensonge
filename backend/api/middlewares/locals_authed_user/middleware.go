@@ -6,7 +6,10 @@ import (
 )
 
 func Middleware(cfg env.SecurityConfig) *fiberx.Middleware {
-	handler := &handler{cfg.AccessTokenSecret}
+	handler := &handler{
+		accessTokenSecret: cfg.AccessTokenSecret,
+		accessCookieName:  cfg.AccessCookieName,
+	}
 
 	return fiberx.NewMiddleware(handler.localsAuthedUser)
 }

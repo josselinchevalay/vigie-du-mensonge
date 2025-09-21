@@ -1,5 +1,7 @@
 import ky from "ky";
 
+const isTest = Boolean(import.meta.env?.MODE === "test" || import.meta?.env?.VITEST);
+
 export const api = ky.create({
     // Default to '/api/v1' in tests or when VITE_API_URL is not provided
     prefixUrl: import.meta.env.VITE_API_URL ?? '/api/v1',
@@ -11,6 +13,8 @@ export const api = ky.create({
     hooks: {
         beforeRequest: [
             async (request) => {
+                if (isTest) return;
+
                 if (request.method !== "POST" &&
                     request.method !== "PUT" &&
                     request.method !== "DELETE" &&
@@ -19,7 +23,6 @@ export const api = ky.create({
                 }
 
                 const csrfToken = await fetchCSRF();
-                console.log("CSRF Token:", csrfToken);
                 request.headers.set("X-Csrf-Token", csrfToken);
             }
         ]
@@ -27,6 +30,8 @@ export const api = ky.create({
 });
 
 const fetchCSRF = async (): Promise<string> => {
-    const response = await api.get("csrf-token").json<{ csrfToken: string }>();
+    const response = await api
+        .get("csrf-token", {retry: 2})
+        .json<{ csrfToken: string }>();
     return response.csrfToken;
 };

@@ -19,7 +19,7 @@ import (
 func TestHandler_Success(t *testing.T) {
 	app := fiberx.NewApp()
 
-	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret")}
+	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret"), AccessCookieName: "testCookie"}
 
 	Middleware(dummyCfg).Register(app)
 
@@ -41,7 +41,7 @@ func TestHandler_Success(t *testing.T) {
 	if jwt, err := jwt_utils.GenerateJWT(input, dummyCfg.AccessTokenSecret, time.Now().Add(time.Minute)); err != nil {
 		t.Fatal(err)
 	} else {
-		req.AddCookie(&http.Cookie{Name: local_keys.AccessToken, Value: jwt})
+		req.AddCookie(&http.Cookie{Name: dummyCfg.AccessCookieName, Value: jwt})
 	}
 
 	res, err := app.Test(req)
@@ -56,7 +56,7 @@ func TestHandler_Success(t *testing.T) {
 func TestHandler_ErrUnauthorized(t *testing.T) {
 	app := fiberx.NewApp()
 
-	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret")}
+	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret"), AccessCookieName: "testCookie"}
 
 	Middleware(dummyCfg).Register(app)
 
@@ -78,7 +78,7 @@ func TestHandler_ErrUnauthorized(t *testing.T) {
 	if jwt, err := jwt_utils.GenerateJWT(input, dummyCfg.AccessTokenSecret, time.Now().Add(-time.Minute)); err != nil {
 		t.Fatal(err)
 	} else {
-		req.AddCookie(&http.Cookie{Name: local_keys.AccessToken, Value: jwt})
+		req.AddCookie(&http.Cookie{Name: dummyCfg.AccessCookieName, Value: jwt})
 	}
 
 	res, err := app.Test(req)

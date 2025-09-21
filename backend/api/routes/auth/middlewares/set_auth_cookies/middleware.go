@@ -1,16 +1,16 @@
 package set_auth_cookies
 
 import (
+	"vdm/core/env"
 	"vdm/core/fiberx"
 )
 
-func Middleware(isProd bool) *fiberx.Middleware {
-	handler := &handler{isProd: isProd}
-
-	if handler.isProd {
-		handler.sameSite = "Strict"
-	} else {
-		handler.sameSite = "Lax"
+func Middleware(cfg env.SecurityConfig) *fiberx.Middleware {
+	handler := &handler{
+		cookieSecure:      cfg.CookieSecure,
+		cookieSameSite:    cfg.CookieSameSite,
+		accessCookieName:  cfg.AccessCookieName,
+		refreshCookieName: cfg.RefreshCookieName,
 	}
 
 	return fiberx.NewMiddleware(handler.setAuthCookies)

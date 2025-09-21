@@ -1,7 +1,7 @@
 package api
 
 import (
-	"vdm/api/middlewares/dev_cors"
+	"strings"
 	"vdm/api/middlewares/locals_authed_user"
 	"vdm/api/middlewares/validate_csrf"
 	"vdm/api/routes/auth"
@@ -12,6 +12,8 @@ import (
 	"vdm/core/fiberx"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/helmet"
 )
 
 const Prefix = "/api/v1"
@@ -19,12 +21,32 @@ const Prefix = "/api/v1"
 func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	group := fiberx.NewGroup(Prefix)
 
+	group.Add(
+		fiberx.NewMiddleware(helmet.New(helmet.Config{
+			XFrameOptions:  "DENY", // stricter than SAMEORIGIN
+			ReferrerPolicy: "strict-origin-when-cross-origin",
+			// Minimal, valid CSP for API responses (avoid literal "none")
+			ContentSecurityPolicy:     "default-src 'none'; frame-ancestors 'none'; base-uri 'none'",
+			CrossOriginResourcePolicy: "same-site",
+			CrossOriginOpenerPolicy:   "same-origin",
+			// Disable COEP for the API to avoid breaking cross-origin fetch/embeds
+			CrossOriginEmbedderPolicy: "", // or "unsafe-none" depending on Fiber version
+			PermissionPolicy:          "geolocation=(), camera=(), microphone=(), payment=(), usb=()",
+		})),
+	)
+
 	if deps.Config.ActiveProfile != "prod" {
-		group.Add(dev_cors.Middleware(deps.Config.AllowOrigins))
+		group.Add(
+			fiberx.NewMiddleware(cors.New(cors.Config{
+				AllowOrigins:     deps.Config.AllowOrigins,
+				AllowHeaders:     strings.Join([]string{fiber.HeaderContentType, "X-Csrf-Token"}, ","),
+				AllowCredentials: true,
+			})),
+		)
 	}
 
 	group.Add(
-		validate_csrf.Middleware(deps.Config.ActiveProfile == "prod"),
+		validate_csrf.Middleware(deps.Config.Security),
 		get_csrf.Route(),
 
 		auth.Group(deps),

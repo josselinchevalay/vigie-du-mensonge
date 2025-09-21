@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 	"vdm/api"
 	"vdm/core/dependencies"
 	"vdm/core/dependencies/database"
@@ -13,7 +14,10 @@ import (
 	"vdm/core/fiberx"
 	"vdm/core/logger"
 
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/gofiber/fiber/v2/middleware/requestid"
 )
 
 func main() {
@@ -43,6 +47,14 @@ func main() {
 
 	app := fiberx.NewApp()
 	app.Use(recover.New())
+	app.Use(requestid.New())
+	app.Use(limiter.New(limiter.Config{
+		Max:        10,
+		Expiration: 1 * time.Minute,
+		KeyGenerator: func(c *fiber.Ctx) string {
+			return c.IP()
+		},
+	}))
 
 	api.Register(app, deps)
 

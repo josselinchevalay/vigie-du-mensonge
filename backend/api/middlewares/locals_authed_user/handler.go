@@ -13,10 +13,11 @@ type Handler interface {
 
 type handler struct {
 	accessTokenSecret []byte
+	accessCookieName  string
 }
 
 func (h *handler) localsAuthedUser(c *fiber.Ctx) error {
-	authedUser, err := jwt_utils.ParseJWT(c.Cookies(local_keys.AccessToken), h.accessTokenSecret)
+	authedUser, err := jwt_utils.ParseJWT(c.Cookies(h.accessCookieName), h.accessTokenSecret)
 	if err != nil {
 		return &fiber.Error{Code: fiber.StatusUnauthorized, Message: err.Error()}
 	}

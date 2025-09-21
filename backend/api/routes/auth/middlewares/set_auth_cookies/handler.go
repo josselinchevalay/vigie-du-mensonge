@@ -12,8 +12,10 @@ type Handler interface {
 }
 
 type handler struct {
-	isProd   bool
-	sameSite string
+	cookieSecure      bool
+	cookieSameSite    string
+	accessCookieName  string
+	refreshCookieName string
 }
 
 func (h *handler) setAuthCookies(c *fiber.Ctx) error {
@@ -32,21 +34,21 @@ func (h *handler) setAuthCookies(c *fiber.Ctx) error {
 	}
 
 	c.Cookie(&fiber.Cookie{
-		Name:     local_keys.AccessToken,
+		Name:     h.accessCookieName,
 		Value:    accessToken.Token,
 		Expires:  accessToken.Expiry,
-		SameSite: h.sameSite,
-		Secure:   h.isProd,
+		SameSite: h.cookieSameSite,
+		Secure:   h.cookieSecure,
 		HTTPOnly: true,
 		Path:     "/",
 	})
 
 	c.Cookie(&fiber.Cookie{
-		Name:     local_keys.RefreshToken,
+		Name:     h.refreshCookieName,
 		Value:    refreshToken.Token.String(),
 		Expires:  refreshToken.Expiry,
-		SameSite: h.sameSite,
-		Secure:   h.isProd,
+		SameSite: h.cookieSameSite,
+		Secure:   h.cookieSecure,
 		HTTPOnly: true,
 		Path:     "/",
 	})

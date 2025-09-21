@@ -6,15 +6,22 @@ import (
 )
 
 type SecurityConfig struct {
-	AccessTokenSecret []byte
-	AccessTokenTTL    time.Duration
-	RefreshTokenTTL   time.Duration
-
 	EmailVerificationTokenSecret []byte
 	EmailVerificationTokenTTL    time.Duration
 
 	PasswordUpdateTokenSecret []byte
 	PasswordUpdateTokenTTL    time.Duration
+
+	AccessTokenSecret []byte
+	AccessTokenTTL    time.Duration
+
+	RefreshTokenTTL time.Duration
+
+	RefreshCookieName string
+	AccessCookieName  string
+	CsrfCookieName    string
+	CookieSameSite    string
+	CookieSecure      bool
 }
 
 func loadSecurityConfig() (SecurityConfig, error) {
@@ -39,12 +46,17 @@ func loadSecurityConfig() (SecurityConfig, error) {
 	}
 
 	return SecurityConfig{
-		AccessTokenSecret:            []byte(getEnv("ACCESS_TOKEN_SECRET", "")),
-		AccessTokenTTL:               accessTokenTTL,
-		RefreshTokenTTL:              refreshTokenTTL,
 		EmailVerificationTokenSecret: []byte(getEnv("EMAIL_VERIFICATION_TOKEN_SECRET", "")),
 		EmailVerificationTokenTTL:    emailVerificationTokenTTL,
 		PasswordUpdateTokenSecret:    []byte(getEnv("PASSWORD_UPDATE_TOKEN_SECRET", "")),
 		PasswordUpdateTokenTTL:       passwordUpdateTokenTTL,
+		AccessTokenSecret:            []byte(getEnv("ACCESS_TOKEN_SECRET", "")),
+		AccessTokenTTL:               accessTokenTTL,
+		AccessCookieName:             getEnv("ACCESS_COOKIE_NAME", "__Host-jwt"),
+		RefreshCookieName:            getEnv("REFRESH_COOKIE_NAME", "__Host-rft"),
+		RefreshTokenTTL:              refreshTokenTTL,
+		CookieSameSite:               getEnv("COOKIE_SAME_SITE", "strict"),
+		CookieSecure:                 getEnv("COOKIE_SECURE", "true") == "true",
+		CsrfCookieName:               getEnv("CSRF_COOKIE_NAME", "__Host-csrf_"),
 	}, nil
 }
