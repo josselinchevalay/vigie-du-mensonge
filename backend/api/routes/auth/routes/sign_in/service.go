@@ -25,7 +25,7 @@ type service struct {
 func (s *service) signIn(req RequestDTO) (models.User, locals.AccessToken, locals.RefreshToken, error) {
 	user, err := s.repo.findUserByEmail(req.Email)
 	if err != nil {
-		return models.User{}, locals.AccessToken{}, locals.RefreshToken{}, &fiber.Error{Code: fiber.StatusNotFound, Message: "invalid credentials"}
+		return models.User{}, locals.AccessToken{}, locals.RefreshToken{}, &fiber.Error{Code: fiber.StatusUnauthorized, Message: "invalid credentials"}
 	}
 
 	if err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password)); err != nil {

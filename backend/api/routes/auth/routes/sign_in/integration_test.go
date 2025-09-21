@@ -105,7 +105,7 @@ func TestIntegration_SignIn_Success(t *testing.T) {
 	assert.Equal(t, testUser.MapRoles(), dto.Roles)
 }
 
-func TestIntegration_SignIn_Unauthorized(t *testing.T) {
+func TestIntegration_SignIn_WrongPassword(t *testing.T) {
 	c := context.Background()
 	container, connector := loadTestData(c, t)
 	t.Cleanup(func() { cleanupTestData(c, t, container, connector) })
@@ -134,7 +134,7 @@ func TestIntegration_SignIn_Unauthorized(t *testing.T) {
 	assert.Equal(t, fiber.StatusUnauthorized, res.StatusCode)
 }
 
-func TestIntegration_SignIn_NotFound(t *testing.T) {
+func TestIntegration_SignIn_EmailNotFound(t *testing.T) {
 	c := context.Background()
 	container, connector := loadTestData(c, t)
 	t.Cleanup(func() { cleanupTestData(c, t, container, connector) })
@@ -160,5 +160,5 @@ func TestIntegration_SignIn_NotFound(t *testing.T) {
 	}
 	defer res.Body.Close()
 
-	assert.Equal(t, fiber.StatusNotFound, res.StatusCode)
+	assert.Equal(t, fiber.StatusUnauthorized, res.StatusCode)
 }

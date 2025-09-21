@@ -22,5 +22,3 @@ signIn:
         $ref: "../../openapi.yml#/components/responses/Error400"
       '401':
         $ref: "../../openapi.yml#/components/responses/Error401"
-      '404':
-        $ref: "../../openapi.yml#/components/responses/Error404"

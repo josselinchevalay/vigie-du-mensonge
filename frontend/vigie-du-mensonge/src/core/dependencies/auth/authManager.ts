@@ -3,9 +3,15 @@ import {Store} from "@tanstack/react-store";
 import {AuthClient} from "@/core/dependencies/auth/authClient.ts";
 import {toast} from "@/core/utils/toast";
 
+const EMAIL_STORAGE_KEY = 'vdm_email';
+
 class AuthManager {
     private readonly client = new AuthClient();
     private _refreshing = false;
+
+    public get email(): string | null {
+        return localStorage.getItem(EMAIL_STORAGE_KEY);
+    }
 
     public get refreshing(): boolean {
         return this._refreshing;
@@ -32,6 +38,7 @@ class AuthManager {
         const auth = await this.client.signIn(credentials);
 
         auth.saveToStorage();
+        localStorage.setItem(EMAIL_STORAGE_KEY, credentials.email);
 
         this.authStore.setState(() => auth);
         return auth;

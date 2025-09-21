@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignUpRouteImport } from './routes/sign-up'
 import { Route as SignInRouteImport } from './routes/sign-in'
+import { Route as PasswordUpdateRouteImport } from './routes/password-update'
 import { Route as EmailVerificationRouteImport } from './routes/email-verification'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -23,6 +24,11 @@ const SignUpRoute = SignUpRouteImport.update({
 const SignInRoute = SignInRouteImport.update({
   id: '/sign-in',
   path: '/sign-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PasswordUpdateRoute = PasswordUpdateRouteImport.update({
+  id: '/password-update',
+  path: '/password-update',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmailVerificationRoute = EmailVerificationRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/email-verification': typeof EmailVerificationRoute
+  '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/email-verification': typeof EmailVerificationRoute
+  '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
 }
@@ -60,19 +68,33 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/email-verification': typeof EmailVerificationRoute
+  '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/email-verification' | '/sign-in' | '/sign-up'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/email-verification'
+    | '/password-update'
+    | '/sign-in'
+    | '/sign-up'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/email-verification' | '/sign-in' | '/sign-up'
+  to:
+    | '/'
+    | '/about'
+    | '/email-verification'
+    | '/password-update'
+    | '/sign-in'
+    | '/sign-up'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/email-verification'
+    | '/password-update'
     | '/sign-in'
     | '/sign-up'
   fileRoutesById: FileRoutesById
@@ -81,6 +103,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   EmailVerificationRoute: typeof EmailVerificationRoute
+  PasswordUpdateRoute: typeof PasswordUpdateRoute
   SignInRoute: typeof SignInRoute
   SignUpRoute: typeof SignUpRoute
 }
@@ -99,6 +122,13 @@ declare module '@tanstack/react-router' {
       path: '/sign-in'
       fullPath: '/sign-in'
       preLoaderRoute: typeof SignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/password-update': {
+      id: '/password-update'
+      path: '/password-update'
+      fullPath: '/password-update'
+      preLoaderRoute: typeof PasswordUpdateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/email-verification': {
@@ -129,6 +159,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   EmailVerificationRoute: EmailVerificationRoute,
+  PasswordUpdateRoute: PasswordUpdateRoute,
   SignInRoute: SignInRoute,
   SignUpRoute: SignUpRoute,
 }

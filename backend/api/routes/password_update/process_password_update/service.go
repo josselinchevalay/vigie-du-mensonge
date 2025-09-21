@@ -4,14 +4,13 @@ import (
 	"fmt"
 	"time"
 	"vdm/core/jwt_utils"
-	"vdm/core/locals"
 
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
 )
 
 type Service interface {
-	processPasswordUpdate(authedUser locals.AuthedUser, token, newPassword string) error
+	processPasswordUpdate(token, newPassword string) error
 }
 
 type service struct {
@@ -20,12 +19,10 @@ type service struct {
 	repo                      Repository
 }
 
-func (s *service) processPasswordUpdate(authedUser locals.AuthedUser, token, newPassword string) error {
-	// Parse and validate the password update token
-	if tokenUser, err := jwt_utils.ParseJWT(token, s.passwordUpdateTokenSecret); err != nil {
+func (s *service) processPasswordUpdate(token, newPassword string) error {
+	tokenUser, err := jwt_utils.ParseJWT(token, s.passwordUpdateTokenSecret)
+	if err != nil {
 		return &fiber.Error{Code: fiber.StatusUnauthorized, Message: err.Error()}
-	} else if tokenUser.ID != authedUser.ID {
-		return &fiber.Error{Code: fiber.StatusForbidden, Message: "credentials do not match"}
 	}
 
 	// Hash the new password
@@ -35,7 +32,7 @@ func (s *service) processPasswordUpdate(authedUser locals.AuthedUser, token, new
 	}
 
 	// Update the user's password
-	if err := s.repo.updateUserPassword(authedUser.ID, string(hashedPassword)); err != nil {
+	if err := s.repo.updateUserPassword(tokenUser.ID, string(hashedPassword)); err != nil {
 		return fmt.Errorf("failed to update user password: %v", err)
 	}
 	return nil

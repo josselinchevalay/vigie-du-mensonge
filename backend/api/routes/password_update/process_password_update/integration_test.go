@@ -23,7 +23,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func loadProcessPwdUpdateTestData(c context.Context, t *testing.T) (testcontainers.Container, database.Connector, models.User) {
+func loadTestData(c context.Context, t *testing.T) (testcontainers.Container, database.Connector, models.User) {
 	container, connector := test_utils.NewTestContainerConnector(c, t)
 	_db := connector.GormDB()
 
@@ -34,13 +34,13 @@ func loadProcessPwdUpdateTestData(c context.Context, t *testing.T) (testcontaine
 		EmailVerified: true,
 	}
 	if err := _db.Create(&user).Error; err != nil {
-		cleanupPwdUpdateTestData(c, t, container, connector)
+		cleanUpTestData(c, t, container, connector)
 		t.Fatal(err)
 	}
 	return container, connector, user
 }
 
-func cleanupPwdUpdateTestData(c context.Context, t *testing.T, container testcontainers.Container, connector database.Connector) {
+func cleanUpTestData(c context.Context, t *testing.T, container testcontainers.Container, connector database.Connector) {
 	if err := connector.Close(); err != nil {
 		t.Logf("failed to close connector: %v", err)
 	}
@@ -51,8 +51,8 @@ func cleanupPwdUpdateTestData(c context.Context, t *testing.T, container testcon
 
 func TestIntegration_PasswordUpdate_Process_Success(t *testing.T) {
 	c := context.Background()
-	container, connector, user := loadProcessPwdUpdateTestData(c, t)
-	t.Cleanup(func() { cleanupPwdUpdateTestData(c, t, container, connector) })
+	container, connector, user := loadTestData(c, t)
+	t.Cleanup(func() { cleanUpTestData(c, t, container, connector) })
 
 	app := fiberx.NewApp()
 

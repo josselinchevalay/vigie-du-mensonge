@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -6,9 +7,10 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Input} from "@/core/shadcn/components/ui/input";
 import {Button} from "@/core/shadcn/components/ui/button";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
-import {useNavigate} from "@tanstack/react-router";
+import {Link, useNavigate} from "@tanstack/react-router";
 import {toast} from "@/core/utils/toast";
 import {Eye, EyeOff} from "lucide-react";
+import {HTTPError} from "ky";
 
 const signInSchema = z.object({
     email: z.email("Adresse e-mail invalide"),
@@ -39,18 +41,15 @@ export function SignInForm() {
                 await navigate({to: "/email-verification", search: {token: undefined}});
             }
 
-        } catch (e: unknown) {
+        } catch (e) {
             let status: number | undefined;
-            if (e && typeof e === "object" && "response" in e) {
-                // @ts-expect-error ky HTTPError duck typing
-                status = e.response?.status;
+            if (e instanceof HTTPError) {
+                status = e.response.status;
             }
 
             const message = status === 401
                 ? "Identifiants invalides."
-                : status === 404
-                    ? "Aucun compte ne correspond à cette adresse email."
-                    : "Une erreur est survenue. Veuillez réessayer.";
+                : "Une erreur est survenue. Veuillez réessayer.";
 
             toast.error(message);
         }
@@ -119,8 +118,13 @@ export function SignInForm() {
                     </Button>
                 </form>
             </Form>
+
+            <br/>
+
+            <Link to="/password-update" search={{token: undefined}} disabled={form.formState.isSubmitting}
+                  className="justify-self-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+                Mot de passe oublié
+            </Link>
         </div>
     );
 }
-
-export default SignInForm;

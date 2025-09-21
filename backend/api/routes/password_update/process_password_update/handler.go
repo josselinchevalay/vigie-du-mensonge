@@ -1,8 +1,6 @@
 package process_password_update
 
 import (
-	"vdm/core/locals"
-	"vdm/core/locals/local_keys"
 	"vdm/core/validation"
 
 	"github.com/gofiber/fiber/v2"
@@ -17,11 +15,6 @@ type handler struct {
 }
 
 func (h *handler) processPasswordUpdate(c *fiber.Ctx) error {
-	authedUser, ok := c.Locals(local_keys.AuthedUser).(locals.AuthedUser)
-	if !ok {
-		return &fiber.Error{Code: fiber.StatusInternalServerError, Message: "failed to retrieve authenticated user from locals"}
-	}
-
 	var req RequestDTO
 	if err := c.BodyParser(&req); err != nil {
 		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "invalid request body"}
@@ -30,7 +23,7 @@ func (h *handler) processPasswordUpdate(c *fiber.Ctx) error {
 		return err
 	}
 
-	if err := h.svc.processPasswordUpdate(authedUser, req.Token, req.NewPassword); err != nil {
+	if err := h.svc.processPasswordUpdate(req.Token, req.NewPassword); err != nil {
 		return err
 	}
 	return c.SendStatus(fiber.StatusNoContent)

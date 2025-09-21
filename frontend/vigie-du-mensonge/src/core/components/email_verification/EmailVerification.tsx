@@ -15,8 +15,7 @@ export function EmailVerification({controller}: EmailVerificationProps) {
         // Nothing to render specifically here yet; we auto-trigger the request.
         return (
             <div className="p-2">
-                <h3 className="text-lg font-semibold">Email verification</h3>
-                <p className="mt-2 text-sm text-muted-foreground">Validation en cours...</p>
+                <h3 className="text-lg font-semibold">Validation en cours...</h3>
             </div>
         );
     }

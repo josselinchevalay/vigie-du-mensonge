@@ -15,7 +15,7 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	group := fiberx.NewGroup(Prefix)
 
 	group.Add(
-		inquire_password_update.Route(deps.Config.Security, deps.Config.ClientURL, deps.Mailer),
+		inquire_password_update.Route(deps.Config.Security, deps.Config.ClientURL, deps.GormDB(), deps.Mailer),
 		process_password_update.Route(deps.GormDB(), deps.Config.Security),
 	)
 

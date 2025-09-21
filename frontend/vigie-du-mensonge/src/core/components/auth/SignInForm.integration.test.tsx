@@ -1,33 +1,33 @@
-import { render, screen } from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
-import { createMemoryHistory, createRootRoute, createRoute, createRouter, RouterProvider } from '@tanstack/react-router';
-import { Suspense } from 'react';
-import { SignInForm } from './SignInForm';
-import { http, HttpResponse } from 'msw';
-import { server } from '@/test/testServer';
-import { Toaster } from '@/core/shadcn/components/ui/sonner';
-import { toast } from '@/core/utils/toast';
+import {beforeAll, beforeEach, describe, expect, it, vi} from 'vitest';
+import {createMemoryHistory, createRootRoute, createRoute, createRouter, RouterProvider} from '@tanstack/react-router';
+import {Suspense} from 'react';
+import {SignInForm} from './SignInForm';
+import {http, HttpResponse} from 'msw';
+import {server} from '@/test/testServer';
+import {Toaster} from '@/core/shadcn/components/ui/sonner';
+import {toast} from '@/core/utils/toast';
 
 // Mock the adapter toast so no timers fire and we can assert calls
 vi.mock('@/core/utils/toast', () => {
-  const toast = Object.assign(vi.fn(), {
-    success: vi.fn(),
-    error: vi.fn(),
-    message: vi.fn(),
-    dismiss: vi.fn(),
-  });
-  return { toast };
+    const toast = Object.assign(vi.fn(), {
+        success: vi.fn(),
+        error: vi.fn(),
+        message: vi.fn(),
+        dismiss: vi.fn(),
+    });
+    return {toast};
 });
 
 // Mock Toaster to a no-op component to avoid auto-dismiss timers
 vi.mock('@/core/shadcn/components/ui/sonner', () => ({
-  Toaster: () => null,
+    Toaster: () => null,
 }));
 
 // Provide a matchMedia stub for jsdom (Toaster uses it internally)
 function ensureMatchMediaStub() {
-     
+
     Object.defineProperty(window, 'matchMedia', {
         writable: true,
         value: vi.fn().mockImplementation((query: string) => ({
@@ -50,9 +50,9 @@ function buildTestRouter(initialPath: string) {
         component: () => (
             <div>
                 <Suspense fallback={<div>Loading…</div>}>
-                    <SignInForm />
+                    <SignInForm/>
                 </Suspense>
-                <Toaster position="top-center" duration={3000} />
+                <Toaster position="top-center" duration={3000}/>
             </div>
         ),
     });
@@ -65,8 +65,8 @@ function buildTestRouter(initialPath: string) {
     });
 
     const routeTree = rootRoute.addChildren([homeRoute]);
-    const history = createMemoryHistory({ initialEntries: [initialPath] });
-    return createRouter({ routeTree, history });
+    const history = createMemoryHistory({initialEntries: [initialPath]});
+    return createRouter({routeTree, history});
 }
 
 beforeAll(() => {
@@ -80,12 +80,12 @@ beforeEach(() => {
 describe('SignInForm integration (MSW)', () => {
     it('sends correct payload and navigates home', async () => {
         // Spy resolver to assert request shape
-        const resolver = vi.fn(async ({ request }) => {
+        const resolver = vi.fn(async ({request}) => {
             const url = new URL(request.url);
             expect(url.pathname).toBe('/api/v1/auth/sign-in');
             expect(request.method).toBe('POST');
             const body = await request.json();
-            expect(body).toEqual({ email: 'john@doe.com', password: 'SuperSecret!' });
+            expect(body).toEqual({email: 'john@doe.com', password: 'SuperSecret!'});
 
             const now = Date.now();
             return HttpResponse.json({
@@ -105,7 +105,7 @@ describe('SignInForm integration (MSW)', () => {
 
         render(
             <Suspense fallback={<div>Loading…</div>}>
-                <RouterProvider router={router} />
+                <RouterProvider router={router}/>
             </Suspense>
         );
 
@@ -117,7 +117,7 @@ describe('SignInForm integration (MSW)', () => {
         await userEvent.type(screen.getByPlaceholderText('••••••••'), 'SuperSecret!');
 
         // Submit
-        await userEvent.click(screen.getByRole('button', { name: /se connecter/i }));
+        await userEvent.click(screen.getByRole('button', {name: /se connecter/i}));
 
         // Assert MSW handler was called exactly once (wait for async network)
         await vi.waitFor(() => expect(resolver).toHaveBeenCalledTimes(1));
@@ -128,7 +128,7 @@ describe('SignInForm integration (MSW)', () => {
 
     it('shows error toast on 401 and stays on the page', async () => {
         const resolver401 = vi.fn(async () => {
-            return HttpResponse.text('', { status: 401 });
+            return HttpResponse.text('', {status: 401});
         });
         server.resetHandlers();
         server.use(
@@ -140,47 +140,18 @@ describe('SignInForm integration (MSW)', () => {
 
         render(
             <Suspense fallback={<div>Loading…</div>}>
-                <RouterProvider router={router} />
+                <RouterProvider router={router}/>
             </Suspense>
         );
 
         await screen.findByText('Connexion');
         await userEvent.type(screen.getByPlaceholderText('vous@exemple.com'), 'john@doe.com');
         await userEvent.type(screen.getByPlaceholderText('••••••••'), 'WrongPassword');
-        await userEvent.click(screen.getByRole('button', { name: /se connecter/i }));
+        await userEvent.click(screen.getByRole('button', {name: /se connecter/i}));
 
         await vi.waitFor(() => expect(resolver401).toHaveBeenCalledTimes(1));
 
         // Assert the specific toast message for 401 via adapter
         expect(toast.error).toHaveBeenCalledWith('Identifiants invalides.');
-    });
-
-    it('shows error toast on 404 and stays on the page', async () => {
-        const resolver404 = vi.fn(async () => {
-            return HttpResponse.text('', { status: 404 });
-        });
-        server.resetHandlers();
-        server.use(
-            http.post('/api/v1/auth/sign-in', resolver404),
-            http.post('http://localhost:8080/api/v1/auth/sign-in', resolver404)
-        );
-
-        const router = buildTestRouter('/');
-
-        render(
-            <Suspense fallback={<div>Loading…</div>}>
-                <RouterProvider router={router} />
-            </Suspense>
-        );
-
-        await screen.findByText('Connexion');
-        await userEvent.type(screen.getByPlaceholderText('vous@exemple.com'), 'unknown@doe.com');
-        await userEvent.type(screen.getByPlaceholderText('••••••••'), 'AnyPassword');
-        await userEvent.click(screen.getByRole('button', { name: /se connecter/i }));
-
-        await vi.waitFor(() => expect(resolver404).toHaveBeenCalledTimes(1));
-
-        // Assert the specific toast message for 404 via adapter
-        expect(toast.error).toHaveBeenCalledWith('Aucun compte ne correspond à cette adresse email.');
     });
 });

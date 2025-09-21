@@ -14,5 +14,3 @@ passwordUpdateInquire:
         description: Email de modification envoyé
       '400':
         $ref: "../../openapi.yml#/components/responses/Error400"
-      '404':
-        $ref: "../../openapi.yml#/components/responses/Error404"
