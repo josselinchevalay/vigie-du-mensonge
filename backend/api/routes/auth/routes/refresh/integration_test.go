@@ -11,7 +11,6 @@ import (
 	"vdm/core/dependencies/database"
 	"vdm/core/env"
 	"vdm/core/fiberx"
-	"vdm/core/locals/local_keys"
 	"vdm/core/models"
 	"vdm/test_utils"
 
@@ -74,12 +73,18 @@ func TestIntegration_Refresh_Success(t *testing.T) {
 
 	app := fiberx.NewApp()
 
-	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret"), AccessTokenTTL: 1 * time.Minute, RefreshTokenTTL: 1 * time.Minute}
+	dummyCfg := env.SecurityConfig{
+		AccessTokenSecret: []byte("dummySecret"),
+		AccessTokenTTL:    1 * time.Minute,
+		RefreshTokenTTL:   1 * time.Minute,
+		AccessCookieName:  "jwt",
+		RefreshCookieName: "rft",
+	}
 
 	Route(connector.GormDB(), dummyCfg).Register(app)
 
 	req := httptest.NewRequest(Method, Path, nil)
-	req.AddCookie(&http.Cookie{Name: local_keys.RefreshToken, Value: validRft.ID.String()})
+	req.AddCookie(&http.Cookie{Name: dummyCfg.RefreshCookieName, Value: validRft.ID.String()})
 	// no body required
 
 	res, err := app.Test(req)
@@ -111,12 +116,18 @@ func TestIntegration_Refresh_ErrUnauthorized(t *testing.T) {
 
 	app := fiberx.NewApp()
 
-	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret"), AccessTokenTTL: 1 * time.Minute, RefreshTokenTTL: 1 * time.Minute}
+	dummyCfg := env.SecurityConfig{
+		AccessTokenSecret: []byte("dummySecret"),
+		AccessTokenTTL:    1 * time.Minute,
+		RefreshTokenTTL:   1 * time.Minute,
+		AccessCookieName:  "jwt",
+		RefreshCookieName: "rft",
+	}
 
 	Route(connector.GormDB(), dummyCfg).Register(app)
 
 	req := httptest.NewRequest(Method, Path, nil)
-	req.AddCookie(&http.Cookie{Name: local_keys.RefreshToken, Value: expiredRft.ID.String()})
+	req.AddCookie(&http.Cookie{Name: dummyCfg.RefreshCookieName, Value: expiredRft.ID.String()})
 	// no body required
 
 	res, err := app.Test(req)
