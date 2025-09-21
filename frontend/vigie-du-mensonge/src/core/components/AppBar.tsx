@@ -1,4 +1,4 @@
-import {Link, useLocation} from '@tanstack/react-router';
+import {Link} from '@tanstack/react-router';
 import {useEffect, useMemo, useState} from 'react';
 import {Moon, Sun} from 'lucide-react';
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
@@ -36,7 +36,6 @@ export default function AppBar() {
     }, []);
 
     const auth = useStore(authManager.authStore);
-    const location = useLocation();
 
     const [isDark, setIsDark] = useState<boolean>(initialIsDark);
 
@@ -120,14 +119,6 @@ export default function AppBar() {
                             </>
                         ) : (
                             <>
-                                {(!auth.emailVerified && location.pathname !== '/email-verification') && (
-                                    <Link
-                                        to="/email-verification"
-                                        className="inline-flex items-center rounded-md border px-3 py-2 font-medium hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background shrink max-w-[50vw] sm:max-w-none whitespace-nowrap leading-tight text-[clamp(0.625rem,2vw,0.875rem)]"
-                                        search={{token: undefined}}>
-                                        Vérifier mon email
-                                    </Link>
-                                )}
                                 <Button onClick={() => authManager.signOut()}>Déconnexion</Button>
                             </>
                         )}

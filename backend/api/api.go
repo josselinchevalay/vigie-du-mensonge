@@ -14,6 +14,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
+	"github.com/gofiber/fiber/v2/middleware/limiter"
 )
 
 const Prefix = "/api/v1"
@@ -38,8 +39,15 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	if deps.Config.ActiveProfile != "prod" {
 		group.Add(
 			fiberx.NewMiddleware(cors.New(cors.Config{
-				AllowOrigins:     deps.Config.AllowOrigins,
-				AllowHeaders:     strings.Join([]string{fiber.HeaderContentType, "X-Csrf-Token"}, ","),
+				AllowOrigins: deps.Config.ClientURL,
+				AllowHeaders: strings.Join([]string{
+					fiber.HeaderAccessControlAllowOrigin,
+					fiber.HeaderOrigin,
+					fiber.HeaderContentType,
+					fiber.HeaderAccept,
+					fiber.HeaderCookie,
+					"X-Csrf-Token",
+				}, ","),
 				AllowCredentials: true,
 			})),
 		)
@@ -47,7 +55,12 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 
 	group.Add(
 		validate_csrf.Middleware(deps.Config.Security),
-		get_csrf.Route(),
+		get_csrf.Group(),
+
+		/* /get-csrf has its own rate limiter */
+		fiberx.NewMiddleware(limiter.New(limiter.Config{
+			Max: 10,
+		})),
 
 		auth.Group(deps),
 		password_update.Group(deps),

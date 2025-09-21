@@ -22,7 +22,6 @@ services:
       - "8080:8080"
     environment:
       - "ACTIVE_PROFILE=docker"
-      - "ALLOW_ORIGINS=http://localhost:5173"
       - "CLIENT_URL=http://localhost:5173"
       - "DB_HOST=db"
       - "DB_USER=root"
@@ -30,8 +29,8 @@ services:
       - "DB_NAME=vdm_db"
       - "DB_PORT=5432"
       - "ACCESS_TOKEN_SECRET=dummy_access_token_secret"
-      - "ACCESS_TOKEN_TTL=45s"
-      - "REFRESH_TOKEN_TTL=60s"
+      - "ACCESS_TOKEN_TTL=2m"
+      - "REFRESH_TOKEN_TTL=5m"
       - "MAILER_ADDRESS=vigiedumenzonge@gmail.com"
       - "MAILER_PASSWORD=imnycyndajvzryyd"
       - "MAILER_HOST=smtp.gmail.com"
@@ -44,7 +43,7 @@ services:
       - "REFRESH_COOKIE_NAME=rft"
       - "CSRF_COOKIE_NAME=csrf"
       - "COOKIE_SAME_SITE=lax"
-      - "COOKIE_SECURE=false"
+      - "COOKIE_SECURE=true"
     depends_on:
       db:
         condition: service_healthy

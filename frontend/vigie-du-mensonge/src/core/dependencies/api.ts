@@ -11,10 +11,8 @@ export const api = ky.create({
         "Content-Type": "application/json",
     },
     hooks: {
-        beforeRequest: [
+        beforeRequest: isTest ? [] : [
             async (request) => {
-                if (isTest) return;
-
                 if (request.method !== "POST" &&
                     request.method !== "PUT" &&
                     request.method !== "DELETE" &&

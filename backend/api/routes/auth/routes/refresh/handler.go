@@ -12,11 +12,12 @@ type Handler interface {
 }
 
 type handler struct {
-	svc Service
+	svc               Service
+	refreshCookieName string
 }
 
 func (h *handler) refresh(c *fiber.Ctx) error {
-	rftID, err := uuid.Parse(c.Cookies(local_keys.RefreshToken))
+	rftID, err := uuid.Parse(c.Cookies(h.refreshCookieName))
 	if err != nil {
 		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "invalid refresh token"}
 	}

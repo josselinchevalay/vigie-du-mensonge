@@ -7,7 +7,6 @@ import (
 
 type Config struct {
 	ActiveProfile string
-	AllowOrigins  string
 	ClientURL     string
 	Database      DatabaseConfig
 	Security      SecurityConfig
@@ -32,8 +31,7 @@ func LoadConfig() (Config, error) {
 
 	return Config{
 		ActiveProfile: getEnv("ACTIVE_PROFILE", "test"),
-		AllowOrigins:  getEnv("ALLOW_ORIGINS", ""),
-		ClientURL:     getEnv("CLIENT_URL", ""),
+		ClientURL:     getEnv("CLIENT_URL", "http://localhost:5173"),
 		Database:      dbConfig,
 		Security:      securityConfig,
 		Mailer:        mailerConfig,

@@ -21,7 +21,10 @@ func Route(db *gorm.DB, cfg env.SecurityConfig) *fiberx.Route {
 		refreshTokenTTL:   cfg.RefreshTokenTTL,
 		accessTokenSecret: cfg.AccessTokenSecret,
 	}
-	handler := &handler{svc}
+	handler := &handler{
+		svc:               svc,
+		refreshCookieName: cfg.RefreshCookieName,
+	}
 
 	return fiberx.NewRoute(Method, Path, handler.refresh)
 }
