@@ -93,7 +93,7 @@ export default function AppBar() {
                             title={isDark ? 'Mode clair' : 'Mode sombre'}
                             aria-pressed={isDark}
                             onClick={() => setIsDark(v => !v)}
-                            className="inline-flex items-center justify-center rounded-md bg-background text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                            className="p-2 inline-flex items-center justify-center rounded-md bg-background text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                         >
                             {isDark ? (
                                 <Sun className="h-4 w-4" aria-hidden="true"/>

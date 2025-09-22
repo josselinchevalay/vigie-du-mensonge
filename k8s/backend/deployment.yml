@@ -170,3 +170,15 @@ spec:
                 secretKeyRef:
                   name: security-secrets
                   key: COOKIE_SECURE
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 20

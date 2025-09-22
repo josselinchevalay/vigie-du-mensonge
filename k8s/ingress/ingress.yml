@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   namespace: vdm
-  name: ingress
+  name: ingress-nginx
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
@@ -19,7 +19,7 @@ spec:
       http:
         paths:
           - pathType: Prefix
-            path: /api
+            path: /api/v1
             backend:
               service:
                 name: backend
@@ -31,4 +31,4 @@ spec:
               service:
                 name: frontend
                 port:
-                  number: 80
+                  number: 8080

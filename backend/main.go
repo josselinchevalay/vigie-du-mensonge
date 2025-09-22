@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 	"vdm/api"
 	"vdm/core/dependencies"
 	"vdm/core/dependencies/database"
@@ -13,6 +14,7 @@ import (
 	"vdm/core/fiberx"
 	"vdm/core/logger"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 )
@@ -45,6 +47,20 @@ func main() {
 	app := fiberx.NewApp()
 	app.Use(recover.New())
 	app.Use(requestid.New())
+
+	app.Get("/healthz", func(c *fiber.Ctx) error {
+		sqlDB, err := deps.GormDB().DB()
+		if err != nil {
+			return c.SendStatus(fiber.StatusServiceUnavailable)
+		}
+		ctx, cancel := context.WithTimeout(c.Context(), 300*time.Millisecond)
+		defer cancel()
+		if err := sqlDB.PingContext(ctx); err != nil {
+			return c.SendStatus(fiber.StatusServiceUnavailable)
+		}
+		return c.SendStatus(fiber.StatusOK)
+	})
+	app.Get("/livez", func(c *fiber.Ctx) error { return c.SendStatus(fiber.StatusOK) })
 
 	api.Register(app, deps)
 
