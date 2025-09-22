@@ -40,7 +40,7 @@ services:
       - "REFRESH_TOKEN_SECRET=dummy_refresh_token_secret"
       - "REFRESH_TOKEN_TTL=5m"
       - "MAILER_ADDRESS=vigiedumenzonge@gmail.com"
-      - "MAILER_PASSWORD=imnycyndajvzryyd"
+      - "MAILER_PASSWORD=imnycyndajvzryyd" # revoked app password
       - "MAILER_HOST=smtp.gmail.com"
       - "MAILER_PORT=587"
       - "EMAIL_TOKEN_SECRET=dummy_email_token_secret"
