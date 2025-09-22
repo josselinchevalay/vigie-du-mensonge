@@ -105,18 +105,23 @@ CREATE TABLE user_roles
 );
 
 
-CREATE TABLE refresh_tokens
+CREATE TABLE user_tokens
 (
-    id      UUID        NOT NULL DEFAULT gen_random_uuid(),
-    CONSTRAINT pk_refresh_tokens PRIMARY KEY (id),
+    id       UUID        NOT NULL DEFAULT gen_random_uuid(),
+    CONSTRAINT pk_user_tokens PRIMARY KEY (id),
 
-    user_id UUID        NOT NULL,
-    CONSTRAINT fk_refresh_tokens_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    user_id  UUID        NOT NULL,
+    CONSTRAINT fk_user_tokens_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
 
-    expiry  TIMESTAMPTZ NOT NULL
+    category TEXT        NOT NULL,
+    CONSTRAINT ck_user_tokens_category CHECK (category IN ('REFRESH', 'PASSWORD', 'EMAIL')),
+
+    hash     TEXT        NOT NULL,
+    expiry   TIMESTAMPTZ NOT NULL
 );
 
-CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_refresh_tokens_expiry ON refresh_tokens (expiry);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_user_tokens_category_hash ON user_tokens (category, hash);
+CREATE INDEX IF NOT EXISTS idx_user_tokens_expiry ON user_tokens (expiry);
 
 
 CREATE TABLE articles

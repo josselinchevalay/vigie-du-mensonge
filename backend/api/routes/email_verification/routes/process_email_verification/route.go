@@ -16,9 +16,8 @@ const (
 func Route(cfg env.SecurityConfig, db *gorm.DB) *fiberx.Route {
 	repo := &repository{db}
 	svc := &service{
-		repo:                         repo,
-		emailVerificationTokenSecret: cfg.EmailVerificationTokenSecret,
-		emailVerificationTokenTTL:    cfg.EmailVerificationTokenTTL,
+		repo:        repo,
+		tokenSecret: cfg.EmailTokenSecret,
 	}
 	handler := &handler{svc}
 	return fiberx.NewRoute(Method, Path, handler.processEmailVerification)

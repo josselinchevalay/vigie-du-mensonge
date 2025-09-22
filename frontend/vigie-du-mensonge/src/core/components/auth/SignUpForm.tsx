@@ -6,7 +6,7 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Input} from "@/core/shadcn/components/ui/input";
 import {Button} from "@/core/shadcn/components/ui/button";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
-import {useNavigate} from "@tanstack/react-router";
+import {useNavigate} from "@/core/utils/router";
 import {toast} from "@/core/utils/toast";
 import {Eye, EyeOff} from "lucide-react";
 import {HTTPError} from "ky";

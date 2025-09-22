@@ -33,7 +33,7 @@ export function InquirePasswordUpdateForm({submitForm}: InquirePasswordUpdatePro
 
     if (success) {
         return <>
-            sent
+            L'email contenant le lien de modification a été envoyé.
         </>;
     }
 

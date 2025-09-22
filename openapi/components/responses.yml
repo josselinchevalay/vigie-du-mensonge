@@ -9,3 +9,5 @@ responses:
     description: Ressource inexistante
   Error409:
     description: Données conflictuelles
+  Error410:
+    description: Ressource expirée

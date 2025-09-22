@@ -9,7 +9,7 @@ import (
 
 type Repository interface {
 	findUserByEmail(email string) (models.User, error)
-	createRefreshToken(rft *models.RefreshToken) error
+	createRefreshToken(rft *models.UserToken) error
 }
 
 type repository struct {
@@ -27,7 +27,7 @@ func (r *repository) findUserByEmail(email string) (models.User, error) {
 	return user, nil
 }
 
-func (r *repository) createRefreshToken(rft *models.RefreshToken) (err error) {
+func (r *repository) createRefreshToken(rft *models.UserToken) (err error) {
 	tx := r.db.Begin()
 
 	defer func() {
@@ -44,15 +44,12 @@ func (r *repository) createRefreshToken(rft *models.RefreshToken) (err error) {
 		}
 	}()
 
-	if err = tx.Model(&models.RefreshToken{}).
-		Where("user_id = ?", rft.UserID).
-		Delete(&models.RefreshToken{}).Error; err != nil {
+	if err = tx.Model(&models.UserToken{}).
+		Where("user_id = ? AND category = ?", rft.UserID, models.UserTokenCategoryRefresh).
+		Delete(&models.UserToken{}).Error; err != nil {
 		return
 	}
 
-	if err = tx.Create(rft).Error; err != nil {
-		return
-	}
-
+	err = tx.Create(rft).Error
 	return
 }

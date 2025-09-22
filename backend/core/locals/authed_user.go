@@ -7,13 +7,8 @@ import (
 )
 
 type AuthedUser struct {
-	ID    uuid.UUID
-	Email string
-}
-
-func NewAuthedUser(u models.User) AuthedUser {
-	return AuthedUser{
-		ID:    u.ID,
-		Email: u.Email,
-	}
+	ID            uuid.UUID
+	Email         string
+	EmailVerified bool
+	Roles         []models.RoleName
 }

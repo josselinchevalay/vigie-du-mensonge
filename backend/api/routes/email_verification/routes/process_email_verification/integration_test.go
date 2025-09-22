@@ -4,12 +4,15 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"net/http"
 	"net/http/httptest"
 	"testing"
 	"time"
+	"vdm/api/middlewares/locals_authed_user"
 	"vdm/core/dependencies/database"
 	"vdm/core/env"
 	"vdm/core/fiberx"
+	"vdm/core/hmac_utils"
 	"vdm/core/jwt_utils"
 	"vdm/core/locals"
 	"vdm/core/models"
@@ -21,21 +24,54 @@ import (
 	"github.com/testcontainers/testcontainers-go"
 )
 
-func loadProcessTestData(c context.Context, t *testing.T) (testcontainers.Container, database.Connector, models.User) {
-	container, connector := test_utils.NewTestContainerConnector(c, t)
-	_db := connector.GormDB()
+type testData struct {
+	user         *models.User
+	validToken   uuid.UUID
+	expiredToken uuid.UUID
+	cfg          env.SecurityConfig
+}
 
-	user := models.User{
-		ID:            uuid.New(),
+func loadTestData(c context.Context, t *testing.T) (container testcontainers.Container, connector database.Connector, data testData) {
+	container, connector = test_utils.NewTestContainerConnector(c, t)
+	db := connector.GormDB()
+
+	data.user = &models.User{
 		Email:         "verify_user@example.com",
-		Password:      "irrelevant",
 		EmailVerified: false,
 	}
-	if err := _db.Create(&user).Error; err != nil {
-		cleanupTestData(c, t, container, connector)
-		t.Fatal(err)
+
+	var err error
+
+	defer func(c context.Context, container testcontainers.Container, connector database.Connector) {
+		if err != nil {
+			cleanupTestData(c, t, container, connector)
+			t.Fatal(err)
+		}
+	}(c, container, connector)
+
+	if err = db.Create(data.user).Error; err != nil {
+		return
 	}
-	return container, connector, user
+
+	data.cfg = env.SecurityConfig{
+		AccessTokenSecret: []byte("access"),
+		AccessTokenTTL:    1 * time.Minute,
+		AccessCookieName:  "access",
+		EmailTokenSecret:  []byte("email"),
+		EmailTokenTTL:     1 * time.Minute,
+	}
+
+	data.validToken = uuid.New()
+	validUsrTok := models.UserToken{UserID: data.user.ID, Hash: hmac_utils.HashUUID(data.validToken, data.cfg.EmailTokenSecret),
+		Expiry: time.Now().Add(data.cfg.EmailTokenTTL), Category: models.UserTokenCategoryEmail}
+
+	data.expiredToken = uuid.New()
+	expiredUsrTok := models.UserToken{UserID: data.user.ID, Hash: hmac_utils.HashUUID(data.expiredToken, data.cfg.EmailTokenSecret),
+		Expiry: time.Now().Add(-1 * time.Minute), Category: models.UserTokenCategoryEmail}
+
+	err = db.Create([]models.UserToken{validUsrTok, expiredUsrTok}).Error
+
+	return
 }
 
 func cleanupTestData(c context.Context, t *testing.T, container testcontainers.Container, connector database.Connector) {
@@ -47,36 +83,26 @@ func cleanupTestData(c context.Context, t *testing.T, container testcontainers.C
 	}
 }
 
-func TestIntegration_EmailVerification_Process_Success(t *testing.T) {
+func TestIntegration_Success(t *testing.T) {
 	c := context.Background()
-	container, connector, user := loadProcessTestData(c, t)
+	container, connector, data := loadTestData(c, t)
 	t.Cleanup(func() { cleanupTestData(c, t, container, connector) })
 
 	app := fiberx.NewApp()
 
-	cfg := env.SecurityConfig{
-		EmailVerificationTokenSecret: []byte("secret"),
-		EmailVerificationTokenTTL:    1 * time.Minute,
-	}
+	locals_authed_user.Middleware(data.cfg).Register(app)
+	Route(data.cfg, connector.GormDB()).Register(app)
 
-	// Inject authed user middleware
-	authed := locals.AuthedUser{ID: user.ID, Email: user.Email}
-	app.Use(func(c *fiber.Ctx) error {
-		c.Locals("authedUser", authed)
-		return c.Next()
-	})
-
-	Route(cfg, connector.GormDB()).Register(app)
-
-	// Generate valid token for the authed user
-	token, err := jwt_utils.GenerateJWT(authed, cfg.EmailVerificationTokenSecret, time.Now().Add(cfg.EmailVerificationTokenTTL))
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	body, _ := json.Marshal(map[string]string{"token": token})
+	body, _ := json.Marshal(RequestDTO{Token: data.validToken})
 	req := httptest.NewRequest(Method, Path, bytes.NewReader(body))
 	req.Header.Set(fiber.HeaderContentType, fiber.MIMEApplicationJSON)
+
+	authed := locals.AuthedUser{ID: data.user.ID, Email: data.user.Email, EmailVerified: data.user.EmailVerified}
+	if jwt, err := jwt_utils.GenerateJWT(authed, data.cfg.AccessTokenSecret, time.Now().Add(data.cfg.AccessTokenTTL)); err != nil {
+		t.Fatal(err)
+	} else {
+		req.AddCookie(&http.Cookie{Name: data.cfg.AccessCookieName, Value: jwt})
+	}
 
 	res, err := app.Test(req)
 	if err != nil {
@@ -87,9 +113,49 @@ func TestIntegration_EmailVerification_Process_Success(t *testing.T) {
 	assert.Equal(t, fiber.StatusNoContent, res.StatusCode)
 
 	// Verify DB updated
-	var refreshed models.User
-	if err := connector.GormDB().First(&refreshed, "id = ?", user.ID).Error; err != nil {
+	var verified models.User
+	if err := connector.GormDB().First(&verified, "id = ?", data.user.ID).Error; err != nil {
 		t.Fatal(err)
 	}
-	assert.True(t, refreshed.EmailVerified)
+	assert.True(t, verified.EmailVerified)
+
+	var tokenCount int
+	if err := connector.GormDB().Model(&models.UserToken{}).
+		Where("user_id = ?", data.user.ID).
+		Select("count(*)").
+		Find(&tokenCount).Error; err != nil {
+		t.Fatal(err)
+	}
+
+	assert.Equal(t, 0, tokenCount)
+}
+
+func TestIntegration_ErrGone(t *testing.T) {
+	c := context.Background()
+	container, connector, data := loadTestData(c, t)
+	t.Cleanup(func() { cleanupTestData(c, t, container, connector) })
+
+	app := fiberx.NewApp()
+
+	locals_authed_user.Middleware(data.cfg).Register(app)
+	Route(data.cfg, connector.GormDB()).Register(app)
+
+	body, _ := json.Marshal(RequestDTO{Token: data.expiredToken})
+	req := httptest.NewRequest(Method, Path, bytes.NewReader(body))
+	req.Header.Set(fiber.HeaderContentType, fiber.MIMEApplicationJSON)
+
+	authed := locals.AuthedUser{ID: data.user.ID, Email: data.user.Email, EmailVerified: data.user.EmailVerified}
+	if jwt, err := jwt_utils.GenerateJWT(authed, data.cfg.AccessTokenSecret, time.Now().Add(data.cfg.AccessTokenTTL)); err != nil {
+		t.Fatal(err)
+	} else {
+		req.AddCookie(&http.Cookie{Name: data.cfg.AccessCookieName, Value: jwt})
+	}
+
+	res, err := app.Test(req)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer res.Body.Close()
+
+	assert.Equal(t, fiber.StatusGone, res.StatusCode)
 }

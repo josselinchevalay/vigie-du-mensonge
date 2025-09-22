@@ -30,7 +30,7 @@ func TestHandler_Success(t *testing.T) {
 
 	Middleware(dummyCfg).Register(app)
 
-	accessToken := locals.AccessToken{Token: "test", Expiry: time.Now()}
+	accessToken := locals.AccessToken{Token: "jwt", Expiry: time.Now()}
 	refreshToken := locals.RefreshToken{Token: uuid.New(), Expiry: time.Now()}
 
 	app.Get("/", func(c *fiber.Ctx) error {

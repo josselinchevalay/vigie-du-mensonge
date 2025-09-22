@@ -17,12 +17,12 @@ type handler struct {
 }
 
 func (h *handler) refresh(c *fiber.Ctx) error {
-	rftID, err := uuid.Parse(c.Cookies(h.refreshCookieName))
+	rft, err := uuid.Parse(c.Cookies(h.refreshCookieName))
 	if err != nil {
 		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "invalid refresh token"}
 	}
 
-	user, accessToken, refreshToken, err := h.svc.refresh(rftID)
+	user, accessToken, refreshToken, err := h.svc.refresh(rft)
 	if err != nil {
 		return err
 	}
@@ -34,6 +34,6 @@ func (h *handler) refresh(c *fiber.Ctx) error {
 		AccessTokenExpiry:  accessToken.Expiry,
 		RefreshTokenExpiry: refreshToken.Expiry,
 		EmailVerified:      user.EmailVerified,
-		Roles:              user.MapRoles(),
+		Roles:              user.RoleNames(),
 	})
 }

@@ -10,7 +10,6 @@ import (
 	"vdm/core/fiberx"
 	"vdm/core/jwt_utils"
 	"vdm/core/locals"
-	"vdm/core/locals/local_keys"
 	"vdm/core/models"
 	"vdm/test_utils"
 
@@ -42,7 +41,8 @@ func loadTestData(c context.Context, t *testing.T) (container testcontainers.Con
 	if err = db.Create(testUser).Error; err != nil {
 		return
 	}
-	rft := &models.RefreshToken{UserID: testUser.ID, Expiry: time.Now().Add(10 * time.Minute)}
+	rft := &models.UserToken{UserID: testUser.ID, Expiry: time.Now().Add(10 * time.Minute),
+		Category: models.UserTokenCategoryRefresh}
 	if err = db.Create(rft).Error; err != nil {
 		return
 	}
@@ -60,25 +60,32 @@ func cleanupTestData(c context.Context, t *testing.T, container testcontainers.C
 	}
 }
 
-func TestIntegration_SignOut_Success(t *testing.T) {
+func TestIntegration_Success(t *testing.T) {
 	c := context.Background()
 	container, connector := loadTestData(c, t)
 	t.Cleanup(func() { cleanupTestData(c, t, container, connector) })
 
 	app := fiberx.NewApp()
 
-	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret")}
+	dummyCfg := env.SecurityConfig{AccessTokenSecret: []byte("dummySecret"),
+		AccessCookieName: "access"}
 
 	Route(connector.GormDB(), dummyCfg).Register(app)
 
+	req := httptest.NewRequest(Method, Path, nil)
+
 	// Generate access token for the user using the same secret as in route (defaults are OK in tests)
-	jwt, err := jwt_utils.GenerateJWT(locals.NewAuthedUser(*testUser), dummyCfg.AccessTokenSecret, time.Now().Add(time.Minute))
-	if err != nil {
+	if jwt, err := jwt_utils.GenerateJWT(locals.AuthedUser{ID: testUser.ID}, dummyCfg.AccessTokenSecret, time.Now().Add(time.Minute)); err != nil {
 		t.Fatal(err)
+	} else {
+		req.AddCookie(&http.Cookie{Name: dummyCfg.AccessCookieName, Value: jwt})
 	}
 
-	req := httptest.NewRequest(Method, Path, nil)
-	req.AddCookie(&http.Cookie{Name: local_keys.AccessToken, Value: jwt})
+	var tokenCount int64
+	if err := connector.GormDB().Model(&models.UserToken{}).Where("user_id = ?", testUser.ID).Count(&tokenCount).Error; err != nil {
+		t.Fatal(err)
+	}
+	assert.Equal(t, int64(1), tokenCount)
 
 	res, err := app.Test(req)
 	if err != nil {
@@ -89,9 +96,8 @@ func TestIntegration_SignOut_Success(t *testing.T) {
 	assert.Equal(t, fiber.StatusNoContent, res.StatusCode)
 
 	// Ensure refresh tokens are deleted for this user
-	var count int64
-	if err := connector.GormDB().Model(&models.RefreshToken{}).Where("user_id = ?", testUser.ID).Count(&count).Error; err != nil {
+	if err := connector.GormDB().Model(&models.UserToken{}).Where("user_id = ?", testUser.ID).Count(&tokenCount).Error; err != nil {
 		t.Fatal(err)
 	}
-	assert.Equal(t, int64(0), count)
+	assert.Equal(t, int64(0), tokenCount)
 }

@@ -17,11 +17,11 @@ const (
 func Route(cfg env.SecurityConfig, clientURL string, db *gorm.DB, mailer mailer.Mailer) *fiberx.Route {
 	repo := &repository{db}
 	svc := &service{
-		repo:                      repo,
-		mailer:                    mailer,
-		clientURL:                 clientURL,
-		passwordUpdateTokenSecret: cfg.PasswordUpdateTokenSecret,
-		passwordUpdateTokenTTL:    cfg.PasswordUpdateTokenTTL,
+		repo:        repo,
+		mailer:      mailer,
+		clientURL:   clientURL,
+		tokenSecret: cfg.PasswordTokenSecret,
+		tokenTTL:    cfg.PasswordTokenTTL,
 	}
 	handler := &handler{svc}
 

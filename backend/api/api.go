@@ -2,19 +2,22 @@ package api
 
 import (
 	"strings"
+	"time"
 	"vdm/api/middlewares/locals_authed_user"
-	"vdm/api/middlewares/validate_csrf"
 	"vdm/api/routes/auth"
 	"vdm/api/routes/email_verification"
 	"vdm/api/routes/get_csrf"
 	"vdm/api/routes/password_update"
 	"vdm/core/dependencies"
 	"vdm/core/fiberx"
+	"vdm/core/locals/local_keys"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/csrf"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
+	"github.com/gofiber/fiber/v2/utils"
 )
 
 const Prefix = "/api/v1"
@@ -33,6 +36,18 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 			// Disable COEP for the API to avoid breaking cross-origin fetch/embeds
 			CrossOriginEmbedderPolicy: "", // or "unsafe-none" depending on Fiber version
 			PermissionPolicy:          "geolocation=(), camera=(), microphone=(), payment=(), usb=()",
+		})),
+		fiberx.NewMiddleware(csrf.New(csrf.Config{
+			KeyLookup:      "header:X-Csrf-Token",
+			CookieName:     deps.Config.Security.CsrfCookieName,
+			CookieSameSite: deps.Config.Security.CookieSameSite,
+			CookieSecure:   deps.Config.Security.CookieSecure,
+			CookieHTTPOnly: true,
+			SingleUseToken: true,
+			CookiePath:     "/",
+			Expiration:     1 * time.Minute,
+			KeyGenerator:   utils.UUIDv4,
+			ContextKey:     local_keys.CsrfToken,
 		})),
 	)
 
@@ -54,7 +69,6 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	}
 
 	group.Add(
-		validate_csrf.Middleware(deps.Config.Security),
 		get_csrf.Group(),
 
 		/* /get-csrf has its own rate limiter */

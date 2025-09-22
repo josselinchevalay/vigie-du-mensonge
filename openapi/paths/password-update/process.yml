@@ -14,5 +14,5 @@ passwordUpdateProcess:
         description: Mot de passe mis à jour
       '400':
         $ref: "../../openapi.yml#/components/responses/Error400"
-      '401':
-        $ref: "../../openapi.yml#/components/responses/Error401"
+      '410':
+        $ref: "../../openapi.yml#/components/responses/Error410"

@@ -3,6 +3,7 @@ package refresh
 import (
 	"fmt"
 	"time"
+	"vdm/core/hmac_utils"
 	"vdm/core/jwt_utils"
 	"vdm/core/locals"
 	"vdm/core/models"
@@ -12,39 +13,47 @@ import (
 )
 
 type Service interface {
-	refresh(rftID uuid.UUID) (models.User, locals.AccessToken, locals.RefreshToken, error)
+	refresh(token uuid.UUID) (models.User, locals.AccessToken, locals.RefreshToken, error)
 }
 
 type service struct {
-	accessTokenTTL    time.Duration
-	refreshTokenTTL   time.Duration
 	accessTokenSecret []byte
-	repo              Repository
+	accessTokenTTL    time.Duration
+
+	refreshTokenSecret []byte
+	refreshTokenTTL    time.Duration
+
+	repo Repository
 }
 
-func (s *service) refresh(rftID uuid.UUID) (models.User, locals.AccessToken, locals.RefreshToken, error) {
-	rft, err := s.repo.findValidRefreshToken(rftID)
+func (s *service) refresh(rft uuid.UUID) (models.User, locals.AccessToken, locals.RefreshToken, error) {
+	usrTok, err := s.repo.findValidRefreshToken(hmac_utils.HashUUID(rft, s.refreshTokenSecret))
 	if err != nil {
-		return models.User{}, locals.AccessToken{}, locals.RefreshToken{}, &fiber.Error{Code: fiber.StatusUnauthorized, Message: "invalid refresh token"}
+		return models.User{}, locals.AccessToken{}, locals.RefreshToken{}, &fiber.Error{Code: fiber.StatusUnauthorized, Message: "invalid refresh rft"}
 	}
 
-	user := rft.User
+	user := usrTok.User
 	if user == nil {
 		return models.User{}, locals.AccessToken{}, locals.RefreshToken{}, &fiber.Error{Code: fiber.StatusInternalServerError, Message: "unexpected nil user"}
 	}
 
-	// issue a new refresh token for the same user with a renewed expiry
-	rft = models.RefreshToken{
-		UserID: rft.UserID,
-		Expiry: time.Now().Add(s.refreshTokenTTL),
+	rft = uuid.New()
+
+	usrTok = models.UserToken{
+		UserID:   usrTok.UserID,
+		Expiry:   time.Now().Add(s.refreshTokenTTL),
+		Hash:     hmac_utils.HashUUID(rft, s.refreshTokenSecret),
+		Category: models.UserTokenCategoryRefresh,
 	}
 
-	if err = s.repo.createRefreshToken(&rft); err != nil {
-		return models.User{}, locals.AccessToken{}, locals.RefreshToken{}, fmt.Errorf("failed to create refresh token: %v", err)
+	if err = s.repo.createRefreshToken(&usrTok); err != nil {
+		return models.User{}, locals.AccessToken{}, locals.RefreshToken{}, fmt.Errorf("failed to create refresh rft: %v", err)
 	}
 
 	jwtExpiry := time.Now().Add(s.accessTokenTTL)
-	jwt, err := jwt_utils.GenerateJWT(locals.NewAuthedUser(*user), s.accessTokenSecret, jwtExpiry)
+	jwt, err := jwt_utils.GenerateJWT(
+		locals.AuthedUser{ID: user.ID, Email: user.Email, EmailVerified: user.EmailVerified},
+		s.accessTokenSecret, jwtExpiry)
 	if err != nil {
 		return models.User{}, locals.AccessToken{}, locals.RefreshToken{}, fmt.Errorf("failed to generate JWT: %v", err)
 	}
@@ -54,7 +63,7 @@ func (s *service) refresh(rftID uuid.UUID) (models.User, locals.AccessToken, loc
 			Token:  jwt,
 			Expiry: jwtExpiry,
 		}, locals.RefreshToken{
-			Token:  rft.ID,
-			Expiry: rft.Expiry,
+			Token:  rft,
+			Expiry: usrTok.Expiry,
 		}, nil
 }

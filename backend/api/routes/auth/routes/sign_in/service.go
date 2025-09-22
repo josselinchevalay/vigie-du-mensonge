@@ -3,11 +3,13 @@ package sign_in
 import (
 	"fmt"
 	"time"
+	"vdm/core/hmac_utils"
 	"vdm/core/jwt_utils"
 	"vdm/core/locals"
 	"vdm/core/models"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -16,10 +18,13 @@ type Service interface {
 }
 
 type service struct {
-	accessTokenTTL    time.Duration
-	refreshTokenTTL   time.Duration
 	accessTokenSecret []byte
-	repo              Repository
+	accessTokenTTL    time.Duration
+
+	refreshTokenSecret []byte
+	refreshTokenTTL    time.Duration
+
+	repo Repository
 }
 
 func (s *service) signIn(req RequestDTO) (models.User, locals.AccessToken, locals.RefreshToken, error) {
@@ -32,20 +37,28 @@ func (s *service) signIn(req RequestDTO) (models.User, locals.AccessToken, local
 		return models.User{}, locals.AccessToken{}, locals.RefreshToken{}, &fiber.Error{Code: fiber.StatusUnauthorized, Message: "invalid credentials"}
 	}
 
-	// create new refresh token for user
-	rft := models.RefreshToken{UserID: user.ID, Expiry: time.Now().Add(s.refreshTokenTTL)}
-	if err = s.repo.createRefreshToken(&rft); err != nil {
-		return models.User{}, locals.AccessToken{}, locals.RefreshToken{}, fmt.Errorf("failed to create refresh token: %v", err)
+	rft := uuid.New()
+
+	usrTok := models.UserToken{
+		UserID:   user.ID,
+		Expiry:   time.Now().Add(s.refreshTokenTTL),
+		Hash:     hmac_utils.HashUUID(rft, s.refreshTokenSecret),
+		Category: models.UserTokenCategoryRefresh,
+	}
+
+	if err = s.repo.createRefreshToken(&usrTok); err != nil {
+		return models.User{}, locals.AccessToken{}, locals.RefreshToken{}, fmt.Errorf("failed to create refresh rft: %v", err)
 	}
 
 	jwtExpiry := time.Now().Add(s.accessTokenTTL)
-	jwt, err := jwt_utils.GenerateJWT(locals.NewAuthedUser(user), s.accessTokenSecret, jwtExpiry)
+	jwt, err := jwt_utils.GenerateJWT(locals.AuthedUser{ID: user.ID, Email: user.Email, EmailVerified: user.EmailVerified},
+		s.accessTokenSecret, jwtExpiry)
 	if err != nil {
 		return models.User{}, locals.AccessToken{}, locals.RefreshToken{}, fmt.Errorf("failed to generate JWT: %v", err)
 	}
 
 	return user,
 		locals.AccessToken{Token: jwt, Expiry: jwtExpiry},
-		locals.RefreshToken{Token: rft.ID, Expiry: rft.Expiry},
+		locals.RefreshToken{Token: rft, Expiry: usrTok.Expiry},
 		nil
 }

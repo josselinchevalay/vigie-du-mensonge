@@ -16,5 +16,6 @@ type repository struct {
 }
 
 func (r repository) deleteRefreshTokens(userID uuid.UUID) error {
-	return r.db.Delete(&models.RefreshToken{}, "user_id = ?", userID).Error
+	return r.db.Where("user_id = ? AND category = ?", userID, models.UserTokenCategoryRefresh).
+		Delete(&models.UserToken{}).Error
 }

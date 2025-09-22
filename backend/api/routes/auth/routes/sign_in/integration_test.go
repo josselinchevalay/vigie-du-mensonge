@@ -65,7 +65,7 @@ func cleanupTestData(c context.Context, t *testing.T, container testcontainers.C
 	}
 }
 
-func TestIntegration_SignIn_Success(t *testing.T) {
+func TestIntegration_Success(t *testing.T) {
 	c := context.Background()
 	container, connector := loadTestData(c, t)
 	t.Cleanup(func() { cleanupTestData(c, t, container, connector) })
@@ -102,10 +102,18 @@ func TestIntegration_SignIn_Success(t *testing.T) {
 	if err := json.Unmarshal(body, &dto); err != nil {
 		t.Fatal(err)
 	}
-	assert.Equal(t, testUser.MapRoles(), dto.Roles)
+	assert.Equal(t, testUser.RoleNames(), dto.Roles)
+
+	var tokenCount int64
+	if err = connector.GormDB().Model(&models.UserToken{}).
+		Where("user_id = ? AND category = ?", testUser.ID, models.UserTokenCategoryRefresh).
+		Count(&tokenCount).Error; err != nil {
+		t.Fatal(err)
+	}
+	assert.Equal(t, int64(1), tokenCount)
 }
 
-func TestIntegration_SignIn_WrongPassword(t *testing.T) {
+func TestIntegration_WrongPassword(t *testing.T) {
 	c := context.Background()
 	container, connector := loadTestData(c, t)
 	t.Cleanup(func() { cleanupTestData(c, t, container, connector) })
@@ -134,7 +142,7 @@ func TestIntegration_SignIn_WrongPassword(t *testing.T) {
 	assert.Equal(t, fiber.StatusUnauthorized, res.StatusCode)
 }
 
-func TestIntegration_SignIn_EmailNotFound(t *testing.T) {
+func TestIntegration_EmailNotFound(t *testing.T) {
 	c := context.Background()
 	container, connector := loadTestData(c, t)
 	t.Cleanup(func() { cleanupTestData(c, t, container, connector) })

@@ -10,14 +10,14 @@ import (
 )
 
 type Repository interface {
-	createUserAndRefreshToken(user *models.User, rft *models.RefreshToken) error
+	createUserAndRefreshToken(user *models.User, rft *models.UserToken) error
 }
 
 type repository struct {
 	db *gorm.DB
 }
 
-func (r *repository) createUserAndRefreshToken(user *models.User, rft *models.RefreshToken) (err error) {
+func (r *repository) createUserAndRefreshToken(user *models.User, rft *models.UserToken) (err error) {
 	tx := r.db.Begin()
 
 	defer func() {

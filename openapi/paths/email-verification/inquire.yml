@@ -11,3 +11,5 @@ emailVerificationInquire:
         description: Email de vérification envoyé
       '401':
         $ref: "../../openapi.yml#/components/responses/Error401"
+      '409':
+        $ref: "../../openapi.yml#/components/responses/Error409"

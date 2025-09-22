@@ -25,8 +25,8 @@ type User struct {
 
 func (User) TableName() string { return "users" }
 
-func (u User) MapRoles() []string {
-	var roles []string
+func (u User) RoleNames() []RoleName {
+	var roles []RoleName
 	for _, r := range u.Roles {
 		if r == nil {
 			continue

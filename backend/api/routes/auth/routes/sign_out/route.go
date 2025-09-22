@@ -20,7 +20,7 @@ func Route(db *gorm.DB, cfg env.SecurityConfig) *fiberx.Route {
 		repo:              repo,
 		accessTokenSecret: cfg.AccessTokenSecret,
 	}
-	handler := &handler{service}
+	handler := &handler{svc: service, accessCookieName: cfg.AccessCookieName}
 
 	return fiberx.NewRoute(Method, Path, handler.signOut)
 }

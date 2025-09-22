@@ -16,9 +16,8 @@ const (
 func Route(db *gorm.DB, cfg env.SecurityConfig) *fiberx.Route {
 	repo := &repository{db}
 	svc := &service{
-		passwordUpdateTokenSecret: cfg.PasswordUpdateTokenSecret,
-		passwordUpdateTokenTTL:    cfg.PasswordUpdateTokenTTL,
-		repo:                      repo,
+		tokenSecret: cfg.PasswordTokenSecret,
+		repo:        repo,
 	}
 	handler := &handler{svc}
 

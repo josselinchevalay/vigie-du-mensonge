@@ -16,10 +16,11 @@ const (
 func Route(db *gorm.DB, cfg env.SecurityConfig) *fiberx.Route {
 	repo := &repository{db}
 	svc := &service{
-		repo:              repo,
-		accessTokenSecret: cfg.AccessTokenSecret,
-		accessTokenTTL:    cfg.AccessTokenTTL,
-		refreshTokenTTL:   cfg.RefreshTokenTTL,
+		repo:               repo,
+		accessTokenSecret:  cfg.AccessTokenSecret,
+		accessTokenTTL:     cfg.AccessTokenTTL,
+		refreshTokenTTL:    cfg.RefreshTokenTTL,
+		refreshTokenSecret: cfg.RefreshTokenSecret,
 	}
 	handler := &handler{svc: svc}
 

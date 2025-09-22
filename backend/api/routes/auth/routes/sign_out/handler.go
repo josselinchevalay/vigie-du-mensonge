@@ -13,14 +13,15 @@ type Handler interface {
 }
 
 type handler struct {
-	svc Service
+	svc              Service
+	accessCookieName string
 }
 
 func (h *handler) signOut(c *fiber.Ctx) error {
 	c.Locals(local_keys.AccessToken, locals.AccessToken{Expiry: time.Now()})
 	c.Locals(local_keys.RefreshToken, locals.RefreshToken{Expiry: time.Now()})
 
-	h.svc.signOut(c.Cookies(local_keys.AccessToken))
+	h.svc.signOut(c.Cookies(h.accessCookieName))
 
 	return c.SendStatus(fiber.StatusNoContent)
 }

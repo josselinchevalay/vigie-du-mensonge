@@ -11,6 +11,7 @@ import (
 	"vdm/core/dependencies/database"
 	"vdm/core/env"
 	"vdm/core/fiberx"
+	"vdm/core/hmac_utils"
 	"vdm/core/models"
 	"vdm/test_utils"
 
@@ -26,8 +27,12 @@ var testRoles = []*models.Role{
 }
 var testUser = &models.User{ID: uuid.New(), Email: "refresh_user0@email.com", EmailVerified: true, Roles: testRoles}
 
-var validRft = &models.RefreshToken{UserID: testUser.ID, Expiry: time.Now().Add(1 * time.Minute)}
-var expiredRft = &models.RefreshToken{UserID: testUser.ID, Expiry: time.Now().Add(-1 * time.Minute)}
+var validRft = uuid.New()
+var expiredRft = uuid.New()
+var secret = []byte("secret")
+
+var validUsrTok = &models.UserToken{UserID: testUser.ID, Hash: hmac_utils.HashUUID(validRft, secret), Category: models.UserTokenCategoryRefresh, Expiry: time.Now().Add(1 * time.Minute)}
+var expiredUsrTok = &models.UserToken{UserID: testUser.ID, Hash: hmac_utils.HashUUID(expiredRft, secret), Category: models.UserTokenCategoryRefresh, Expiry: time.Now().Add(-1 * time.Minute)}
 
 func loadTestData(c context.Context, t *testing.T) (container testcontainers.Container, connector database.Connector) {
 	container, connector = test_utils.NewTestContainerConnector(c, t)
@@ -51,7 +56,7 @@ func loadTestData(c context.Context, t *testing.T) (container testcontainers.Con
 		return
 	}
 
-	err = db.Create([]*models.RefreshToken{validRft, expiredRft}).Error
+	err = db.Create([]*models.UserToken{validUsrTok, expiredUsrTok}).Error
 
 	return
 }
@@ -74,17 +79,18 @@ func TestIntegration_Refresh_Success(t *testing.T) {
 	app := fiberx.NewApp()
 
 	dummyCfg := env.SecurityConfig{
-		AccessTokenSecret: []byte("dummySecret"),
-		AccessTokenTTL:    1 * time.Minute,
-		RefreshTokenTTL:   1 * time.Minute,
-		AccessCookieName:  "jwt",
-		RefreshCookieName: "rft",
+		AccessTokenSecret:  []byte("dummySecret"),
+		AccessTokenTTL:     1 * time.Minute,
+		RefreshTokenSecret: secret,
+		RefreshTokenTTL:    1 * time.Minute,
+		AccessCookieName:   "jwt",
+		RefreshCookieName:  "rft",
 	}
 
 	Route(connector.GormDB(), dummyCfg).Register(app)
 
 	req := httptest.NewRequest(Method, Path, nil)
-	req.AddCookie(&http.Cookie{Name: dummyCfg.RefreshCookieName, Value: validRft.ID.String()})
+	req.AddCookie(&http.Cookie{Name: dummyCfg.RefreshCookieName, Value: validRft.String()})
 	// no body required
 
 	res, err := app.Test(req)
@@ -106,7 +112,7 @@ func TestIntegration_Refresh_Success(t *testing.T) {
 	}
 
 	assert.True(t, resDTO.EmailVerified)
-	assert.Equal(t, testUser.MapRoles(), resDTO.Roles)
+	assert.Equal(t, testUser.RoleNames(), resDTO.Roles)
 }
 
 func TestIntegration_Refresh_ErrUnauthorized(t *testing.T) {
@@ -117,17 +123,18 @@ func TestIntegration_Refresh_ErrUnauthorized(t *testing.T) {
 	app := fiberx.NewApp()
 
 	dummyCfg := env.SecurityConfig{
-		AccessTokenSecret: []byte("dummySecret"),
-		AccessTokenTTL:    1 * time.Minute,
-		RefreshTokenTTL:   1 * time.Minute,
-		AccessCookieName:  "jwt",
-		RefreshCookieName: "rft",
+		AccessTokenSecret:  []byte("dummySecret"),
+		RefreshTokenSecret: secret,
+		AccessTokenTTL:     1 * time.Minute,
+		RefreshTokenTTL:    1 * time.Minute,
+		AccessCookieName:   "jwt",
+		RefreshCookieName:  "rft",
 	}
 
 	Route(connector.GormDB(), dummyCfg).Register(app)
 
 	req := httptest.NewRequest(Method, Path, nil)
-	req.AddCookie(&http.Cookie{Name: dummyCfg.RefreshCookieName, Value: expiredRft.ID.String()})
+	req.AddCookie(&http.Cookie{Name: dummyCfg.RefreshCookieName, Value: expiredRft.String()})
 	// no body required
 
 	res, err := app.Test(req)

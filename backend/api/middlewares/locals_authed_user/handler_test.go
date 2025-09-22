@@ -23,7 +23,7 @@ func TestHandler_Success(t *testing.T) {
 
 	Middleware(dummyCfg).Register(app)
 
-	input := locals.AuthedUser{ID: uuid.New(), Email: "test@email.com"}
+	input := locals.AuthedUser{ID: uuid.New()}
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		output, ok := c.Locals(local_keys.AuthedUser, input).(locals.AuthedUser)
@@ -60,7 +60,7 @@ func TestHandler_ErrUnauthorized(t *testing.T) {
 
 	Middleware(dummyCfg).Register(app)
 
-	input := locals.AuthedUser{ID: uuid.New(), Email: "test@email.com"}
+	input := locals.AuthedUser{ID: uuid.New()}
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		output, ok := c.Locals(local_keys.AuthedUser, input).(locals.AuthedUser)

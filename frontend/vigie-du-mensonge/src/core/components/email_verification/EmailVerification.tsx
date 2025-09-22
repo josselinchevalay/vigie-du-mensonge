@@ -9,6 +9,7 @@ export type EmailVerificationProps = {
 
 export function EmailVerification({controller}: EmailVerificationProps) {
     const [submitting, setSubmitting] = useState(false);
+    const [emailSent, setEmailSent] = useState(false);
     const hasToken = useStore(controller.tokenStore) !== null;
 
     if (hasToken) {
@@ -20,11 +21,16 @@ export function EmailVerification({controller}: EmailVerificationProps) {
         );
     }
 
+    if (emailSent) {
+        return <>L'email contenant le lien de validation a été envoyé.</>;
+    }
+
     const handleInquire = async () => {
         setSubmitting(true);
         try {
             await controller.inquire();
             toast("L'email de validation a été envoyé");
+            setEmailSent(true);
         } catch {
             toast.error('Une erreur est survenue. Veuillez réessayer.');
         } finally {

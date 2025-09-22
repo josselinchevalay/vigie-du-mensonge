@@ -13,7 +13,7 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	group := fiberx.NewGroup(Prefix)
 
 	group.Add(
-		inquire_email_verification.Route(deps.Config.Security, deps.Config.ClientURL, deps.Mailer),
+		inquire_email_verification.Route(deps.Config.Security, deps.GormDB(), deps.Config.ClientURL, deps.Mailer),
 		process_email_verification.Route(deps.Config.Security, deps.GormDB()),
 	)
 

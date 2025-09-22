@@ -13,7 +13,7 @@ type nullService struct{}
 
 func (nullService) signOut(accessToken string) {}
 
-func TestHandler_SignOut_NoCookie_ReturnsNoContent(t *testing.T) {
+func TestHandler_NoCookie_ReturnsNoContent(t *testing.T) {
 	h := &handler{svc: nullService{}}
 
 	app := fiberx.NewApp()

@@ -16,17 +16,17 @@ type handler struct {
 	svc Service
 }
 
-type processRequest struct {
-	Token string `json:"token" validate:"required"`
-}
-
 func (h *handler) processEmailVerification(c *fiber.Ctx) error {
 	authedUser, ok := c.Locals(local_keys.AuthedUser).(locals.AuthedUser)
 	if !ok {
 		return &fiber.Error{Code: fiber.StatusInternalServerError, Message: "failed to retrieve authenticated user from locals"}
 	}
 
-	var req processRequest
+	if authedUser.EmailVerified {
+		return c.SendStatus(fiber.StatusNoContent)
+	}
+
+	var req RequestDTO
 	if err := c.BodyParser(&req); err != nil {
 		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "invalid request body"}
 	}
@@ -34,7 +34,7 @@ func (h *handler) processEmailVerification(c *fiber.Ctx) error {
 		return err
 	}
 
-	if err := h.svc.processEmailVerification(authedUser, req.Token); err != nil {
+	if err := h.svc.validateTokenAndVerifyEmail(authedUser, req.Token); err != nil {
 		return err
 	}
 	return c.SendStatus(fiber.StatusNoContent)

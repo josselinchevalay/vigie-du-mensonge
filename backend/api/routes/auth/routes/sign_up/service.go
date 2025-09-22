@@ -4,11 +4,13 @@ import (
 	"errors"
 	"fmt"
 	"time"
+	"vdm/core/hmac_utils"
 	"vdm/core/jwt_utils"
 	"vdm/core/locals"
 	"vdm/core/models"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -18,10 +20,11 @@ type Service interface {
 }
 
 type service struct {
-	accessTokenTTL    time.Duration
-	refreshTokenTTL   time.Duration
-	accessTokenSecret []byte
-	repo              Repository
+	accessTokenTTL     time.Duration
+	refreshTokenTTL    time.Duration
+	accessTokenSecret  []byte
+	refreshTokenSecret []byte
+	repo               Repository
 }
 
 func (s *service) signUp(req RequestDTO) (locals.AccessToken, locals.RefreshToken, error) {
@@ -33,9 +36,11 @@ func (s *service) signUp(req RequestDTO) (locals.AccessToken, locals.RefreshToke
 		user.Password = string(hashedPassword)
 	}
 
-	rft := &models.RefreshToken{UserID: user.ID, Expiry: time.Now().Add(s.refreshTokenTTL)}
+	rft := uuid.New()
+	usrTok := &models.UserToken{UserID: user.ID, Hash: hmac_utils.HashUUID(rft, s.refreshTokenSecret),
+		Expiry: time.Now().Add(s.refreshTokenTTL), Category: models.UserTokenCategoryRefresh}
 
-	if err := s.repo.createUserAndRefreshToken(user, rft); err != nil {
+	if err := s.repo.createUserAndRefreshToken(user, usrTok); err != nil {
 		if errors.Is(err, gorm.ErrDuplicatedKey) {
 			return locals.AccessToken{}, locals.RefreshToken{}, &fiber.Error{Code: fiber.StatusConflict, Message: "user with this email already exists"}
 		}
@@ -43,7 +48,7 @@ func (s *service) signUp(req RequestDTO) (locals.AccessToken, locals.RefreshToke
 	}
 
 	jwtExpiry := time.Now().Add(s.accessTokenTTL)
-	jwt, err := jwt_utils.GenerateJWT(locals.NewAuthedUser(*user), s.accessTokenSecret, jwtExpiry)
+	jwt, err := jwt_utils.GenerateJWT(locals.AuthedUser{ID: user.ID, Email: user.Email}, s.accessTokenSecret, jwtExpiry)
 	if err != nil {
 		return locals.AccessToken{}, locals.RefreshToken{}, fmt.Errorf("failed to generate JWT: %v", err)
 	}
@@ -52,7 +57,7 @@ func (s *service) signUp(req RequestDTO) (locals.AccessToken, locals.RefreshToke
 			Token:  jwt,
 			Expiry: jwtExpiry,
 		}, locals.RefreshToken{
-			Token:  rft.ID,
-			Expiry: rft.Expiry,
+			Token:  rft,
+			Expiry: usrTok.Expiry,
 		}, nil
 }

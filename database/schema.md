@@ -62,9 +62,11 @@ erDiagram
         UUID role_id PK
     }
     
-    REFRESH_TOKENS {
+    USER_TOKENS {
         UUID id PK
         UUID user_id FK
+        TEXT hash
+        TEXT category
         TIMESTAMPTZ expiry
     }
 

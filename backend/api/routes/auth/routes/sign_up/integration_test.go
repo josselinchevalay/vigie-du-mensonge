@@ -80,6 +80,14 @@ func TestIntegration_Success(t *testing.T) {
 	defer res.Body.Close()
 
 	assert.Equal(t, fiber.StatusCreated, res.StatusCode)
+
+	var tokenCount int64
+	if err = connector.GormDB().Model(&models.UserToken{}).
+		Where("user_id <> ? AND category = ?", testUser.ID, models.UserTokenCategoryRefresh).
+		Count(&tokenCount).Error; err != nil {
+		t.Fatal(err)
+	}
+	assert.Equal(t, int64(1), tokenCount)
 }
 
 func TestIntegration_ErrConflict(t *testing.T) {

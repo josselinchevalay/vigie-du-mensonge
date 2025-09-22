@@ -10,8 +10,8 @@ import {EmailVerification} from './EmailVerification';
 import {EmailVerificationController} from '@/core/dependencies/email_verification/emailVerificationController';
 import {authManager} from '@/core/dependencies/auth/authManager';
 import {Auth} from '@/core/models/auth';
-import {router as appRouter} from '@/main';
-import { toast } from '@/core/utils/toast';
+import {toast} from '@/core/utils/toast';
+import {navigate} from '@/core/utils/router';
 
 // Mock the adapter toast to prevent timers and allow call assertions
 vi.mock('@/core/utils/toast', () => {
@@ -21,12 +21,28 @@ vi.mock('@/core/utils/toast', () => {
         message: vi.fn(),
         dismiss: vi.fn(),
     });
-    return { toast };
+    return {toast};
 });
 
 // Mock the Toaster component to a no-op so no timers or matchMedia are used
 vi.mock('@/core/shadcn/components/ui/sonner', () => ({
     Toaster: () => null,
+}));
+
+vi.mock('@/core/utils/router', () => ({
+    // simple anchor fallback for Link
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Link: ({to, children, ...rest}: any) => (
+        <a href={typeof to === 'string' ? to : ''} {...rest}>
+            {children}
+        </a>
+    ),
+    useLocation: () => ({pathname: '/'}),
+    useNavigate: () => async () => {
+    },
+    redirect: (opts: unknown) => opts,
+    navigate: vi.fn(async () => {
+    }),
 }));
 
 // Provide a matchMedia stub for jsdom (Toaster uses it internally)
@@ -142,8 +158,6 @@ describe('EmailVerification integration (MSW)', () => {
             http.post('http://localhost:8080/api/v1/email-verification/process', processResolver),
         );
 
-        // Spy on global app router navigate (used inside controller)
-        const navSpy = vi.spyOn(appRouter, 'navigate').mockResolvedValue();
 
         // Creating the controller with a token will auto-trigger processing
         const controller = new EmailVerificationController('abc123');
@@ -160,14 +174,12 @@ describe('EmailVerification integration (MSW)', () => {
 
         // Wait for the network call and subsequent navigation
         await vi.waitFor(() => expect(processResolver).toHaveBeenCalledTimes(1));
-        await vi.waitFor(() => expect(navSpy).toHaveBeenCalledWith({to: '/', replace: true}));
+        await vi.waitFor(() => expect(navigate).toHaveBeenCalledWith({to: '/', replace: true}));
 
         // Auth should now be marked as verified
         expect(authManager.authStore.state?.emailVerified).toBe(true);
-
-        navSpy.mockRestore();
     });
-    
+
     //TODO: fix error Transitioner not wrapped in act
     it('process: shows error toast on failure and returns to inquire UI', async () => {
         // Prepare an authenticated state with emailVerified=false

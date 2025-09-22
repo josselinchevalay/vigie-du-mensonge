@@ -1,6 +1,8 @@
 package process_password_update
 
+import "github.com/google/uuid"
+
 type RequestDTO struct {
-	Token       string `json:"token" validate:"required"`
-	NewPassword string `json:"newPassword" validate:"required,password"`
+	Token       uuid.UUID `json:"token" validate:"required"`
+	NewPassword string    `json:"newPassword" validate:"required,password"`
 }

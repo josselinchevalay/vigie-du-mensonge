@@ -18,13 +18,21 @@ func (nullService) signUp(req RequestDTO) (locals.AccessToken, locals.RefreshTok
 	return locals.AccessToken{}, locals.RefreshToken{}, nil
 }
 
-func TestHandler_ErrBadRequest(t *testing.T) {
+func TestHandler_ErrBadRequest_InvalidEmail(t *testing.T) {
 	h := &handler{svc: nullService{}}
 
 	app := fiberx.NewApp()
 	app.Add(Method, Path, h.signUp)
 
-	req := httptest.NewRequest(Method, Path, nil)
+	reqBody, err := json.Marshal(RequestDTO{
+		Email:    "not-an-email",
+		Password: "Test123!",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	req := httptest.NewRequest(Method, Path, bytes.NewReader(reqBody))
 	req.Header.Set("Content-Type", "application/json")
 
 	res, err := app.Test(req)
@@ -36,13 +44,16 @@ func TestHandler_ErrBadRequest(t *testing.T) {
 	assert.Equal(t, fiber.StatusBadRequest, res.StatusCode)
 }
 
-func TestHandler_ErrBadRequest2(t *testing.T) {
+func TestHandler_ErrBadRequest_InvalidPassword(t *testing.T) {
 	h := &handler{svc: nullService{}}
 
 	app := fiberx.NewApp()
 	app.Add(Method, Path, h.signUp)
 
-	reqBody, err := json.Marshal(RequestDTO{})
+	reqBody, err := json.Marshal(RequestDTO{
+		Email:    "test@email.com",
+		Password: "not-a-password",
+	})
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -1,6 +1,6 @@
 import {useStore} from "@tanstack/react-store";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
-import {Link, useLocation} from "@tanstack/react-router";
+import {Link, useLocation} from "@/core/utils/router";
 
 export default function VerifyMyEmailLink() {
     const auth = useStore(authManager.authStore);

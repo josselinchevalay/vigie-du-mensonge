@@ -4,31 +4,30 @@ import (
 	"vdm/core/logger"
 	"vdm/core/models"
 
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
 type Repository interface {
-	findValidRefreshToken(id uuid.UUID) (models.RefreshToken, error)
-	createRefreshToken(rft *models.RefreshToken) error
+	findValidRefreshToken(hash string) (models.UserToken, error)
+	createRefreshToken(rft *models.UserToken) error
 }
 
 type repository struct {
 	db *gorm.DB
 }
 
-func (r *repository) findValidRefreshToken(id uuid.UUID) (models.RefreshToken, error) {
-	var rft models.RefreshToken
-	if err := r.db.Model(&models.RefreshToken{}).
-		Where("id = ? AND expiry > NOW()", id).
+func (r *repository) findValidRefreshToken(hash string) (models.UserToken, error) {
+	var rft models.UserToken
+	if err := r.db.Model(&models.UserToken{}).
+		Where("hash = ? AND category = ? AND expiry > NOW()", hash, models.UserTokenCategoryRefresh).
 		Preload("User.Roles").
 		First(&rft).Error; err != nil {
-		return models.RefreshToken{}, err
+		return models.UserToken{}, err
 	}
 	return rft, nil
 }
 
-func (r *repository) createRefreshToken(rft *models.RefreshToken) (err error) {
+func (r *repository) createRefreshToken(rft *models.UserToken) (err error) {
 	tx := r.db.Begin()
 
 	defer func() {
@@ -46,9 +45,9 @@ func (r *repository) createRefreshToken(rft *models.RefreshToken) (err error) {
 		}
 	}()
 
-	if err = tx.Model(&models.RefreshToken{}).
-		Where("user_id = ?", rft.UserID).
-		Delete(&models.RefreshToken{}).Error; err != nil {
+	if err = tx.Model(&models.UserToken{}).
+		Where("user_id = ? AND category = ?", rft.UserID, models.UserTokenCategoryRefresh).
+		Delete(&models.UserToken{}).Error; err != nil {
 		return
 	}
 

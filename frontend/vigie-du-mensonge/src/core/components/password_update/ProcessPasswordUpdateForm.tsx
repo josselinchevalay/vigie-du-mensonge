@@ -47,7 +47,7 @@ export function ProcessPasswordUpdateForm({submitForm}: ProcessPasswordUpdatePro
 
     if (success) {
         return <>
-            sent
+            Votre mot de passe a été mis à jour.
         </>;
     }
 

@@ -6,6 +6,7 @@ import (
 	"vdm/core/fiberx"
 
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 )
 
 const (
@@ -13,12 +14,15 @@ const (
 	Method = fiber.MethodPost
 )
 
-func Route(cfg env.SecurityConfig, clientURL string, mailer mailer.Mailer) *fiberx.Route {
-	h := &handler{
-		emailVerificationTokenSecret: cfg.EmailVerificationTokenSecret,
-		emailVerificationTokenTTL:    cfg.EmailVerificationTokenTTL,
-		mailer:                       mailer,
-		clientURL:                    clientURL,
+func Route(cfg env.SecurityConfig, db *gorm.DB, clientURL string, mailer mailer.Mailer) *fiberx.Route {
+	repo := &repository{db}
+	svc := &service{
+		repo:        repo,
+		tokenSecret: cfg.EmailTokenSecret,
+		tokenTTL:    cfg.EmailTokenTTL,
+		mailer:      mailer,
+		clientURL:   clientURL,
 	}
+	h := &handler{svc}
 	return fiberx.NewRoute(Method, Path, h.inquireEmailVerification)
 }
