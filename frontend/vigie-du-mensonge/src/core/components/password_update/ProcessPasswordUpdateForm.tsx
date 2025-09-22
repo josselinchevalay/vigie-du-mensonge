@@ -110,7 +110,7 @@ export function ProcessPasswordUpdateForm({submitForm}: ProcessPasswordUpdatePro
                     </div>
 
                     <Button type="submit" disabled={form.formState.isSubmitting} className="w-full">
-                        {form.formState.isSubmitting ? "En cours…" : "Modifier le mot de passe"}
+                        {form.formState.isSubmitting ? "Envoi cours…" : "Modifier le mot de passe"}
                     </Button>
                 </form>
             </Form>
