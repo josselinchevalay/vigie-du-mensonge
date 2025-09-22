@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: geo1796/vdm-backend:0.1
+          image: geo1796/vdm-backend:0.2
           env:
             - name: ACTIVE_PROFILE
               value: 'prod'

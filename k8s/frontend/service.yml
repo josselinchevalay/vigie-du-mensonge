@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: vdm
+  name: frontend
+spec:
+  selector:
+    app: frontend
+  type: ClusterIP
+  ports:
+    - name: frontend
+      protocol: TCP
+      port: 80
+      targetPort: 8080

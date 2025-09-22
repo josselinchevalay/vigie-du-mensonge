@@ -20,4 +20,4 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: geo1796/vdm-frontend:0.1
+          image: geo1796/vdm-frontend:0.3

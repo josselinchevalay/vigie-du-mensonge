@@ -34,7 +34,7 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 			CrossOriginResourcePolicy: "same-site",
 			CrossOriginOpenerPolicy:   "same-origin",
 			// Disable COEP for the API to avoid breaking cross-origin fetch/embeds
-			CrossOriginEmbedderPolicy: "", // or "unsafe-none" depending on Fiber version
+			CrossOriginEmbedderPolicy: "unsafe-none", // or "unsafe-none" depending on Fiber version
 			PermissionPolicy:          "geolocation=(), camera=(), microphone=(), payment=(), usb=()",
 		})),
 		fiberx.NewMiddleware(csrf.New(csrf.Config{

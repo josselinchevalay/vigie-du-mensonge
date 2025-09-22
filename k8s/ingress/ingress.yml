@@ -5,7 +5,9 @@ metadata:
   name: ingress
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/proxy-body-size: 21m
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "2m"
+    nginx.ingress.kubernetes.io/add-headers: vdm/ingress-response-headers
 spec:
   ingressClassName: nginx
   tls:
@@ -17,9 +19,16 @@ spec:
       http:
         paths:
           - pathType: Prefix
-            path: "/"
+            path: /api
             backend:
               service:
                 name: backend
                 port:
                   number: 8080
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
