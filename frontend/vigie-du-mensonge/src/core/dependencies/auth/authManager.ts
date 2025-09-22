@@ -13,6 +13,14 @@ class AuthManager {
         return localStorage.getItem(EMAIL_STORAGE_KEY);
     }
 
+    public set email(email: string | null) {
+        if (email) {
+            localStorage.setItem(EMAIL_STORAGE_KEY, email);
+        } else {
+            localStorage.removeItem(EMAIL_STORAGE_KEY);
+        }
+    }
+
     public get refreshing(): boolean {
         return this._refreshing;
     }

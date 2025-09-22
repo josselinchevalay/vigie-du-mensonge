@@ -8,6 +8,8 @@ import {http, HttpResponse} from 'msw';
 import {server} from '@/test/testServer';
 import {Toaster} from '@/core/shadcn/components/ui/sonner';
 import {toast} from '@/core/utils/toast';
+import {authManager} from "@/core/dependencies/auth/authManager.ts";
+import {Auth} from "@/core/models/auth.ts";
 
 // Mock the adapter toast so no timers fire and we can assert calls
 vi.mock('@/core/utils/toast', () => {
@@ -75,6 +77,9 @@ beforeAll(() => {
 
 beforeEach(() => {
     vi.clearAllMocks();
+    authManager.authStore.setState(() => null);
+    Auth.clearStorage();
+    authManager.email = null;
 });
 
 describe('SignInForm integration (MSW)', () => {
