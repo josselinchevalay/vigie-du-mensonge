@@ -23,7 +23,7 @@ export function SignInForm() {
     const navigate = useNavigate();
     const form = useForm<SignInInput>({
         resolver: zodResolver(signInSchema),
-        defaultValues: {email: "", password: ""},
+        defaultValues: {email: authManager.email ?? '', password: ""},
         mode: "onSubmit",
     });
 

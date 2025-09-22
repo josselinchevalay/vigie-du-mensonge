@@ -1,7 +1,9 @@
 package database
 
 import (
+	"fmt"
 	"log"
+	"os"
 	"vdm/data_import/models"
 
 	"gorm.io/driver/postgres"
@@ -19,14 +21,18 @@ type PostgresConnector struct {
 	db *gorm.DB
 }
 
-func NewPostgresConnector() Connector {
-	dsn := "host=localhost port=5432 user=root password=root dbname=vdm_db sslmode=disable"
+func buildDSN() string {
+	return fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
+		os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_USER"),
+		os.Getenv("DB_PASSWORD"), os.Getenv("DB_NAME"), os.Getenv("DB_SSL_MODE"))
+}
 
+func NewPostgresConnector() Connector {
 	gormConfig := &gorm.Config{
 		Logger: gormLogger.Default.LogMode(gormLogger.Silent),
 	}
 
-	db, err := gorm.Open(postgres.Open(dsn), gormConfig)
+	db, err := gorm.Open(postgres.Open(buildDSN()), gormConfig)
 	if err != nil {
 		log.Fatal(err)
 	}

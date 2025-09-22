@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: vdm
+  name: ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: 21m
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - "vigiedumensonge.gocorp.fr"
+      secretName: ingress-tls
+  rules:
+    - host: "vigiedumensonge.gocorp.fr"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: backend
+                port:
+                  number: 8080

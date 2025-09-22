@@ -1,0 +1,143 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: vdm
+  name: backend
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 0
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: geo1796/vdm-backend:0.1
+          env:
+            - name: ACTIVE_PROFILE
+              value: 'prod'
+            - name: CLIENT_URL
+              value: 'https://vigiedumensonge.gocorp.fr'
+            - name: MAILER_ADDRESS
+              valueFrom:
+                secretKeyRef:
+                  name: mailer-secrets
+                  key: MAILER_ADDRESS
+            - name: MAILER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mailer-secrets
+                  key: MAILER_PASSWORD
+            - name: MAILER_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: mailer-secrets
+                  key: MAILER_HOST
+            - name: MAILER_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: mailer-secrets
+                  key: MAILER_PORT
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: DB_HOST
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: DB_PASSWORD
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: DB_NAME
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: DB_PORT
+            - name: DB_SSL_MODE
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: DB_SSL_MODE
+            - name: PASSWORD_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: security-secrets
+                  key: PASSWORD_TOKEN_SECRET
+            - name: PASSWORD_TOKEN_TTL
+              valueFrom:
+                secretKeyRef:
+                  name: security-secrets
+                  key: PASSWORD_TOKEN_TTL
+            - name: EMAIL_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: security-secrets
+                  key: EMAIL_TOKEN_SECRET
+            - name: EMAIL_TOKEN_TTL
+              valueFrom:
+                secretKeyRef:
+                  name: security-secrets
+                  key: EMAIL_TOKEN_TTL
+            - name: REFRESH_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: security-secrets
+                  key: REFRESH_TOKEN_SECRET
+            - name: REFRESH_TOKEN_TTL
+              valueFrom:
+                secretKeyRef:
+                  name: security-secrets
+                  key: REFRESH_TOKEN_TTL
+            - name: REFRESH_COOKIE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: security-secrets
+                  key: REFRESH_COOKIE_NAME
+            - name: ACCESS_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: security-secrets
+                  key: ACCESS_TOKEN_SECRET
+            - name: ACCESS_TOKEN_TTL
+              valueFrom:
+                secretKeyRef:
+                  name: security-secrets
+                  key: ACCESS_TOKEN_TTL
+            - name: ACCESS_COOKIE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: security-secrets
+                  key: ACCESS_COOKIE_NAME
+            - name: CSRF_COOKIE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: security-secrets
+                  key: CSRF_COOKIE_NAME
+            - name: COOKIE_SAME_SITE
+              valueFrom:
+                secretKeyRef:
+                  name: security-secrets
+                  key: COOKIE_SAME_SITE
+            - name: COOKIE_SECURE
+              valueFrom:
+                secretKeyRef:
+                  name: security-secrets
+                  key: COOKIE_SECURE
