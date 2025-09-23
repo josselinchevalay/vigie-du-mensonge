@@ -18,6 +18,7 @@ spec:
       labels:
         app: backend
     spec:
+      serviceAccountName: vdm-sa
       automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true
@@ -35,14 +36,13 @@ spec:
             - name: tmp
               mountPath: /tmp
               readOnly: false
-          image: geo1796/vdm-backend:0.2
+          image: geo1796/vdm-backend@sha256:20f3c3d105e2a09d6887270166f888377782164882c6f21c70fe8f68243737c3
+          imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
             capabilities:
               drop: [ "ALL" ]
-            seccompProfile:
-              type: RuntimeDefault
           resources:
             requests:
               cpu: "150m"
@@ -182,3 +182,9 @@ spec:
               port: 8080
             initialDelaySeconds: 20
             periodSeconds: 20
+          startupProbe:
+            httpGet:
+              path: /livez
+              port: 8080
+            periodSeconds: 2
+            failureThreshold: 30

@@ -48,6 +48,8 @@ func main() {
 	app.Use(recover.New())
 	app.Use(requestid.New())
 
+	app.Get("/livez", func(c *fiber.Ctx) error { return c.SendStatus(fiber.StatusOK) })
+
 	app.Get("/healthz", func(c *fiber.Ctx) error {
 		sqlDB, err := deps.GormDB().DB()
 		if err != nil {
@@ -60,7 +62,6 @@ func main() {
 		}
 		return c.SendStatus(fiber.StatusOK)
 	})
-	app.Get("/livez", func(c *fiber.Ctx) error { return c.SendStatus(fiber.StatusOK) })
 
 	api.Register(app, deps)
 
