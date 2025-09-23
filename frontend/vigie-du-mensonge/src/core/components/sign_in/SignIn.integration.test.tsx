@@ -6,8 +6,8 @@ import {type ReactNode, Suspense} from 'react';
 import {http, HttpResponse} from 'msw';
 import {server} from '@/test/testServer';
 import {Toaster} from '@/core/shadcn/components/ui/sonner';
-import {PasswordUpdate} from '@/core/components/password_update/PasswordUpdate';
-import {PasswordUpdateController} from '@/core/dependencies/password_update/passwordUpdateController';
+import {SignIn} from '@/core/components/sign_in/SignIn';
+import {SignInController} from '@/core/dependencies/sign_in/signInController';
 import {toast} from '@/core/utils/toast';
 
 // Mock the adapter toast to prevent timers and allow call assertions
@@ -90,23 +90,33 @@ beforeEach(() => {
     vi.clearAllMocks();
 });
 
-describe('ProcessPasswordUpdate integration (MSW)', () => {
-    it('process: sends request with token and shows success toast', async () => {
-        const processResolver = vi.fn(async ({request}) => {
+describe('SignIn integration (MSW)', () => {
+    it('sign-in: sends credentials and navigates to home on success', async () => {
+        const successResolver = vi.fn(async ({request}) => {
             const url = new URL(request.url);
-            expect(url.pathname).toBe('/api/v1/password-update/process');
+            expect(url.pathname).toBe('/api/v1/auth/sign-in');
             expect(request.method).toBe('POST');
             const body = await request.json();
-            expect(body).toEqual({token: 'token-123', newPassword: 'Abcdef1!'});
-            return new HttpResponse(null, {status: 204});
+            expect(body).toEqual({email: 'user@example.com', password: 'P@ssword1'});
+
+            const access = new Date();
+            access.setMinutes(access.getMinutes() + 10);
+            const refresh = new Date();
+            refresh.setMinutes(refresh.getMinutes() + 30);
+
+            return HttpResponse.json({
+                accessTokenExpiry: access.toISOString(),
+                refreshTokenExpiry: refresh.toISOString(),
+                emailVerified: true,
+                roles: ['user'],
+            });
         });
 
         server.resetHandlers();
-        server.use(http.post('http://localhost:8080/api/v1/password-update/process', processResolver));
+        server.use(http.post('http://localhost:8080/api/v1/auth/sign-in', successResolver));
 
-        // Controller with token -> process form will be shown
-        const controller = new PasswordUpdateController('token-123');
-        const router = buildTestRouter(<PasswordUpdate controller={controller}/>);
+        const controller = new SignInController();
+        const router = buildTestRouter(<SignIn controller={controller}/>);
 
         render(
             <Suspense fallback={<div>Loading…</div>}>
@@ -114,32 +124,30 @@ describe('ProcessPasswordUpdate integration (MSW)', () => {
             </Suspense>
         );
 
-        const [passwordInput, confirmInput] = await screen.findAllByPlaceholderText('••••••••');
+        await userEvent.type(await screen.findByPlaceholderText('vous@exemple.com'), 'user@example.com');
+        // password input uses placeholder bullets
+        await userEvent.type(screen.getByPlaceholderText('••••••••'), 'P@ssword1');
 
-        await userEvent.type(passwordInput, 'Abcdef1!');
-        await userEvent.type(confirmInput, 'Abcdef1!');
+        await userEvent.click(screen.getByRole('button', {name: /se connecter/i}));
 
-        await userEvent.click(screen.getByRole('button', {name: /modifier le mot de passe/i}));
+        await vi.waitFor(() => expect(successResolver).toHaveBeenCalledTimes(1));
 
-        await vi.waitFor(() => expect(processResolver).toHaveBeenCalledTimes(1));
+        // Should not show error toast
+        expect(toast.error).not.toHaveBeenCalled();
 
-        // Success toast
-        expect(toast.success).toHaveBeenCalledWith('Votre mot de passe a été mis à jour.');
-
-        // UI shows success text from the form
-        expect(
-            await screen.findByText('Votre mot de passe a été mis à jour.')
-        ).toBeInTheDocument();
+        // Navigation to home
+        const {navigate} = await import('@/core/utils/router');
+        expect(navigate).toHaveBeenCalledWith({to: '/', replace: true});
     });
 
-    it('process: shows error toast on failure and keeps form', async () => {
-        const processErrorResolver = vi.fn(async () => new HttpResponse(null, {status: 400}));
+    it('sign-in: shows specific error toast on 401 invalid credentials', async () => {
+        const errorResolver = vi.fn(async () => new HttpResponse(null, {status: 401}));
 
         server.resetHandlers();
-        server.use(http.post('http://localhost:8080/api/v1/password-update/process', processErrorResolver));
+        server.use(http.post('http://localhost:8080/api/v1/auth/sign-in', errorResolver));
 
-        const controller = new PasswordUpdateController('token-err');
-        const router = buildTestRouter(<PasswordUpdate controller={controller}/>);
+        const controller = new SignInController();
+        const router = buildTestRouter(<SignIn controller={controller}/>);
 
         render(
             <Suspense fallback={<div>Loading…</div>}>
@@ -147,15 +155,13 @@ describe('ProcessPasswordUpdate integration (MSW)', () => {
             </Suspense>
         );
 
-        const [passwordInput, confirmInput] = await screen.findAllByPlaceholderText('••••••••');
+        await userEvent.type(await screen.findByPlaceholderText('vous@exemple.com'), 'wrong@example.com');
+        await userEvent.type(screen.getByPlaceholderText('••••••••'), 'wrong');
 
-        await userEvent.type(passwordInput, 'Abcdef1!');
-        await userEvent.type(confirmInput, 'Abcdef1!');
+        await userEvent.click(screen.getByRole('button', {name: /se connecter/i}));
 
-        await userEvent.click(screen.getByRole('button', {name: /modifier le mot de passe/i}));
+        await vi.waitFor(() => expect(errorResolver).toHaveBeenCalledTimes(1));
 
-        await vi.waitFor(() => expect(processErrorResolver).toHaveBeenCalledTimes(1));
-
-        expect(toast.error).toHaveBeenCalledWith('Une erreur est survenue. Veuillez réessayer.');
+        expect(toast.error).toHaveBeenCalledWith('Identifiants invalides.');
     });
 });

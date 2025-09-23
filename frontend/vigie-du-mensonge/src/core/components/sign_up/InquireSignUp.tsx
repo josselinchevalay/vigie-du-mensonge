@@ -19,6 +19,7 @@ export function InquireSignUp({submit}: InquireSignUpProps) {
     const form = useForm<InquireSignUpInput>({
         resolver: zodResolver(formSchema),
         mode: "onSubmit",
+        defaultValues: {email: ''},
     });
 
     return (

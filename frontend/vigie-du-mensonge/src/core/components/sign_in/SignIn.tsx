@@ -2,7 +2,6 @@ import {z} from "zod";
 import type {SignInController} from "@/core/dependencies/sign_in/signInController.ts";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {authManager} from "@/core/dependencies/auth/authManager.ts";
 import * as React from "react";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/core/shadcn/components/ui/form.tsx";
 import {Input} from "@/core/shadcn/components/ui/input.tsx";
@@ -24,7 +23,7 @@ export type SignInInput = z.infer<typeof formSchema>;
 export function SignIn({controller}: SignInProps) {
     const form = useForm<SignInInput>({
         resolver: zodResolver(formSchema),
-        defaultValues: {email: authManager.email ?? '', password: ""},
+        defaultValues: {email: '', password: ""},
         mode: "onSubmit",
     });
 
