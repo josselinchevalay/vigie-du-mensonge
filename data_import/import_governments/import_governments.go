@@ -22,7 +22,7 @@ type key struct{ first, last string }
 // CSV format (comma-separated):
 // id,prenom,nom,date_debut_fonction,date_fin_fonction,duree
 // - Ensures a Politician exists for prenom/nom
-// - Inserts a Government with reference_id set to id
+// - Inserts a Government with reference set to id
 // - Dates are parsed as YYYY-MM-DD; end_date may be empty (NULL)
 func LoadFromCSV(db *gorm.DB) error {
 	f, err := os.Open("governments.csv")
@@ -91,7 +91,7 @@ func LoadFromCSV(db *gorm.DB) error {
 
 			gov := models.Government{
 				PrimeMinisterID: pol.ID,
-				ReferenceID:     ref,
+				Reference:       ref,
 				StartDate:       start,
 				EndDate:         end,
 			}

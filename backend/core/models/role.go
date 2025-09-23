@@ -7,7 +7,6 @@ import (
 	"gorm.io/gorm"
 )
 
-// Role represents the roles table
 type RoleName string
 
 const (

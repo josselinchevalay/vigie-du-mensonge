@@ -13,9 +13,9 @@ type Government struct {
 
 	PrimeMinisterID uuid.UUID
 
-	ReferenceID int
-	StartDate   time.Time
-	EndDate     sql.NullTime
+	Reference int
+	StartDate time.Time
+	EndDate   sql.NullTime
 
 	CreatedAt time.Time
 	UpdatedAt time.Time

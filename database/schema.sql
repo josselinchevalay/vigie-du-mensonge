@@ -24,8 +24,8 @@ CREATE TABLE governments
     prime_minister_id UUID        NOT NULL,
     CONSTRAINT fk_governments_prime_minister FOREIGN KEY (prime_minister_id) REFERENCES politicians (id),
 
-    reference_id      SMALLINT    NOT NULL,
-    CONSTRAINT uq_governments_reference UNIQUE (reference_id),
+    reference         SMALLINT    NOT NULL,
+    CONSTRAINT uq_governments_reference UNIQUE (reference),
 
     start_date        TIMESTAMPTZ NOT NULL,
     end_date          TIMESTAMPTZ,
@@ -114,7 +114,7 @@ CREATE TABLE user_tokens
     CONSTRAINT fk_user_tokens_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
 
     category TEXT        NOT NULL,
-    CONSTRAINT ck_user_tokens_category CHECK (category IN ('REFRESH', 'PASSWORD', 'EMAIL')),
+    CONSTRAINT ck_user_tokens_category CHECK (category IN ('REFRESH', 'PASSWORD')),
 
     hash     TEXT        NOT NULL,
     expiry   TIMESTAMPTZ NOT NULL
@@ -145,6 +145,11 @@ CREATE TABLE articles
     title        TEXT        NOT NULL,
     body         TEXT        NOT NULL,
     event_date   TIMESTAMPTZ NOT NULL,
+
+    reference    UUID        NOT NULL,
+    major        SMALLINT    NOT NULL,
+    minor        SMALLINT    NOT NULL,
+    CONSTRAINT uq_articles_version UNIQUE (reference, major, minor),
 
     created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),

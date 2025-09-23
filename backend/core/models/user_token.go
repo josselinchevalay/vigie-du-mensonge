@@ -10,7 +10,6 @@ type UserTokenCategory string
 
 const (
 	UserTokenCategoryPassword UserTokenCategory = "PASSWORD"
-	UserTokenCategoryEmail    UserTokenCategory = "EMAIL"
 	UserTokenCategoryRefresh  UserTokenCategory = "REFRESH"
 )
 

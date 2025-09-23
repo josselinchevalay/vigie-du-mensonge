@@ -17,7 +17,7 @@ erDiagram
     GOVERNMENTS {
         UUID id PK
         UUID prime_minister_id FK
-        SMALLINT reference_id UK
+        SMALLINT reference UK
         TIMESTAMPTZ start_date
         TIMESTAMPTZ end_date
         TIMESTAMPTZ created_at
@@ -78,6 +78,10 @@ erDiagram
         TEXT category
         TEXT title
         TEXT body
+        UUID reference
+        SMALLINT major
+        SMALLINT minor
+        
         TIMESTAMPTZ event_date
         TIMESTAMPTZ created_at
         TIMESTAMPTZ updated_at

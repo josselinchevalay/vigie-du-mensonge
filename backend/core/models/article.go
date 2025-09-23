@@ -35,6 +35,9 @@ type Article struct {
 	Title       string          `gorm:"column:title;not null"`
 	Body        string          `gorm:"column:body;not null"`
 	EventDate   time.Time       `gorm:"column:event_date;not null"`
+	Reference   uuid.UUID       `gorm:"column:reference;not null"`
+	Major       int16           `gorm:"column:major;not null"`
+	Minor       int16           `gorm:"column:minor;not null"`
 
 	CreatedAt time.Time      `gorm:"column:created_at;not null;default:now()"`
 	UpdatedAt time.Time      `gorm:"column:updated_at;not null;default:now()"`
