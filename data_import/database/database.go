@@ -21,10 +21,17 @@ type PostgresConnector struct {
 	db *gorm.DB
 }
 
+func getEnv(key, fallback string) string {
+	if value, ok := os.LookupEnv(key); ok {
+		return value
+	}
+	return fallback
+}
+
 func buildDSN() string {
 	return fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
-		os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_USER"),
-		os.Getenv("DB_PASSWORD"), os.Getenv("DB_NAME"), os.Getenv("DB_SSL_MODE"))
+		getEnv("DB_HOST", "localhost"), getEnv("DB_PORT", "5432"), getEnv("DB_USER", "root"),
+		getEnv("DB_PASSWORD", "root"), getEnv("DB_NAME", "vdm_db"), getEnv("DB_SSL_MODE", "disable"))
 }
 
 func NewPostgresConnector() Connector {

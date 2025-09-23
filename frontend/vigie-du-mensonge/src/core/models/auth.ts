@@ -1,14 +1,12 @@
 export type AuthJson = {
     accessTokenExpiry: string;
     refreshTokenExpiry: string;
-    emailVerified?: boolean;
     roles?: string[];
 };
 
 export class Auth {
     public accessTokenExpiry: Date;
     public refreshTokenExpiry: Date;
-    public emailVerified: boolean;
     public roles: string[];
 
     public static readonly STORAGE_KEY = 'vdm_auth';
@@ -16,12 +14,10 @@ export class Auth {
     constructor(
         accessTokenExpiry: Date,
         refreshTokenExpiry: Date,
-        emailVerified: boolean,
         roles: string[],
     ) {
         this.accessTokenExpiry = accessTokenExpiry;
         this.refreshTokenExpiry = refreshTokenExpiry;
-        this.emailVerified = emailVerified;
         this.roles = roles;
     }
 
@@ -43,7 +39,6 @@ export class Auth {
         return new Auth(
             accessTokenExpiry,
             refreshTokenExpiry,
-            json.emailVerified ?? false,
             json.roles ?? [],
         );
     }
@@ -57,7 +52,6 @@ export class Auth {
             return Auth.fromJson({
                 accessTokenExpiry: parsed.accessTokenExpiry,
                 refreshTokenExpiry: parsed.refreshTokenExpiry,
-                emailVerified: parsed.emailVerified ?? false,
                 roles: parsed.roles ?? [],
             });
         } catch {
@@ -69,7 +63,6 @@ export class Auth {
         return {
             accessTokenExpiry: this.accessTokenExpiry.toISOString(),
             refreshTokenExpiry: this.refreshTokenExpiry.toISOString(),
-            emailVerified: this.emailVerified,
             roles: this.roles,
         };
     }

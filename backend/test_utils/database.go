@@ -14,6 +14,15 @@ import (
 	"gorm.io/gorm"
 )
 
+func CleanUpTestData(c context.Context, t *testing.T, container testcontainers.Container, connector database.Connector) {
+	if err := connector.Close(); err != nil {
+		t.Logf("failed to close connector: %v", err)
+	}
+	if err := container.Terminate(c); err != nil {
+		t.Logf("failed to terminate container: %v", err)
+	}
+}
+
 func NewTestContainerConnector(c context.Context, t *testing.T) (testcontainers.Container, database.Connector) {
 	container, ip, port := startPostgresContainer(c, t)
 

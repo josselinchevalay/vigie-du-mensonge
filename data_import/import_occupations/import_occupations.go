@@ -42,7 +42,7 @@ func LoadFromCSV(db *gorm.DB) error {
 		return fmt.Errorf("read header: %w", err)
 	}
 
-	// caches: politicians by name, governments by reference id
+	// caches: politician by name, governments by reference id
 	polCache := make(map[nameKey]models.Politician)
 	govCache := make(map[int]models.Government)
 
