@@ -1,6 +1,7 @@
 import {createFileRoute, redirect} from "@tanstack/react-router";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
-import { SignInForm } from "@/core/components/auth/SignInForm";
+import {SignInController} from "@/core/dependencies/sign_in/signInController.ts";
+import {SignIn} from "@/core/components/sign_in/SignIn.tsx";
 
 export const Route = createFileRoute('/sign-in')({
     beforeLoad: () => {
@@ -8,6 +9,14 @@ export const Route = createFileRoute('/sign-in')({
         if (isAuthenticated) {
             throw redirect({to: '/', replace: true});
         }
+
+        const controller = new SignInController();
+        return {controller};
     },
-    component: SignInForm,
+    component: RouteComponent,
 });
+
+function RouteComponent() {
+    const {controller} = Route.useRouteContext() as { controller: SignInController };
+    return <SignIn controller={controller}/>;
+}

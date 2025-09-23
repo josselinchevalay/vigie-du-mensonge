@@ -3,29 +3,10 @@ import {Store} from "@tanstack/react-store";
 import {AuthClient} from "@/core/dependencies/auth/authClient.ts";
 import {toast} from "@/core/utils/toast";
 
-const EMAIL_STORAGE_KEY = 'vdm_email';
-
 class AuthManager {
     private readonly client = new AuthClient();
-    private _refreshing = false;
-
-    public get email(): string | null {
-        return localStorage.getItem(EMAIL_STORAGE_KEY);
-    }
-
-    public set email(email: string | null) {
-        if (email) {
-            localStorage.setItem(EMAIL_STORAGE_KEY, email);
-        } else {
-            localStorage.removeItem(EMAIL_STORAGE_KEY);
-        }
-    }
-
-    public get refreshing(): boolean {
-        return this._refreshing;
-    }
-
     public readonly authStore = new Store<Auth | null>(null);
+    private refreshing = false;
 
     constructor() {
         const stored = Auth.fromStorage();
@@ -42,30 +23,11 @@ class AuthManager {
         }
     }
 
-    async signIn(credentials: { email: string; password: string }): Promise<Auth> {
-        const auth = await this.client.signIn(credentials);
-
-        auth.saveToStorage();
-        localStorage.setItem(EMAIL_STORAGE_KEY, credentials.email);
-
-        this.authStore.setState(() => auth);
-        return auth;
-    }
-
-    async signUp(credentials: { email: string; password: string }): Promise<Auth> {
-        const auth = await this.client.signUp(credentials);
-
-        auth.saveToStorage();
-
-        this.authStore.setState(() => auth);
-        return auth;
-    }
-
     async refresh(): Promise<Auth | null> {
-        if (this._refreshing) {
+        if (this.refreshing) {
             return this.authStore.state;
         }
-        this._refreshing = true;
+        this.refreshing = true;
 
         try {
             const freshAuth = await this.client.refresh();
@@ -79,7 +41,7 @@ class AuthManager {
             toast('Votre session a expiré.');
             return null;
         } finally {
-            this._refreshing = false;
+            this.refreshing = false;
         }
     }
 

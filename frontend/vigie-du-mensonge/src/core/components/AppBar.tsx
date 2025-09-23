@@ -111,7 +111,7 @@ export default function AppBar() {
                                     Connexion
                                 </Link>
                                 <Link
-                                    to="/sign-up"
+                                    to="/sign-up" search={{token: undefined}}
                                     className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                                 >
                                     Inscription

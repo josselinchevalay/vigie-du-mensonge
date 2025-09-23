@@ -1,13 +1,23 @@
 import {createFileRoute, redirect} from "@tanstack/react-router";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
-import {SignUpForm} from "@/core/components/auth/SignUpForm.tsx";
+import {SignUpController} from "@/core/dependencies/sign_up/signUpController.ts";
+import {SignUp} from "@/core/components/sign_up/SignUp.tsx";
 
 export const Route = createFileRoute('/sign-up')({
-    beforeLoad: () => {
+    validateSearch: (search: { token?: string }) => ({token: search.token}),
+    beforeLoad: ({search}) => {
         const isAuthenticated = authManager.authStore.state !== null;
         if (isAuthenticated) {
             throw redirect({to: '/', replace: true});
         }
+
+        const controller = new SignUpController(search.token ?? null);
+        return {controller};
     },
-    component: SignUpForm,
+    component: RouteComponent,
 });
+
+function RouteComponent() {
+    const {controller} = Route.useRouteContext() as { controller: SignUpController };
+    return <SignUp controller={controller}/>;
+}

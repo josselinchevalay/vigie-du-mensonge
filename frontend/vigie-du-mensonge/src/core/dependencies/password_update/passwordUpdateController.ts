@@ -12,31 +12,25 @@ export class PasswordUpdateController {
 
     public async onInquire(email: string): Promise<boolean> {
         try {
-            await this.inquire(email);
-            toast("L'email de modification a été envoyé");
+            await this.client.inquire(email);
+            toast.success("L'email de modification a été envoyé");
             return true;
         } catch {
-            toast("Une erreur est survenue. Veuillez réessayer.");
+            toast.error("Une erreur est survenue. Veuillez réessayer.");
             return false;
         }
     }
 
-    private async inquire(email: string) {
-        await this.client.inquire(email);
-    }
 
     public async onProcess(newPassword: string): Promise<boolean> {
         try {
-            await this.process(newPassword);
-            toast('Votre mot de passe a été mis à jour.');
+            await this.client.process(this.tokenStore.state!, newPassword);
+            toast.success('Votre mot de passe a été mis à jour.');
             return true;
         } catch {
-            toast("Une erreur est survenue. Veuillez réessayer.");
+            toast.error("Une erreur est survenue. Veuillez réessayer.");
+            this.tokenStore.setState(() => null);
             return false;
         }
-    }
-
-    private async process(newPassword: string) {
-        await this.client.process(this.tokenStore.state!, newPassword);
     }
 }
