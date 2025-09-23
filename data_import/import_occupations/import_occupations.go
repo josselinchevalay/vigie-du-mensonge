@@ -172,9 +172,9 @@ func getGovernmentByRef(tx *gorm.DB, cache map[int]models.Government, ref int) (
 		return g, nil
 	}
 	var g models.Government
-	if err := tx.Where("reference_id = ?", ref).First(&g).Error; err != nil {
+	if err := tx.Where("reference = ?", ref).First(&g).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return models.Government{}, fmt.Errorf("government with reference_id=%d not found; import governments first", ref)
+			return models.Government{}, fmt.Errorf("government with reference=%d not found; import governments first", ref)
 		}
 		return models.Government{}, fmt.Errorf("find government ref=%d: %w", ref, err)
 	}
