@@ -12,16 +12,14 @@ servers:
 paths:
   /auth/sign-in:
     $ref: "./paths/auth/sign-in.yml#/signIn"
-  /auth/sign-up:
-    $ref: "./paths/auth/sign-up.yml#/signUp"
+  /auth/sign-up/inquire:
+    $ref: "./paths/auth/sign-up.yml#/inquireSignUp"
+  /auth/sign-up/process:
+    $ref: "./paths/auth/sign-up.yml#/processSignUp"
   /auth/refresh:
     $ref: "./paths/auth/refresh.yml#/refresh"
   /auth/sign-out:
     $ref: "./paths/auth/sign-out.yml#/signOut"
-  /email-verification/inquire:
-    $ref: "./paths/email-verification/inquire.yml#/emailVerificationInquire"
-  /email-verification/process:
-    $ref: "./paths/email-verification/process.yml#/emailVerificationProcess"
   /password-update/inquire:
     $ref: "./paths/password-update/inquire.yml#/passwordUpdateInquire"
   /password-update/process:
