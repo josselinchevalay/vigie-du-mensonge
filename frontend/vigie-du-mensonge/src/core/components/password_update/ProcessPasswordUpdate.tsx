@@ -29,7 +29,7 @@ const formSchema = z.object({
 
 export type ProcessPasswordUpdateInput = z.infer<typeof formSchema>;
 
-export function ProcessPasswordUpdateForm({submitForm}: ProcessPasswordUpdateProps) {
+export function ProcessPasswordUpdate({submitForm}: ProcessPasswordUpdateProps) {
     const [success, setSuccess] = useState(false);
 
     const form = useForm<ProcessPasswordUpdateInput>({

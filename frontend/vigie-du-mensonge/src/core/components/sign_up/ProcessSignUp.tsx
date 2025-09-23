@@ -5,7 +5,7 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Input} from "@/core/shadcn/components/ui/input.tsx";
 import {Eye, EyeOff} from "lucide-react";
 import {Button} from "@/core/shadcn/components/ui/button.tsx";
-import type {ProcessPasswordUpdateInput} from "@/core/components/password_update/ProcessPasswordUpdateForm.tsx";
+import type {ProcessPasswordUpdateInput} from "@/core/components/password_update/ProcessPasswordUpdate.tsx";
 import {z} from "zod";
 
 export type ProcessSignUpProps = {

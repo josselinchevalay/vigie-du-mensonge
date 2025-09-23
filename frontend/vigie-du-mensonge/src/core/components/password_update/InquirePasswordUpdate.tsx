@@ -1,7 +1,6 @@
 import {z} from "zod";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {authManager} from "@/core/dependencies/auth/authManager.ts";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/core/shadcn/components/ui/form.tsx";
 import {Input} from "@/core/shadcn/components/ui/input.tsx";
 import {Button} from "@/core/shadcn/components/ui/button.tsx";
@@ -17,12 +16,12 @@ const formSchema = z.object({
 
 type InquirePasswordUpdateInput = z.infer<typeof formSchema>;
 
-export function InquirePasswordUpdateForm({submitForm}: InquirePasswordUpdateProps) {
+export function InquirePasswordUpdate({submitForm}: InquirePasswordUpdateProps) {
     const [success, setSuccess] = useState(false);
 
     const form = useForm<InquirePasswordUpdateInput>({
         resolver: zodResolver(formSchema),
-        defaultValues: {email: authManager.email ?? ""},
+        defaultValues: {email: ""},
         mode: "onSubmit",
     });
 
