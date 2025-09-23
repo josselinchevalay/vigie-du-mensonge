@@ -4,7 +4,7 @@ const isTest = Boolean(import.meta.env?.MODE === "test" || import.meta?.env?.VIT
 
 export const api = ky.create({
     // Default to '/api/v1' in tests or when VITE_API_URL is not provided
-    prefixUrl: import.meta.env.VITE_API_URL ?? '/api/v1',
+    prefixUrl: import.meta.env.VITE_API_URL ?? 'http://localhost:8080/api/v1',
     credentials: "include",
     timeout: 10000,
     headers: {

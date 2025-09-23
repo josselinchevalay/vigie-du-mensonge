@@ -11,11 +11,6 @@ RUN npm ci --no-audit --no-fund
 # Copy the rest of the source
 COPY . .
 
-# Build-time configuration that Vite will embed (override via --build-arg)
-# Use a relative API base so frontend and backend can share the same domain, e.g. https://example.com/api
-ARG VITE_API_BASE="/api"
-ENV VITE_API_BASE="$VITE_API_BASE"
-
 # Build the production assets
 RUN npm run build
 
