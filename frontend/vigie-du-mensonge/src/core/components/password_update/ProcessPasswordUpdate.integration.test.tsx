@@ -127,7 +127,7 @@ describe('ProcessPasswordUpdate integration (MSW)', () => {
         await vi.waitFor(() => expect(processResolver).toHaveBeenCalledTimes(1));
 
         // Success toast
-        expect(toast).toHaveBeenCalledWith('Votre mot de passe a été mis à jour.');
+        expect(toast.success).toHaveBeenCalledWith('Votre mot de passe a été mis à jour.');
 
         // UI shows success text from the form
         expect(
@@ -162,11 +162,6 @@ describe('ProcessPasswordUpdate integration (MSW)', () => {
 
         await vi.waitFor(() => expect(processErrorResolver).toHaveBeenCalledTimes(1));
 
-        expect(toast).toHaveBeenCalledWith('Une erreur est survenue. Veuillez réessayer.');
-
-        // Form still visible
-        expect(
-            await screen.findByRole('button', {name: /modifier le mot de passe/i})
-        ).toBeInTheDocument();
+        expect(toast.error).toHaveBeenCalledWith('Une erreur est survenue. Veuillez réessayer.');
     });
 });

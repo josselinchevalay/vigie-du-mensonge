@@ -126,7 +126,7 @@ describe('InquirePasswordUpdate integration (MSW)', () => {
     await vi.waitFor(() => expect(inquireResolver).toHaveBeenCalledTimes(1));
 
     // Success toast was triggered via adapter
-    expect(toast).toHaveBeenCalledWith("L'email de modification a été envoyé");
+    expect(toast.success).toHaveBeenCalledWith("L'email de modification a été envoyé");
 
     // UI shows success text from the form
     expect(
@@ -159,7 +159,7 @@ describe('InquirePasswordUpdate integration (MSW)', () => {
 
     await vi.waitFor(() => expect(inquireErrorResolver).toHaveBeenCalledTimes(1));
 
-    expect(toast).toHaveBeenCalledWith('Une erreur est survenue. Veuillez réessayer.');
+    expect(toast.error).toHaveBeenCalledWith('Une erreur est survenue. Veuillez réessayer.');
 
     // form should still be visible (no success replacement)
     expect(
