@@ -19,5 +19,5 @@ type Politician struct {
 }
 
 func (Politician) TableName() string {
-	return "politician"
+	return "politicians"
 }

@@ -30,7 +30,7 @@ func getEnv(key, fallback string) string {
 
 func buildDSN() string {
 	return fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
-		getEnv("DB_HOST", "localhost"), getEnv("DB_PORT", "5432"), getEnv("DB_USER", "root"),
+		getEnv("DB_HOST", "vdm_db"), getEnv("DB_PORT", "5432"), getEnv("DB_USER", "root"),
 		getEnv("DB_PASSWORD", "root"), getEnv("DB_NAME", "vdm_db"), getEnv("DB_SSL_MODE", "disable"))
 }
 
