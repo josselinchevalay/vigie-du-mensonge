@@ -49,15 +49,18 @@ func loadTestData(c context.Context, t *testing.T) (container testcontainers.Con
 			Title:       "Article about Nicolas Sarkozy",
 			Politicians: []*models.Politician{data.politicians[0]},
 			Tags:        []*models.ArticleTag{{Tag: "Nicolas Sarkozy"}},
+			Status:      models.ArticleStatusPublished,
 		},
 		{
 			Title:       "Article about François Hollande",
 			Politicians: []*models.Politician{data.politicians[1]},
 			Tags:        []*models.ArticleTag{{Tag: "François Hollande"}},
+			Status:      models.ArticleStatusPublished,
 		}, {
 			Title:       "Article about Emmanuel Macron",
 			Politicians: []*models.Politician{data.politicians[2]},
 			Tags:        []*models.ArticleTag{{Tag: "Emmanuel Macron"}},
+			Status:      models.ArticleStatusPublished,
 		},
 	}
 
