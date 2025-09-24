@@ -14,9 +14,8 @@ type User struct {
 
 	Roles []*Role `gorm:"many2many:user_roles;"`
 
-	Email         string `gorm:"column:email;unique;not null"`
-	EmailVerified bool   `gorm:"column:email_verified;not null;default:false"`
-	Password      string `gorm:"column:password;not null"`
+	Email    string `gorm:"column:email;unique;not null"`
+	Password string `gorm:"column:password;not null"`
 
 	CreatedAt time.Time      `gorm:"column:created_at;not null;default:now()"`
 	UpdatedAt time.Time      `gorm:"column:updated_at;not null;default:now()"`

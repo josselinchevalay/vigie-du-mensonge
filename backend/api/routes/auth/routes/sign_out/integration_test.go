@@ -21,7 +21,7 @@ import (
 	"github.com/testcontainers/testcontainers-go"
 )
 
-var testUser = &models.User{ID: uuid.New(), Email: "signout_user0@email.com", EmailVerified: true}
+var testUser = &models.User{ID: uuid.New(), Email: "signout_user0@email.com"}
 
 func loadTestData(c context.Context, t *testing.T) (container testcontainers.Container, connector database.Connector) {
 	container, connector = test_utils.NewTestContainerConnector(c, t)

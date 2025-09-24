@@ -2,6 +2,7 @@ package process_sign_up
 
 import (
 	"vdm/core/locals/local_keys"
+	"vdm/core/models"
 	"vdm/core/validation"
 
 	"github.com/gofiber/fiber/v2"
@@ -35,5 +36,6 @@ func (h *handler) processSignUp(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusCreated).JSON(ResponseDTO{
 		AccessTokenExpiry:  accessToken.Expiry,
 		RefreshTokenExpiry: refreshToken.Expiry,
+		Roles:              []models.RoleName{models.RoleNameRedactor},
 	})
 }

@@ -1,19 +1,19 @@
 import {createFileRoute} from '@tanstack/react-router';
 import {useStore} from "@tanstack/react-store";
-import {politiciansManager} from "@/core/dependencies/politician/politiciansManager.ts";
+import {articlesManager} from "@/core/dependencies/article/articlesManager.ts";
 
 export const Route = createFileRoute('/')({
     component: Index,
 });
 
 function Index() {
-    const politicians = useStore(politiciansManager.politiciansStore);
+    const articles = useStore(articlesManager.articlesStore);
 
     return (
         <div className="p-2">
             <h3>CLEMENT J'ATTENDS TOUJOURS LES CRITÈRES D'ACCEPTATION</h3>
             <br/>
-            <>{politicians.length} politicians loaded</>
+            <>{articles.length} articles loaded</>
         </div>
     );
 }

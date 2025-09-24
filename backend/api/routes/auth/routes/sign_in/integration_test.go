@@ -44,7 +44,6 @@ func loadTestData(c context.Context, t *testing.T) (container testcontainers.Con
 	// create a user with known password
 	pwd, _ := bcrypt.GenerateFromPassword([]byte("Test123!"), bcrypt.DefaultCost)
 	testUser.Password = string(pwd)
-	testUser.EmailVerified = true
 
 	if err = db.Create(&testRoles).Error; err != nil {
 		t.Fatal(err)

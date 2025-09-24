@@ -35,7 +35,6 @@ func (h *handler) signIn(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(ResponseDTO{
 		AccessTokenExpiry:  accessToken.Expiry,
 		RefreshTokenExpiry: refreshToken.Expiry,
-		EmailVerified:      user.EmailVerified,
 		Roles:              user.RoleNames(),
 	})
 }

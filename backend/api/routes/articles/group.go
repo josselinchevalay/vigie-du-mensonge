@@ -1,14 +1,18 @@
 package articles
 
-import "vdm/core/fiberx"
+import (
+	"vdm/api/routes/articles/get_articles"
+	"vdm/core/dependencies"
+	"vdm/core/fiberx"
+)
 
 const Prefix = "/articles"
 
-func Group() *fiberx.Group {
+func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	group := fiberx.NewGroup(Prefix)
 
 	group.Add(
-	//TODO: impl
+		get_articles.Group(deps.GormDB()),
 	)
 
 	return group

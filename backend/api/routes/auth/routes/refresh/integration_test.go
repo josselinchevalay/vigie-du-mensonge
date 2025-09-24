@@ -25,7 +25,7 @@ var testRoles = []*models.Role{
 	{Name: "ADMIN"},
 	{Name: "MODERATOR"},
 }
-var testUser = &models.User{ID: uuid.New(), Email: "refresh_user0@email.com", EmailVerified: true, Roles: testRoles}
+var testUser = &models.User{ID: uuid.New(), Email: "refresh_user0@email.com", Roles: testRoles}
 
 var validRft = uuid.New()
 var expiredRft = uuid.New()
@@ -111,7 +111,6 @@ func TestIntegration_Refresh_Success(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	assert.True(t, resDTO.EmailVerified)
 	assert.Equal(t, testUser.RoleNames(), resDTO.Roles)
 }
 

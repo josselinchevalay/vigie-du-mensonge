@@ -52,7 +52,7 @@ func (s *service) refresh(rft uuid.UUID) (models.User, locals.AccessToken, local
 
 	jwtExpiry := time.Now().Add(s.accessTokenTTL)
 	jwt, err := jwt_utils.GenerateJWT(
-		locals.AuthedUser{ID: user.ID, Email: user.Email, EmailVerified: user.EmailVerified},
+		locals.AuthedUser{ID: user.ID, Email: user.Email},
 		s.accessTokenSecret, jwtExpiry)
 	if err != nil {
 		return models.User{}, locals.AccessToken{}, locals.RefreshToken{}, fmt.Errorf("failed to generate JWT: %v", err)

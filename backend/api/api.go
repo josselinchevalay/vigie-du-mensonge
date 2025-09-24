@@ -4,6 +4,7 @@ import (
 	"strings"
 	"time"
 	"vdm/api/middlewares/locals_authed_user"
+	"vdm/api/routes/articles"
 	"vdm/api/routes/auth"
 	"vdm/api/routes/get_csrf"
 	"vdm/api/routes/password_update"
@@ -79,6 +80,7 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 		auth.Group(deps),
 		password_update.Group(deps),
 		politicians.Group(deps),
+		articles.Group(deps),
 
 		locals_authed_user.Middleware(deps.Config.Security),
 	)

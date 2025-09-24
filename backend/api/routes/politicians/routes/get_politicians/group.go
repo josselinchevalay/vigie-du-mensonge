@@ -23,7 +23,8 @@ func Group(db *gorm.DB) *fiberx.Group {
 
 	group.Add(
 		fiberx.NewMiddleware(cache.New(cache.Config{
-			Expiration: 24 * time.Hour,
+			CacheControl: true,
+			Expiration:   24 * time.Hour,
 		})),
 
 		fiberx.NewRoute(Method, Path, handler.getPoliticians),

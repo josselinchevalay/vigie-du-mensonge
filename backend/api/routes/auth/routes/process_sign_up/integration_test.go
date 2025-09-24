@@ -37,6 +37,10 @@ func loadTestData(c context.Context, t *testing.T) (container testcontainers.Con
 		}
 	}(c, container, connector)
 
+	if err = db.Create(&models.Role{Name: models.RoleNameRedactor}).Error; err != nil {
+		return
+	}
+
 	err = db.Create(testUser).Error
 
 	return

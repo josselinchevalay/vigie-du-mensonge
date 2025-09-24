@@ -208,3 +208,8 @@ CREATE TABLE article_politicians
 
     CONSTRAINT pk_article_politicians PRIMARY KEY (article_id, politician_id)
 );
+
+INSERT INTO roles (name)
+VALUES ('ADMIN'),
+       ('MODERATOR'),
+       ('REDACTOR');

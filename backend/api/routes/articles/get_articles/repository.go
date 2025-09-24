@@ -17,7 +17,7 @@ type repository struct {
 func (r *repository) getArticles() ([]models.Article, error) {
 	var articles []models.Article
 
-	if err := r.db.Select("id", "title", "event_date", "updated_at").
+	if err := r.db.Select("id", "title", "event_date", "updated_at", "category").
 		Preload("Politicians", func(db *gorm.DB) *gorm.DB {
 			return db.Select("id", "first_name", "last_name")
 		}).

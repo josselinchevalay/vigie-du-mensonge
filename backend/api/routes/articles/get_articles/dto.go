@@ -10,12 +10,13 @@ import (
 type ResponseDTO []ArticleDTO
 
 type ArticleDTO struct {
-	ID          uuid.UUID       `json:"id"`
-	Title       string          `json:"title"`
-	EventDate   time.Time       `json:"eventDate"`
-	UpdatedAt   time.Time       `json:"updatedAt"`
-	Politicians []PoliticianDTO `json:"politicians"`
-	Tags        []string        `json:"tags"`
+	ID          uuid.UUID              `json:"id"`
+	Title       string                 `json:"title"`
+	EventDate   time.Time              `json:"eventDate"`
+	UpdatedAt   time.Time              `json:"updatedAt"`
+	Politicians []PoliticianDTO        `json:"politicians"`
+	Tags        []string               `json:"tags"`
+	Category    models.ArticleCategory `json:"category"`
 }
 
 func newArticleDTO(entity models.Article) ArticleDTO {
