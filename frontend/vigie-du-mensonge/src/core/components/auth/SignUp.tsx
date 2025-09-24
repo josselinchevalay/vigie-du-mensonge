@@ -1,6 +1,6 @@
-import type {SignUpController} from "@/core/dependencies/sign_up/signUpController.ts";
-import {ProcessSignUp} from "@/core/components/sign_up/ProcessSignUp.tsx";
-import {InquireSignUp} from "@/core/components/sign_up/InquireSignUp.tsx";
+import type {SignUpController} from "@/core/dependencies/auth/signUpController.ts";
+import {ProcessSignUp} from "@/core/components/auth/ProcessSignUp.tsx";
+import {InquireSignUp} from "@/core/components/auth/InquireSignUp.tsx";
 
 export type SignUpProps = {
     controller: SignUpController;

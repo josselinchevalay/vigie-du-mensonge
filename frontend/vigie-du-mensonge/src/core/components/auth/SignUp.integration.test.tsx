@@ -2,10 +2,10 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {describe, expect, it, vi} from 'vitest';
 import {http, HttpResponse} from 'msw';
-import {server} from '@/test/testServer';
-import {SignUp} from '@/core/components/sign_up/SignUp';
-import {SignUpController} from '@/core/dependencies/sign_up/signUpController';
-import {toast} from '@/core/utils/toast';
+import {server} from '@/test/testServer.ts';
+import {SignUp} from '@/core/components/auth/SignUp.tsx';
+import {SignUpController} from '@/core/dependencies/auth/signUpController.ts';
+import {toast} from '@/core/utils/toast.ts';
 
 // Router, Toaster, and matchMedia are globally mocked in src/test/mocks.ts via setupFiles
 
@@ -90,7 +90,7 @@ describe('SignUp integration (MSW)', () => {
         await vi.waitFor(() => expect(processResolver).toHaveBeenCalledTimes(1));
 
         expect(toast.success).toHaveBeenCalledWith('Votre inscription est terminée!');
-        const {navigate} = await import('@/core/utils/router');
+        const {navigate} = await import('@/core/utils/router.ts');
         expect(navigate).toHaveBeenCalledWith({to: '/', replace: true});
     });
 

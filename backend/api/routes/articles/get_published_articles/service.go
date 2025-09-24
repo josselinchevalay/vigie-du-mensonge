@@ -1,4 +1,4 @@
-package get_articles
+package get_published_articles
 
 type Service interface {
 	getAndMapArticles() (ResponseDTO, error)
@@ -9,7 +9,7 @@ type service struct {
 }
 
 func (s *service) getAndMapArticles() (ResponseDTO, error) {
-	articles, err := s.repo.getArticles()
+	articles, err := s.repo.getPublishedArticles()
 	if err != nil {
 		return ResponseDTO{}, err
 	}

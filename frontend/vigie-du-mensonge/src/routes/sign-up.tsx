@@ -1,7 +1,7 @@
 import {createFileRoute, redirect} from "@tanstack/react-router";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
-import {SignUpController} from "@/core/dependencies/sign_up/signUpController.ts";
-import {SignUp} from "@/core/components/sign_up/SignUp.tsx";
+import {SignUpController} from "@/core/dependencies/auth/signUpController.ts";
+import {SignUp} from "@/core/components/auth/SignUp.tsx";
 
 export const Route = createFileRoute('/sign-up')({
     validateSearch: (search: { token?: string }) => ({token: search.token}),

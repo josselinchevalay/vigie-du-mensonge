@@ -1,7 +1,7 @@
 import {createFileRoute, redirect} from "@tanstack/react-router";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
-import {SignInController} from "@/core/dependencies/sign_in/signInController.ts";
-import {SignIn} from "@/core/components/sign_in/SignIn.tsx";
+import {SignInController} from "@/core/dependencies/auth/signInController.ts";
+import {SignIn} from "@/core/components/auth/SignIn.tsx";
 
 export const Route = createFileRoute('/sign-in')({
     beforeLoad: () => {

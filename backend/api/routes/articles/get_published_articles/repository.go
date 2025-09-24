@@ -1,4 +1,4 @@
-package get_articles
+package get_published_articles
 
 import (
 	"vdm/core/models"
@@ -7,17 +7,18 @@ import (
 )
 
 type Repository interface {
-	getArticles() ([]models.Article, error)
+	getPublishedArticles() ([]models.Article, error)
 }
 
 type repository struct {
 	db *gorm.DB
 }
 
-func (r *repository) getArticles() ([]models.Article, error) {
+func (r *repository) getPublishedArticles() ([]models.Article, error) {
 	var articles []models.Article
 
-	if err := r.db.Select("id", "title", "event_date", "updated_at", "category").
+	if err := r.db.Where("status = ?", models.ArticleStatusPublished).
+		Select("id", "title", "event_date", "updated_at", "category").
 		Preload("Politicians", func(db *gorm.DB) *gorm.DB {
 			return db.Select("id", "first_name", "last_name")
 		}).

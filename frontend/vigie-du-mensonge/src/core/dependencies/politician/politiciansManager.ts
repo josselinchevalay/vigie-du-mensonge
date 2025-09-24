@@ -1,9 +1,8 @@
-import {PoliticianClient} from "@/core/dependencies/politician/politicianClient.ts";
 import type {Politician} from "@/core/models/politician.ts";
 import {Store} from "@tanstack/react-store";
+import {politicianClient} from "@/core/dependencies/politician/politicianClient.ts";
 
 class PoliticiansManager {
-    private readonly client = new PoliticianClient();
     public readonly politiciansStore = new Store<Politician[]>([]);
     public readonly errStore = new Store(false);
 
@@ -13,7 +12,7 @@ class PoliticiansManager {
 
     async init() {
         try {
-            const politicians = await this.client.getAll();
+            const politicians = await politicianClient.getAll();
             this.politiciansStore.setState(() => politicians);
         } catch {
             this.errStore.setState(() => true);

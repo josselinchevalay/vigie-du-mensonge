@@ -21,6 +21,10 @@ export class Auth {
         this.roles = roles;
     }
 
+    get isRedactor(): boolean {
+        return this.roles.includes('REDACTOR');
+    }
+
     get accessTokenExpired(): boolean {
         return this.accessTokenExpiry < new Date();
     }

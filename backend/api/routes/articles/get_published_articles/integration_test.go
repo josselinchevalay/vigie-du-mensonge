@@ -1,4 +1,4 @@
-package get_articles
+package get_published_articles
 
 import (
 	"context"

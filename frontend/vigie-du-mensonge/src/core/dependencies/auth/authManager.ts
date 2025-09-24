@@ -1,10 +1,9 @@
 import {Auth} from "@/core/models/auth.ts";
 import {Store} from "@tanstack/react-store";
-import {AuthClient} from "@/core/dependencies/auth/authClient.ts";
+import {authClient} from "@/core/dependencies/auth/authClient.ts";
 import {toast} from "@/core/utils/toast";
 
 class AuthManager {
-    private readonly client = new AuthClient();
     public readonly authStore = new Store<Auth | null>(null);
     private refreshing = false;
 
@@ -30,7 +29,7 @@ class AuthManager {
         this.refreshing = true;
 
         try {
-            const freshAuth = await this.client.refresh();
+            const freshAuth = await authClient.refresh();
             freshAuth.saveToStorage();
 
             this.authStore.setState(() => freshAuth);
@@ -48,7 +47,7 @@ class AuthManager {
     signOut() {
         Auth.clearStorage();
         this.authStore.setState(() => null);
-        void this.client.signOut();
+        void authClient.signOut();
     }
 }
 

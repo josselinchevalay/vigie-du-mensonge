@@ -3,8 +3,8 @@ import userEvent from '@testing-library/user-event';
 import {describe, expect, it, vi} from 'vitest';
 import {http, HttpResponse} from 'msw';
 import {server} from '@/test/testServer';
-import {SignIn} from '@/core/components/sign_in/SignIn';
-import {SignInController} from '@/core/dependencies/sign_in/signInController';
+import {SignIn} from '@/core/components/auth/SignIn';
+import {SignInController} from '@/core/dependencies/auth/signInController.ts';
 import {toast} from '@/core/utils/toast';
 
 // Router, Toaster, and matchMedia are globally mocked in src/test/mocks.ts via setupFiles

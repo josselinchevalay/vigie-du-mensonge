@@ -1,4 +1,5 @@
 import {Politician, type PoliticianJson} from "@/core/models/politician.ts";
+import {type ArticleCategory} from "@/core/models/articleCategory.ts";
 
 export type ArticleJson = {
     id: string;
@@ -8,6 +9,7 @@ export type ArticleJson = {
     politicians: PoliticianJson[];
     tags: string[];
     sources: string[];
+    category: ArticleCategory;
 }
 
 export class Article {
@@ -18,6 +20,7 @@ export class Article {
     public politicians: Politician[];
     public tags: string[];
     public sources: string[];
+    public category: ArticleCategory;
 
     constructor(
         id: string,
@@ -27,6 +30,7 @@ export class Article {
         politicians: Politician[],
         tags: string[],
         sources: string[],
+        category: ArticleCategory,
     ) {
         this.id = id;
         this.title = title;
@@ -35,6 +39,7 @@ export class Article {
         this.politicians = politicians;
         this.tags = tags;
         this.sources = sources;
+        this.category = category;
     }
 
     public static fromJson(json: ArticleJson): Article {
@@ -51,6 +56,7 @@ export class Article {
             politicians,
             tags,
             json.sources,
+            json.category,
         );
     }
 }

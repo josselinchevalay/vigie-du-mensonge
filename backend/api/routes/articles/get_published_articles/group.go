@@ -1,4 +1,4 @@
-package get_articles
+package get_published_articles
 
 import (
 	"time"
@@ -27,7 +27,7 @@ func Group(db *gorm.DB) *fiberx.Group {
 			Expiration:   24 * time.Hour,
 		})),
 
-		fiberx.NewRoute(Method, Path, handler.getArticles),
+		fiberx.NewRoute(Method, Path, handler.getPublishedArticles),
 	)
 
 	return group

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignUpRouteImport } from './routes/sign-up'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as PasswordUpdateRouteImport } from './routes/password-update'
+import { Route as ArticleFormRouteImport } from './routes/article-form'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SignUpRoute = SignUpRouteImport.update({
@@ -29,6 +30,11 @@ const PasswordUpdateRoute = PasswordUpdateRouteImport.update({
   path: '/password-update',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArticleFormRoute = ArticleFormRouteImport.update({
+  id: '/article-form',
+  path: '/article-form',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +43,14 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/article-form': typeof ArticleFormRoute
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/article-form': typeof ArticleFormRoute
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
@@ -50,20 +58,33 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/article-form': typeof ArticleFormRoute
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/password-update' | '/sign-in' | '/sign-up'
+  fullPaths:
+    | '/'
+    | '/article-form'
+    | '/password-update'
+    | '/sign-in'
+    | '/sign-up'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/password-update' | '/sign-in' | '/sign-up'
-  id: '__root__' | '/' | '/password-update' | '/sign-in' | '/sign-up'
+  to: '/' | '/article-form' | '/password-update' | '/sign-in' | '/sign-up'
+  id:
+    | '__root__'
+    | '/'
+    | '/article-form'
+    | '/password-update'
+    | '/sign-in'
+    | '/sign-up'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ArticleFormRoute: typeof ArticleFormRoute
   PasswordUpdateRoute: typeof PasswordUpdateRoute
   SignInRoute: typeof SignInRoute
   SignUpRoute: typeof SignUpRoute
@@ -92,6 +113,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PasswordUpdateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/article-form': {
+      id: '/article-form'
+      path: '/article-form'
+      fullPath: '/article-form'
+      preLoaderRoute: typeof ArticleFormRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +132,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ArticleFormRoute: ArticleFormRoute,
   PasswordUpdateRoute: PasswordUpdateRoute,
   SignInRoute: SignInRoute,
   SignUpRoute: SignUpRoute,

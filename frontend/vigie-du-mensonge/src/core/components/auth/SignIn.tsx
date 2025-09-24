@@ -1,5 +1,5 @@
 import {z} from "zod";
-import type {SignInController} from "@/core/dependencies/sign_in/signInController.ts";
+import type {SignInController} from "@/core/dependencies/auth/signInController.ts";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import * as React from "react";

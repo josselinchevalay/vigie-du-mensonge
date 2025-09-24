@@ -1,0 +1,7 @@
+export enum ArticleStatus {
+    UNDER_REVIEW = 'UNDER_REVIEW',
+    CHANGE_REQUESTED = 'CHANGE_REQUESTED',
+    DRAFT = 'DRAFT',
+    ARCHIVED = 'ARCHIVED',
+    PUBLISHED = 'PUBLISHED'
+}
