@@ -1,0 +1,30 @@
+package get_articles
+
+import (
+	"vdm/core/models"
+
+	"gorm.io/gorm"
+)
+
+type Repository interface {
+	getArticles() ([]models.Article, error)
+}
+
+type repository struct {
+	db *gorm.DB
+}
+
+func (r *repository) getArticles() ([]models.Article, error) {
+	var articles []models.Article
+
+	if err := r.db.Select("id", "title", "event_date", "updated_at").
+		Preload("Politicians", func(db *gorm.DB) *gorm.DB {
+			return db.Select("id", "first_name", "last_name")
+		}).
+		Preload("Tags").
+		Find(&articles).Error; err != nil {
+		return nil, err
+	}
+
+	return articles, nil
+}
