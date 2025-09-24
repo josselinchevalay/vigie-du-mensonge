@@ -6,6 +6,7 @@ import {server} from '@/test/testServer';
 import {SignIn} from '@/core/components/auth/SignIn';
 import {SignInController} from '@/core/dependencies/auth/signInController.ts';
 import {toast} from '@/core/utils/toast';
+import {authClient} from "@/core/dependencies/auth/authClient.ts";
 
 // Router, Toaster, and matchMedia are globally mocked in src/test/mocks.ts via setupFiles
 
@@ -34,7 +35,7 @@ describe('SignIn integration (MSW)', () => {
         server.resetHandlers();
         server.use(http.post('http://localhost:8080/api/v1/auth/sign-in', successResolver));
 
-        const controller = new SignInController();
+        const controller = new SignInController(authClient);
 
         render(<SignIn controller={controller}/>);
 
@@ -60,7 +61,7 @@ describe('SignIn integration (MSW)', () => {
         server.resetHandlers();
         server.use(http.post('http://localhost:8080/api/v1/auth/sign-in', errorResolver));
 
-        const controller = new SignInController();
+        const controller = new SignInController(authClient);
 
         render(<SignIn controller={controller}/>);
 

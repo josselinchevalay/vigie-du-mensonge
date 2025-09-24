@@ -2,13 +2,18 @@ import {toast} from "@/core/utils/toast.ts";
 import {navigate} from "@/core/utils/router.ts";
 import {HTTPError} from "ky";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
-import {authClient} from "@/core/dependencies/auth/authClient.ts";
+import {AuthClient} from "@/core/dependencies/auth/authClient.ts";
 
 export class SignInController {
+    private readonly client: AuthClient;
+
+    constructor(client: AuthClient) {
+        this.client = client;
+    }
 
     async onSignIn(email: string, password: string): Promise<boolean> {
         try {
-            const auth = await authClient.signIn({email, password});
+            const auth = await this.client.signIn({email, password});
             auth.saveToStorage();
             authManager.authStore.setState(() => auth);
             void navigate({to: '/', replace: true});

@@ -3,10 +3,11 @@ import {Store} from "@tanstack/react-store";
 import {toast} from "@/core/utils/toast.ts";
 
 export class PasswordUpdateController {
-    private readonly client = new PasswordUpdateClient();
+    private readonly client: PasswordUpdateClient;
     public readonly tokenStore!: Store<string | null>;
 
-    constructor(token: string | null) {
+    constructor(client: PasswordUpdateClient, token: string | null) {
+        this.client = client;
         this.tokenStore = new Store(token);
     }
 

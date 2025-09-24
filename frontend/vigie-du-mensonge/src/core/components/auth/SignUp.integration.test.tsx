@@ -6,6 +6,7 @@ import {server} from '@/test/testServer.ts';
 import {SignUp} from '@/core/components/auth/SignUp.tsx';
 import {SignUpController} from '@/core/dependencies/auth/signUpController.ts';
 import {toast} from '@/core/utils/toast.ts';
+import {authClient} from "@/core/dependencies/auth/authClient.ts";
 
 // Router, Toaster, and matchMedia are globally mocked in src/test/mocks.ts via setupFiles
 
@@ -23,7 +24,7 @@ describe('SignUp integration (MSW)', () => {
         server.resetHandlers();
         server.use(http.post('http://localhost:8080/api/v1/auth/sign-up/inquire', inquireResolver));
 
-        const controller = new SignUpController(null);
+        const controller = new SignUpController(authClient, null);
 
         render(<SignUp controller={controller}/>);
 
@@ -41,7 +42,7 @@ describe('SignUp integration (MSW)', () => {
         server.resetHandlers();
         server.use(http.post('http://localhost:8080/api/v1/auth/sign-up/inquire', inquireErrorResolver));
 
-        const controller = new SignUpController(null);
+        const controller = new SignUpController(authClient, null);
 
         render(<SignUp controller={controller}/>);
 
@@ -77,7 +78,7 @@ describe('SignUp integration (MSW)', () => {
         server.resetHandlers();
         server.use(http.post('http://localhost:8080/api/v1/auth/sign-up/process', processResolver));
 
-        const controller = new SignUpController('token-xyz');
+        const controller = new SignUpController(authClient, 'token-xyz');
 
         render(<SignUp controller={controller}/>);
 
@@ -100,7 +101,7 @@ describe('SignUp integration (MSW)', () => {
         server.resetHandlers();
         server.use(http.post('http://localhost:8080/api/v1/auth/sign-up/process', processErrorResolver));
 
-        const controller = new SignUpController('token-err');
+        const controller = new SignUpController(authClient, 'token-err');
 
         render(<SignUp controller={controller}/>);
 

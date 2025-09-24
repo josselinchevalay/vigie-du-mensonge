@@ -2,6 +2,7 @@ import {createFileRoute, redirect} from "@tanstack/react-router";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
 import {SignUpController} from "@/core/dependencies/auth/signUpController.ts";
 import {SignUp} from "@/core/components/auth/SignUp.tsx";
+import {authClient} from "@/core/dependencies/auth/authClient.ts";
 
 export const Route = createFileRoute('/sign-up')({
     validateSearch: (search: { token?: string }) => ({token: search.token}),
@@ -11,7 +12,7 @@ export const Route = createFileRoute('/sign-up')({
             throw redirect({to: '/', replace: true});
         }
 
-        const controller = new SignUpController(search.token ?? null);
+        const controller = new SignUpController(authClient, search.token ?? null);
         return {controller};
     },
     component: RouteComponent,

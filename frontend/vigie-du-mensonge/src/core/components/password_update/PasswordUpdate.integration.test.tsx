@@ -6,6 +6,8 @@ import { server } from '@/test/testServer';
 import { PasswordUpdate } from '@/core/components/password_update/PasswordUpdate';
 import { PasswordUpdateController } from '@/core/dependencies/password_update/passwordUpdateController';
 import { toast } from '@/core/utils/toast';
+import {PasswordUpdateClient} from "@/core/dependencies/password_update/passwordUpdateClient.ts";
+import {api} from "@/core/dependencies/api.ts";
 
 // Router, Toaster, and matchMedia are globally mocked in src/test/mocks.ts via setupFiles
 
@@ -23,7 +25,7 @@ describe('PasswordUpdate integration (MSW)', () => {
     server.resetHandlers();
     server.use(http.post('http://localhost:8080/api/v1/password-update/inquire', inquireResolver));
 
-    const controller = new PasswordUpdateController(null);
+    const controller = new PasswordUpdateController(new PasswordUpdateClient(api), null);
 
     render(<PasswordUpdate controller={controller} />);
 
@@ -52,7 +54,7 @@ describe('PasswordUpdate integration (MSW)', () => {
     server.resetHandlers();
     server.use(http.post('http://localhost:8080/api/v1/password-update/inquire', inquireErrorResolver));
 
-    const controller = new PasswordUpdateController(null);
+      const controller = new PasswordUpdateController(new PasswordUpdateClient(api), null);
 
     render(<PasswordUpdate controller={controller} />);
 
@@ -84,7 +86,7 @@ describe('PasswordUpdate integration (MSW)', () => {
     server.resetHandlers();
     server.use(http.post('http://localhost:8080/api/v1/password-update/process', processResolver));
 
-    const controller = new PasswordUpdateController('token-123');
+      const controller = new PasswordUpdateController(new PasswordUpdateClient(api), 'token-123');
 
     render(<PasswordUpdate controller={controller} />);
 
@@ -111,7 +113,7 @@ describe('PasswordUpdate integration (MSW)', () => {
     server.resetHandlers();
     server.use(http.post('http://localhost:8080/api/v1/password-update/process', processErrorResolver));
 
-    const controller = new PasswordUpdateController('token-err');
+      const controller = new PasswordUpdateController(new PasswordUpdateClient(api), 'token-err');
 
     render(<PasswordUpdate controller={controller} />);
 
