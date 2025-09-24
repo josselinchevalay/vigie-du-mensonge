@@ -6,7 +6,7 @@ import type {ArticleFormController} from "@/core/dependencies/article/articleFor
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/core/shadcn/components/ui/form.tsx";
 import {Input} from "@/core/shadcn/components/ui/input.tsx";
 import {Button} from "@/core/shadcn/components/ui/button.tsx";
-import {ArticleCategoryLabels, ArticleCategoryValues} from "@/core/models/articleCategory.ts";
+import {ArticleCategoryLabels, ArticleCategories} from "@/core/models/articleCategory.ts";
 import {useStore} from "@tanstack/react-store";
 import {politiciansManager} from "@/core/dependencies/politician/politiciansManager.ts";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/core/shadcn/components/ui/select";
@@ -19,7 +19,7 @@ const formSchema = z.object({
     title: z.string().min(1, "Titre requis").max(50, "50 caractères maximum"),
     eventDate: z.string().min(1, "Date de l'événement requise"), // we'll convert to Date on submit
     body: z.string().min(1, "Contenu requis").max(2000, "2000 caractères maximum"),
-    category: z.enum(Object.values(ArticleCategoryValues)).nonoptional(),
+    category: z.enum(Object.values(ArticleCategories)).nonoptional(),
     tags: z.array(z.string().min(1).max(25)).min(1, "Au moins 1 tag").max(10, "10 tags maximum"),
     sources: z.array(z.url("URL invalide")).min(1, "Au moins 1 source").max(5, "5 sources maximum"),
     politicians: z.array(z.string()).min(1, "Sélectionnez au moins 1 politicien").max(5, "5 politiciens maximum"),
@@ -34,7 +34,7 @@ export function ArticleForm({controller}: ArticleFormProps) {
             title: "",
             eventDate: "",
             body: "",
-            category: ArticleCategoryValues.FALSEHOOD,
+            category: ArticleCategories.FALSEHOOD,
             tags: [],
             sources: [],
             politicians: [],
