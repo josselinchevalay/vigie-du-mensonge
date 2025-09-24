@@ -8,13 +8,6 @@ import (
 	"gorm.io/gorm"
 )
 
-// Politician represents the politician table
-// CHECK constraints are enforced at DB level; here we map columns and types
-// deleted_at is handled as gorm.DeletedAt for soft deletes
-// timestamps are in TIMESTAMPTZ in DB, mapped to time.Time
-// UUIDs mapped to uuid.UUID
-// Text mapped to string
-
 type Politician struct {
 	ID        uuid.UUID      `gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
 	LastName  string         `gorm:"column:last_name;not null"`
@@ -26,4 +19,4 @@ type Politician struct {
 	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at"`
 }
 
-func (Politician) TableName() string { return "politician" }
+func (Politician) TableName() string { return "politicians" }

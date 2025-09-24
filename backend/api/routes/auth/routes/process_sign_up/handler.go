@@ -36,6 +36,6 @@ func (h *handler) processSignUp(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusCreated).JSON(ResponseDTO{
 		AccessTokenExpiry:  accessToken.Expiry,
 		RefreshTokenExpiry: refreshToken.Expiry,
-		Roles:              []models.RoleName{models.RoleNameRedactor},
+		Roles:              []models.RoleName{models.RoleRedactor},
 	})
 }

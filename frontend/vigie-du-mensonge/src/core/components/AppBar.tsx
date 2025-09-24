@@ -1,7 +1,7 @@
-import {Link} from '@tanstack/react-router';
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
 import {useStore} from "@tanstack/react-store";
 import {Button} from "../shadcn/components/ui/button";
+import {Link} from "@/core/utils/router.ts";
 
 
 export default function AppBar() {

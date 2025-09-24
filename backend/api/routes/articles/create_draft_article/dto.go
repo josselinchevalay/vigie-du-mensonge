@@ -1,4 +1,4 @@
-package create_article
+package create_draft_article
 
 import (
 	"time"
@@ -8,8 +8,8 @@ import (
 )
 
 type RequestDTO struct {
-	Title       string                 `json:"title" validate:"required"`
-	Body        string                 `json:"body" validate:"required"`
+	Title       string                 `json:"title" validate:"required,max=50"`
+	Body        string                 `json:"body" validate:"required,max=2000"`
 	EventDate   time.Time              `json:"eventDate"`
 	Tags        []string               `json:"tags" validate:"required,min=1,max=10"`
 	Politicians []uuid.UUID            `json:"politicians" validate:"required,min=1,max=5"`

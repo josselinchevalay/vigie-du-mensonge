@@ -1,5 +1,4 @@
 import {Article, type ArticleJson} from "@/core/models/article.ts";
-import type {ArticleCategory} from "@/core/models/articleCategory.ts";
 import type {KyInstance} from "ky";
 import {api} from "@/core/dependencies/api.ts";
 
@@ -10,7 +9,7 @@ export type ArticleCreateJson = {
     tags: string[];
     sources: string[];
     politicians: string[];
-    category: ArticleCategory;
+    category: string;
 }
 
 export class ArticleClient {

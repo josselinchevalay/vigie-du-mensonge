@@ -41,7 +41,7 @@ func (r *repository) createUserAndRefreshToken(user *models.User, rft *models.Us
 	}()
 
 	var roleRedactor models.Role
-	if err = tx.Where("name = ?", models.RoleNameRedactor).
+	if err = tx.Where("name = ?", models.RoleRedactor).
 		First(&roleRedactor).Error; err != nil {
 		return
 	}
