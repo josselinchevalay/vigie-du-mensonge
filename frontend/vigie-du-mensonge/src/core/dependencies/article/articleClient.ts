@@ -33,4 +33,4 @@ export class ArticleClient {
     }
 }
 
-export const articleClient = new ArticleClient(api.extend({prefixUrl: "/articles"}));
+export const articleClient = new ArticleClient(api);

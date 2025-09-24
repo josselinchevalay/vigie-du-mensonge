@@ -11,7 +11,7 @@ export class AuthClient {
 
     async signIn(creds: { email: string, password: string }): Promise<Auth> {
         const res = await this.api
-            .post("sign-in", {
+            .post("auth/sign-in", {
                 json: creds,
             })
             .json<AuthJson>();
@@ -21,25 +21,25 @@ export class AuthClient {
 
     async refresh(): Promise<Auth> {
         const res = await this.api
-            .post("refresh")
+            .post("auth/refresh")
             .json<AuthJson>();
 
         return Auth.fromJson(res);
     }
 
     async signOut(): Promise<void> {
-        await this.api.post("sign-out");
+        await this.api.post("auth/sign-out");
     }
 
     async inquireSignUp(email: string): Promise<void> {
-        await this.api.post("sign-up/inquire", {
+        await this.api.post("auth/sign-up/inquire", {
             json: {email},
         });
     }
 
     async processSignUp(creds: { token: string, password: string }): Promise<Auth> {
         const res = await this.api
-            .post("sign-up/process", {
+            .post("auth/sign-up/process", {
                 json: creds,
             })
             .json<AuthJson>();
@@ -48,4 +48,4 @@ export class AuthClient {
     }
 }
 
-export const authClient = new AuthClient(api.extend({prefixUrl: "/auth"}));
+export const authClient = new AuthClient(api);

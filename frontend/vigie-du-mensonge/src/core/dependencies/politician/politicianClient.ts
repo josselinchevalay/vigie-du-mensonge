@@ -11,11 +11,11 @@ export class PoliticianClient {
 
     async getAll(): Promise<Politician[]> {
         const res = await this.api
-            .get("")
+            .get("politicians")
             .json<PoliticianJson[]>();
 
         return res.map((json) => Politician.fromJson(json));
     }
 }
 
-export const politicianClient = new PoliticianClient(api.extend({prefixUrl: "/politicians"}));
+export const politicianClient = new PoliticianClient(api);
