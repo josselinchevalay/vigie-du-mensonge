@@ -11,5 +11,5 @@ func Middleware(db *gorm.DB) *fiberx.Middleware {
 	svc := &service{repo}
 	handler := &handler{svc}
 
-	return fiberx.NewMiddleware(handler.authorizedAuthedUser)
+	return fiberx.NewMiddleware(handler.authorizeAuthedUser)
 }

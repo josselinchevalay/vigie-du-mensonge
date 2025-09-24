@@ -2,7 +2,6 @@ package create_draft_article
 
 import (
 	"vdm/core/locals"
-	"vdm/core/models"
 	"vdm/core/validation"
 
 	"github.com/gofiber/fiber/v2"
@@ -20,9 +19,6 @@ func (h *handler) createDraftArticle(c *fiber.Ctx) error {
 	authedUser, ok := c.Locals("authedUser").(locals.AuthedUser)
 	if !ok {
 		return &fiber.Error{Code: fiber.StatusInternalServerError, Message: "can't locals authed user"}
-	}
-	if !authedUser.HasRole(models.RoleRedactor) {
-		return &fiber.Error{Code: fiber.StatusForbidden, Message: "user doesn't have role redactor"}
 	}
 
 	var reqDTO RequestDTO

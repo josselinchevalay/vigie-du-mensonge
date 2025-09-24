@@ -7,14 +7,14 @@ import (
 )
 
 type Service interface {
-	authorizedAuthedUser(authedUser *locals.AuthedUser) error
+	authorizeAuthedUser(authedUser *locals.AuthedUser) error
 }
 
 type service struct {
 	repo Repository
 }
 
-func (s *service) authorizedAuthedUser(authedUser *locals.AuthedUser) error {
+func (s *service) authorizeAuthedUser(authedUser *locals.AuthedUser) error {
 	roles, err := s.repo.getUserRoles(authedUser.ID)
 	if err != nil {
 		return fmt.Errorf("failed to get user roles: %v", err)

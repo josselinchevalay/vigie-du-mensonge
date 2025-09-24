@@ -8,20 +8,20 @@ import (
 )
 
 type Handler interface {
-	authorizedAuthedUser(c *fiber.Ctx) error
+	authorizeAuthedUser(c *fiber.Ctx) error
 }
 
 type handler struct {
 	svc Service
 }
 
-func (h *handler) authorizedAuthedUser(c *fiber.Ctx) error {
+func (h *handler) authorizeAuthedUser(c *fiber.Ctx) error {
 	authedUser, ok := c.Locals("authedUser").(locals.AuthedUser)
 	if !ok {
 		return &fiber.Error{Code: fiber.StatusInternalServerError, Message: "can't locals authed user"}
 	}
 
-	if err := h.svc.authorizedAuthedUser(&authedUser); err != nil {
+	if err := h.svc.authorizeAuthedUser(&authedUser); err != nil {
 		return err
 	}
 
