@@ -8,8 +8,10 @@ services:
       - vdm_pg_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    env_file:
+      - .db.env
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: [ "CMD-SHELL", "pg_isready -U root -h db -p 5432 -d vdm_db" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -27,31 +29,33 @@ services:
     container_name: vdm_backend
     ports:
       - "8080:8080"
-    environment:
-      - "ACTIVE_PROFILE=docker"
-      - "CLIENT_URL=http://localhost:5173"
-      - "DB_HOST=db"
-      - "DB_USER=root"
-      - "DB_PASSWORD=root"
-      - "DB_NAME=vdm_db"
-      - "DB_PORT=5432"
-      - "ACCESS_TOKEN_SECRET=dummy_access_token_secret"
-      - "ACCESS_TOKEN_TTL=2m"
-      - "REFRESH_TOKEN_SECRET=dummy_refresh_token_secret"
-      - "REFRESH_TOKEN_TTL=5m"
-      - "MAILER_ADDRESS=vigiedumenzonge@gmail.com"
-      - "MAILER_PASSWORD=imnycyndajvzryyd" # revoked app password
-      - "MAILER_HOST=smtp.gmail.com"
-      - "MAILER_PORT=587"
-      - "EMAIL_TOKEN_SECRET=dummy_email_token_secret"
-      - "EMAIL_TOKEN_TTL=10m"
-      - "PASSWORD_TOKEN_SECRET=dummy_password_token_secret"
-      - "PASSWORD_TOKEN_TTL=10m"
-      - "ACCESS_COOKIE_NAME=jwt"
-      - "REFRESH_COOKIE_NAME=rft"
-      - "CSRF_COOKIE_NAME=csrf"
-      - "COOKIE_SAME_SITE=lax"
-      - "COOKIE_SECURE=true"
+    env_file:
+      - .backend.env
+    #environment:
+    #  - "ACTIVE_PROFILE=docker"
+    #  - "CLIENT_URL=http://localhost:5173"
+    #  - "DB_HOST=db"
+    #  - "DB_USER=root"
+    #  - "DB_PASSWORD=root"
+    #  - "DB_NAME=vdm_db"
+    #  - "DB_PORT=5432"
+    #  - "ACCESS_TOKEN_SECRET=dummy_access_token_secret"
+    #  - "ACCESS_TOKEN_TTL=2m"
+    #  - "REFRESH_TOKEN_SECRET=dummy_refresh_token_secret"
+    #  - "REFRESH_TOKEN_TTL=5m"
+    #  - "MAILER_ADDRESS=vigiedumenzonge@gmail.com"
+    #  - "MAILER_PASSWORD=imnycyndajvzryyd" # revoked app password
+    #  - "MAILER_HOST=smtp.gmail.com"
+    #  - "MAILER_PORT=587"
+    #  - "EMAIL_TOKEN_SECRET=dummy_email_token_secret"
+    #  - "EMAIL_TOKEN_TTL=10m"
+    #  - "PASSWORD_TOKEN_SECRET=dummy_password_token_secret"
+    #  - "PASSWORD_TOKEN_TTL=10m"
+    #  - "ACCESS_COOKIE_NAME=jwt"
+    #  - "REFRESH_COOKIE_NAME=rft"
+    #  - "CSRF_COOKIE_NAME=csrf"
+    #  - "COOKIE_SAME_SITE=lax"
+    #  - "COOKIE_SECURE=true"
     depends_on:
       db:
         condition: service_healthy
