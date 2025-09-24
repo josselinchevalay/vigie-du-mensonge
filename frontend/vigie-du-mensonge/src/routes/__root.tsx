@@ -1,10 +1,10 @@
-import AppBar from "@/core/components/AppBar.tsx";
 import {Toaster} from "@/core/shadcn/components/ui/sonner";
 import {createRootRoute, Outlet} from '@tanstack/react-router';
 import {TanStackRouterDevtools} from '@tanstack/react-router-devtools';
 import {useEffect, useRef} from 'react';
 import {authManager} from '@/core/dependencies/auth/authManager.ts';
 import {AuthRefreshScheduler} from '@/core/dependencies/auth/authRefreshScheduler.ts';
+import AppBar from "@/core/components/AppBar.tsx";
 
 const RootLayout = () => {
     const schedulerRef = useRef<AuthRefreshScheduler | null>(null);
@@ -33,7 +33,7 @@ const RootLayout = () => {
 
     return (
         <>
-            <div className={"flex min-h-dvh w-full flex-col"}>
+            <div className="flex min-h-dvh w-full flex-col">
                 <AppBar/>
 
                 <main id="main-content" role="main" className="flex-1 overflow-auto py-4">

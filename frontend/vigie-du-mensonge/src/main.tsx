@@ -1,6 +1,10 @@
 import {StrictMode} from 'react';
 import ReactDOM from 'react-dom/client';
 import {createRouter, RouterProvider} from '@tanstack/react-router';
+
+const mq = window.matchMedia('(prefers-color-scheme: dark)');
+document.documentElement.classList.toggle('dark', mq.matches);
+
 import './index.css';
 
 // Import the generated route tree
