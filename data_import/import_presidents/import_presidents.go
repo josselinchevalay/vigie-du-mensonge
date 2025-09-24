@@ -18,7 +18,7 @@ import (
 
 type key struct{ first, last string }
 
-// LoadFromCSV imports presidents.csv into politicians and occupations tables.
+// LoadFromCSV imports presidents.csv into politician and occupations tables.
 // CSV format (comma-separated):
 // id,prenom,nom,date_debut_mandat,date_fin_mandat
 // - Ensures a Politician exists for prenom/nom

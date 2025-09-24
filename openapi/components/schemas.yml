@@ -80,7 +80,7 @@ schemas:
         items: { type: string, format: uri }
   ArticleCreateRequest:
     type: object
-    required: [ title, eventDate, body, tags, sources, politicians, category ]
+    required: [ title, eventDate, body, tags, sources, politician, category ]
     properties:
       title: { type: string, maxLength: 50 }
       eventDate: { type: string, format: date-time }

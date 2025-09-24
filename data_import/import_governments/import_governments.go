@@ -18,7 +18,7 @@ import (
 
 type key struct{ first, last string }
 
-// LoadFromCSV imports governments.csv into politicians and governments tables.
+// LoadFromCSV imports governments.csv into politician and governments tables.
 // CSV format (comma-separated):
 // id,prenom,nom,date_debut_fonction,date_fin_fonction,duree
 // - Ensures a Politician exists for prenom/nom
@@ -40,7 +40,7 @@ func LoadFromCSV(db *gorm.DB) error {
 		return fmt.Errorf("read header: %w", err)
 	}
 
-	// cache politicians by normalized first/last
+	// cache politician by normalized first/last
 	cache := make(map[key]models.Politician)
 
 	const dateLayout = "2006-01-02"

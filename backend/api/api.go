@@ -7,6 +7,7 @@ import (
 	"vdm/api/routes/auth"
 	"vdm/api/routes/get_csrf"
 	"vdm/api/routes/password_update"
+	"vdm/api/routes/politicians"
 	"vdm/core/dependencies"
 	"vdm/core/fiberx"
 	"vdm/core/locals/local_keys"
@@ -77,6 +78,7 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 
 		auth.Group(deps),
 		password_update.Group(deps),
+		politicians.Group(deps),
 
 		locals_authed_user.Middleware(deps.Config.Security),
 	)

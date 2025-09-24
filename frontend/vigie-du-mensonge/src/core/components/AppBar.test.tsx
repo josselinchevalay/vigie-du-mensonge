@@ -61,7 +61,6 @@ describe('AppBar', () => {
         const auth = Auth.fromJson({
             accessTokenExpiry: new Date(now + 60 * 60 * 1000).toISOString(),
             refreshTokenExpiry: new Date(now + 2 * 60 * 60 * 1000).toISOString(),
-            emailVerified: true,
             roles: [],
         });
 
