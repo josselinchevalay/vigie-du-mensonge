@@ -18,9 +18,27 @@ spec:
       labels:
         app: data-import
     spec:
+      serviceAccountName: vdm-sa
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - name: tmp
+          emptyDir: { } # ephemeral, node storage
       containers:
         - name: backend
-          image: geo1796/vdm-data_import:0.1
+          image: geo1796/vdm-data_import@sha256:54ce89cc7fd1d395f808b86ef1fa975ce9600b69b071e85bddcc2dac7f648ec0
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ "ALL" ]
           env:
             - name: DB_HOST
               valueFrom:
