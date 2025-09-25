@@ -12,7 +12,7 @@ export type RedactorArticleJson = {
     category: string;
 }
 
-export class RedactorClient {
+export class RedactorArticleClient {
     private readonly api: KyInstance;
 
     constructor(api: KyInstance) {
@@ -32,4 +32,4 @@ export class RedactorClient {
     }
 }
 
-export const meClient = new RedactorClient(api);
+export const redactorArticleClient = new RedactorArticleClient(api);

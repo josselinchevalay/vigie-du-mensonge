@@ -1,11 +1,11 @@
 import {toast} from "@/core/utils/toast.ts";
-import type {RedactorArticleJson, RedactorClient} from "@/core/dependencies/redactor/redactorClient.ts";
+import type {RedactorArticleJson, RedactorArticleClient} from "@/core/dependencies/redactor/redactorArticleClient.ts";
 import {navigate} from "@/core/utils/router.ts";
 
 export class RedactorArticleFormController {
-    private readonly client: RedactorClient;
+    private readonly client: RedactorArticleClient;
 
-    constructor(client: RedactorClient) {
+    constructor(client: RedactorArticleClient) {
         this.client = client;
     }
 
