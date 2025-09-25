@@ -77,7 +77,7 @@ function FormItem({ className, ...props }: React.ComponentProps<"div">) {
   const id = React.useId()
 
   return (
-    <FormItemContext.Provider value={{ articleID: id }}>
+    <FormItemContext.Provider value={{ id: id }}>
       <div
         data-slot="form-item"
         className={cn("grid gap-2", className)}
