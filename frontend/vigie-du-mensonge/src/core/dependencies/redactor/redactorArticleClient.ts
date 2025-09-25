@@ -1,5 +1,5 @@
 import type {KyInstance} from "ky";
-import {Article, type ArticleJson} from "@/core/models/article.ts";
+import {Article, type ArticleDetails, type ArticleJson} from "@/core/models/article.ts";
 import {api} from "@/core/dependencies/api.ts";
 
 export type RedactorArticleJson = {
@@ -19,7 +19,7 @@ export class RedactorArticleClient {
         this.api = api;
     }
 
-    async getArticles(): Promise<Article[]> {
+    async getAll(): Promise<Article[]> {
         const res = await this.api
             .get("redactor/articles")
             .json<ArticleJson[]>();
@@ -27,8 +27,22 @@ export class RedactorArticleClient {
         return res.map((json) => Article.fromJson(json));
     }
 
-    async createDraftArticle(dto: RedactorArticleJson) {
-        await this.api.post("redactor/articles", {json: dto});
+    async create(dto: RedactorArticleJson): Promise<string> {
+        const res = await this.api
+            .post("redactor/articles", {json: dto})
+            .json<{ articleID: string }>();
+
+        return res.articleID;
+    }
+
+    async findDetails(articleID: string): Promise<ArticleDetails> {
+        return await this.api
+            .get(`redactor/articles/${articleID}/details`)
+            .json<ArticleDetails>();
+    }
+
+    async update(articleID: string, dto: RedactorArticleJson): Promise<void> {
+        await this.api.put(`redactor/articles/${articleID}`, {json: dto});
     }
 }
 

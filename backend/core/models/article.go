@@ -11,7 +11,23 @@ import (
 
 type ArticleStatus string
 
+func (as ArticleStatus) Valid() bool {
+	switch as {
+	case ArticleStatusDraft, ArticleStatusPublished, ArticleStatusArchived, ArticleStatusUnderReview, ArticleStatusChangeRequested:
+		return true
+	}
+	return false
+}
+
 type ArticleCategory string
+
+func (ac ArticleCategory) Valid() bool {
+	switch ac {
+	case ArticleCategoryLie, ArticleCategoryFalsehood:
+		return true
+	}
+	return false
+}
 
 const (
 	ArticleStatusDraft           ArticleStatus = "DRAFT"
@@ -29,8 +45,9 @@ const (
 type Article struct {
 	ID uuid.UUID `gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
 
-	Politicians []*Politician `gorm:"many2many:article_politicians;"`
-	Tags        []*ArticleTag `gorm:"foreignKey:ArticleID"`
+	Politicians []*Politician    `gorm:"many2many:article_politicians;"`
+	Tags        []*ArticleTag    `gorm:"foreignKey:ArticleID"`
+	Sources     []*ArticleSource `gorm:"foreignKey:ArticleID"`
 
 	AuthorID    uuid.UUID  `gorm:"column:author_id;type:uuid;not null"`
 	ModeratorID *uuid.UUID `gorm:"column:moderator_id;type:uuid"`

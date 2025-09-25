@@ -1,4 +1,4 @@
-package get_redactor_articles
+package update_redactor_article
 
 import (
 	"vdm/core/fiberx"
@@ -9,12 +9,12 @@ import (
 
 const (
 	Path   = "/"
-	Method = fiber.MethodGet
+	Method = fiber.MethodPut
 )
 
 func Route(db *gorm.DB) *fiberx.Route {
 	repo := &repository{db}
 	svc := &service{repo}
-	handler := &handler{svc}
-	return fiberx.NewRoute(Method, Path, handler.getRedactorArticles)
+	h := &handler{svc}
+	return fiberx.NewRoute(Method, Path, h.updateArticleForRedactor)
 }

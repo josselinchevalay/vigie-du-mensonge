@@ -1,5 +1,6 @@
 import {createFileRoute, Outlet, redirect} from "@tanstack/react-router";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
+import {redactorArticlesManager} from "@/core/dependencies/redactor/redactorArticlesManager.ts";
 
 export const Route = createFileRoute('/redactor')({
     beforeLoad: () => {
@@ -7,6 +8,8 @@ export const Route = createFileRoute('/redactor')({
         if (!auth || !auth.isRedactor) {
             throw redirect({to: '/', replace: true});
         }
+
+        void redactorArticlesManager.loadArticles();
     },
     component: () => <Outlet/>,
 });

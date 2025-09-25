@@ -1,5 +1,6 @@
 import {Politician, type PoliticianJson} from "@/core/models/politician.ts";
 import {type ArticleCategory} from "@/core/models/articleCategory.ts";
+import {formatDate} from "@/core/utils/formatDate.ts";
 
 export type ArticleJson = {
     id: string;
@@ -8,8 +9,12 @@ export type ArticleJson = {
     updatedAt: string;
     politicians: PoliticianJson[];
     tags: string[];
-    sources: string[];
     category: ArticleCategory;
+}
+
+export type ArticleDetails = {
+    body: string;
+    sources: string[];
 }
 
 export class Article {
@@ -19,8 +24,8 @@ export class Article {
     public updatedAt: Date;
     public politicians: Politician[];
     public tags: string[];
-    public sources: string[];
     public category: ArticleCategory;
+    public details: ArticleDetails | null = null;
 
     constructor(
         id: string,
@@ -29,7 +34,6 @@ export class Article {
         updatedAt: Date,
         politicians: Politician[],
         tags: string[],
-        sources: string[],
         category: ArticleCategory,
     ) {
         this.id = id;
@@ -38,24 +42,25 @@ export class Article {
         this.updatedAt = updatedAt;
         this.politicians = politicians;
         this.tags = tags;
-        this.sources = sources;
         this.category = category;
     }
 
+    public get politicianIds(): string[] {
+        return this.politicians.map(p => p.id);
+    }
+
+    public get formattedEventDate(): string {
+        return formatDate(this.eventDate);
+    }
+
     public static fromJson(json: ArticleJson): Article {
-        const politicians = json.politicians.map(Politician.fromJson);
-        const tags = [
-            ...politicians.map(p => p.fullName),
-            ...json.tags,
-        ];
         return new Article(
             json.id,
             json.title,
             new Date(json.eventDate),
             new Date(json.updatedAt),
-            politicians,
-            tags,
-            json.sources,
+            json.politicians.map(Politician.fromJson),
+            json.tags,
             json.category,
         );
     }

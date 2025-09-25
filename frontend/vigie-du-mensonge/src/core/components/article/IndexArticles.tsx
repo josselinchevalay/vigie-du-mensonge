@@ -1,29 +1,11 @@
-import {useStore} from "@tanstack/react-store";
-import {authManager} from "@/core/dependencies/auth/authManager.ts";
-import {Link} from "@/core/utils/router.ts";
-
 export function IndexArticles() {
-    const auth = useStore(authManager.authStore);
-
     return (
         <>
             <div className="mx-auto w-full max-w-sm">
                 <div className="flex flex-col items-center justify-center gap-4">
-                    {auth?.isRedactor &&
-                        <Link
-                            to="/redactor/article-form"
-                            className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
-                        >
-                            Ajouter un article
-                        </Link>
-                    }
                     <h3>CLEMENT J'ATTENDS TOUJOURS LES CRITÈRES D'ACCEPTATION</h3>
-
                 </div>
-
                 <br/>
-
-
             </div>
 
             <div className="w-full flex flex-col sm:flex-row gap-4 items-center justify-between">
@@ -32,13 +14,25 @@ export function IndexArticles() {
                     <h3>Le plus beau</h3>
                 </div>
 
-                <h3>{"ADSO >>> HIPPIAS"}</h3>
+                <h3 className="text-xl">{"ADSO > HIPPIAS"}</h3>
 
                 <div className="flex flex-col">
                     <img src="/hippias.PNG" alt="hippias" className="w-100 h-100"/>
-                    <h3>Il pu le seum</h3>
+                    <h3>C'est quoi ce regard ??</h3>
                 </div>
             </div>
         </>
     );
 }
+
+// function IndexArticleNavButton(props: { article: { id: string } }) {
+//     return (
+//         <Link
+//             to="/redactor/article-form"
+//             search={{articleID: props.article.id}}
+//             className="inline-flex items-center"
+//         >
+//             <Eye/>
+//         </Link>
+//     );
+// }

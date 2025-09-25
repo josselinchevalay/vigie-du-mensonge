@@ -1,4 +1,4 @@
-package create_draft_article
+package create_redactor_article
 
 import (
 	"vdm/core/fiberx"
@@ -17,5 +17,5 @@ func Route(db *gorm.DB) *fiberx.Route {
 	svc := &service{repo}
 	handler := &handler{svc}
 
-	return fiberx.NewRoute(Method, Path, handler.createDraftArticle)
+	return fiberx.NewRoute(Method, Path, handler.createRedactorArticle)
 }

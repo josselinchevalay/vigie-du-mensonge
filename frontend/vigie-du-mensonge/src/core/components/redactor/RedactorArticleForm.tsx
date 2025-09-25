@@ -31,13 +31,13 @@ export function RedactorArticleForm({controller}: RedactorArticleFormProps) {
     const form = useForm<RedactorArticleFormInput>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            title: "",
-            eventDate: "",
-            body: "",
-            category: ArticleCategories.FALSEHOOD,
-            tags: [],
-            sources: [],
-            politicians: [],
+            title: controller.originalArticle?.title ?? "",
+            eventDate: controller.originalArticle?.formattedEventDate ?? "",
+            body: controller.originalArticle?.details?.body ?? "",
+            category: controller.originalArticle?.category ?? ArticleCategories.FALSEHOOD,
+            tags: controller.originalArticle?.tags ?? [],
+            sources: controller.originalArticle?.details?.sources ?? [],
+            politicians: controller.originalArticle?.politicianIds ?? [],
         },
         mode: "onSubmit",
     });
@@ -124,7 +124,9 @@ export function RedactorArticleForm({controller}: RedactorArticleFormProps) {
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-1">
-                        <h1 className="text-xl font-semibold">Créer un article</h1>
+                        <h1 className="text-xl font-semibold">
+                            {controller.originalArticle ? "Modifier l'article" : "Créer un article"}
+                        </h1>
                         <p className="text-sm text-muted-foreground">Renseignez les informations ci-dessous</p>
                     </div>
 
@@ -328,7 +330,7 @@ export function RedactorArticleForm({controller}: RedactorArticleFormProps) {
 
 
                     <Button type="submit" disabled={form.formState.isSubmitting} className="w-full">
-                        {form.formState.isSubmitting ? "Création…" : "Créer l'article"}
+                        {controller.originalArticle ? "Modifier l'article" : "Créer l'article"}
                     </Button>
                 </form>
             </Form>

@@ -1,4 +1,4 @@
-package create_draft_article
+package create_redactor_article
 
 import (
 	"fmt"
@@ -8,14 +8,14 @@ import (
 )
 
 type Service interface {
-	mapAndCreateArticle(authorID uuid.UUID, dto RequestDTO) error
+	mapAndCreateArticle(authorID uuid.UUID, dto RequestDTO) (uuid.UUID, error)
 }
 
 type service struct {
 	repo Repository
 }
 
-func (s *service) mapAndCreateArticle(authorID uuid.UUID, dto RequestDTO) error {
+func (s *service) mapAndCreateArticle(authorID uuid.UUID, dto RequestDTO) (uuid.UUID, error) {
 	article := models.Article{
 		AuthorID:    authorID,
 		Title:       dto.Title,
@@ -28,6 +28,7 @@ func (s *service) mapAndCreateArticle(authorID uuid.UUID, dto RequestDTO) error 
 		Reference:   uuid.New(),
 		Politicians: make([]*models.Politician, len(dto.Politicians)),
 		Tags:        make([]*models.ArticleTag, len(dto.Tags)),
+		Sources:     make([]*models.ArticleSource, len(dto.Sources)),
 	}
 
 	for i := range dto.Politicians {
@@ -36,10 +37,13 @@ func (s *service) mapAndCreateArticle(authorID uuid.UUID, dto RequestDTO) error 
 	for i := range dto.Tags {
 		article.Tags[i] = &models.ArticleTag{Tag: dto.Tags[i]}
 	}
-
-	if err := s.repo.createArticle(&article); err != nil {
-		return fmt.Errorf("failed to create article: %w", err)
+	for i := range dto.Sources {
+		article.Sources[i] = &models.ArticleSource{URL: dto.Sources[i]}
 	}
 
-	return nil
+	if err := s.repo.createArticle(&article); err != nil {
+		return uuid.Nil, fmt.Errorf("failed to create article: %w", err)
+	}
+
+	return article.ID, nil
 }

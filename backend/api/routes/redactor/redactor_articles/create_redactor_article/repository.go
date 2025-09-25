@@ -1,4 +1,4 @@
-package create_draft_article
+package create_redactor_article
 
 import (
 	"vdm/core/models"

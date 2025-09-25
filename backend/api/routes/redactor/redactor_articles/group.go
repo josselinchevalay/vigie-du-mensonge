@@ -1,8 +1,9 @@
 package redactor_articles
 
 import (
-	"vdm/api/routes/redactor/redactor_articles/create_draft_article"
+	"vdm/api/routes/redactor/redactor_articles/create_redactor_article"
 	"vdm/api/routes/redactor/redactor_articles/get_redactor_articles"
+	"vdm/api/routes/redactor/redactor_articles/redactor_article"
 	"vdm/core/dependencies"
 	"vdm/core/fiberx"
 )
@@ -13,8 +14,10 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	group := fiberx.NewGroup(Prefix)
 
 	group.Add(
-		get_redactor_articles.Route(deps.GormDB()),
-		create_draft_article.Route(deps.GormDB()),
+		create_redactor_article.Route(deps.GormDB()),
+		get_redactor_articles.Group(deps.GormDB()),
+
+		redactor_article.Group(deps),
 	)
 
 	return group
