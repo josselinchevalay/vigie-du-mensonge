@@ -35,16 +35,16 @@ services:
       db:
         condition: service_healthy
 
-#  data_import:
-#    build:
-#      context: data_import
-#    container_name: vdm_data_import
-#    restart: no
-#    env_file:
-#      - .backend.env # Réutilise la configuration de la DB
-#    depends_on:
-#      db:
-#        condition: service_healthy
+  data_import:
+    build:
+      context: data_import
+    container_name: vdm_data_import
+    restart: no
+    env_file:
+      - .backend.env # Réutilise la configuration de la DB
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   vdm_pg_data:
