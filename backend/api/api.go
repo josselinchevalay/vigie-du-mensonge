@@ -3,12 +3,14 @@ package api
 import (
 	"strings"
 	"time"
+	"vdm/api/middlewares/authorize_authed_user"
+	"vdm/api/middlewares/locals_authed_user"
 	"vdm/api/routes/articles"
 	"vdm/api/routes/auth"
 	"vdm/api/routes/get_csrf"
-	"vdm/api/routes/me"
 	"vdm/api/routes/password_update"
 	"vdm/api/routes/politicians"
+	"vdm/api/routes/redactor"
 	"vdm/core/dependencies"
 	"vdm/core/fiberx"
 	"vdm/core/locals/local_keys"
@@ -81,7 +83,11 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 		password_update.Group(deps),
 		politicians.Group(deps),
 		articles.Group(deps),
-		me.Group(deps),
+
+		locals_authed_user.Middleware(deps.Config.Security),
+		authorize_authed_user.Middleware(deps.GormDB()),
+
+		redactor.Group(deps),
 	)
 
 	return group

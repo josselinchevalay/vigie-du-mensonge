@@ -12,9 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignUpRouteImport } from './routes/sign-up'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as PasswordUpdateRouteImport } from './routes/password-update'
-import { Route as MeRouteImport } from './routes/me'
-import { Route as ArticleFormRouteImport } from './routes/article-form'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RedactorIndexRouteImport } from './routes/redactor/index'
+import { Route as RedactorArticleFormRouteImport } from './routes/redactor/article-form'
 
 const SignUpRoute = SignUpRouteImport.update({
   id: '/sign-up',
@@ -31,81 +31,81 @@ const PasswordUpdateRoute = PasswordUpdateRouteImport.update({
   path: '/password-update',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MeRoute = MeRouteImport.update({
-  id: '/me',
-  path: '/me',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ArticleFormRoute = ArticleFormRouteImport.update({
-  id: '/article-form',
-  path: '/article-form',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RedactorIndexRoute = RedactorIndexRouteImport.update({
+  id: '/redactor/',
+  path: '/redactor/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RedactorArticleFormRoute = RedactorArticleFormRouteImport.update({
+  id: '/redactor/article-form',
+  path: '/redactor/article-form',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/article-form': typeof ArticleFormRoute
-  '/me': typeof MeRoute
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/redactor/article-form': typeof RedactorArticleFormRoute
+  '/redactor': typeof RedactorIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/article-form': typeof ArticleFormRoute
-  '/me': typeof MeRoute
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/redactor/article-form': typeof RedactorArticleFormRoute
+  '/redactor': typeof RedactorIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/article-form': typeof ArticleFormRoute
-  '/me': typeof MeRoute
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/redactor/article-form': typeof RedactorArticleFormRoute
+  '/redactor/': typeof RedactorIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/article-form'
-    | '/me'
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
+    | '/redactor/article-form'
+    | '/redactor'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/article-form'
-    | '/me'
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
+    | '/redactor/article-form'
+    | '/redactor'
   id:
     | '__root__'
     | '/'
-    | '/article-form'
-    | '/me'
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
+    | '/redactor/article-form'
+    | '/redactor/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ArticleFormRoute: typeof ArticleFormRoute
-  MeRoute: typeof MeRoute
   PasswordUpdateRoute: typeof PasswordUpdateRoute
   SignInRoute: typeof SignInRoute
   SignUpRoute: typeof SignUpRoute
+  RedactorArticleFormRoute: typeof RedactorArticleFormRoute
+  RedactorIndexRoute: typeof RedactorIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -131,20 +131,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PasswordUpdateRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/me': {
-      id: '/me'
-      path: '/me'
-      fullPath: '/me'
-      preLoaderRoute: typeof MeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/article-form': {
-      id: '/article-form'
-      path: '/article-form'
-      fullPath: '/article-form'
-      preLoaderRoute: typeof ArticleFormRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -152,16 +138,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/redactor/': {
+      id: '/redactor/'
+      path: '/redactor'
+      fullPath: '/redactor'
+      preLoaderRoute: typeof RedactorIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/redactor/article-form': {
+      id: '/redactor/article-form'
+      path: '/redactor/article-form'
+      fullPath: '/redactor/article-form'
+      preLoaderRoute: typeof RedactorArticleFormRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ArticleFormRoute: ArticleFormRoute,
-  MeRoute: MeRoute,
   PasswordUpdateRoute: PasswordUpdateRoute,
   SignInRoute: SignInRoute,
   SignUpRoute: SignUpRoute,
+  RedactorArticleFormRoute: RedactorArticleFormRoute,
+  RedactorIndexRoute: RedactorIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

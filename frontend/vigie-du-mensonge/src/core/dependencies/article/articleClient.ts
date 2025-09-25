@@ -2,16 +2,6 @@ import {Article, type ArticleJson} from "@/core/models/article.ts";
 import type {KyInstance} from "ky";
 import {api} from "@/core/dependencies/api.ts";
 
-export type ArticleCreateJson = {
-    title: string;
-    body: string;
-    eventDate: Date;
-    tags: string[];
-    sources: string[];
-    politicians: string[];
-    category: string;
-}
-
 export class ArticleClient {
     private readonly api: KyInstance;
 
@@ -25,10 +15,6 @@ export class ArticleClient {
             .json<ArticleJson[]>();
 
         return res.map((json) => Article.fromJson(json));
-    }
-
-    async create(dto: ArticleCreateJson) {
-        await this.api.post("articles", {json: dto});
     }
 }
 

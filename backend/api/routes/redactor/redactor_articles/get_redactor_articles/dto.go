@@ -1,4 +1,4 @@
-package get_published_articles
+package get_redactor_articles
 
 import (
 	"time"
@@ -17,6 +17,7 @@ type ArticleDTO struct {
 	Politicians []PoliticianDTO        `json:"politicians"`
 	Tags        []string               `json:"tags"`
 	Category    models.ArticleCategory `json:"category"`
+	Status      models.ArticleStatus   `json:"status"`
 }
 
 func newArticleDTO(entity models.Article) ArticleDTO {
@@ -27,6 +28,7 @@ func newArticleDTO(entity models.Article) ArticleDTO {
 		UpdatedAt:   entity.UpdatedAt,
 		Politicians: make([]PoliticianDTO, len(entity.Politicians)),
 		Tags:        make([]string, len(entity.Tags)),
+		Status:      entity.Status,
 		Category:    entity.Category,
 	}
 

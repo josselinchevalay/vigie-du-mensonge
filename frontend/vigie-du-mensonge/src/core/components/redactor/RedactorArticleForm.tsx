@@ -2,17 +2,17 @@ import * as React from "react";
 import {z} from "zod";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import type {ArticleFormController} from "@/core/dependencies/article/articleFormController.ts";
+import type {RedactorArticleFormController} from "@/core/dependencies/redactor/redactorArticleFormController.ts";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/core/shadcn/components/ui/form.tsx";
 import {Input} from "@/core/shadcn/components/ui/input.tsx";
 import {Button} from "@/core/shadcn/components/ui/button.tsx";
 import {ArticleCategoryLabels, ArticleCategories} from "@/core/models/articleCategory.ts";
 import {useStore} from "@tanstack/react-store";
 import {politiciansManager} from "@/core/dependencies/politician/politiciansManager.ts";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/core/shadcn/components/ui/select";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/core/shadcn/components/ui/select.tsx";
 
-export type ArticleFormProps = {
-    controller: ArticleFormController;
+export type RedactorArticleFormProps = {
+    controller: RedactorArticleFormController;
 }
 
 const formSchema = z.object({
@@ -25,10 +25,10 @@ const formSchema = z.object({
     politicians: z.array(z.string()).min(1, "Sélectionnez au moins 1 politicien").max(5, "5 politiciens maximum"),
 });
 
-export type ArticleFormInput = z.infer<typeof formSchema>;
+export type RedactorArticleFormInput = z.infer<typeof formSchema>;
 
-export function ArticleForm({controller}: ArticleFormProps) {
-    const form = useForm<ArticleFormInput>({
+export function RedactorArticleForm({controller}: RedactorArticleFormProps) {
+    const form = useForm<RedactorArticleFormInput>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             title: "",
@@ -101,7 +101,7 @@ export function ArticleForm({controller}: ArticleFormProps) {
         form.setValue("sources", sources.filter(s => s !== u), {shouldValidate: true});
     }
 
-    async function onSubmit(values: ArticleFormInput) {
+    async function onSubmit(values: RedactorArticleFormInput) {
         const ok = await controller.onSubmit({
             title: values.title,
             body: values.body,

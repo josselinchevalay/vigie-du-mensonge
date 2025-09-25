@@ -1,13 +1,13 @@
-import type {MeClient} from "@/core/dependencies/me/meClient.ts";
+import type {RedactorClient} from "@/core/dependencies/redactor/redactorClient.ts";
 import type {Article} from "@/core/models/article";
 import {Store} from "@tanstack/react-store";
 
-export class MeController {
-    private readonly client: MeClient;
+export class RedactorController {
+    private readonly client: RedactorClient;
     public readonly articlesStore = new Store<Article[]>([]);
     public readonly errStore = new Store(false);
 
-    constructor(client: MeClient) {
+    constructor(client: RedactorClient) {
         this.client = client;
         void this.init();
     }

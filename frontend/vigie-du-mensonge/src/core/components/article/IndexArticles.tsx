@@ -10,7 +10,7 @@ export function IndexArticles() {
             <div className="mx-auto w-full max-w-sm">
                 <div className="flex flex-col items-center justify-center gap-4">
                     {auth?.isRedactor &&
-                        <Link to="/article-form">
+                        <Link to="/redactor/article-form">
                             Ajouter un article
                         </Link>
                     }
