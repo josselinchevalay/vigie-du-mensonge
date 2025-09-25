@@ -6,7 +6,7 @@ import type {RedactorArticleFormController} from "@/core/dependencies/redactor/r
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/core/shadcn/components/ui/form.tsx";
 import {Input} from "@/core/shadcn/components/ui/input.tsx";
 import {Button} from "@/core/shadcn/components/ui/button.tsx";
-import {ArticleCategoryLabels, ArticleCategories} from "@/core/models/articleCategory.ts";
+import {ArticleCategories, ArticleCategoryLabels} from "@/core/models/articleCategory.ts";
 import {useStore} from "@tanstack/react-store";
 import {politiciansManager} from "@/core/dependencies/politician/politiciansManager.ts";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/core/shadcn/components/ui/select.tsx";
@@ -16,9 +16,9 @@ export type RedactorArticleFormProps = {
 }
 
 const formSchema = z.object({
-    title: z.string().min(1, "Titre requis").max(50, "50 caractères maximum"),
+    title: z.string().min(1, "Titre requis").max(50, "50 caractères maximum").min(20, "20 caractères minimum"),
     eventDate: z.string().min(1, "Date de l'événement requise"), // we'll convert to Date on submit
-    body: z.string().min(1, "Contenu requis").max(2000, "2000 caractères maximum"),
+    body: z.string().min(1, "Contenu requis").max(2000, "2000 caractères maximum").min(200, "200 caractères minimum"),
     category: z.enum(Object.values(ArticleCategories)).nonoptional(),
     tags: z.array(z.string().min(1).max(25)).min(1, "Au moins 1 tag").max(10, "10 tags maximum"),
     sources: z.array(z.url("URL invalide")).min(1, "Au moins 1 source").max(5, "5 sources maximum"),
@@ -127,6 +127,56 @@ export function RedactorArticleForm({controller}: RedactorArticleFormProps) {
                         <h1 className="text-xl font-semibold">Créer un article</h1>
                         <p className="text-sm text-muted-foreground">Renseignez les informations ci-dessous</p>
                     </div>
+
+                    <FormField
+                        control={form.control}
+                        name="politicians"
+                        render={() => (
+                            <FormItem>
+                                <FormLabel>Politiciens impliqués</FormLabel>
+                                <div className="space-y-2">
+                                    <Input
+                                        placeholder="Rechercher un politicien"
+                                        value={search}
+                                        onChange={e => setSearch(e.target.value)}
+                                    />
+                                    <div className="max-h-40 overflow-auto rounded-md border">
+                                        {filtered.length === 0 ? (
+                                            <div className="p-2 text-sm text-muted-foreground">Aucun résultat</div>
+                                        ) : (
+                                            filtered.slice(0, 20).map(p => (
+                                                <button
+                                                    type="button"
+                                                    key={p.id}
+                                                    className="w-full text-left px-3 py-2 text-sm hover:bg-accent"
+                                                    onClick={() => addPolitician(p.id)}
+                                                    disabled={form.getValues("politicians").length >= 5}
+                                                >
+                                                    {p.fullName}
+                                                </button>
+                                            ))
+                                        )}
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {selectedPoliticians.map(id => {
+                                            const p = allPoliticians.find(pp => pp.id === id);
+                                            if (!p) return null;
+                                            return (
+                                                <span key={id}
+                                                      className="inline-flex items-center gap-2 rounded-md border px-2 py-1 text-xs">
+                                                    {p.fullName}
+                                                    <button type="button"
+                                                            className="text-muted-foreground hover:text-foreground"
+                                                            onClick={() => removePolitician(id)}>&times;</button>
+                                                </span>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                    />
 
                     <FormField
                         control={form.control}
@@ -276,55 +326,6 @@ export function RedactorArticleForm({controller}: RedactorArticleFormProps) {
                         )}
                     />
 
-                    <FormField
-                        control={form.control}
-                        name="politicians"
-                        render={() => (
-                            <FormItem>
-                                <FormLabel>Politiciens</FormLabel>
-                                <div className="space-y-2">
-                                    <Input
-                                        placeholder="Rechercher un politicien"
-                                        value={search}
-                                        onChange={e => setSearch(e.target.value)}
-                                    />
-                                    <div className="max-h-40 overflow-auto rounded-md border">
-                                        {filtered.length === 0 ? (
-                                            <div className="p-2 text-sm text-muted-foreground">Aucun résultat</div>
-                                        ) : (
-                                            filtered.slice(0, 20).map(p => (
-                                                <button
-                                                    type="button"
-                                                    key={p.id}
-                                                    className="w-full text-left px-3 py-2 text-sm hover:bg-accent"
-                                                    onClick={() => addPolitician(p.id)}
-                                                    disabled={form.getValues("politicians").length >= 5}
-                                                >
-                                                    {p.fullName}
-                                                </button>
-                                            ))
-                                        )}
-                                    </div>
-                                    <div className="flex flex-wrap gap-2">
-                                        {selectedPoliticians.map(id => {
-                                            const p = allPoliticians.find(pp => pp.id === id);
-                                            if (!p) return null;
-                                            return (
-                                                <span key={id}
-                                                      className="inline-flex items-center gap-2 rounded-md border px-2 py-1 text-xs">
-                                                    {p.fullName}
-                                                    <button type="button"
-                                                            className="text-muted-foreground hover:text-foreground"
-                                                            onClick={() => removePolitician(id)}>&times;</button>
-                                                </span>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                    />
 
                     <Button type="submit" disabled={form.formState.isSubmitting} className="w-full">
                         {form.formState.isSubmitting ? "Création…" : "Créer l'article"}

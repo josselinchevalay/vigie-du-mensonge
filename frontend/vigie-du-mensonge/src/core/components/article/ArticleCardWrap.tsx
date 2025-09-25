@@ -12,7 +12,7 @@ export function ArticleCardWrap({articles, className}: ArticleCardWrapProps) {
              role="list"
              aria-label="articles"
         >
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 justify-center">
                 {articles?.map((article) => (
                     <ArticleCard
                         key={article.id}
