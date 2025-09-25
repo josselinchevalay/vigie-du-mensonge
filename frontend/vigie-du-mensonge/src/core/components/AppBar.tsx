@@ -9,7 +9,7 @@ export default function AppBar() {
 
     return (
         <nav
-            className="sticky top-0 z-40 w-full border-b">
+            className="sticky top-0 z-40 w-full border-b bg-background">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex min-h-14 items-center justify-between flex-col sm:flex-row">
                     <Link to="/" className="py-2 text-base font-semibold text-foreground">

@@ -36,7 +36,7 @@ spec:
             - name: tmp
               mountPath: /tmp
               readOnly: false
-          image: geo1796/vdm-backend@sha256:f2a1f79f6aa069ec12c56ebf76545a61cc9805a2ad7839d16bdba104d3d05691
+          image: geo1796/vdm-backend@sha256:0f6ad0e9d46a9819e01d18ad7ea7747a30a2bd16ee89d56b9b10d3609618bf44
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
