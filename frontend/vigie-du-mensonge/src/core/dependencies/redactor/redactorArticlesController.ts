@@ -1,8 +1,8 @@
-import {redactorArticleClient, type RedactorArticleClient} from "@/core/dependencies/redactor/redactorArticleClient.ts";
+import {type RedactorArticleClient} from "@/core/dependencies/redactor/redactorArticleClient.ts";
 import type {Article} from "@/core/models/article";
 import {Store} from "@tanstack/react-store";
 
-export class RedactorArticlesManager {
+export class RedactorArticlesController {
     private readonly client: RedactorArticleClient;
     public readonly articlesStore = new Store<Article[]>([]);
     public readonly errStore = new Store(false);
@@ -10,9 +10,10 @@ export class RedactorArticlesManager {
 
     constructor(client: RedactorArticleClient) {
         this.client = client;
+        void this.init();
     }
 
-    public async init() {
+    private async init() {
         if (this.initialized) return;
 
         try {
@@ -24,5 +25,3 @@ export class RedactorArticlesManager {
         }
     }
 }
-
-export const redactorArticlesManager = new RedactorArticlesManager(redactorArticleClient);

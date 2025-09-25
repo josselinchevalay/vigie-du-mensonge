@@ -1,13 +1,17 @@
-import {createFileRoute, redirect} from "@tanstack/react-router";
-import {RedactorIndex} from "@/core/components/redactor/RedactorIndex.tsx";
-import {authManager} from "@/core/dependencies/auth/authManager.ts";
+import {createFileRoute} from "@tanstack/react-router";
+import {RedactorArticles} from "@/core/components/redactor/RedactorArticles.tsx";
+import {redactorArticleClient} from "@/core/dependencies/redactor/redactorArticleClient.ts";
+import {RedactorArticlesController} from "@/core/dependencies/redactor/redactorArticlesController.ts";
 
 export const Route = createFileRoute('/redactor/articles')({
     beforeLoad: () => {
-        const auth = authManager.authStore.state;
-        if (!auth || !auth.isRedactor) {
-            throw redirect({to: '/', replace: true});
-        }
+        const controller = new RedactorArticlesController(redactorArticleClient);
+        return {controller};
     },
-    component: RedactorIndex,
+    component: RouteComponent,
 });
+
+function RouteComponent() {
+    const {controller} = Route.useRouteContext() as { controller: RedactorArticlesController };
+    return <RedactorArticles controller={controller}/>;
+}
