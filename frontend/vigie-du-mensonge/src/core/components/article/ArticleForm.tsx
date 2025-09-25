@@ -164,7 +164,6 @@ export function ArticleForm({controller}: ArticleFormProps) {
                                 <FormLabel>Catégorie</FormLabel>
                                 <FormControl>
                                     <Select onValueChange={(selected) => {
-                                        console.log(selected);
                                         field.onChange(selected);
                                     }}>
                                         <SelectTrigger>
