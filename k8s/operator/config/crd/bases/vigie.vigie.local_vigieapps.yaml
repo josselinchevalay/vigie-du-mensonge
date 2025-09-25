@@ -1,0 +1,135 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.19.0
+  name: vigieapps.vigie.vigie.local
+spec:
+  group: vigie.vigie.local
+  names:
+    kind: VigieApp
+    listKind: VigieAppList
+    plural: vigieapps
+    singular: vigieapp
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec de VigieApp
+            properties:
+              backend:
+                properties:
+                  image:
+                    type: string
+                  replicas:
+                    format: int32
+                    type: integer
+                required:
+                - image
+                - replicas
+                type: object
+              dataImport:
+                properties:
+                  enabled:
+                    type: boolean
+                  image:
+                    type: string
+                required:
+                - enabled
+                - image
+                type: object
+              database:
+                properties:
+                  image:
+                    type: string
+                  passwordSecretRef:
+                    type: string
+                  storage:
+                    type: string
+                  username:
+                    type: string
+                required:
+                - image
+                - passwordSecretRef
+                - storage
+                - username
+                type: object
+              frontend:
+                description: Structs des composants
+                properties:
+                  image:
+                    type: string
+                  replicas:
+                    format: int32
+                    type: integer
+                required:
+                - image
+                - replicas
+                type: object
+              ingress:
+                properties:
+                  domain:
+                    type: string
+                  enabled:
+                    type: boolean
+                  tlsSecretRef:
+                    type: string
+                required:
+                - domain
+                - enabled
+                - tlsSecretRef
+                type: object
+            required:
+            - backend
+            - dataImport
+            - database
+            - frontend
+            - ingress
+            type: object
+          status:
+            description: Status de VigieApp
+            properties:
+              backendPort:
+                format: int32
+                type: integer
+              frontendPort:
+                format: int32
+                type: integer
+              message:
+                type: string
+              ready:
+                type: boolean
+            required:
+            - backendPort
+            - frontendPort
+            - message
+            - ready
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

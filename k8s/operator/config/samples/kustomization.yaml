@@ -1,0 +1,4 @@
+## Append samples of your project ##
+resources:
+- vigie_v1alpha1_vigieapp.yaml
+# +kubebuilder:scaffold:manifestskustomizesamples

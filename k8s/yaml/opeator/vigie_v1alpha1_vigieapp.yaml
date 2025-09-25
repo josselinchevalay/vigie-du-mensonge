@@ -1,0 +1,23 @@
+apiVersion: vigie.vigie.local/v1alpha1
+kind: VigieApp
+metadata:
+  name: prod-vigieapp
+spec:
+  frontend:
+    replicas: 2
+    image: vigie-du-mensonge-frontend:latest
+  backend:
+    replicas: 2
+    image: vigie-du-mensonge-backend:latest
+  database:
+    image: vigie-du-mensonge-db:latest
+    storage: 1Gi
+    username: vigie
+    passwordSecretRef: vigie-db-password
+  dataImport:
+    enabled: true
+    image: vigie-du-mensonge-data_import:latest
+  ingress:
+    enabled: true
+    domain: vigie.local
+    tlsSecretRef: vigie-tls
