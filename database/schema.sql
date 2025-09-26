@@ -130,8 +130,8 @@ CREATE TABLE articles
     id           UUID        NOT NULL DEFAULT gen_random_uuid(),
     CONSTRAINT pk_articles PRIMARY KEY (id),
 
-    author_id    UUID        NOT NULL,
-    CONSTRAINT fk_articles_author FOREIGN KEY (author_id) REFERENCES users (id),
+    redactor_id    UUID        NOT NULL,
+    CONSTRAINT fk_articles_redactor FOREIGN KEY (redactor_id) REFERENCES users (id),
 
     moderator_id UUID,
     CONSTRAINT fk_articles_moderator FOREIGN KEY (moderator_id) REFERENCES users (id),

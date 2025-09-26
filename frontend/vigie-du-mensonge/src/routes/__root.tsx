@@ -5,6 +5,9 @@ import {useEffect, useRef} from 'react';
 import {authManager} from '@/core/dependencies/auth/authManager.ts';
 import {AuthRefreshScheduler} from '@/core/dependencies/auth/authRefreshScheduler.ts';
 import AppBar from "@/core/components/AppBar.tsx";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const RootLayout = () => {
     const schedulerRef = useRef<AuthRefreshScheduler | null>(null);
@@ -32,7 +35,7 @@ const RootLayout = () => {
     }, []);
 
     return (
-        <>
+        <QueryClientProvider client={queryClient}>
             <div className="flex min-h-dvh w-full flex-col">
                 <AppBar/>
 
@@ -46,7 +49,7 @@ const RootLayout = () => {
             <Toaster position="top-center" duration={3000}/>
 
             {import.meta.env.DEV ? <TanStackRouterDevtools/> : null}
-        </>
+        </QueryClientProvider>
     );
 };
 

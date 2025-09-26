@@ -9,6 +9,7 @@ export const api = ky.create({
     headers: {
         "Content-Type": "application/json",
     },
+    retry: 0, // let tanstack query handle retries
     hooks: {
         beforeRequest: isTest ? [] : [
             async (request) => {
@@ -28,7 +29,7 @@ export const api = ky.create({
 
 const fetchCSRF = async (): Promise<string> => {
     const response = await api
-        .get("csrf-token", {retry: 2})
+        .get("csrf-token", {retry: 2}) // do not use ky retries except for csrf token
         .json<{ csrfToken: string }>();
     return response.csrfToken;
 };

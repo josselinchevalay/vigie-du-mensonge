@@ -2,7 +2,9 @@ import * as React from "react";
 import {z} from "zod";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import type {RedactorArticleFormController} from "@/core/dependencies/redactor/redactorArticleFormController.ts";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {toast} from "@/core/utils/toast.ts";
+import {navigate} from "@/core/utils/router.ts";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/core/shadcn/components/ui/form.tsx";
 import {Input} from "@/core/shadcn/components/ui/input.tsx";
 import {Button} from "@/core/shadcn/components/ui/button.tsx";
@@ -10,9 +12,12 @@ import {ArticleCategories, ArticleCategoryLabels} from "@/core/models/articleCat
 import {useStore} from "@tanstack/react-store";
 import {politiciansManager} from "@/core/dependencies/politician/politiciansManager.ts";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/core/shadcn/components/ui/select.tsx";
+import {RedactorClient} from "@/core/dependencies/redactor/redactorClient.ts";
+import type {Article} from "@/core/models/article.ts";
 
 export type RedactorArticleFormProps = {
-    controller: RedactorArticleFormController;
+    redactorClient: RedactorClient
+    article?: Article
 }
 
 const formSchema = z.object({
@@ -27,19 +32,56 @@ const formSchema = z.object({
 
 export type RedactorArticleFormInput = z.infer<typeof formSchema>;
 
-export function RedactorArticleForm({controller}: RedactorArticleFormProps) {
+export function RedactorArticleForm({redactorClient, article}: RedactorArticleFormProps) {
     const form = useForm<RedactorArticleFormInput>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            title: controller.originalArticle?.title ?? "",
-            eventDate: controller.originalArticle?.formattedEventDate ?? "",
-            body: controller.originalArticle?.details?.body ?? "",
-            category: controller.originalArticle?.category ?? ArticleCategories.FALSEHOOD,
-            tags: controller.originalArticle?.tags ?? [],
-            sources: controller.originalArticle?.details?.sources ?? [],
-            politicians: controller.originalArticle?.politicianIds ?? [],
+            title: article?.title ?? "",
+            eventDate: article?.formattedEventDate ?? "",
+            body: article?.body ?? "",
+            category: article?.category ?? ArticleCategories.FALSEHOOD,
+            tags: article?.tags ?? [],
+            sources: article?.sources ?? [],
+            politicians: article?.politicianIds ?? [],
         },
         mode: "onSubmit",
+    });
+    const queryClient = useQueryClient();
+    const mutation = useMutation({
+        mutationFn: async (input: RedactorArticleFormInput) => {
+            if (article) {
+                return redactorClient.updateArticle(article.id, {
+                    title: input.title,
+                    body: input.body,
+                    eventDate: new Date(input.eventDate),
+                    tags: input.tags,
+                    politicians: input.politicians,
+                    sources: input.sources,
+                    category: input.category,
+                });
+            } else {
+                return redactorClient.createArticleDraft({
+                    title: input.title,
+                    body: input.body,
+                    eventDate: new Date(input.eventDate),
+                    tags: input.tags,
+                    politicians: input.politicians,
+                    sources: input.sources,
+                    category: input.category,
+                });
+            }
+        },
+        onSuccess: async () => {
+            toast.success(article ? "Votre article a été modifié." : "Votre article a été créé.");
+            if (article) {
+                void queryClient.invalidateQueries({queryKey: ["redactor", "article", article.id]});
+            }
+            await queryClient.invalidateQueries({queryKey: ["redactor", "articles"]});
+            void navigate({to: "/redactor/articles", replace: true});
+        },
+        onError: () => {
+            toast.error("Une erreur est survenue. Veuillez réessayer.");
+        }
     });
 
     // Politicians search/select
@@ -102,21 +144,19 @@ export function RedactorArticleForm({controller}: RedactorArticleFormProps) {
     }
 
     async function onSubmit(values: RedactorArticleFormInput) {
-        const ok = await controller.onSubmit({
+        await mutation.mutateAsync({
             title: values.title,
             body: values.body,
-            eventDate: new Date(values.eventDate),
+            eventDate: values.eventDate,
             tags: values.tags,
             sources: values.sources,
             politicians: values.politicians,
             category: values.category,
         });
-        if (ok) {
-            form.reset();
-            setSearch("");
-            setTagInput("");
-            setSourceInput("");
-        }
+        form.reset();
+        setSearch("");
+        setTagInput("");
+        setSourceInput("");
     }
 
     return (
@@ -125,7 +165,7 @@ export function RedactorArticleForm({controller}: RedactorArticleFormProps) {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-1">
                         <h1 className="text-xl font-semibold">
-                            {controller.originalArticle ? "Modifier l'article" : "Créer un article"}
+                            {article ? "Modifier l'article" : "Créer un article"}
                         </h1>
                         <p className="text-sm text-muted-foreground">Renseignez les informations ci-dessous</p>
                     </div>
@@ -330,7 +370,7 @@ export function RedactorArticleForm({controller}: RedactorArticleFormProps) {
 
 
                     <Button type="submit" disabled={form.formState.isSubmitting} className="w-full">
-                        {controller.originalArticle ? "Modifier l'article" : "Créer l'article"}
+                        {article ? "Modifier l'article" : "Créer l'article"}
                     </Button>
                 </form>
             </Form>

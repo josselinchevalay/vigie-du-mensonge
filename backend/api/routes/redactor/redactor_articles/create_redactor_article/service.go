@@ -17,7 +17,7 @@ type service struct {
 
 func (s *service) mapAndCreateArticle(authorID uuid.UUID, dto RequestDTO) (uuid.UUID, error) {
 	article := models.Article{
-		AuthorID:    authorID,
+		RedactorID:  authorID,
 		Title:       dto.Title,
 		Body:        dto.Body,
 		Category:    dto.Category,

@@ -7,20 +7,20 @@ import (
 )
 
 type Handler interface {
-	getRedactorArticles(c *fiber.Ctx) error
+	getArticlesForRedactor(c *fiber.Ctx) error
 }
 
 type handler struct {
 	svc Service
 }
 
-func (h *handler) getRedactorArticles(c *fiber.Ctx) error {
+func (h *handler) getArticlesForRedactor(c *fiber.Ctx) error {
 	authedUser, ok := c.Locals("authedUser").(locals.AuthedUser)
 	if !ok {
 		return &fiber.Error{Code: fiber.StatusInternalServerError, Message: "can't locals authed user"}
 	}
 
-	resDTO, err := h.svc.getAndMapUserArticles(authedUser.ID)
+	resDTO, err := h.svc.getAndMapRedactorArticles(authedUser.ID)
 	if err != nil {
 		return err
 	}

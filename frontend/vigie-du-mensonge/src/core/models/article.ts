@@ -5,6 +5,8 @@ import {formatDate} from "@/core/utils/formatDate.ts";
 export type ArticleJson = {
     id: string;
     title: string;
+    body: string | undefined;
+    sources: string[] | undefined;
     eventDate: string;
     updatedAt: string;
     politicians: PoliticianJson[];
@@ -12,24 +14,22 @@ export type ArticleJson = {
     category: ArticleCategory;
 }
 
-export type ArticleDetails = {
-    body: string;
-    sources: string[];
-}
-
 export class Article {
     public id: string;
     public title: string;
+    public body: string | undefined;
+    public sources: string[] | undefined;
     public eventDate: Date;
     public updatedAt: Date;
     public politicians: Politician[];
     public tags: string[];
     public category: ArticleCategory;
-    public details: ArticleDetails | null = null;
 
     constructor(
         id: string,
         title: string,
+        body: string | undefined,
+        sources: string[] | undefined,
         eventDate: Date,
         updatedAt: Date,
         politicians: Politician[],
@@ -38,6 +38,8 @@ export class Article {
     ) {
         this.id = id;
         this.title = title;
+        this.body = body;
+        this.sources = sources;
         this.eventDate = eventDate;
         this.updatedAt = updatedAt;
         this.politicians = politicians;
@@ -57,6 +59,8 @@ export class Article {
         return new Article(
             json.id,
             json.title,
+            json.body,
+            json.sources,
             new Date(json.eventDate),
             new Date(json.updatedAt),
             json.politicians.map(Politician.fromJson),

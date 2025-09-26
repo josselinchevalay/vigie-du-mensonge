@@ -1,4 +1,4 @@
-package find_redactor_article_details
+package find_redactor_article
 
 import (
 	"vdm/core/fiberx"
@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	Path   = "/details"
+	Path   = "/"
 	Method = fiber.MethodGet
 )
 

@@ -14,8 +14,9 @@ import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as PasswordUpdateRouteImport } from './routes/password-update'
 import { Route as RedactorRouteRouteImport } from './routes/redactor/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RedactorNewDraftRouteImport } from './routes/redactor/new-draft'
 import { Route as RedactorArticlesRouteImport } from './routes/redactor/articles'
-import { Route as RedactorArticleFormRouteImport } from './routes/redactor/article-form'
+import { Route as RedactorEditDraftArticleIdRouteImport } from './routes/redactor/edit-draft/$articleId'
 
 const SignUpRoute = SignUpRouteImport.update({
   id: '/sign-up',
@@ -42,16 +43,22 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RedactorNewDraftRoute = RedactorNewDraftRouteImport.update({
+  id: '/new-draft',
+  path: '/new-draft',
+  getParentRoute: () => RedactorRouteRoute,
+} as any)
 const RedactorArticlesRoute = RedactorArticlesRouteImport.update({
   id: '/articles',
   path: '/articles',
   getParentRoute: () => RedactorRouteRoute,
 } as any)
-const RedactorArticleFormRoute = RedactorArticleFormRouteImport.update({
-  id: '/article-form',
-  path: '/article-form',
-  getParentRoute: () => RedactorRouteRoute,
-} as any)
+const RedactorEditDraftArticleIdRoute =
+  RedactorEditDraftArticleIdRouteImport.update({
+    id: '/edit-draft/$articleId',
+    path: '/edit-draft/$articleId',
+    getParentRoute: () => RedactorRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -59,8 +66,9 @@ export interface FileRoutesByFullPath {
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/redactor/article-form': typeof RedactorArticleFormRoute
   '/redactor/articles': typeof RedactorArticlesRoute
+  '/redactor/new-draft': typeof RedactorNewDraftRoute
+  '/redactor/edit-draft/$articleId': typeof RedactorEditDraftArticleIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -68,8 +76,9 @@ export interface FileRoutesByTo {
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/redactor/article-form': typeof RedactorArticleFormRoute
   '/redactor/articles': typeof RedactorArticlesRoute
+  '/redactor/new-draft': typeof RedactorNewDraftRoute
+  '/redactor/edit-draft/$articleId': typeof RedactorEditDraftArticleIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -78,8 +87,9 @@ export interface FileRoutesById {
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/redactor/article-form': typeof RedactorArticleFormRoute
   '/redactor/articles': typeof RedactorArticlesRoute
+  '/redactor/new-draft': typeof RedactorNewDraftRoute
+  '/redactor/edit-draft/$articleId': typeof RedactorEditDraftArticleIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -89,8 +99,9 @@ export interface FileRouteTypes {
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
-    | '/redactor/article-form'
     | '/redactor/articles'
+    | '/redactor/new-draft'
+    | '/redactor/edit-draft/$articleId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -98,8 +109,9 @@ export interface FileRouteTypes {
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
-    | '/redactor/article-form'
     | '/redactor/articles'
+    | '/redactor/new-draft'
+    | '/redactor/edit-draft/$articleId'
   id:
     | '__root__'
     | '/'
@@ -107,8 +119,9 @@ export interface FileRouteTypes {
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
-    | '/redactor/article-form'
     | '/redactor/articles'
+    | '/redactor/new-draft'
+    | '/redactor/edit-draft/$articleId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -156,6 +169,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/redactor/new-draft': {
+      id: '/redactor/new-draft'
+      path: '/new-draft'
+      fullPath: '/redactor/new-draft'
+      preLoaderRoute: typeof RedactorNewDraftRouteImport
+      parentRoute: typeof RedactorRouteRoute
+    }
     '/redactor/articles': {
       id: '/redactor/articles'
       path: '/articles'
@@ -163,24 +183,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RedactorArticlesRouteImport
       parentRoute: typeof RedactorRouteRoute
     }
-    '/redactor/article-form': {
-      id: '/redactor/article-form'
-      path: '/article-form'
-      fullPath: '/redactor/article-form'
-      preLoaderRoute: typeof RedactorArticleFormRouteImport
+    '/redactor/edit-draft/$articleId': {
+      id: '/redactor/edit-draft/$articleId'
+      path: '/edit-draft/$articleId'
+      fullPath: '/redactor/edit-draft/$articleId'
+      preLoaderRoute: typeof RedactorEditDraftArticleIdRouteImport
       parentRoute: typeof RedactorRouteRoute
     }
   }
 }
 
 interface RedactorRouteRouteChildren {
-  RedactorArticleFormRoute: typeof RedactorArticleFormRoute
   RedactorArticlesRoute: typeof RedactorArticlesRoute
+  RedactorNewDraftRoute: typeof RedactorNewDraftRoute
+  RedactorEditDraftArticleIdRoute: typeof RedactorEditDraftArticleIdRoute
 }
 
 const RedactorRouteRouteChildren: RedactorRouteRouteChildren = {
-  RedactorArticleFormRoute: RedactorArticleFormRoute,
   RedactorArticlesRoute: RedactorArticlesRoute,
+  RedactorNewDraftRoute: RedactorNewDraftRoute,
+  RedactorEditDraftArticleIdRoute: RedactorEditDraftArticleIdRoute,
 }
 
 const RedactorRouteRouteWithChildren = RedactorRouteRoute._addFileChildren(

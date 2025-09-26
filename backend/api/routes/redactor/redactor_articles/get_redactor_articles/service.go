@@ -7,15 +7,15 @@ import (
 )
 
 type Service interface {
-	getAndMapUserArticles(userID uuid.UUID) (ResponseDTO, error)
+	getAndMapRedactorArticles(redactorID uuid.UUID) (ResponseDTO, error)
 }
 
 type service struct {
 	repo Repository
 }
 
-func (s *service) getAndMapUserArticles(userID uuid.UUID) (ResponseDTO, error) {
-	articles, err := s.repo.getArticlesByAuthorId(userID)
+func (s *service) getAndMapRedactorArticles(redactorID uuid.UUID) (ResponseDTO, error) {
+	articles, err := s.repo.getArticleByRedactorID(redactorID)
 	if err != nil {
 		return ResponseDTO{}, fmt.Errorf("failed to get articles: %v", err)
 	}

@@ -1,4 +1,4 @@
-package find_redactor_article_details
+package find_redactor_article
 
 import (
 	"vdm/core/locals"
@@ -27,13 +27,10 @@ func (h *handler) findArticleDetailsForRedactor(c *fiber.Ctx) error {
 		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "invalid article id"}
 	}
 
-	body, sources, err := h.repo.findArticleBodyAndSources(articleID, authedUser.ID)
+	article, err := h.repo.findRedactorArticle(articleID, authedUser.ID)
 	if err != nil {
 		return err
 	}
 
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"body":    body,
-		"sources": sources,
-	})
+	return c.Status(fiber.StatusOK).JSON(newArticleDTO(article))
 }

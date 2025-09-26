@@ -15,7 +15,7 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 
 	group.Add(
 		create_redactor_article.Route(deps.GormDB()),
-		get_redactor_articles.Group(deps.GormDB()),
+		get_redactor_articles.Route(deps.GormDB()),
 
 		redactor_article.Group(deps),
 	)

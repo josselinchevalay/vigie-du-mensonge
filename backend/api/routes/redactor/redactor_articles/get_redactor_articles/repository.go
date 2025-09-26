@@ -8,17 +8,17 @@ import (
 )
 
 type Repository interface {
-	getArticlesByAuthorId(authorID uuid.UUID) ([]models.Article, error)
+	getArticleByRedactorID(redactorID uuid.UUID) ([]models.Article, error)
 }
 
 type repository struct {
 	db *gorm.DB
 }
 
-func (r *repository) getArticlesByAuthorId(authorID uuid.UUID) ([]models.Article, error) {
+func (r *repository) getArticleByRedactorID(redactorID uuid.UUID) ([]models.Article, error) {
 	var articles []models.Article
 
-	if err := r.db.Where("author_id = ?", authorID).
+	if err := r.db.Where("redactor_id = ?", redactorID).
 		Select("id", "title", "event_date", "updated_at", "category").
 		Preload("Politicians", func(db *gorm.DB) *gorm.DB {
 			return db.Select("id", "first_name", "last_name")

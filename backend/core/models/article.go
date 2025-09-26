@@ -49,7 +49,7 @@ type Article struct {
 	Tags        []*ArticleTag    `gorm:"foreignKey:ArticleID"`
 	Sources     []*ArticleSource `gorm:"foreignKey:ArticleID"`
 
-	AuthorID    uuid.UUID  `gorm:"column:author_id;type:uuid;not null"`
+	RedactorID  uuid.UUID  `gorm:"column:redactor_id;type:uuid;not null"`
 	ModeratorID *uuid.UUID `gorm:"column:moderator_id;type:uuid"`
 
 	Status    ArticleStatus   `gorm:"column:status;type:text;not null"`

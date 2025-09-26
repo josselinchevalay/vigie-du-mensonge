@@ -15,7 +15,7 @@ export function ArticleCardWrap({articles, articleNavButton, className}: Article
              aria-label="articles"
         >
             <div className="flex flex-wrap gap-4 justify-center">
-                {articles?.map((article) => (
+                {articles.map((article) => (
                     <ArticleCard
                         key={article.id}
                         navButton={articleNavButton}

@@ -10,7 +10,7 @@ import (
 )
 
 type Repository interface {
-	updateArticle(authorID, articleID uuid.UUID, newData updateData) error
+	updateArticle(redactorID, articleID uuid.UUID, newData updateData) error
 }
 
 type repository struct {
@@ -27,12 +27,12 @@ type updateData struct {
 	Sources     []string
 }
 
-func (r *repository) updateArticle(authorID, articleID uuid.UUID, newData updateData) error {
+func (r *repository) updateArticle(redactorID, articleID uuid.UUID, newData updateData) error {
 	return r.db.Transaction(func(tx *gorm.DB) error {
 		// Load the article ensuring it belongs to the author; load current status to preserve
 		var existing models.Article
-		if err := tx.Where("id = ? AND author_id = ?", articleID, authorID).
-			Select("id", "author_id", "status").
+		if err := tx.Where("id = ? AND redactor_id = ?", articleID, redactorID).
+			Select("id", "redactor_id", "status").
 			First(&existing).Error; err != nil {
 			return err
 		}
