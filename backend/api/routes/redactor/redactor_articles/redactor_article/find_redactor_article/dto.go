@@ -17,6 +17,7 @@ type ArticleDTO struct {
 	Politicians []PoliticianDTO        `json:"politicians"`
 	Tags        []string               `json:"tags"`
 	Category    models.ArticleCategory `json:"category"`
+	Status      models.ArticleStatus   `json:"status"`
 }
 
 func newArticleDTO(entity models.Article) ArticleDTO {
@@ -30,6 +31,7 @@ func newArticleDTO(entity models.Article) ArticleDTO {
 		Politicians: make([]PoliticianDTO, len(entity.Politicians)),
 		Tags:        make([]string, len(entity.Tags)),
 		Category:    entity.Category,
+		Status:      entity.Status,
 	}
 
 	for i := range entity.Sources {

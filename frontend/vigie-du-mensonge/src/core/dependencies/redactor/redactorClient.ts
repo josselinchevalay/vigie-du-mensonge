@@ -8,7 +8,7 @@ export type RedactorArticleJson = {
     eventDate: Date;
     tags: string[];
     sources: string[];
-    politicians: string[];
+    politicianIds: string[];
     category: string;
 }
 

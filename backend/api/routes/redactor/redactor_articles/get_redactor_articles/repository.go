@@ -19,7 +19,7 @@ func (r *repository) getArticleByRedactorID(redactorID uuid.UUID) ([]models.Arti
 	var articles []models.Article
 
 	if err := r.db.Where("redactor_id = ?", redactorID).
-		Select("id", "title", "event_date", "updated_at", "category").
+		Select("id", "title", "event_date", "updated_at", "category", "status").
 		Preload("Politicians", func(db *gorm.DB) *gorm.DB {
 			return db.Select("id", "first_name", "last_name")
 		}).

@@ -1,6 +1,7 @@
 import {Politician, type PoliticianJson} from "@/core/models/politician.ts";
 import {type ArticleCategory} from "@/core/models/articleCategory.ts";
 import {formatDate} from "@/core/utils/formatDate.ts";
+import type {ArticleStatus} from "@/core/models/articleStatus.ts";
 
 export type ArticleJson = {
     id: string;
@@ -12,6 +13,7 @@ export type ArticleJson = {
     politicians: PoliticianJson[];
     tags: string[];
     category: ArticleCategory;
+    status: ArticleStatus;
 }
 
 export class Article {
@@ -24,6 +26,7 @@ export class Article {
     public politicians: Politician[];
     public tags: string[];
     public category: ArticleCategory;
+    public status: ArticleStatus;
 
     constructor(
         id: string,
@@ -35,6 +38,7 @@ export class Article {
         politicians: Politician[],
         tags: string[],
         category: ArticleCategory,
+        status: ArticleStatus,
     ) {
         this.id = id;
         this.title = title;
@@ -45,6 +49,7 @@ export class Article {
         this.politicians = politicians;
         this.tags = tags;
         this.category = category;
+        this.status = status;
     }
 
     public get politicianIds(): string[] {
@@ -66,6 +71,7 @@ export class Article {
             json.politicians.map(Politician.fromJson),
             json.tags,
             json.category,
+            json.status,
         );
     }
 }

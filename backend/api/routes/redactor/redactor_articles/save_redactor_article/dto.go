@@ -9,14 +9,14 @@ import (
 )
 
 type RequestDTO struct {
-	ID          uuid.UUID              `json:"id"`
-	Title       string                 `json:"title" validate:"required,min=20,max=100"`
-	EventDate   time.Time              `json:"eventDate" validate:"required"`
-	Category    models.ArticleCategory `json:"category" validate:"required"`
-	Body        string                 `json:"body,omitempty"`
-	Tags        []string               `json:"tags,omitempty" validate:"max=5"`
-	Politicians []uuid.UUID            `json:"politicians,omitempty" validate:"max=5"`
-	Sources     []string               `json:"sources,omitempty" validate:"max=5"`
+	ID            uuid.UUID              `json:"id"`
+	Title         string                 `json:"title" validate:"required,min=20,max=100"`
+	EventDate     time.Time              `json:"eventDate" validate:"required"`
+	Category      models.ArticleCategory `json:"category" validate:"required"`
+	Body          string                 `json:"body,omitempty"`
+	Tags          []string               `json:"tags,omitempty" validate:"max=5"`
+	PoliticianIDs []uuid.UUID            `json:"politicianIds,omitempty" validate:"max=5"`
+	Sources       []string               `json:"sources,omitempty" validate:"max=5"`
 }
 
 func (dto RequestDTO) toArticle(redactorID uuid.UUID) (models.Article, error) {
@@ -52,7 +52,7 @@ func (dto RequestDTO) toArticle(redactorID uuid.UUID) (models.Article, error) {
 	}
 
 	seenPoliticians := make(map[uuid.UUID]bool)
-	for _, polID := range dto.Politicians {
+	for _, polID := range dto.PoliticianIDs {
 		if seenPoliticians[polID] {
 			return models.Article{}, fmt.Errorf("duplicate politician: %s", polID)
 		}

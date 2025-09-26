@@ -14,6 +14,7 @@ import {politiciansManager} from "@/core/dependencies/politician/politiciansMana
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/core/shadcn/components/ui/select.tsx";
 import {type RedactorArticleJson, RedactorClient} from "@/core/dependencies/redactor/redactorClient.ts";
 import type {Article} from "@/core/models/article.ts";
+import {ArticleStatuses, ArticleStatusLabels} from "@/core/models/articleStatus.ts";
 
 export type RedactorArticleFormProps = {
     redactorClient: RedactorClient
@@ -54,14 +55,20 @@ function mapInput(input: RedactorArticleFormInput, articleId?: string): Redactor
         body: input.body,
         eventDate: new Date(input.eventDate),
         tags: input.tags,
-        politicians: input.politicians,
+        politicianIds: input.politicians,
         sources: input.sources,
         category: input.category,
     };
 }
 
 export function RedactorArticleForm({redactorClient, article}: RedactorArticleFormProps) {
+    let disabled = false;
+    if (article && article.status !== ArticleStatuses.DRAFT && article.status !== ArticleStatuses.CHANGE_REQUESTED) {
+        disabled = true;
+    }
+
     const form = useForm<RedactorArticleFormInput>({
+        disabled: disabled,
         resolver: zodResolver(formSchema),
         defaultValues: {
             mode: "draft",
@@ -162,6 +169,11 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
 
     return (
         <div className="mx-auto w-full max-w-2xl">
+
+            {disabled && <div className="mb-4 rounded-md border bg-destructive/10 p-4 text-destructive">
+                {`Les articles dont le statut est [${ArticleStatusLabels[article!.status]}] ne peuvent pas être modifiés.`}
+            </div>}
+
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-1">
@@ -373,7 +385,7 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
                     <div className="flex flex-row gap-8 items-center justify-center">
                         <Button
                             type="submit"
-                            disabled={form.formState.isSubmitting}
+                            disabled={form.formState.isSubmitting || disabled}
                             onClick={() => form.setValue("mode", "draft", {shouldValidate: false})}
                         >
                             Enregistrer
@@ -381,7 +393,7 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
                         {article &&
                             <Button
                                 type="submit"
-                                disabled={form.formState.isSubmitting}
+                                disabled={form.formState.isSubmitting || disabled}
                                 onClick={() => form.setValue("mode", "publish", {shouldValidate: false})}
                             >
                                 Publier
