@@ -1,4 +1,4 @@
-package save_redactor_draft
+package save_redactor_article
 
 import (
 	"fmt"
@@ -14,9 +14,9 @@ type RequestDTO struct {
 	EventDate   time.Time              `json:"eventDate" validate:"required"`
 	Category    models.ArticleCategory `json:"category" validate:"required"`
 	Body        string                 `json:"body,omitempty"`
-	Tags        []string               `json:"tags,omitempty"`
-	Politicians []uuid.UUID            `json:"politicians,omitempty"`
-	Sources     []string               `json:"sources,omitempty"`
+	Tags        []string               `json:"tags,omitempty" validate:"max=5"`
+	Politicians []uuid.UUID            `json:"politicians,omitempty" validate:"max=5"`
+	Sources     []string               `json:"sources,omitempty" validate:"max=5"`
 }
 
 func (dto RequestDTO) toArticle(redactorID uuid.UUID) (models.Article, error) {
@@ -27,10 +27,6 @@ func (dto RequestDTO) toArticle(redactorID uuid.UUID) (models.Article, error) {
 		EventDate:  dto.EventDate,
 		Body:       dto.Body,
 		Category:   dto.Category,
-		Status:     models.ArticleStatusDraft,
-		Major:      0,
-		Minor:      0,
-		Reference:  uuid.New(),
 	}
 
 	if !article.Category.Valid() {

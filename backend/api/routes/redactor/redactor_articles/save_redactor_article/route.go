@@ -1,4 +1,4 @@
-package save_redactor_draft
+package save_redactor_article
 
 import (
 	"vdm/core/fiberx"
@@ -8,12 +8,13 @@ import (
 )
 
 const (
-	Path   = "/drafts"
+	Path   = "/"
 	Method = fiber.MethodPost
 )
 
 func Route(db *gorm.DB) *fiberx.Route {
 	repo := &repository{db}
-	handler := &handler{repo}
-	return fiberx.NewRoute(Method, Path, handler.saveDraftArticleForRedactor)
+	svc := &service{repo}
+	handler := &handler{svc}
+	return fiberx.NewRoute(Method, Path, handler.saveArticleForRedactor)
 }

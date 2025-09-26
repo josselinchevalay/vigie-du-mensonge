@@ -27,16 +27,8 @@ export class RedactorClient {
         return res.map((json) => Article.fromJson(json));
     }
 
-    async saveArticleDraft(dto: RedactorArticleJson): Promise<void> {
-        await this.api.post("redactor/articles/drafts", {json: dto});
-    }
-
-    async createArticleDraft(dto: RedactorArticleJson): Promise<string> {
-        const res = await this.api
-            .post("redactor/articles", {json: dto})
-            .json<{ articleID: string }>();
-
-        return res.articleID;
+    async saveArticle(publish: boolean, dto: RedactorArticleJson): Promise<void> {
+        await this.api.post(`redactor/articles?publish=${publish}`, {json: dto});
     }
 
     async findArticleById(articleId: string): Promise<Article> {
@@ -45,9 +37,5 @@ export class RedactorClient {
             .json<ArticleJson>();
 
         return Article.fromJson(res);
-    }
-
-    async updateArticle(articleId: string, dto: RedactorArticleJson): Promise<void> {
-        await this.api.put(`redactor/articles/${articleId}`, {json: dto});
     }
 }

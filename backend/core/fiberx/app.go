@@ -16,6 +16,7 @@ func NewApp() *fiber.App {
 		ErrorHandler: func(c *fiber.Ctx, err error) error {
 			logger.Error("error handling request",
 				logger.Any("path", c.Path()),
+				logger.Any("method", c.Method()),
 				logger.Err(err))
 
 			var code int

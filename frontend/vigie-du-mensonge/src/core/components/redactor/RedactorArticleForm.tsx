@@ -12,7 +12,7 @@ import {ArticleCategories, ArticleCategoryLabels} from "@/core/models/articleCat
 import {useStore} from "@tanstack/react-store";
 import {politiciansManager} from "@/core/dependencies/politician/politiciansManager.ts";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/core/shadcn/components/ui/select.tsx";
-import {RedactorClient} from "@/core/dependencies/redactor/redactorClient.ts";
+import {type RedactorArticleJson, RedactorClient} from "@/core/dependencies/redactor/redactorClient.ts";
 import type {Article} from "@/core/models/article.ts";
 
 export type RedactorArticleFormProps = {
@@ -25,7 +25,7 @@ const publishSchema = z.object({
     eventDate: z.string().min(1, "Date de l'événement requise"), // we'll convert to Date on submit
     category: z.enum(Object.values(ArticleCategories)).nonoptional(),
     body: z.string().min(1, "Contenu requis").max(2000, "2000 caractères maximum").min(200, "200 caractères minimum"),
-    tags: z.array(z.string().min(1).max(25)).min(1, "Au moins 1 tag").max(10, "10 tags maximum"),
+    tags: z.array(z.string().min(1).max(25)).min(1, "Au moins 1 tag").max(5, "5 tags maximum"),
     sources: z.array(z.url("URL invalide")).min(1, "Au moins 1 source").max(5, "5 sources maximum"),
     politicians: z.array(z.string()).min(1, "Sélectionnez au moins 1 politicien").max(5, "5 politiciens maximum"),
 });
@@ -35,7 +35,7 @@ const draftSchema = z.object({
     eventDate: z.string().min(1, "Date de l'événement requise"), // we'll convert to Date on submit
     category: z.enum(Object.values(ArticleCategories)).nonoptional(),
     body: z.string().max(2000, "2000 caractères maximum"),
-    tags: z.array(z.string().min(1).max(25)).max(10, "10 tags maximum"),
+    tags: z.array(z.string().min(1).max(25)).max(5, "5 tags maximum"),
     sources: z.array(z.url("URL invalide")).max(5, "5 sources maximum"),
     politicians: z.array(z.string()).max(5, "5 politiciens maximum"),
 });
@@ -46,6 +46,19 @@ const formSchema = z.discriminatedUnion("mode", [
 ]);
 
 export type RedactorArticleFormInput = z.infer<typeof formSchema>;
+
+function mapInput(input: RedactorArticleFormInput, articleId?: string): RedactorArticleJson {
+    return {
+        id: articleId,
+        title: input.title,
+        body: input.body,
+        eventDate: new Date(input.eventDate),
+        tags: input.tags,
+        politicians: input.politicians,
+        sources: input.sources,
+        category: input.category,
+    };
+}
 
 export function RedactorArticleForm({redactorClient, article}: RedactorArticleFormProps) {
     const form = useForm<RedactorArticleFormInput>({
@@ -65,27 +78,15 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
     const queryClient = useQueryClient();
     const mutation = useMutation({
         mutationFn: async (input: RedactorArticleFormInput) => {
-            if (input.mode === "publish") {
-                toast("TODO: implement publish");
-            }
-            return redactorClient.saveArticleDraft({
-                id: article?.id,
-                title: input.title,
-                body: input.body,
-                eventDate: new Date(input.eventDate),
-                tags: input.tags,
-                politicians: input.politicians,
-                sources: input.sources,
-                category: input.category,
-            });
+            return redactorClient.saveArticle(input.mode === "publish", mapInput(input, article?.id));
         },
         onSuccess: async () => {
-            toast.success(article ? "Votre article a été modifié." : "Votre article a été créé.");
+            void navigate({to: "/redactor/articles", replace: true});
+            toast.success("Votre article a été enregistré.");
             if (article) {
                 void queryClient.invalidateQueries({queryKey: ["redactor", "article", article.id]});
             }
-            await queryClient.invalidateQueries({queryKey: ["redactor", "articles"]});
-            void navigate({to: "/redactor/articles", replace: true});
+            void queryClient.invalidateQueries({queryKey: ["redactor", "articles"]});
         },
         onError: () => {
             toast.error("Une erreur est survenue. Veuillez réessayer.");
@@ -152,16 +153,7 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
     }
 
     async function onSubmit(values: RedactorArticleFormInput) {
-        await mutation.mutateAsync({
-            mode: values.mode,
-            title: values.title,
-            body: values.body,
-            eventDate: values.eventDate,
-            tags: values.tags,
-            sources: values.sources,
-            politicians: values.politicians,
-            category: values.category,
-        });
+        await mutation.mutateAsync(values);
         form.reset();
         setSearch("");
         setTagInput("");
