@@ -49,27 +49,37 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
     const queryClient = useQueryClient();
     const mutation = useMutation({
         mutationFn: async (input: RedactorArticleFormInput) => {
-            if (article) {
-                return redactorClient.updateArticle(article.id, {
-                    title: input.title,
-                    body: input.body,
-                    eventDate: new Date(input.eventDate),
-                    tags: input.tags,
-                    politicians: input.politicians,
-                    sources: input.sources,
-                    category: input.category,
-                });
-            } else {
-                return redactorClient.createArticleDraft({
-                    title: input.title,
-                    body: input.body,
-                    eventDate: new Date(input.eventDate),
-                    tags: input.tags,
-                    politicians: input.politicians,
-                    sources: input.sources,
-                    category: input.category,
-                });
-            }
+            // if (article) {
+            //     return redactorClient.updateArticle(article.id, {
+            //         title: input.title,
+            //         body: input.body,
+            //         eventDate: new Date(input.eventDate),
+            //         tags: input.tags,
+            //         politicians: input.politicians,
+            //         sources: input.sources,
+            //         category: input.category,
+            //     });
+            // } else {
+            //     return redactorClient.createArticleDraft({
+            //         title: input.title,
+            //         body: input.body,
+            //         eventDate: new Date(input.eventDate),
+            //         tags: input.tags,
+            //         politicians: input.politicians,
+            //         sources: input.sources,
+            //         category: input.category,
+            //     });
+            // }
+            return redactorClient.saveArticleDraft({
+                id: article?.id,
+                title: input.title,
+                body: input.body,
+                eventDate: new Date(input.eventDate),
+                tags: input.tags,
+                politicians: input.politicians,
+                sources: input.sources,
+                category: input.category,
+            });
         },
         onSuccess: async () => {
             toast.success(article ? "Votre article a été modifié." : "Votre article a été créé.");

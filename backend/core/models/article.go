@@ -45,9 +45,10 @@ const (
 type Article struct {
 	ID uuid.UUID `gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
 
-	Politicians []*Politician    `gorm:"many2many:article_politicians;"`
-	Tags        []*ArticleTag    `gorm:"foreignKey:ArticleID"`
-	Sources     []*ArticleSource `gorm:"foreignKey:ArticleID"`
+	ArticlePoliticians []*ArticlePolitician `gorm:"foreignKey:ArticleID"`
+	Politicians        []*Politician        `gorm:"many2many:article_politicians;"`
+	Tags               []*ArticleTag        `gorm:"foreignKey:ArticleID"`
+	Sources            []*ArticleSource     `gorm:"foreignKey:ArticleID"`
 
 	RedactorID  uuid.UUID  `gorm:"column:redactor_id;type:uuid;not null"`
 	ModeratorID *uuid.UUID `gorm:"column:moderator_id;type:uuid"`

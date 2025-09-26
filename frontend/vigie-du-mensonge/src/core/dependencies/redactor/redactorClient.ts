@@ -2,6 +2,7 @@ import type {KyInstance} from "ky";
 import {Article, type ArticleJson} from "@/core/models/article.ts";
 
 export type RedactorArticleJson = {
+    id?: string;
     title: string;
     body: string;
     eventDate: Date;
@@ -24,6 +25,10 @@ export class RedactorClient {
             .json<ArticleJson[]>();
 
         return res.map((json) => Article.fromJson(json));
+    }
+
+    async saveArticleDraft(dto: RedactorArticleJson): Promise<void> {
+        await this.api.post("redactor/articles/drafts", {json: dto});
     }
 
     async createArticleDraft(dto: RedactorArticleJson): Promise<string> {
