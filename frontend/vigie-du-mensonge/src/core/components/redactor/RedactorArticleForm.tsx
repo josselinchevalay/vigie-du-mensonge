@@ -20,15 +20,30 @@ export type RedactorArticleFormProps = {
     article?: Article
 }
 
-const formSchema = z.object({
-    title: z.string().min(1, "Titre requis").max(50, "50 caractères maximum").min(20, "20 caractères minimum"),
+const publishSchema = z.object({
+    title: z.string().min(1, "Titre requis").max(100, "100 caractères maximum").min(20, "20 caractères minimum"),
     eventDate: z.string().min(1, "Date de l'événement requise"), // we'll convert to Date on submit
-    body: z.string().min(1, "Contenu requis").max(2000, "2000 caractères maximum").min(200, "200 caractères minimum"),
     category: z.enum(Object.values(ArticleCategories)).nonoptional(),
+    body: z.string().min(1, "Contenu requis").max(2000, "2000 caractères maximum").min(200, "200 caractères minimum"),
     tags: z.array(z.string().min(1).max(25)).min(1, "Au moins 1 tag").max(10, "10 tags maximum"),
     sources: z.array(z.url("URL invalide")).min(1, "Au moins 1 source").max(5, "5 sources maximum"),
     politicians: z.array(z.string()).min(1, "Sélectionnez au moins 1 politicien").max(5, "5 politiciens maximum"),
 });
+
+const draftSchema = z.object({
+    title: z.string().min(1, "Titre requis").max(100, "100 caractères maximum").min(20, "20 caractères minimum"),
+    eventDate: z.string().min(1, "Date de l'événement requise"), // we'll convert to Date on submit
+    category: z.enum(Object.values(ArticleCategories)).nonoptional(),
+    body: z.string().max(2000, "2000 caractères maximum"),
+    tags: z.array(z.string().min(1).max(25)).max(10, "10 tags maximum"),
+    sources: z.array(z.url("URL invalide")).max(5, "5 sources maximum"),
+    politicians: z.array(z.string()).max(5, "5 politiciens maximum"),
+});
+
+const formSchema = z.discriminatedUnion("mode", [
+    publishSchema.extend({mode: z.literal("publish")}),
+    draftSchema.extend({mode: z.literal("draft")}),
+]);
 
 export type RedactorArticleFormInput = z.infer<typeof formSchema>;
 
@@ -36,6 +51,7 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
     const form = useForm<RedactorArticleFormInput>({
         resolver: zodResolver(formSchema),
         defaultValues: {
+            mode: "draft",
             title: article?.title ?? "",
             eventDate: article?.formattedEventDate ?? "",
             body: article?.body ?? "",
@@ -49,27 +65,9 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
     const queryClient = useQueryClient();
     const mutation = useMutation({
         mutationFn: async (input: RedactorArticleFormInput) => {
-            // if (article) {
-            //     return redactorClient.updateArticle(article.id, {
-            //         title: input.title,
-            //         body: input.body,
-            //         eventDate: new Date(input.eventDate),
-            //         tags: input.tags,
-            //         politicians: input.politicians,
-            //         sources: input.sources,
-            //         category: input.category,
-            //     });
-            // } else {
-            //     return redactorClient.createArticleDraft({
-            //         title: input.title,
-            //         body: input.body,
-            //         eventDate: new Date(input.eventDate),
-            //         tags: input.tags,
-            //         politicians: input.politicians,
-            //         sources: input.sources,
-            //         category: input.category,
-            //     });
-            // }
+            if (input.mode === "publish") {
+                toast("TODO: implement publish");
+            }
             return redactorClient.saveArticleDraft({
                 id: article?.id,
                 title: input.title,
@@ -155,6 +153,7 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
 
     async function onSubmit(values: RedactorArticleFormInput) {
         await mutation.mutateAsync({
+            mode: values.mode,
             title: values.title,
             body: values.body,
             eventDate: values.eventDate,
@@ -180,55 +179,6 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
                         <p className="text-sm text-muted-foreground">Renseignez les informations ci-dessous</p>
                     </div>
 
-                    <FormField
-                        control={form.control}
-                        name="politicians"
-                        render={() => (
-                            <FormItem>
-                                <FormLabel>Politiciens impliqués</FormLabel>
-                                <div className="space-y-2">
-                                    <Input
-                                        placeholder="Rechercher un politicien"
-                                        value={search}
-                                        onChange={e => setSearch(e.target.value)}
-                                    />
-                                    <div className="max-h-40 overflow-auto rounded-md border">
-                                        {filtered.length === 0 ? (
-                                            <div className="p-2 text-sm text-muted-foreground">Aucun résultat</div>
-                                        ) : (
-                                            filtered.slice(0, 20).map(p => (
-                                                <button
-                                                    type="button"
-                                                    key={p.id}
-                                                    className="w-full text-left px-3 py-2 text-sm hover:bg-accent"
-                                                    onClick={() => addPolitician(p.id)}
-                                                    disabled={form.getValues("politicians").length >= 5}
-                                                >
-                                                    {p.fullName}
-                                                </button>
-                                            ))
-                                        )}
-                                    </div>
-                                    <div className="flex flex-wrap gap-2">
-                                        {selectedPoliticians.map(id => {
-                                            const p = allPoliticians.find(pp => pp.id === id);
-                                            if (!p) return null;
-                                            return (
-                                                <span key={id}
-                                                      className="inline-flex items-center gap-2 rounded-md border px-2 py-1 text-xs">
-                                                    {p.fullName}
-                                                    <button type="button"
-                                                            className="text-muted-foreground hover:text-foreground"
-                                                            onClick={() => removePolitician(id)}>&times;</button>
-                                                </span>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                    />
 
                     <FormField
                         control={form.control}
@@ -278,6 +228,56 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
                                         </SelectContent>
                                     </Select>
                                 </FormControl>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name="politicians"
+                        render={() => (
+                            <FormItem>
+                                <FormLabel>Politiciens impliqués</FormLabel>
+                                <div className="space-y-2">
+                                    <Input
+                                        placeholder="Rechercher un politicien"
+                                        value={search}
+                                        onChange={e => setSearch(e.target.value)}
+                                    />
+                                    <div className="max-h-40 overflow-auto rounded-md border">
+                                        {filtered.length === 0 ? (
+                                            <div className="p-2 text-sm text-muted-foreground">Aucun résultat</div>
+                                        ) : (
+                                            filtered.slice(0, 20).map(p => (
+                                                <button
+                                                    type="button"
+                                                    key={p.id}
+                                                    className="w-full text-left px-3 py-2 text-sm hover:bg-accent"
+                                                    onClick={() => addPolitician(p.id)}
+                                                    disabled={form.getValues("politicians").length >= 5}
+                                                >
+                                                    {p.fullName}
+                                                </button>
+                                            ))
+                                        )}
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {selectedPoliticians.map(id => {
+                                            const p = allPoliticians.find(pp => pp.id === id);
+                                            if (!p) return null;
+                                            return (
+                                                <span key={id}
+                                                      className="inline-flex items-center gap-2 rounded-md border px-2 py-1 text-xs">
+                                                    {p.fullName}
+                                                    <button type="button"
+                                                            className="text-muted-foreground hover:text-foreground"
+                                                            onClick={() => removePolitician(id)}>&times;</button>
+                                                </span>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
                                 <FormMessage/>
                             </FormItem>
                         )}
@@ -378,10 +378,25 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
                         )}
                     />
 
+                    <div className="flex flex-row gap-8 items-center justify-center">
+                        <Button
+                            type="submit"
+                            disabled={form.formState.isSubmitting}
+                            onClick={() => form.setValue("mode", "draft", {shouldValidate: false})}
+                        >
+                            Enregistrer
+                        </Button>
+                        {article &&
+                            <Button
+                                type="submit"
+                                disabled={form.formState.isSubmitting}
+                                onClick={() => form.setValue("mode", "publish", {shouldValidate: false})}
+                            >
+                                Publier
+                            </Button>
+                        }
+                    </div>
 
-                    <Button type="submit" disabled={form.formState.isSubmitting} className="w-full">
-                        {article ? "Modifier l'article" : "Créer l'article"}
-                    </Button>
                 </form>
             </Form>
         </div>
