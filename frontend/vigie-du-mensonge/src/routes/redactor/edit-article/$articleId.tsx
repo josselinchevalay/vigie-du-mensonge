@@ -1,9 +1,9 @@
 import {createFileRoute} from '@tanstack/react-router';
 import {useQuery} from "@tanstack/react-query";
-import {BasicProgress} from "@/core/components/BasicProgress.tsx";
 import {RedactorArticleForm} from "@/core/components/redactor/RedactorArticleForm.tsx";
+import {BasicProgress} from "@/core/components/BasicProgress.tsx";
 
-export const Route = createFileRoute('/redactor/edit-draft/$articleId')({
+export const Route = createFileRoute('/redactor/edit-article/$articleId')({
     beforeLoad: ({params}) => {
         const articleId = params.articleId;
         return {articleId: articleId};

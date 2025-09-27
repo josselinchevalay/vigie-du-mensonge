@@ -14,9 +14,9 @@ import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as PasswordUpdateRouteImport } from './routes/password-update'
 import { Route as RedactorRouteRouteImport } from './routes/redactor/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as RedactorNewDraftRouteImport } from './routes/redactor/new-draft'
+import { Route as RedactorNewArticleRouteImport } from './routes/redactor/new-article'
 import { Route as RedactorArticlesRouteImport } from './routes/redactor/articles'
-import { Route as RedactorEditDraftArticleIdRouteImport } from './routes/redactor/edit-draft/$articleId'
+import { Route as RedactorEditArticleArticleIdRouteImport } from './routes/redactor/edit-article/$articleId'
 
 const SignUpRoute = SignUpRouteImport.update({
   id: '/sign-up',
@@ -43,9 +43,9 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RedactorNewDraftRoute = RedactorNewDraftRouteImport.update({
-  id: '/new-draft',
-  path: '/new-draft',
+const RedactorNewArticleRoute = RedactorNewArticleRouteImport.update({
+  id: '/new-article',
+  path: '/new-article',
   getParentRoute: () => RedactorRouteRoute,
 } as any)
 const RedactorArticlesRoute = RedactorArticlesRouteImport.update({
@@ -53,10 +53,10 @@ const RedactorArticlesRoute = RedactorArticlesRouteImport.update({
   path: '/articles',
   getParentRoute: () => RedactorRouteRoute,
 } as any)
-const RedactorEditDraftArticleIdRoute =
-  RedactorEditDraftArticleIdRouteImport.update({
-    id: '/edit-draft/$articleId',
-    path: '/edit-draft/$articleId',
+const RedactorEditArticleArticleIdRoute =
+  RedactorEditArticleArticleIdRouteImport.update({
+    id: '/edit-article/$articleId',
+    path: '/edit-article/$articleId',
     getParentRoute: () => RedactorRouteRoute,
   } as any)
 
@@ -67,8 +67,8 @@ export interface FileRoutesByFullPath {
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/redactor/articles': typeof RedactorArticlesRoute
-  '/redactor/new-draft': typeof RedactorNewDraftRoute
-  '/redactor/edit-draft/$articleId': typeof RedactorEditDraftArticleIdRoute
+  '/redactor/new-article': typeof RedactorNewArticleRoute
+  '/redactor/edit-article/$articleId': typeof RedactorEditArticleArticleIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -77,8 +77,8 @@ export interface FileRoutesByTo {
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/redactor/articles': typeof RedactorArticlesRoute
-  '/redactor/new-draft': typeof RedactorNewDraftRoute
-  '/redactor/edit-draft/$articleId': typeof RedactorEditDraftArticleIdRoute
+  '/redactor/new-article': typeof RedactorNewArticleRoute
+  '/redactor/edit-article/$articleId': typeof RedactorEditArticleArticleIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -88,8 +88,8 @@ export interface FileRoutesById {
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/redactor/articles': typeof RedactorArticlesRoute
-  '/redactor/new-draft': typeof RedactorNewDraftRoute
-  '/redactor/edit-draft/$articleId': typeof RedactorEditDraftArticleIdRoute
+  '/redactor/new-article': typeof RedactorNewArticleRoute
+  '/redactor/edit-article/$articleId': typeof RedactorEditArticleArticleIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -100,8 +100,8 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/redactor/articles'
-    | '/redactor/new-draft'
-    | '/redactor/edit-draft/$articleId'
+    | '/redactor/new-article'
+    | '/redactor/edit-article/$articleId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -110,8 +110,8 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/redactor/articles'
-    | '/redactor/new-draft'
-    | '/redactor/edit-draft/$articleId'
+    | '/redactor/new-article'
+    | '/redactor/edit-article/$articleId'
   id:
     | '__root__'
     | '/'
@@ -120,8 +120,8 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/redactor/articles'
-    | '/redactor/new-draft'
-    | '/redactor/edit-draft/$articleId'
+    | '/redactor/new-article'
+    | '/redactor/edit-article/$articleId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -169,11 +169,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/redactor/new-draft': {
-      id: '/redactor/new-draft'
-      path: '/new-draft'
-      fullPath: '/redactor/new-draft'
-      preLoaderRoute: typeof RedactorNewDraftRouteImport
+    '/redactor/new-article': {
+      id: '/redactor/new-article'
+      path: '/new-article'
+      fullPath: '/redactor/new-article'
+      preLoaderRoute: typeof RedactorNewArticleRouteImport
       parentRoute: typeof RedactorRouteRoute
     }
     '/redactor/articles': {
@@ -183,11 +183,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RedactorArticlesRouteImport
       parentRoute: typeof RedactorRouteRoute
     }
-    '/redactor/edit-draft/$articleId': {
-      id: '/redactor/edit-draft/$articleId'
-      path: '/edit-draft/$articleId'
-      fullPath: '/redactor/edit-draft/$articleId'
-      preLoaderRoute: typeof RedactorEditDraftArticleIdRouteImport
+    '/redactor/edit-article/$articleId': {
+      id: '/redactor/edit-article/$articleId'
+      path: '/edit-article/$articleId'
+      fullPath: '/redactor/edit-article/$articleId'
+      preLoaderRoute: typeof RedactorEditArticleArticleIdRouteImport
       parentRoute: typeof RedactorRouteRoute
     }
   }
@@ -195,14 +195,14 @@ declare module '@tanstack/react-router' {
 
 interface RedactorRouteRouteChildren {
   RedactorArticlesRoute: typeof RedactorArticlesRoute
-  RedactorNewDraftRoute: typeof RedactorNewDraftRoute
-  RedactorEditDraftArticleIdRoute: typeof RedactorEditDraftArticleIdRoute
+  RedactorNewArticleRoute: typeof RedactorNewArticleRoute
+  RedactorEditArticleArticleIdRoute: typeof RedactorEditArticleArticleIdRoute
 }
 
 const RedactorRouteRouteChildren: RedactorRouteRouteChildren = {
   RedactorArticlesRoute: RedactorArticlesRoute,
-  RedactorNewDraftRoute: RedactorNewDraftRoute,
-  RedactorEditDraftArticleIdRoute: RedactorEditDraftArticleIdRoute,
+  RedactorNewArticleRoute: RedactorNewArticleRoute,
+  RedactorEditArticleArticleIdRoute: RedactorEditArticleArticleIdRoute,
 }
 
 const RedactorRouteRouteWithChildren = RedactorRouteRoute._addFileChildren(

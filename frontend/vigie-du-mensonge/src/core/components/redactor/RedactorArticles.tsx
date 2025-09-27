@@ -11,7 +11,7 @@ export function RedactorArticles({articles}: RedactorArticlesProps) {
     return (
         <div className="flex flex-col items-center gap-8 min-w-0 py-2">
             <Link
-                to="/redactor/new-draft"
+                to="/redactor/new-article"
                 className="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
             >
                 Ajouter un article
@@ -26,7 +26,7 @@ export function RedactorArticles({articles}: RedactorArticlesProps) {
 function RedactorArticleNavButton(props: { articleId: string }) {
     return (
         <Link
-            to="/redactor/edit-draft/$articleId"
+            to="/redactor/edit-article/$articleId"
             params={{articleId: props.articleId}}
             className="inline-flex items-center"
         >
