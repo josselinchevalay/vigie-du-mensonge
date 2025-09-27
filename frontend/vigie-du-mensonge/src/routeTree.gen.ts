@@ -13,10 +13,13 @@ import { Route as SignUpRouteImport } from './routes/sign-up'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as PasswordUpdateRouteImport } from './routes/password-update'
 import { Route as RedactorRouteRouteImport } from './routes/redactor/route'
+import { Route as ModeratorRouteRouteImport } from './routes/moderator/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as RedactorNewArticleRouteImport } from './routes/redactor/new-article'
-import { Route as RedactorArticlesRouteImport } from './routes/redactor/articles'
-import { Route as RedactorEditArticleArticleRefRouteImport } from './routes/redactor/edit-article/$articleRef'
+import { Route as RedactorArticlesIndexRouteImport } from './routes/redactor/articles/index'
+import { Route as ModeratorArticlesIndexRouteImport } from './routes/moderator/articles/index'
+import { Route as RedactorArticlesNewRouteImport } from './routes/redactor/articles/new'
+import { Route as RedactorArticlesArticleRefRouteImport } from './routes/redactor/articles/$articleRef'
+import { Route as ModeratorArticlesPendingRouteImport } from './routes/moderator/articles/pending'
 
 const SignUpRoute = SignUpRouteImport.update({
   id: '/sign-up',
@@ -38,94 +41,129 @@ const RedactorRouteRoute = RedactorRouteRouteImport.update({
   path: '/redactor',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ModeratorRouteRoute = ModeratorRouteRouteImport.update({
+  id: '/moderator',
+  path: '/moderator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RedactorNewArticleRoute = RedactorNewArticleRouteImport.update({
-  id: '/new-article',
-  path: '/new-article',
+const RedactorArticlesIndexRoute = RedactorArticlesIndexRouteImport.update({
+  id: '/articles/',
+  path: '/articles/',
   getParentRoute: () => RedactorRouteRoute,
 } as any)
-const RedactorArticlesRoute = RedactorArticlesRouteImport.update({
-  id: '/articles',
-  path: '/articles',
+const ModeratorArticlesIndexRoute = ModeratorArticlesIndexRouteImport.update({
+  id: '/articles/',
+  path: '/articles/',
+  getParentRoute: () => ModeratorRouteRoute,
+} as any)
+const RedactorArticlesNewRoute = RedactorArticlesNewRouteImport.update({
+  id: '/articles/new',
+  path: '/articles/new',
   getParentRoute: () => RedactorRouteRoute,
 } as any)
-const RedactorEditArticleArticleRefRoute =
-  RedactorEditArticleArticleRefRouteImport.update({
-    id: '/edit-article/$articleRef',
-    path: '/edit-article/$articleRef',
+const RedactorArticlesArticleRefRoute =
+  RedactorArticlesArticleRefRouteImport.update({
+    id: '/articles/$articleRef',
+    path: '/articles/$articleRef',
     getParentRoute: () => RedactorRouteRoute,
+  } as any)
+const ModeratorArticlesPendingRoute =
+  ModeratorArticlesPendingRouteImport.update({
+    id: '/articles/pending',
+    path: '/articles/pending',
+    getParentRoute: () => ModeratorRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/moderator': typeof ModeratorRouteRouteWithChildren
   '/redactor': typeof RedactorRouteRouteWithChildren
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/redactor/articles': typeof RedactorArticlesRoute
-  '/redactor/new-article': typeof RedactorNewArticleRoute
-  '/redactor/edit-article/$articleRef': typeof RedactorEditArticleArticleRefRoute
+  '/moderator/articles/pending': typeof ModeratorArticlesPendingRoute
+  '/redactor/articles/$articleRef': typeof RedactorArticlesArticleRefRoute
+  '/redactor/articles/new': typeof RedactorArticlesNewRoute
+  '/moderator/articles': typeof ModeratorArticlesIndexRoute
+  '/redactor/articles': typeof RedactorArticlesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/moderator': typeof ModeratorRouteRouteWithChildren
   '/redactor': typeof RedactorRouteRouteWithChildren
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/redactor/articles': typeof RedactorArticlesRoute
-  '/redactor/new-article': typeof RedactorNewArticleRoute
-  '/redactor/edit-article/$articleRef': typeof RedactorEditArticleArticleRefRoute
+  '/moderator/articles/pending': typeof ModeratorArticlesPendingRoute
+  '/redactor/articles/$articleRef': typeof RedactorArticlesArticleRefRoute
+  '/redactor/articles/new': typeof RedactorArticlesNewRoute
+  '/moderator/articles': typeof ModeratorArticlesIndexRoute
+  '/redactor/articles': typeof RedactorArticlesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/moderator': typeof ModeratorRouteRouteWithChildren
   '/redactor': typeof RedactorRouteRouteWithChildren
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/redactor/articles': typeof RedactorArticlesRoute
-  '/redactor/new-article': typeof RedactorNewArticleRoute
-  '/redactor/edit-article/$articleRef': typeof RedactorEditArticleArticleRefRoute
+  '/moderator/articles/pending': typeof ModeratorArticlesPendingRoute
+  '/redactor/articles/$articleRef': typeof RedactorArticlesArticleRefRoute
+  '/redactor/articles/new': typeof RedactorArticlesNewRoute
+  '/moderator/articles/': typeof ModeratorArticlesIndexRoute
+  '/redactor/articles/': typeof RedactorArticlesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/moderator'
     | '/redactor'
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
+    | '/moderator/articles/pending'
+    | '/redactor/articles/$articleRef'
+    | '/redactor/articles/new'
+    | '/moderator/articles'
     | '/redactor/articles'
-    | '/redactor/new-article'
-    | '/redactor/edit-article/$articleRef'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/moderator'
     | '/redactor'
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
+    | '/moderator/articles/pending'
+    | '/redactor/articles/$articleRef'
+    | '/redactor/articles/new'
+    | '/moderator/articles'
     | '/redactor/articles'
-    | '/redactor/new-article'
-    | '/redactor/edit-article/$articleRef'
   id:
     | '__root__'
     | '/'
+    | '/moderator'
     | '/redactor'
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
-    | '/redactor/articles'
-    | '/redactor/new-article'
-    | '/redactor/edit-article/$articleRef'
+    | '/moderator/articles/pending'
+    | '/redactor/articles/$articleRef'
+    | '/redactor/articles/new'
+    | '/moderator/articles/'
+    | '/redactor/articles/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ModeratorRouteRoute: typeof ModeratorRouteRouteWithChildren
   RedactorRouteRoute: typeof RedactorRouteRouteWithChildren
   PasswordUpdateRoute: typeof PasswordUpdateRoute
   SignInRoute: typeof SignInRoute
@@ -162,6 +200,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RedactorRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/moderator': {
+      id: '/moderator'
+      path: '/moderator'
+      fullPath: '/moderator'
+      preLoaderRoute: typeof ModeratorRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -169,40 +214,68 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/redactor/new-article': {
-      id: '/redactor/new-article'
-      path: '/new-article'
-      fullPath: '/redactor/new-article'
-      preLoaderRoute: typeof RedactorNewArticleRouteImport
-      parentRoute: typeof RedactorRouteRoute
-    }
-    '/redactor/articles': {
-      id: '/redactor/articles'
+    '/redactor/articles/': {
+      id: '/redactor/articles/'
       path: '/articles'
       fullPath: '/redactor/articles'
-      preLoaderRoute: typeof RedactorArticlesRouteImport
+      preLoaderRoute: typeof RedactorArticlesIndexRouteImport
       parentRoute: typeof RedactorRouteRoute
     }
-    '/redactor/edit-article/$articleRef': {
-      id: '/redactor/edit-article/$articleRef'
-      path: '/edit-article/$articleRef'
-      fullPath: '/redactor/edit-article/$articleRef'
-      preLoaderRoute: typeof RedactorEditArticleArticleRefRouteImport
+    '/moderator/articles/': {
+      id: '/moderator/articles/'
+      path: '/articles'
+      fullPath: '/moderator/articles'
+      preLoaderRoute: typeof ModeratorArticlesIndexRouteImport
+      parentRoute: typeof ModeratorRouteRoute
+    }
+    '/redactor/articles/new': {
+      id: '/redactor/articles/new'
+      path: '/articles/new'
+      fullPath: '/redactor/articles/new'
+      preLoaderRoute: typeof RedactorArticlesNewRouteImport
       parentRoute: typeof RedactorRouteRoute
+    }
+    '/redactor/articles/$articleRef': {
+      id: '/redactor/articles/$articleRef'
+      path: '/articles/$articleRef'
+      fullPath: '/redactor/articles/$articleRef'
+      preLoaderRoute: typeof RedactorArticlesArticleRefRouteImport
+      parentRoute: typeof RedactorRouteRoute
+    }
+    '/moderator/articles/pending': {
+      id: '/moderator/articles/pending'
+      path: '/articles/pending'
+      fullPath: '/moderator/articles/pending'
+      preLoaderRoute: typeof ModeratorArticlesPendingRouteImport
+      parentRoute: typeof ModeratorRouteRoute
     }
   }
 }
 
+interface ModeratorRouteRouteChildren {
+  ModeratorArticlesPendingRoute: typeof ModeratorArticlesPendingRoute
+  ModeratorArticlesIndexRoute: typeof ModeratorArticlesIndexRoute
+}
+
+const ModeratorRouteRouteChildren: ModeratorRouteRouteChildren = {
+  ModeratorArticlesPendingRoute: ModeratorArticlesPendingRoute,
+  ModeratorArticlesIndexRoute: ModeratorArticlesIndexRoute,
+}
+
+const ModeratorRouteRouteWithChildren = ModeratorRouteRoute._addFileChildren(
+  ModeratorRouteRouteChildren,
+)
+
 interface RedactorRouteRouteChildren {
-  RedactorArticlesRoute: typeof RedactorArticlesRoute
-  RedactorNewArticleRoute: typeof RedactorNewArticleRoute
-  RedactorEditArticleArticleRefRoute: typeof RedactorEditArticleArticleRefRoute
+  RedactorArticlesArticleRefRoute: typeof RedactorArticlesArticleRefRoute
+  RedactorArticlesNewRoute: typeof RedactorArticlesNewRoute
+  RedactorArticlesIndexRoute: typeof RedactorArticlesIndexRoute
 }
 
 const RedactorRouteRouteChildren: RedactorRouteRouteChildren = {
-  RedactorArticlesRoute: RedactorArticlesRoute,
-  RedactorNewArticleRoute: RedactorNewArticleRoute,
-  RedactorEditArticleArticleRefRoute: RedactorEditArticleArticleRefRoute,
+  RedactorArticlesArticleRefRoute: RedactorArticlesArticleRefRoute,
+  RedactorArticlesNewRoute: RedactorArticlesNewRoute,
+  RedactorArticlesIndexRoute: RedactorArticlesIndexRoute,
 }
 
 const RedactorRouteRouteWithChildren = RedactorRouteRoute._addFileChildren(
@@ -211,6 +284,7 @@ const RedactorRouteRouteWithChildren = RedactorRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ModeratorRouteRoute: ModeratorRouteRouteWithChildren,
   RedactorRouteRoute: RedactorRouteRouteWithChildren,
   PasswordUpdateRoute: PasswordUpdateRoute,
   SignInRoute: SignInRoute,

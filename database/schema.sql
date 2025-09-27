@@ -85,6 +85,7 @@ CREATE TABLE users
     id         UUID        NOT NULL DEFAULT gen_random_uuid(),
     CONSTRAINT pk_users PRIMARY KEY (id),
 
+    tag        TEXT        NOT NULL,
     email      TEXT        NOT NULL,
     password   TEXT        NOT NULL,
 
@@ -93,6 +94,7 @@ CREATE TABLE users
     deleted_at TIMESTAMPTZ
 );
 
+CREATE UNIQUE INDEX uq_users_tag ON users (tag);
 CREATE UNIQUE INDEX uq_users_email ON users (email);
 
 
@@ -105,7 +107,7 @@ CREATE TABLE user_roles
     CONSTRAINT pk_user_roles PRIMARY KEY (user_id, role_id)
 );
 
-CREATE INDEX idx_user_roles_user ON user_roles(user_id);
+CREATE INDEX idx_user_roles_user ON user_roles (user_id);
 
 
 CREATE TABLE user_tokens
@@ -162,7 +164,8 @@ CREATE TABLE articles
 );
 
 CREATE UNIQUE INDEX uq_articles_reference_not_archived ON articles (reference) WHERE status <> 'ARCHIVED';
-CREATE INDEX idx_articles_redactor_status ON articles (redactor_id, status);
+CREATE INDEX idx_articles_redactor_status_created_at_desc ON articles (redactor_id, status, created_at DESC);
+CREATE INDEX idx_articles_moderator_status_created_at_desc ON articles (moderator_id, status, created_at DESC);
 CREATE INDEX idx_articles_redactor_reference_created_at_desc ON articles (redactor_id, reference, created_at DESC);
 
 CREATE TABLE article_sources
@@ -197,12 +200,12 @@ CREATE TABLE article_reviews
 
     article_id   UUID        NOT NULL,
     CONSTRAINT fk_article_reviews_article FOREIGN KEY (article_id) REFERENCES articles (id),
+    CONSTRAINT uq_article_reviews_article UNIQUE (article_id),
 
     moderator_id UUID        NOT NULL,
     CONSTRAINT fk_article_reviews_moderator FOREIGN KEY (moderator_id) REFERENCES users (id),
 
     notes        TEXT        NOT NULL,
-    seen         BOOLEAN     NOT NULL DEFAULT FALSE,
 
     created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),

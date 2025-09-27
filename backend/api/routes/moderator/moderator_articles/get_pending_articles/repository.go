@@ -1,24 +1,23 @@
-package get_redactor_articles
+package get_pending_articles
 
 import (
 	"vdm/core/models"
 
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
 type Repository interface {
-	getArticlesByRedactorID(redactorID uuid.UUID) ([]models.Article, error)
+	getPendingArticles() ([]models.Article, error)
 }
 
 type repository struct {
 	db *gorm.DB
 }
 
-func (r *repository) getArticlesByRedactorID(redactorID uuid.UUID) ([]models.Article, error) {
+func (r *repository) getPendingArticles() ([]models.Article, error) {
 	var articles []models.Article
 
-	if err := r.db.Where("redactor_id = ? AND status <> ?", redactorID, models.ArticleStatusArchived).
+	if err := r.db.Where("moderator_id IS NULL AND status = ?", models.ArticleStatusUnderReview).
 		Order("created_at DESC").
 		Select("id", "reference", "title", "event_date", "updated_at", "category", "status").
 		Preload("Politicians", func(db *gorm.DB) *gorm.DB {

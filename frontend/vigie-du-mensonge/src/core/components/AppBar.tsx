@@ -24,12 +24,12 @@ export default function AppBar() {
                     <div className="hidden md:flex items-center gap-2 min-w-0 py-2">
                         {!auth ? (
                             <>
-                                    <Link
-                                        to="/sign-in"
-                                        className="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
-                                    >
-                                        Connexion
-                                    </Link>
+                                <Link
+                                    to="/sign-in"
+                                    className="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
+                                >
+                                    Connexion
+                                </Link>
                                 <Link
                                     to="/sign-up" search={{token: undefined}}
                                     className="inline-flex items-center justify-center rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
@@ -40,12 +40,20 @@ export default function AppBar() {
                         ) : (
                             <>
                                 {auth.isRedactor &&
+                                    <>
+                                        <Link
+                                            to="/moderator/articles"
+                                            className="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
+                                        >
+                                            Espace modérateur
+                                        </Link>
                                         <Link
                                             to="/redactor/articles"
                                             className="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
                                         >
                                             Espace rédacteur
                                         </Link>
+                                    </>
                                 }
                                 <Button onClick={() => authManager.signOut()}>Déconnexion</Button>
                             </>

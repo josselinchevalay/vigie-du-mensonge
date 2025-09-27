@@ -1,4 +1,4 @@
-package find_redactor_article
+package get_moderator_articles
 
 import (
 	"vdm/core/fiberx"
@@ -15,5 +15,5 @@ const (
 func Route(db *gorm.DB) *fiberx.Route {
 	repo := &repository{db}
 	handler := &handler{repo}
-	return fiberx.NewRoute(Method, Path, handler.findArticleDetailsForRedactor)
+	return fiberx.NewRoute(Method, Path, handler.getArticlesForModerator)
 }

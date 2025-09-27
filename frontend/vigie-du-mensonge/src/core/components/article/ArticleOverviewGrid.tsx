@@ -4,12 +4,12 @@ import React from "react";
 
 export type ArticleOverviewGridProps = {
     articles: Article[];
+    articleHeader?: (article: Article) => React.ReactNode;
     articleNavButton?: (article: Article) => React.ReactNode;
-    showArticleStatus?: boolean;
     className?: string;
 };
 
-export function ArticleOverviewGrid({articles, articleNavButton, showArticleStatus, className}:
+export function ArticleOverviewGrid({articles, articleHeader, articleNavButton, className}:
                                     ArticleOverviewGridProps) {
     return (
         <div
@@ -23,7 +23,7 @@ export function ArticleOverviewGrid({articles, articleNavButton, showArticleStat
                         key={article.id}
                         navButton={articleNavButton}
                         article={article}
-                        showStatus={showArticleStatus}
+                        header={articleHeader}
                         className="w-full sm:w-[20rem]" // 👈 fixed card width on sm+
                     />
                 ))}

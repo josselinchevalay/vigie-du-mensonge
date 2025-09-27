@@ -46,6 +46,7 @@ func (s *service) saveArticleForRedactor(publish bool, newArticle models.Article
 		return s.repo.updateArticle(&newArticle)
 	}
 
+	newArticle.ModeratorID = oldArticle.ModeratorID
 	newArticle.Reference = oldArticle.Reference // set reference to track version history
 	newArticle.Major = oldArticle.Major
 	newArticle.Minor = oldArticle.Minor + 1 // increment minor version each time user submits for publication

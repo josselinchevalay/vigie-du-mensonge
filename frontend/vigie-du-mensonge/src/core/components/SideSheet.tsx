@@ -1,5 +1,5 @@
 import {Button} from "@/core/shadcn/components/ui/button.tsx";
-import {Sheet, SheetClose, SheetContent, SheetTrigger} from "@/core/shadcn/components/ui/sheet.tsx";
+import {Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger} from "@/core/shadcn/components/ui/sheet.tsx";
 import {useStore} from "@tanstack/react-store";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
 import {Link} from "@/core/utils/router.ts";
@@ -13,7 +13,8 @@ export function SideSheet() {
             <Button variant="ghost"><Menu/></Button>
         </SheetTrigger>
         <SheetContent side="right" className="w-64">
-            <div className="flex flex-col gap-2 mt-16 mx-4">
+            <div className="flex flex-col gap-8 mt-16 mx-4">
+                <SheetTitle>Navigation</SheetTitle>
                 {!auth ? (
                     <>
                         <SheetClose asChild>
@@ -35,6 +36,16 @@ export function SideSheet() {
                     </>
                 ) : (
                     <>
+                        {auth.isModerator &&
+                            <SheetClose asChild>
+                                <Link
+                                    to="/moderator/articles"
+                                    className="inline-flex items-center justify-center rounded-md border px-3 py-2 bg-primary-foreground text-primary text-sm font-medium hover:bg-accent"
+                                >
+                                    Espace modérateur
+                                </Link>
+                            </SheetClose>
+                        }
                         {auth.isRedactor &&
                             <SheetClose asChild>
                                 <Link

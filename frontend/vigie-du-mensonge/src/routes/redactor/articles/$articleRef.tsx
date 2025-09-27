@@ -3,7 +3,7 @@ import {useQuery} from "@tanstack/react-query";
 import {BasicProgress} from "@/core/components/BasicProgress.tsx";
 import {RedactorArticlesByReference} from "@/core/components/redactor/RedactorArticlesByReference.tsx";
 
-export const Route = createFileRoute('/redactor/edit-article/$articleRef')({
+export const Route = createFileRoute('/redactor/articles/$articleRef')({
     beforeLoad: ({params}) => {
         const articleRef = params.articleRef;
         return {articleRef: articleRef};
@@ -16,8 +16,8 @@ function RouteComponent() {
     const redactorClient = Route.useRouteContext().redactorClient;
 
     const {data: articles, isLoading, isError} = useQuery({
-        queryKey: ["redactor", "article", articleRef],
-        queryFn: () => redactorClient.findArticleByRef(articleRef),
+        queryKey: ["redactor", "articles", articleRef],
+        queryFn: () => redactorClient.findRedactorArticlesByRef(articleRef),
     });
 
     if (isError) {
@@ -35,6 +35,6 @@ function RouteComponent() {
         );
     }
 
-    // return <RedactorArticleForm redactorClient={redactorClient} article={articles}/>;
-    return <RedactorArticlesByReference redactorClient={redactorClient} articles={articles!}></RedactorArticlesByReference>;
+    return <RedactorArticlesByReference redactorClient={redactorClient}
+                                        articles={articles ?? []}/>;
 }

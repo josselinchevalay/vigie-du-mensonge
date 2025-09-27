@@ -49,6 +49,7 @@ type Article struct {
 	Politicians        []*Politician        `gorm:"many2many:article_politicians;"`
 	Tags               []*ArticleTag        `gorm:"foreignKey:ArticleID"`
 	Sources            []*ArticleSource     `gorm:"foreignKey:ArticleID"`
+	Review             *ArticleReview       `gorm:"foreignKey:ArticleID"`
 
 	RedactorID  uuid.UUID  `gorm:"column:redactor_id;type:uuid;not null"`
 	ModeratorID *uuid.UUID `gorm:"column:moderator_id;type:uuid"`

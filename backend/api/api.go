@@ -8,6 +8,7 @@ import (
 	"vdm/api/routes/articles"
 	"vdm/api/routes/auth"
 	"vdm/api/routes/get_csrf"
+	"vdm/api/routes/moderator"
 	"vdm/api/routes/password_update"
 	"vdm/api/routes/politicians"
 	"vdm/api/routes/redactor"
@@ -37,7 +38,7 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 			CrossOriginResourcePolicy: "same-site",
 			CrossOriginOpenerPolicy:   "same-origin",
 			// Disable COEP for the API to avoid breaking cross-origin fetch/embeds
-			CrossOriginEmbedderPolicy: "unsafe-none", // or "unsafe-none" depending on Fiber version
+			CrossOriginEmbedderPolicy: "unsafe-none",
 			PermissionPolicy:          "geolocation=(), camera=(), microphone=(), payment=(), usb=()",
 		})),
 		fiberx.NewMiddleware(csrf.New(csrf.Config{
@@ -89,6 +90,7 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 		authorize_authed_user.Middleware(deps.GormDB()),
 
 		redactor.Group(deps),
+		moderator.Group(deps),
 	)
 
 	return group

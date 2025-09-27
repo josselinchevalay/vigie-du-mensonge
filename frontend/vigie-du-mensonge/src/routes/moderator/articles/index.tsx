@@ -1,20 +1,19 @@
-import {createFileRoute} from "@tanstack/react-router";
+import {createFileRoute} from '@tanstack/react-router';
 import {useQuery} from "@tanstack/react-query";
 import {BasicProgress} from "@/core/components/BasicProgress.tsx";
 import {Link} from "@/core/utils/router.ts";
-import {SquarePen} from "lucide-react";
 import {ArticleOverviewGrid} from "@/core/components/article/ArticleOverviewGrid.tsx";
 
-export const Route = createFileRoute('/redactor/articles')({
+export const Route = createFileRoute('/moderator/articles/')({
     component: RouteComponent,
 });
 
 function RouteComponent() {
-    const redactorClient = Route.useRouteContext().redactorClient;
+    const moderatorClient = Route.useRouteContext().moderatorClient;
 
     const {data: articles, isLoading, isError} = useQuery({
-        queryKey: ["redactor", "articles"],
-        queryFn: () => redactorClient.getAllArticles(),
+        queryKey: ["moderator", "articles"],
+        queryFn: () => moderatorClient.getModeratorArticles(),
         staleTime: 60 * 60 * 1000,
     });
 
@@ -37,25 +36,11 @@ function RouteComponent() {
 
     return <div className="flex flex-col items-center gap-8 min-w-0 py-2">
         <Link
-            to="/redactor/new-article"
+            to="/moderator/articles/pending" replace={true}
             className="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
         >
-            Ajouter un article
+            Voir les articles en attente de modération
         </Link>
-        <ArticleOverviewGrid articles={articles!} showArticleStatus={true}
-                             articleNavButton={(article) => RedactorArticleNavButton({articleRef: article.reference})}
-        />
+        <ArticleOverviewGrid articles={articles ?? []}/>
     </div>;
-}
-
-function RedactorArticleNavButton(props: { articleRef: string }) {
-    return (
-        <Link
-            to="/redactor/edit-article/$articleRef"
-            params={{articleRef: props.articleRef}}
-            className="inline-flex items-center"
-        >
-            <SquarePen/>
-        </Link>
-    );
 }

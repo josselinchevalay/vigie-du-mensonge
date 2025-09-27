@@ -1,4 +1,4 @@
-package find_redactor_article
+package find_moderator_article
 
 import (
 	"vdm/core/models"
@@ -8,20 +8,21 @@ import (
 )
 
 type Repository interface {
-	findRedactorArticlesByReference(redactorID, reference uuid.UUID) ([]models.Article, error)
+	findArticlesByReference(reference uuid.UUID) ([]models.Article, error)
 }
 
 type repository struct {
 	db *gorm.DB
 }
 
-func (r *repository) findRedactorArticlesByReference(redactorID, reference uuid.UUID) ([]models.Article, error) {
+func (r *repository) findArticlesByReference(reference uuid.UUID) ([]models.Article, error) {
 	var articles []models.Article
 
-	if err := r.db.Where("redactor_id = ? AND reference = ?", redactorID, reference).
+	if err := r.db.Where("reference = ?", reference).
 		Order("created_at DESC").
 		Preload("Sources").
 		Preload("Tags").
+		Preload("Review").
 		Preload("Politicians", func(db *gorm.DB) *gorm.DB {
 			return db.Select("id", "first_name", "last_name")
 		}).

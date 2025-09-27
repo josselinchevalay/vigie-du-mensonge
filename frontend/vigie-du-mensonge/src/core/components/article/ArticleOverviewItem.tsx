@@ -1,15 +1,14 @@
 import type {Article} from "@/core/models/article.ts";
 import React from "react";
-import {ArticleStatusDisplay} from "@/core/components/article/ArticleStatusDisplay.tsx";
 
 export type ArticleOverviewItemProps = {
     article: Article;
+    header?: (article: Article) => React.ReactNode;
     navButton?: (article: Article) => React.ReactNode;
-    showStatus?: boolean;
     className?: string;
 };
 
-export function ArticleOverviewItem({article, navButton, showStatus, className}: ArticleOverviewItemProps) {
+export function ArticleOverviewItem({article, header, navButton, className}: ArticleOverviewItemProps) {
     return (
         <>
 
@@ -18,7 +17,7 @@ export function ArticleOverviewItem({article, navButton, showStatus, className}:
                  aria-label={article.title}
             >
                 <div className="flex flex-row gap-2 mb-2">
-                    {showStatus && ArticleStatusDisplay({status: article.status!})}
+                    {header && header(article)}
                 </div>
                 <div className="flex flex-row gap-2 mb-2">
                     {navButton && navButton(article)}

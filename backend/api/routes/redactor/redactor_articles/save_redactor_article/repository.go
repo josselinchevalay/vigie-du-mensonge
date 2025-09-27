@@ -22,7 +22,7 @@ type repository struct {
 func (r *repository) findArticle(articleID, redactorID uuid.UUID) (models.Article, error) {
 	var article models.Article
 	if err := r.db.Where("id = ? AND redactor_id = ?", articleID, redactorID).
-		Select("id", "redactor_id", "status", "reference", "minor", "major").
+		Select("id", "redactor_id", "moderator_id", "status", "reference", "minor", "major").
 		First(&article).Error; err != nil {
 		return models.Article{}, err
 	}

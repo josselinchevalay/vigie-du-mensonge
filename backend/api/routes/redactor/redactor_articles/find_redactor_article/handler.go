@@ -1,6 +1,7 @@
 package find_redactor_article
 
 import (
+	"fmt"
 	"vdm/core/dto/response_dto"
 	"vdm/core/locals"
 	"vdm/core/locals/local_keys"
@@ -10,14 +11,14 @@ import (
 )
 
 type Handler interface {
-	findArticleDetailsForRedactor(c *fiber.Ctx) error
+	findArticlesByReferenceForRedactor(c *fiber.Ctx) error
 }
 
 type handler struct {
 	repo Repository
 }
 
-func (h *handler) findArticleDetailsForRedactor(c *fiber.Ctx) error {
+func (h *handler) findArticlesByReferenceForRedactor(c *fiber.Ctx) error {
 	authedUser, ok := c.Locals("authedUser").(locals.AuthedUser)
 	if !ok {
 		return &fiber.Error{Code: fiber.StatusInternalServerError, Message: "can't locals authed user"}
@@ -30,7 +31,7 @@ func (h *handler) findArticleDetailsForRedactor(c *fiber.Ctx) error {
 
 	articles, err := h.repo.findRedactorArticlesByReference(authedUser.ID, articleRef)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to find articles by reference for redactor: %v", err)
 	}
 
 	if len(articles) == 0 {

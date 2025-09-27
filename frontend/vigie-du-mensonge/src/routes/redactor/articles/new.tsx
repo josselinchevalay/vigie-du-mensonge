@@ -1,8 +1,8 @@
-import {createFileRoute} from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router';
 import {RedactorArticleForm} from "@/core/components/redactor/RedactorArticleForm.tsx";
 
-export const Route = createFileRoute('/redactor/new-article')({
-    component: RouteComponent,
+export const Route = createFileRoute('/redactor/articles/new')({
+  component: RouteComponent,
 });
 
 function RouteComponent() {

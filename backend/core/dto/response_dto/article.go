@@ -23,6 +23,8 @@ type Article struct {
 	Minor int16 `json:"minor,omitempty"`
 	Major int16 `json:"major,omitempty"`
 
+	ReviewNotes string `json:"reviewNotes,omitempty"`
+
 	Sources     []string     `json:"sources,omitempty"`
 	Politicians []Politician `json:"politicians,omitempty"`
 	Tags        []string     `json:"tags,omitempty"`
@@ -40,6 +42,10 @@ func NewArticle(entity models.Article) Article {
 		UpdatedAt: entity.UpdatedAt,
 		Minor:     entity.Minor,
 		Major:     entity.Major,
+	}
+
+	if entity.Review != nil {
+		dto.ReviewNotes = entity.Review.Notes
 	}
 
 	if len(entity.Sources) > 0 {

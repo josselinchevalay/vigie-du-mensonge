@@ -1,7 +1,7 @@
 import type {KyInstance} from "ky";
 import {Article, type ArticleJson} from "@/core/models/article.ts";
 
-export type RedactorArticleJson = {
+export type SaveRedactorArticle = {
     id?: string;
     title: string;
     body: string;
@@ -19,7 +19,7 @@ export class RedactorClient {
         this.api = api;
     }
 
-    async getAllArticles(): Promise<Article[]> {
+    async getRedactorArticles(): Promise<Article[]> {
         const res = await this.api
             .get("redactor/articles")
             .json<ArticleJson[]>();
@@ -27,11 +27,11 @@ export class RedactorClient {
         return res.map((json) => Article.fromJson(json));
     }
 
-    async saveArticle(publish: boolean, dto: RedactorArticleJson): Promise<void> {
+    async saveArticle(publish: boolean, dto: SaveRedactorArticle): Promise<void> {
         await this.api.post(`redactor/articles?publish=${publish}`, {json: dto});
     }
 
-    async findArticleByRef(ref: string): Promise<Article[]> {
+    async findRedactorArticlesByRef(ref: string): Promise<Article[]> {
         const res = await this.api
             .get(`redactor/articles/${ref}`)
             .json<ArticleJson[]>();

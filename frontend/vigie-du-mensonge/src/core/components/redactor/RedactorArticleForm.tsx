@@ -4,7 +4,6 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {toast} from "@/core/utils/toast.ts";
-import {navigate} from "@/core/utils/router.ts";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/core/shadcn/components/ui/form.tsx";
 import {Input} from "@/core/shadcn/components/ui/input.tsx";
 import {Button} from "@/core/shadcn/components/ui/button.tsx";
@@ -12,7 +11,7 @@ import {ArticleCategories, ArticleCategoryLabels} from "@/core/models/articleCat
 import {useStore} from "@tanstack/react-store";
 import {politiciansManager} from "@/core/dependencies/politician/politiciansManager.ts";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/core/shadcn/components/ui/select.tsx";
-import {type RedactorArticleJson, RedactorClient} from "@/core/dependencies/redactor/redactorClient.ts";
+import {RedactorClient, type SaveRedactorArticle} from "@/core/dependencies/redactor/redactorClient.ts";
 import type {Article} from "@/core/models/article.ts";
 
 export type RedactorArticleFormProps = {
@@ -47,7 +46,7 @@ const formSchema = z.discriminatedUnion("mode", [
 
 export type RedactorArticleFormInput = z.infer<typeof formSchema>;
 
-function mapInput(input: RedactorArticleFormInput, articleId?: string): RedactorArticleJson {
+function mapInput(input: RedactorArticleFormInput, articleId?: string): SaveRedactorArticle {
     return {
         id: articleId,
         title: input.title,
@@ -81,10 +80,9 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
             return redactorClient.saveArticle(input.mode === "publish", mapInput(input, article?.id));
         },
         onSuccess: async () => {
-            void navigate({to: "/redactor/articles", replace: true});
             toast.success("Votre article a été enregistré.");
             if (article) {
-                void queryClient.invalidateQueries({queryKey: ["redactor", "article", article.id]});
+                void queryClient.invalidateQueries({queryKey: ["redactor", "articles", article.reference]});
             }
             void queryClient.invalidateQueries({queryKey: ["redactor", "articles"]});
         },
@@ -231,7 +229,9 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
                         name="politicians"
                         render={() => (
                             <FormItem>
-                                <FormLabel>Personnalités politiques impliquées. Si il/elle n'est pas présent(e) dans notre base de données, veuillez saisir un seul tag contenant à la fois son nom et prénom.</FormLabel>
+                                <FormLabel>Personnalités politiques impliquées. Si il/elle n'est pas présent(e) dans
+                                    notre base de données, veuillez saisir un seul tag contenant à la fois son nom et
+                                    prénom.</FormLabel>
                                 <div className="space-y-2">
                                     <Input
                                         placeholder="Rechercher une personnalité politique"

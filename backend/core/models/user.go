@@ -14,6 +14,7 @@ type User struct {
 
 	Roles []*Role `gorm:"many2many:user_roles;"`
 
+	Tag      string `gorm:"column:tag;unique;not null"`
 	Email    string `gorm:"column:email;unique;not null"`
 	Password string `gorm:"column:password;not null"`
 
