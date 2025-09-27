@@ -6,6 +6,14 @@ import {ArticleDisplay} from "@/core/components/article/ArticleDisplay.tsx";
 import {ArticleStatuses, ArticleStatusLabels} from "@/core/models/articleStatus.ts";
 import {RedactorArticleForm} from "@/core/components/redactor/RedactorArticleForm.tsx";
 import type {RedactorClient} from "@/core/dependencies/redactor/redactorClient.ts";
+import {
+    Dialog, DialogClose,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/core/shadcn/components/ui/dialog.tsx";
 
 export type RedactorArticlesByReferenceProps = {
     redactorClient: RedactorClient;
@@ -44,9 +52,28 @@ export function RedactorArticlesByReference({redactorClient, articles}: Redactor
         }
 
         {editable &&
-            <Button onClick={() => setEditMode(!editMode)}>
-                {editMode ? <Eye/> : <SquarePen/>}
-            </Button>
+            (
+                !editMode
+                    ? <Button onClick={() => setEditMode(true)}><SquarePen/></Button>
+                    : <Dialog>
+                        <DialogTrigger asChild>
+                            <Button><Eye/></Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Toute modification non enregistrée sera perdue.</DialogTitle>
+                            </DialogHeader>
+                            <DialogFooter>
+                                    <DialogClose asChild>
+                                        <Button onClick={() => setEditMode(false)}>Passer en mode lecteur</Button>
+                                    </DialogClose>
+                                    <DialogClose asChild>
+                                        <Button>Rester en mode édition</Button>
+                                    </DialogClose>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+            )
         }
 
         {editMode ? <RedactorArticleForm article={selected} redactorClient={redactorClient}/> :
