@@ -9,6 +9,17 @@ class AuthManager {
 
     public readonly authStore = new Store<Auth | null>(null);
 
+    private handleStorage = (e: StorageEvent) => {
+        if (e.key !== Auth.STORAGE_KEY) return;
+        // Pull from storage to avoid trusting e.newValue shape
+        const auth = Auth.fromStorage();
+        if (!auth || auth.refreshTokenExpired) {
+            this.authStore.setState(() => null);
+            return;
+        }
+        this.authStore.setState(() => auth);
+    };
+
     constructor(client: AuthClient) {
         this.client = client;
 
@@ -17,12 +28,16 @@ class AuthManager {
         if (!stored || stored.refreshTokenExpired) {
             this.authStore.setState(() => null);
             return;
+        } else {
+            this.authStore.setState(() => stored);
+
+            if (stored.accessTokenExpired) {
+                void this.refresh();
+            }
         }
 
-        this.authStore.setState(() => stored);
-
-        if (stored.accessTokenExpired) {
-            void this.refresh();
+        if (typeof window !== "undefined") {
+            window.addEventListener("storage", this.handleStorage);
         }
     }
 
