@@ -10,17 +10,18 @@ export type ArticleCardWrapProps = {
 
 export function ArticleCardWrap({articles, articleNavButton, className}: ArticleCardWrapProps) {
     return (
-        <div className={["max-h-[70vh] overflow-auto", className].filter(Boolean).join(" ")}
-             role="list"
-             aria-label="articles"
+        <div
+            className={["max-h-[70vh] overflow-auto", className].filter(Boolean).join(" ")}
+            role="list"
+            aria-label="articles"
         >
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-wrap justify-center gap-4">
                 {articles.map((article) => (
                     <ArticleCard
                         key={article.id}
                         navButton={articleNavButton}
                         article={article}
-                        className="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.666rem)]"
+                        className="w-full sm:w-[20rem]" // 👈 fixed card width on sm+
                     />
                 ))}
             </div>
