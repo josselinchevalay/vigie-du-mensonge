@@ -1,13 +1,15 @@
 import type {Article} from "@/core/models/article.ts";
 import React from "react";
+import {ArticleStatusDisplay} from "@/core/components/article/ArticleStatusDisplay.tsx";
 
 export type ArticleCardProps = {
     article: Article;
     navButton?: (article: Article) => React.ReactNode;
+    showStatus?: boolean;
     className?: string;
 };
 
-export function ArticleCard({article, navButton, className}: ArticleCardProps) {
+export function ArticleCard({article, navButton, showStatus, className}: ArticleCardProps) {
     return (
         <>
 
@@ -15,6 +17,9 @@ export function ArticleCard({article, navButton, className}: ArticleCardProps) {
                  role="article"
                  aria-label={article.title}
             >
+                <div className="flex flex-row gap-2 mb-2">
+                    {showStatus && ArticleStatusDisplay({status: article.status})}
+                </div>
                 <div className="flex flex-row gap-2 mb-2">
                     {navButton && navButton(article)}
                     <h3 className="text-lg font-bold leading-snug line-clamp-2">{article.title}</h3>

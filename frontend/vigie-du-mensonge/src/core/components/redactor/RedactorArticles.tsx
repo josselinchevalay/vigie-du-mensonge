@@ -16,7 +16,7 @@ export function RedactorArticles({articles}: RedactorArticlesProps) {
             >
                 Ajouter un article
             </Link>
-            <ArticleCardWrap articles={articles}
+            <ArticleCardWrap articles={articles} showArticleStatus={true}
                              articleNavButton={(article) => RedactorArticleNavButton({articleId: article.id})}
             />
         </div>

@@ -1,7 +1,7 @@
 import {Politician, type PoliticianJson} from "@/core/models/politician.ts";
 import {type ArticleCategory} from "@/core/models/articleCategory.ts";
 import {formatDate} from "@/core/utils/formatDate.ts";
-import type {ArticleStatus} from "@/core/models/articleStatus.ts";
+import {type ArticleStatus, ArticleStatuses} from "@/core/models/articleStatus.ts";
 
 export type ArticleJson = {
     id: string;
@@ -50,6 +50,26 @@ export class Article {
         this.tags = tags;
         this.category = category;
         this.status = status;
+    }
+
+    public get isPublished(): boolean {
+        return this.status === ArticleStatuses.PUBLISHED;
+    }
+
+    public get isDraft(): boolean {
+        return this.status === ArticleStatuses.DRAFT;
+    }
+
+    public get isUnderReview(): boolean {
+        return this.status === ArticleStatuses.UNDER_REVIEW;
+    }
+
+    public get isChangeRequested(): boolean {
+        return this.status === ArticleStatuses.CHANGE_REQUESTED;
+    }
+
+    public get isArchived(): boolean {
+        return this.status === ArticleStatuses.ARCHIVED;
     }
 
     public get politicianIds(): string[] {
