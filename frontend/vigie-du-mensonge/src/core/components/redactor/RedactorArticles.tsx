@@ -12,7 +12,7 @@ export function RedactorArticles({articles}: RedactorArticlesProps) {
         <div className="flex flex-col items-center gap-8 min-w-0 py-2">
             <Link
                 to="/redactor/new-draft"
-                className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
+                className="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
             >
                 Ajouter un article
             </Link>
