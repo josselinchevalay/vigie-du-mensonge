@@ -1,15 +1,16 @@
 import type {Article} from "@/core/models/article.ts";
-import {ArticleCard} from "@/core/components/article/ArticleCard.tsx";
+import {ArticleOverviewItem} from "@/core/components/article/ArticleOverviewItem.tsx";
 import React from "react";
 
-export type ArticleCardWrapProps = {
+export type ArticleOverviewGridProps = {
     articles: Article[];
     articleNavButton?: (article: Article) => React.ReactNode;
     showArticleStatus?: boolean;
     className?: string;
 };
 
-export function ArticleCardWrap({articles, articleNavButton, showArticleStatus, className}: ArticleCardWrapProps) {
+export function ArticleOverviewGrid({articles, articleNavButton, showArticleStatus, className}:
+                                    ArticleOverviewGridProps) {
     return (
         <div
             className={["max-h-[70vh] overflow-auto", className].filter(Boolean).join(" ")}
@@ -18,7 +19,7 @@ export function ArticleCardWrap({articles, articleNavButton, showArticleStatus, 
         >
             <div className="flex flex-wrap justify-center gap-4">
                 {articles.map((article) => (
-                    <ArticleCard
+                    <ArticleOverviewItem
                         key={article.id}
                         navButton={articleNavButton}
                         article={article}

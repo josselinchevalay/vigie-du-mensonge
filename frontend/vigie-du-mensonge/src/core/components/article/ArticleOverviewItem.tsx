@@ -2,14 +2,14 @@ import type {Article} from "@/core/models/article.ts";
 import React from "react";
 import {ArticleStatusDisplay} from "@/core/components/article/ArticleStatusDisplay.tsx";
 
-export type ArticleCardProps = {
+export type ArticleOverviewItemProps = {
     article: Article;
     navButton?: (article: Article) => React.ReactNode;
     showStatus?: boolean;
     className?: string;
 };
 
-export function ArticleCard({article, navButton, showStatus, className}: ArticleCardProps) {
+export function ArticleOverviewItem({article, navButton, showStatus, className}: ArticleOverviewItemProps) {
     return (
         <>
 
