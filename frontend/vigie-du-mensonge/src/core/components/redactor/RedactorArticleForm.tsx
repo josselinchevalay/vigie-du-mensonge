@@ -368,7 +368,7 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
                                         <div key={src}
                                              className="flex items-center justify-between rounded-md border px-2 py-1 text-xs">
                                             <a href={src} target="_blank" rel="noreferrer"
-                                               className="truncate max-w-[80%] underline">
+                                               className="truncate max-w-40 sm:max-w-100 underline">
                                                 {src}
                                             </a>
                                             <button type="button"
