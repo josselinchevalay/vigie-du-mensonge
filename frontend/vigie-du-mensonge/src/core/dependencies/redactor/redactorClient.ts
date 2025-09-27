@@ -31,11 +31,11 @@ export class RedactorClient {
         await this.api.post(`redactor/articles?publish=${publish}`, {json: dto});
     }
 
-    async findArticleByRef(ref: string): Promise<Article> {
+    async findArticleByRef(ref: string): Promise<Article[]> {
         const res = await this.api
             .get(`redactor/articles/${ref}`)
-            .json<ArticleJson>();
+            .json<ArticleJson[]>();
 
-        return Article.fromJson(res);
+        return res.map((json) => Article.fromJson(json));
     }
 }

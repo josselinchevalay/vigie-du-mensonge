@@ -14,7 +14,6 @@ import {politiciansManager} from "@/core/dependencies/politician/politiciansMana
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/core/shadcn/components/ui/select.tsx";
 import {type RedactorArticleJson, RedactorClient} from "@/core/dependencies/redactor/redactorClient.ts";
 import type {Article} from "@/core/models/article.ts";
-import {ArticleStatuses, ArticleStatusLabels} from "@/core/models/articleStatus.ts";
 
 export type RedactorArticleFormProps = {
     redactorClient: RedactorClient
@@ -28,7 +27,7 @@ const publishSchema = z.object({
     body: z.string().min(1, "Contenu requis").max(2000, "2000 caractères maximum").min(200, "200 caractères minimum"),
     tags: z.array(z.string().min(1).max(25)).min(1, "Au moins 1 tag").max(5, "5 tags maximum"),
     sources: z.array(z.url("URL invalide")).min(1, "Au moins 1 source").max(5, "5 sources maximum"),
-    politicians: z.array(z.string()).min(1, "Sélectionnez au moins 1 politicien").max(5, "5 politiciens maximum"),
+    politicians: z.array(z.string()).max(5, "5 politiciens maximum"),
 });
 
 const draftSchema = z.object({
@@ -62,13 +61,7 @@ function mapInput(input: RedactorArticleFormInput, articleId?: string): Redactor
 }
 
 export function RedactorArticleForm({redactorClient, article}: RedactorArticleFormProps) {
-    let disabled = false;
-    if (article && article.status !== ArticleStatuses.DRAFT && article.status !== ArticleStatuses.CHANGE_REQUESTED) {
-        disabled = true;
-    }
-
     const form = useForm<RedactorArticleFormInput>({
-        disabled: disabled,
         resolver: zodResolver(formSchema),
         defaultValues: {
             mode: "draft",
@@ -170,10 +163,6 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
     return (
         <div className="mx-auto w-full max-w-2xl">
 
-            {disabled && <div className="mb-4 rounded-md border bg-destructive/10 p-4 text-destructive">
-                {`Les articles dont le statut est [${ArticleStatusLabels[article!.status!]}] ne peuvent pas être modifiés.`}
-            </div>}
-
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-1">
@@ -242,10 +231,10 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
                         name="politicians"
                         render={() => (
                             <FormItem>
-                                <FormLabel>Politiciens impliqués</FormLabel>
+                                <FormLabel>Personnalités politiques impliquées. Si il/elle n'est pas présent(e) dans notre base de données, veuillez saisir un seul tag contenant à la fois son nom et prénom.</FormLabel>
                                 <div className="space-y-2">
                                     <Input
-                                        placeholder="Rechercher un politicien"
+                                        placeholder="Rechercher une personnalité politique"
                                         value={search}
                                         onChange={e => setSearch(e.target.value)}
                                     />
@@ -385,7 +374,7 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
                     <div className="flex flex-row gap-8 items-center justify-center">
                         <Button
                             type="submit"
-                            disabled={form.formState.isSubmitting || disabled}
+                            disabled={form.formState.isSubmitting}
                             onClick={() => form.setValue("mode", "draft", {shouldValidate: false})}
                         >
                             Enregistrer
@@ -393,7 +382,7 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
                         {article &&
                             <Button
                                 type="submit"
-                                disabled={form.formState.isSubmitting || disabled}
+                                disabled={form.formState.isSubmitting}
                                 onClick={() => form.setValue("mode", "publish", {shouldValidate: false})}
                             >
                                 Publier

@@ -22,7 +22,6 @@ export type ArticleJson = {
     sources?: string[];
     tags?: string[];
     politicians?: PoliticianJson[];
-    otherVersions?: ArticleJson[];
 }
 
 export class Article {
@@ -44,7 +43,6 @@ export class Article {
     public tags?: string[];
     public sources?: string[];
     public politicians?: Politician[];
-    public otherVersions?: Article[];
 
     constructor(
         id: string,
@@ -60,7 +58,6 @@ export class Article {
         tags: string[] | undefined,
         sources: string[] | undefined,
         politicians: Politician[] | undefined,
-        otherVersions: Article[] | undefined,
     ) {
         this.id = id;
         this.reference = reference;
@@ -75,7 +72,6 @@ export class Article {
         this.tags = tags;
         this.sources = sources;
         this.politicians = politicians;
-        this.otherVersions = otherVersions;
     }
 
     public get isPublished(): boolean {
@@ -107,6 +103,12 @@ export class Article {
         return formatDate(this.eventDate);
     }
 
+    public get versionLabel(): string {
+        const major = this.major ?? 0;
+        const minor = this.minor ?? 0;
+        return `v${major}.${minor}`;
+    }
+
     public static fromJson(json: ArticleJson): Article {
 
         return new Article(
@@ -123,7 +125,6 @@ export class Article {
             json.tags,
             json.sources,
             json.politicians?.map(Politician.fromJson),
-            json.otherVersions?.map(Article.fromJson),
         );
     }
 }

@@ -28,12 +28,19 @@ func (h *handler) findArticleDetailsForRedactor(c *fiber.Ctx) error {
 		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "invalid article reference"}
 	}
 
-	article, otherVersions, err := h.repo.findRedactorArticlesByReference(authedUser.ID, articleRef)
+	articles, err := h.repo.findRedactorArticlesByReference(authedUser.ID, articleRef)
 	if err != nil {
 		return err
 	}
 
-	resDTO := response_dto.NewArticle(article, otherVersions)
+	if len(articles) == 0 {
+		return &fiber.Error{Code: fiber.StatusNotFound, Message: "article not found"}
+	}
+
+	resDTO := make([]response_dto.Article, len(articles))
+	for i := range articles {
+		resDTO[i] = response_dto.NewArticle(articles[i])
+	}
 
 	return c.Status(fiber.StatusOK).JSON(resDTO)
 }

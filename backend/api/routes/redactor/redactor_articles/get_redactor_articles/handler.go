@@ -29,7 +29,7 @@ func (h *handler) getArticlesForRedactor(c *fiber.Ctx) error {
 
 	resDTO := make([]response_dto.Article, len(articles))
 	for i := range articles {
-		resDTO[i] = response_dto.NewArticle(articles[i], nil)
+		resDTO[i] = response_dto.NewArticle(articles[i])
 	}
 
 	return c.Status(fiber.StatusOK).JSON(resDTO)

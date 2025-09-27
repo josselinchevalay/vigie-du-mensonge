@@ -24,7 +24,7 @@ func (h *handler) getPublishedArticles(c *fiber.Ctx) error {
 	respDTO := make([]response_dto.Article, len(articles))
 
 	for i := range articles {
-		respDTO[i] = response_dto.NewArticle(articles[i], nil)
+		respDTO[i] = response_dto.NewArticle(articles[i])
 	}
 
 	return c.Status(fiber.StatusOK).JSON(respDTO)

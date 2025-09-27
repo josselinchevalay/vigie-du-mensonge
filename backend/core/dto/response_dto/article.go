@@ -20,16 +20,15 @@ type Article struct {
 	EventDate time.Time `json:"eventDate"`
 	UpdatedAt time.Time `json:"updatedAt"`
 
+	Minor int16 `json:"minor,omitempty"`
+	Major int16 `json:"major,omitempty"`
+
 	Sources     []string     `json:"sources,omitempty"`
 	Politicians []Politician `json:"politicians,omitempty"`
 	Tags        []string     `json:"tags,omitempty"`
-
-	OtherVersions []Article `json:"otherVersions,omitempty"`
-	Minor         int16     `json:"minor,omitempty"`
-	Major         int16     `json:"major,omitempty"`
 }
 
-func NewArticle(entity models.Article, otherVersions []models.Article) Article {
+func NewArticle(entity models.Article) Article {
 	dto := Article{
 		ID:        entity.ID,
 		Reference: entity.Reference,
@@ -61,13 +60,6 @@ func NewArticle(entity models.Article, otherVersions []models.Article) Article {
 		dto.Tags = make([]string, len(entity.Tags))
 		for i := range entity.Tags {
 			dto.Tags[i] = entity.Tags[i].Tag
-		}
-	}
-
-	if len(otherVersions) > 0 {
-		dto.OtherVersions = make([]Article, len(otherVersions))
-		for i := range otherVersions {
-			dto.OtherVersions[i] = NewArticle(otherVersions[i], nil)
 		}
 	}
 
