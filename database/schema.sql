@@ -71,29 +71,29 @@ CREATE TABLE roles
     CONSTRAINT pk_roles PRIMARY KEY (id),
 
     name       TEXT        NOT NULL,
-    CONSTRAINT uq_roles_name UNIQUE (name),
 
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     deleted_at TIMESTAMPTZ
 );
 
+CREATE UNIQUE INDEX uq_roles_name ON roles (name);
+
 
 CREATE TABLE users
 (
-    id             UUID        NOT NULL DEFAULT gen_random_uuid(),
+    id         UUID        NOT NULL DEFAULT gen_random_uuid(),
     CONSTRAINT pk_users PRIMARY KEY (id),
 
-    email          TEXT        NOT NULL,
-    CONSTRAINT uq_users_email UNIQUE (email),
+    email      TEXT        NOT NULL,
+    password   TEXT        NOT NULL,
 
-    email_verified BOOLEAN     NOT NULL DEFAULT FALSE,
-    password       TEXT        NOT NULL,
-
-    created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    deleted_at     TIMESTAMPTZ
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    deleted_at TIMESTAMPTZ
 );
+
+CREATE UNIQUE INDEX uq_users_email ON users (email);
 
 
 CREATE TABLE user_roles
@@ -104,6 +104,8 @@ CREATE TABLE user_roles
     CONSTRAINT fk_user_roles_role FOREIGN KEY (role_id) REFERENCES roles (id),
     CONSTRAINT pk_user_roles PRIMARY KEY (user_id, role_id)
 );
+
+CREATE INDEX idx_user_roles_user ON user_roles(user_id);
 
 
 CREATE TABLE user_tokens
@@ -118,11 +120,13 @@ CREATE TABLE user_tokens
     CONSTRAINT ck_user_tokens_category CHECK (category IN ('REFRESH', 'PASSWORD')),
 
     hash     TEXT        NOT NULL,
+    CONSTRAINT uq_user_tokens_hash UNIQUE (hash),
+
     expiry   TIMESTAMPTZ NOT NULL
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS idx_user_tokens_category_hash ON user_tokens (category, hash);
-CREATE INDEX IF NOT EXISTS idx_user_tokens_expiry ON user_tokens (expiry);
+CREATE INDEX IF NOT EXISTS idx_user_tokens_hash_category_expiry ON user_tokens (hash, category, expiry);
+CREATE INDEX IF NOT EXISTS idx_user_tokens_user_category ON user_tokens (user_id, category);
 
 
 CREATE TABLE articles
@@ -157,6 +161,9 @@ CREATE TABLE articles
     deleted_at   TIMESTAMPTZ
 );
 
+CREATE UNIQUE INDEX uq_articles_reference_not_archived ON articles (reference) WHERE status <> 'ARCHIVED';
+CREATE INDEX idx_articles_redactor_status ON articles (redactor_id, status);
+CREATE INDEX idx_articles_redactor_reference_created_at_desc ON articles (redactor_id, reference, created_at DESC);
 
 CREATE TABLE article_sources
 (
@@ -168,6 +175,8 @@ CREATE TABLE article_sources
     CONSTRAINT pk_article_sources PRIMARY KEY (article_id, url)
 );
 
+CREATE INDEX idx_article_sources_article ON article_sources (article_id);
+
 
 CREATE TABLE article_tags
 (
@@ -177,6 +186,8 @@ CREATE TABLE article_tags
     tag        TEXT NOT NULL,
     CONSTRAINT pk_article_tags PRIMARY KEY (article_id, tag)
 );
+
+CREATE INDEX idx_article_tags_article ON article_tags (article_id);
 
 
 CREATE TABLE article_reviews
@@ -198,6 +209,8 @@ CREATE TABLE article_reviews
     deleted_at   TIMESTAMPTZ
 );
 
+CREATE INDEX idx_article_reviews_article ON article_reviews (article_id);
+
 
 CREATE TABLE article_politicians
 (
@@ -209,6 +222,9 @@ CREATE TABLE article_politicians
 
     CONSTRAINT pk_article_politicians PRIMARY KEY (article_id, politician_id)
 );
+
+CREATE INDEX idx_article_politicians_article ON article_politicians (article_id);
+CREATE INDEX idx_article_politicians_politician ON article_politicians (politician_id);
 
 INSERT INTO roles (id, name)
 VALUES ('de966b93-a885-45e9-8ed9-48074912de55', 'ADMIN'),

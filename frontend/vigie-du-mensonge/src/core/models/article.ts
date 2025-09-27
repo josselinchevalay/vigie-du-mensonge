@@ -5,51 +5,77 @@ import {type ArticleStatus, ArticleStatuses} from "@/core/models/articleStatus.t
 
 export type ArticleJson = {
     id: string;
+    reference: string;
+
     title: string;
-    body: string | undefined;
-    sources: string[] | undefined;
-    eventDate: string;
-    updatedAt: string;
-    politicians: PoliticianJson[];
-    tags: string[];
+    body?: string;
+
     category: ArticleCategory;
     status: ArticleStatus;
+
+    eventDate: string;
+    updatedAt: string;
+
+    minor?: number;
+    major?: number;
+
+    sources?: string[];
+    tags?: string[];
+    politicians?: PoliticianJson[];
+    otherVersions?: ArticleJson[];
 }
 
 export class Article {
     public id: string;
+    public reference: string;
+
     public title: string;
-    public body: string | undefined;
-    public sources: string[] | undefined;
+    public body?: string;
+
+    public category: ArticleCategory;
+    public status?: ArticleStatus;
+
     public eventDate: Date;
     public updatedAt: Date;
-    public politicians: Politician[];
-    public tags: string[];
-    public category: ArticleCategory;
-    public status: ArticleStatus;
+
+    public minor?: number;
+    public major?: number;
+
+    public tags?: string[];
+    public sources?: string[];
+    public politicians?: Politician[];
+    public otherVersions?: Article[];
 
     constructor(
         id: string,
+        reference: string,
         title: string,
         body: string | undefined,
-        sources: string[] | undefined,
+        category: ArticleCategory,
+        status: ArticleStatus | undefined,
         eventDate: Date,
         updatedAt: Date,
-        politicians: Politician[],
-        tags: string[],
-        category: ArticleCategory,
-        status: ArticleStatus,
+        minor: number | undefined,
+        major: number | undefined,
+        tags: string[] | undefined,
+        sources: string[] | undefined,
+        politicians: Politician[] | undefined,
+        otherVersions: Article[] | undefined,
     ) {
         this.id = id;
+        this.reference = reference;
         this.title = title;
         this.body = body;
-        this.sources = sources;
-        this.eventDate = eventDate;
-        this.updatedAt = updatedAt;
-        this.politicians = politicians;
-        this.tags = tags;
         this.category = category;
         this.status = status;
+        this.eventDate = eventDate;
+        this.updatedAt = updatedAt;
+        this.minor = minor;
+        this.major = major;
+        this.tags = tags;
+        this.sources = sources;
+        this.politicians = politicians;
+        this.otherVersions = otherVersions;
     }
 
     public get isPublished(): boolean {
@@ -73,6 +99,7 @@ export class Article {
     }
 
     public get politicianIds(): string[] {
+        if (!this.politicians) return [];
         return this.politicians.map(p => p.id);
     }
 
@@ -81,17 +108,22 @@ export class Article {
     }
 
     public static fromJson(json: ArticleJson): Article {
+
         return new Article(
             json.id,
+            json.reference,
             json.title,
             json.body,
-            json.sources,
-            new Date(json.eventDate),
-            new Date(json.updatedAt),
-            json.politicians.map(Politician.fromJson),
-            json.tags,
             json.category,
             json.status,
+            new Date(json.eventDate),
+            new Date(json.updatedAt),
+            json.minor,
+            json.major,
+            json.tags,
+            json.sources,
+            json.politicians?.map(Politician.fromJson),
+            json.otherVersions?.map(Article.fromJson),
         );
     }
 }

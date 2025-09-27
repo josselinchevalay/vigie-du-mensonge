@@ -17,17 +17,17 @@ export function RedactorArticles({articles}: RedactorArticlesProps) {
                 Ajouter un article
             </Link>
             <ArticleCardWrap articles={articles} showArticleStatus={true}
-                             articleNavButton={(article) => RedactorArticleNavButton({articleId: article.id})}
+                             articleNavButton={(article) => RedactorArticleNavButton({articleRef: article.reference})}
             />
         </div>
     );
 }
 
-function RedactorArticleNavButton(props: { articleId: string }) {
+function RedactorArticleNavButton(props: { articleRef: string }) {
     return (
         <Link
-            to="/redactor/edit-article/$articleId"
-            params={{articleId: props.articleId}}
+            to="/redactor/edit-article/$articleRef"
+            params={{articleRef: props.articleRef}}
             className="inline-flex items-center"
         >
             <SquarePen/>

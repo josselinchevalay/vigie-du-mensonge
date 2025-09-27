@@ -1,19 +1,30 @@
 package get_published_articles
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"fmt"
+	"vdm/core/dto/response_dto"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 type Handler interface {
 	getPublishedArticles(c *fiber.Ctx) error
 }
 
 type handler struct {
-	svc Service
+	repo Repository
 }
 
 func (h *handler) getPublishedArticles(c *fiber.Ctx) error {
-	respDTO, err := h.svc.getAndMapArticles()
+	articles, err := h.repo.getPublishedArticles()
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to get published articles: %v", err)
+	}
+
+	respDTO := make([]response_dto.Article, len(articles))
+
+	for i := range articles {
+		respDTO[i] = response_dto.NewArticle(articles[i], nil)
 	}
 
 	return c.Status(fiber.StatusOK).JSON(respDTO)

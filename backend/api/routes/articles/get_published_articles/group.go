@@ -16,8 +16,7 @@ const (
 
 func Group(db *gorm.DB) *fiberx.Group {
 	repo := &repository{db}
-	svc := &service{repo}
-	handler := &handler{svc}
+	handler := &handler{repo}
 
 	group := fiberx.NewGroup(Path)
 

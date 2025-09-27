@@ -51,13 +51,6 @@ func (h *handler) saveArticleForRedactor(c *fiber.Ctx) error {
 }
 
 func validateForPublication(article models.Article) error {
-	if len(article.Title) < 20 {
-		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "article title is too short"}
-	}
-	if len(article.Title) > 100 {
-		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "article title is too long"}
-	}
-
 	if len(article.Body) < 200 {
 		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "article body is too short"}
 	}
@@ -68,22 +61,9 @@ func validateForPublication(article models.Article) error {
 	if len(article.Tags) < 1 {
 		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "article must have at least one tag"}
 	}
-	if len(article.Tags) > 5 {
-		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "article can't have more than 5 tags"}
-	}
 
 	if len(article.Sources) < 1 {
 		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "article must have at least one source"}
-	}
-	if len(article.Sources) > 5 {
-		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "article can't have more than 5 sources"}
-	}
-
-	if len(article.ArticlePoliticians) < 1 {
-		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "article must have at least one politician"}
-	}
-	if len(article.ArticlePoliticians) > 5 {
-		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "article can't have more than 5 politicians"}
 	}
 
 	return nil

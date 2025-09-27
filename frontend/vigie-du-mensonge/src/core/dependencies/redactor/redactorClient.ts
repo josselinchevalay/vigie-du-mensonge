@@ -31,9 +31,9 @@ export class RedactorClient {
         await this.api.post(`redactor/articles?publish=${publish}`, {json: dto});
     }
 
-    async findArticleById(articleId: string): Promise<Article> {
+    async findArticleByRef(ref: string): Promise<Article> {
         const res = await this.api
-            .get(`redactor/articles/${articleId}`)
+            .get(`redactor/articles/${ref}`)
             .json<ArticleJson>();
 
         return Article.fromJson(res);

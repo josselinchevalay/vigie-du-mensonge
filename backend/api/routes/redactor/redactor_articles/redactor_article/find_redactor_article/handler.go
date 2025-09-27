@@ -1,6 +1,7 @@
 package find_redactor_article
 
 import (
+	"vdm/core/dto/response_dto"
 	"vdm/core/locals"
 	"vdm/core/locals/local_keys"
 
@@ -22,15 +23,17 @@ func (h *handler) findArticleDetailsForRedactor(c *fiber.Ctx) error {
 		return &fiber.Error{Code: fiber.StatusInternalServerError, Message: "can't locals authed user"}
 	}
 
-	articleID, err := uuid.Parse(c.Params(local_keys.ArticleID))
+	articleRef, err := uuid.Parse(c.Params(local_keys.ArticleReference))
 	if err != nil {
-		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "invalid article id"}
+		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "invalid article reference"}
 	}
 
-	article, err := h.repo.findRedactorArticle(articleID, authedUser.ID)
+	article, otherVersions, err := h.repo.findRedactorArticlesByReference(authedUser.ID, articleRef)
 	if err != nil {
 		return err
 	}
 
-	return c.Status(fiber.StatusOK).JSON(newArticleDTO(article))
+	resDTO := response_dto.NewArticle(article, otherVersions)
+
+	return c.Status(fiber.StatusOK).JSON(resDTO)
 }

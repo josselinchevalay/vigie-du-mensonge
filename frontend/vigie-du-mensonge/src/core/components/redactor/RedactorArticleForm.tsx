@@ -171,7 +171,7 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
         <div className="mx-auto w-full max-w-2xl">
 
             {disabled && <div className="mb-4 rounded-md border bg-destructive/10 p-4 text-destructive">
-                {`Les articles dont le statut est [${ArticleStatusLabels[article!.status]}] ne peuvent pas être modifiés.`}
+                {`Les articles dont le statut est [${ArticleStatusLabels[article!.status!]}] ne peuvent pas être modifiés.`}
             </div>}
 
             <Form {...form}>

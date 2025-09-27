@@ -8,6 +8,7 @@ import (
 	"slices"
 	"testing"
 	"vdm/core/dependencies/database"
+	"vdm/core/dto/response_dto"
 	"vdm/core/fiberx"
 	"vdm/core/models"
 	"vdm/test_utils"
@@ -94,7 +95,7 @@ func TestIntegration_Success(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	var resDTO ResponseDTO
+	var resDTO []response_dto.Article
 	if err = json.Unmarshal(resBody, &resDTO); err != nil {
 		t.Fatal(err)
 	}
@@ -102,7 +103,7 @@ func TestIntegration_Success(t *testing.T) {
 	assert.Equal(t, len(data.articles), len(resDTO))
 
 	for range data.articles {
-		assert.True(t, slices.ContainsFunc(resDTO, func(dto ArticleDTO) bool {
+		assert.True(t, slices.ContainsFunc(resDTO, func(dto response_dto.Article) bool {
 			return len(dto.Tags) == 1 && len(dto.Politicians) == 1
 		}))
 	}

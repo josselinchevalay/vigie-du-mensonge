@@ -6,4 +6,4 @@ const AccessToken = "accessToken"
 const RefreshToken = "refreshToken"
 const CsrfToken = "csrfToken"
 
-const ArticleID = "articleID"
+const ArticleReference = "articleReference"

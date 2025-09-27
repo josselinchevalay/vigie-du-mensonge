@@ -7,7 +7,7 @@ import (
 	"vdm/core/locals/local_keys"
 )
 
-const Prefix = "/:" + local_keys.ArticleID
+const Prefix = "/:" + local_keys.ArticleReference
 
 func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	group := fiberx.NewGroup(Prefix)

@@ -18,7 +18,7 @@ export function ArticleCard({article, navButton, showStatus, className}: Article
                  aria-label={article.title}
             >
                 <div className="flex flex-row gap-2 mb-2">
-                    {showStatus && ArticleStatusDisplay({status: article.status})}
+                    {showStatus && ArticleStatusDisplay({status: article.status!})}
                 </div>
                 <div className="flex flex-row gap-2 mb-2">
                     {navButton && navButton(article)}

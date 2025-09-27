@@ -76,7 +76,7 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 
 		/* /get-csrf has its own rate limiter */
 		fiberx.NewMiddleware(limiter.New(limiter.Config{
-			Max:        10,
+			Max:        30,
 			Expiration: 1 * time.Minute,
 		})),
 

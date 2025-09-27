@@ -1,6 +1,8 @@
 package get_redactor_articles
 
 import (
+	"fmt"
+	"vdm/core/dto/response_dto"
 	"vdm/core/locals"
 
 	"github.com/gofiber/fiber/v2"
@@ -11,7 +13,7 @@ type Handler interface {
 }
 
 type handler struct {
-	svc Service
+	repo Repository
 }
 
 func (h *handler) getArticlesForRedactor(c *fiber.Ctx) error {
@@ -20,9 +22,14 @@ func (h *handler) getArticlesForRedactor(c *fiber.Ctx) error {
 		return &fiber.Error{Code: fiber.StatusInternalServerError, Message: "can't locals authed user"}
 	}
 
-	resDTO, err := h.svc.getAndMapRedactorArticles(authedUser.ID)
+	articles, err := h.repo.getArticlesByRedactorID(authedUser.ID)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to get articles: %v", err)
+	}
+
+	resDTO := make([]response_dto.Article, len(articles))
+	for i := range articles {
+		resDTO[i] = response_dto.NewArticle(articles[i], nil)
 	}
 
 	return c.Status(fiber.StatusOK).JSON(resDTO)

@@ -16,7 +16,7 @@ import { Route as RedactorRouteRouteImport } from './routes/redactor/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RedactorNewArticleRouteImport } from './routes/redactor/new-article'
 import { Route as RedactorArticlesRouteImport } from './routes/redactor/articles'
-import { Route as RedactorEditArticleArticleIdRouteImport } from './routes/redactor/edit-article/$articleId'
+import { Route as RedactorEditArticleArticleRefRouteImport } from './routes/redactor/edit-article/$articleRef'
 
 const SignUpRoute = SignUpRouteImport.update({
   id: '/sign-up',
@@ -53,10 +53,10 @@ const RedactorArticlesRoute = RedactorArticlesRouteImport.update({
   path: '/articles',
   getParentRoute: () => RedactorRouteRoute,
 } as any)
-const RedactorEditArticleArticleIdRoute =
-  RedactorEditArticleArticleIdRouteImport.update({
-    id: '/edit-article/$articleId',
-    path: '/edit-article/$articleId',
+const RedactorEditArticleArticleRefRoute =
+  RedactorEditArticleArticleRefRouteImport.update({
+    id: '/edit-article/$articleRef',
+    path: '/edit-article/$articleRef',
     getParentRoute: () => RedactorRouteRoute,
   } as any)
 
@@ -68,7 +68,7 @@ export interface FileRoutesByFullPath {
   '/sign-up': typeof SignUpRoute
   '/redactor/articles': typeof RedactorArticlesRoute
   '/redactor/new-article': typeof RedactorNewArticleRoute
-  '/redactor/edit-article/$articleId': typeof RedactorEditArticleArticleIdRoute
+  '/redactor/edit-article/$articleRef': typeof RedactorEditArticleArticleRefRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,7 +78,7 @@ export interface FileRoutesByTo {
   '/sign-up': typeof SignUpRoute
   '/redactor/articles': typeof RedactorArticlesRoute
   '/redactor/new-article': typeof RedactorNewArticleRoute
-  '/redactor/edit-article/$articleId': typeof RedactorEditArticleArticleIdRoute
+  '/redactor/edit-article/$articleRef': typeof RedactorEditArticleArticleRefRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,7 +89,7 @@ export interface FileRoutesById {
   '/sign-up': typeof SignUpRoute
   '/redactor/articles': typeof RedactorArticlesRoute
   '/redactor/new-article': typeof RedactorNewArticleRoute
-  '/redactor/edit-article/$articleId': typeof RedactorEditArticleArticleIdRoute
+  '/redactor/edit-article/$articleRef': typeof RedactorEditArticleArticleRefRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,7 +101,7 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/redactor/articles'
     | '/redactor/new-article'
-    | '/redactor/edit-article/$articleId'
+    | '/redactor/edit-article/$articleRef'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,7 +111,7 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/redactor/articles'
     | '/redactor/new-article'
-    | '/redactor/edit-article/$articleId'
+    | '/redactor/edit-article/$articleRef'
   id:
     | '__root__'
     | '/'
@@ -121,7 +121,7 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/redactor/articles'
     | '/redactor/new-article'
-    | '/redactor/edit-article/$articleId'
+    | '/redactor/edit-article/$articleRef'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -183,11 +183,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RedactorArticlesRouteImport
       parentRoute: typeof RedactorRouteRoute
     }
-    '/redactor/edit-article/$articleId': {
-      id: '/redactor/edit-article/$articleId'
-      path: '/edit-article/$articleId'
-      fullPath: '/redactor/edit-article/$articleId'
-      preLoaderRoute: typeof RedactorEditArticleArticleIdRouteImport
+    '/redactor/edit-article/$articleRef': {
+      id: '/redactor/edit-article/$articleRef'
+      path: '/edit-article/$articleRef'
+      fullPath: '/redactor/edit-article/$articleRef'
+      preLoaderRoute: typeof RedactorEditArticleArticleRefRouteImport
       parentRoute: typeof RedactorRouteRoute
     }
   }
@@ -196,13 +196,13 @@ declare module '@tanstack/react-router' {
 interface RedactorRouteRouteChildren {
   RedactorArticlesRoute: typeof RedactorArticlesRoute
   RedactorNewArticleRoute: typeof RedactorNewArticleRoute
-  RedactorEditArticleArticleIdRoute: typeof RedactorEditArticleArticleIdRoute
+  RedactorEditArticleArticleRefRoute: typeof RedactorEditArticleArticleRefRoute
 }
 
 const RedactorRouteRouteChildren: RedactorRouteRouteChildren = {
   RedactorArticlesRoute: RedactorArticlesRoute,
   RedactorNewArticleRoute: RedactorNewArticleRoute,
-  RedactorEditArticleArticleIdRoute: RedactorEditArticleArticleIdRoute,
+  RedactorEditArticleArticleRefRoute: RedactorEditArticleArticleRefRoute,
 }
 
 const RedactorRouteRouteWithChildren = RedactorRouteRoute._addFileChildren(

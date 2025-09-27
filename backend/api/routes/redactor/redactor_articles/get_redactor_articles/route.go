@@ -14,8 +14,7 @@ const (
 
 func Route(db *gorm.DB) *fiberx.Route {
 	repo := &repository{db}
-	svc := &service{repo}
-	handler := &handler{svc}
+	handler := &handler{repo}
 
 	return fiberx.NewRoute(Method, Path, handler.getArticlesForRedactor)
 }
