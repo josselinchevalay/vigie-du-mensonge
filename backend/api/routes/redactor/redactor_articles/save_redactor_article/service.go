@@ -8,6 +8,8 @@ import (
 	"github.com/google/uuid"
 )
 
+// TODO: test EVERY use case
+
 type Service interface {
 	saveArticleForRedactor(publish bool, newArticle models.Article) error
 }
@@ -21,7 +23,7 @@ func (s *service) saveArticleForRedactor(publish bool, newArticle models.Article
 		newArticle.Reference = uuid.New()
 		if publish {
 			newArticle.Status = models.ArticleStatusUnderReview
-			newArticle.Minor = 1 // increment minor version each time user asks for publication
+			newArticle.Minor = 1 // increment minor version each time user submits for publication
 		} else {
 			newArticle.Status = models.ArticleStatusDraft
 		}
@@ -39,16 +41,15 @@ func (s *service) saveArticleForRedactor(publish bool, newArticle models.Article
 			models.ArticleStatusDraft, models.ArticleStatusChangeRequested, oldArticle.Status)}
 	}
 
-	newArticle.Reference = oldArticle.Reference
-	newArticle.Major = oldArticle.Major
-
-	if publish {
-		newArticle.Status = models.ArticleStatusUnderReview
-		newArticle.Minor = oldArticle.Minor + 1 // increment minor version each time user asks for publication
-	} else {
-		newArticle.Status = oldArticle.Status
-		newArticle.Minor = oldArticle.Minor
+	if !publish {
+		// does not update status, minor, major, or reference so we don't need to set them
+		return s.repo.updateArticle(&newArticle)
 	}
 
-	return s.repo.updateArticle(&newArticle)
+	newArticle.Reference = oldArticle.Reference // set reference to track version history
+	newArticle.Major = oldArticle.Major
+	newArticle.Minor = oldArticle.Minor + 1 // increment minor version each time user submits for publication
+	newArticle.Status = models.ArticleStatusUnderReview
+
+	return s.repo.archiveOldVersionAndCreateNew(&newArticle)
 }

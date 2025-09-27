@@ -10,6 +10,7 @@ import (
 
 type Repository interface {
 	findArticle(articleID, redactorID uuid.UUID) (models.Article, error)
+	archiveOldVersionAndCreateNew(article *models.Article) error
 	createArticle(article *models.Article) error
 	updateArticle(article *models.Article) error
 }
@@ -28,6 +29,22 @@ func (r *repository) findArticle(articleID, redactorID uuid.UUID) (models.Articl
 	return article, nil
 }
 
+func (r *repository) archiveOldVersionAndCreateNew(article *models.Article) error {
+	return r.db.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Model(&models.Article{}).
+			Where("id = ?", article.ID).
+			Update("status", models.ArticleStatusArchived).Error; err != nil {
+			return fmt.Errorf("failed to archive old version: %v", err)
+		}
+
+		article.ID = uuid.New()
+		if err := tx.Create(article).Error; err != nil {
+			return fmt.Errorf("failed to create new version: %v", err)
+		}
+		return nil
+	})
+}
+
 func (r *repository) createArticle(article *models.Article) error {
 	return r.db.Create(article).Error
 }
@@ -41,10 +58,6 @@ func (r *repository) updateArticle(article *models.Article) error {
 				"body":       article.Body,
 				"event_date": article.EventDate,
 				"category":   article.Category,
-				"status":     article.Status,
-				"reference":  article.Reference,
-				"minor":      article.Minor,
-				"major":      article.Major,
 			}).Error; err != nil {
 			return fmt.Errorf("failed to update article: %v", err)
 		}
