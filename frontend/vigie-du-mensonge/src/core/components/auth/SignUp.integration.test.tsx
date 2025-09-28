@@ -74,7 +74,6 @@ describe('SignUp integration (MSW)', () => {
                 roles: ['user'],
             });
         });
-
         server.resetHandlers();
         server.use(http.post('http://localhost:8080/api/v1/auth/sign-up/process', processResolver));
 
