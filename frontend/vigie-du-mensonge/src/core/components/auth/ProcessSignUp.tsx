@@ -5,7 +5,6 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Input} from "@/core/shadcn/components/ui/input.tsx";
 import {Eye, EyeOff} from "lucide-react";
 import {Button} from "@/core/shadcn/components/ui/button.tsx";
-import type {ProcessPasswordUpdateInput} from "@/core/components/password_update/ProcessPasswordUpdate.tsx";
 import {z} from "zod";
 
 export type ProcessSignUpProps = {
@@ -13,9 +12,14 @@ export type ProcessSignUpProps = {
 }
 
 const formSchema = z.object({
+    username: z.string()
+        .min(2, "Au moins 2 caractères")
+        .max(20, "Maximum 20 caractères")
+        .regex(/^[a-z]+$/, "Seulement des lettres minuscules"),
     password: z
         .string()
         .min(8, "Au moins 8 caractères")
+        .max(50, "Maximum 50 caractères")
         .regex(/[a-z]/, "Au moins une lettre minuscule (a-z)")
         .regex(/[A-Z]/, "Au moins une lettre majuscule (A-Z)")
         .regex(/[0-9]/, "Au moins un chiffre (0-9)")
@@ -29,9 +33,9 @@ const formSchema = z.object({
 export type ProcessSignUpInput = z.infer<typeof formSchema>;
 
 export function ProcessSignUp({submit}: ProcessSignUpProps) {
-    const form = useForm<ProcessPasswordUpdateInput>({
+    const form = useForm<ProcessSignUpInput>({
         resolver: zodResolver(formSchema),
-        defaultValues: {password: "", confirmPassword: ""},
+        defaultValues: {username: "", password: "", confirmPassword: ""},
         mode: "onSubmit",
     });
 
@@ -44,6 +48,27 @@ export function ProcessSignUp({submit}: ProcessSignUpProps) {
                     <div className="space-y-1">
                         <h1 className="text-xl font-semibold">Saisissez votre mot de passe</h1>
                     </div>
+
+                    <FormField
+                        control={form.control}
+                        name="username"
+                        render={({field}) => (
+                            <FormItem>
+                                <FormLabel>Nom d'utilisateur</FormLabel>
+                                <FormControl>
+                                    <div className="relative">
+                                        <Input
+                                            type="text"
+                                            placeholder="username"
+                                            className="pr-10"
+                                            {...field}
+                                        />
+                                    </div>
+                                </FormControl>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                    />
 
                     <FormField
                         control={form.control}

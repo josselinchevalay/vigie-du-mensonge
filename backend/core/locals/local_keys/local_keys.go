@@ -7,3 +7,4 @@ const RefreshToken = "refreshToken"
 const CsrfToken = "csrfToken"
 
 const ArticleReference = "articleReference"
+const ArticleID = "articleID"

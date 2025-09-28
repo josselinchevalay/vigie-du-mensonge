@@ -13,6 +13,7 @@ import {politiciansManager} from "@/core/dependencies/politician/politiciansMana
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/core/shadcn/components/ui/select.tsx";
 import {RedactorClient, type SaveRedactorArticle} from "@/core/dependencies/redactor/redactorClient.ts";
 import type {Article} from "@/core/models/article.ts";
+import {formatDateEN} from "@/core/utils/formatDate.ts";
 
 export type RedactorArticleFormProps = {
     redactorClient: RedactorClient
@@ -65,7 +66,7 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
         defaultValues: {
             mode: "draft",
             title: article?.title ?? "",
-            eventDate: article?.formattedEventDate ?? "",
+            eventDate: article?.eventDate ? formatDateEN(article.eventDate) : "",
             body: article?.body ?? "",
             category: article?.category ?? ArticleCategories.FALSEHOOD,
             tags: article?.tags ?? [],
@@ -79,7 +80,7 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
         mutationFn: async (input: RedactorArticleFormInput) => {
             return redactorClient.saveArticle(input.mode === "publish", mapInput(input, article?.id));
         },
-        onSuccess: async () => {
+        onSuccess:  () => {
             toast.success("Votre article a été enregistré.");
             if (article) {
                 void queryClient.invalidateQueries({queryKey: ["redactor", "articles", article.reference]});
@@ -152,10 +153,6 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
 
     async function onSubmit(values: RedactorArticleFormInput) {
         await mutation.mutateAsync(values);
-        form.reset();
-        setSearch("");
-        setTagInput("");
-        setSourceInput("");
     }
 
     return (

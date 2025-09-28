@@ -3,6 +3,9 @@ import {useQuery} from "@tanstack/react-query";
 import {BasicProgress} from "@/core/components/BasicProgress.tsx";
 import {Link} from "@/core/utils/router.ts";
 import {ArticleOverviewGrid} from "@/core/components/article/ArticleOverviewGrid.tsx";
+import type {Article} from "@/core/models/article.ts";
+import {formatDateFR} from "@/core/utils/formatDate.ts";
+import {Separator} from "@/core/shadcn/components/ui/separator.tsx";
 
 export const Route = createFileRoute('/moderator/articles/pending')({
     component: RouteComponent,
@@ -41,6 +44,31 @@ function RouteComponent() {
         >
             Voir les articles sous votre modération
         </Link>
-        <ArticleOverviewGrid articles={articles ?? []}/>
+        {
+            (!articles || articles.length === 0)
+
+                ? <p>Aucun article n'est actuellement en attente de modération.</p>
+
+                : <ArticleOverviewGrid articles={articles}
+                                       articleHeader={(article) => ArticleHeader(article)}/>
+        }
+
     </div>;
+}
+
+function ArticleHeader(article: Article) {
+    return (
+        <div className="flex flex-col items-center gap-2">
+            <Link
+                to="/moderator/articles/$articleRef"
+                params={{articleRef: article.reference}}
+                className="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
+            >
+                consulter
+            </Link>
+            <p className="text-sm">Rédigé par {article.redactorTag}</p>
+            <p className="text-sm">En attente depuis le {formatDateFR(article.updatedAt)}</p>
+            <Separator/>
+        </div>
+    );
 }

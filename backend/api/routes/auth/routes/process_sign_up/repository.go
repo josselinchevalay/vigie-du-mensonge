@@ -11,6 +11,7 @@ import (
 
 type Repository interface {
 	createUserAndRefreshToken(user *models.User, rft *models.UserToken) error
+	userExistsByTag(tag string) (bool, error)
 }
 
 type repository struct {
@@ -58,4 +59,16 @@ func (r *repository) createUserAndRefreshToken(user *models.User, rft *models.Us
 	}
 
 	return
+}
+
+func (r *repository) userExistsByTag(tag string) (bool, error) {
+	var exists bool
+
+	if err := r.db.Model(&models.User{}).Where("tag = ?", tag).
+		Select("count(*)>0").
+		Find(&exists).Error; err != nil {
+		return false, err
+	}
+
+	return exists, nil
 }

@@ -141,6 +141,7 @@ CREATE TABLE articles
 
     moderator_id UUID,
     CONSTRAINT fk_articles_moderator FOREIGN KEY (moderator_id) REFERENCES users (id),
+    CONSTRAINT ck_articles_moderator CHECK (moderator_id IS NULL OR moderator_id <> redactor_id),
 
     status       TEXT        NOT NULL,
     CONSTRAINT ck_articles_status CHECK (status IN
@@ -171,7 +172,7 @@ CREATE INDEX idx_articles_redactor_reference_created_at_desc ON articles (redact
 CREATE TABLE article_sources
 (
     article_id UUID NOT NULL,
-    CONSTRAINT fk_article_sources_article FOREIGN KEY (article_id) REFERENCES articles (id),
+    CONSTRAINT fk_article_sources_article FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE,
 
     url        TEXT NOT NULL,
 
@@ -184,7 +185,7 @@ CREATE INDEX idx_article_sources_article ON article_sources (article_id);
 CREATE TABLE article_tags
 (
     article_id UUID NOT NULL,
-    CONSTRAINT fk_article_tags_article FOREIGN KEY (article_id) REFERENCES articles (id),
+    CONSTRAINT fk_article_tags_article FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE,
 
     tag        TEXT NOT NULL,
     CONSTRAINT pk_article_tags PRIMARY KEY (article_id, tag)
@@ -199,11 +200,14 @@ CREATE TABLE article_reviews
     CONSTRAINT pk_article_reviews PRIMARY KEY (id),
 
     article_id   UUID        NOT NULL,
-    CONSTRAINT fk_article_reviews_article FOREIGN KEY (article_id) REFERENCES articles (id),
+    CONSTRAINT fk_article_reviews_article FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE,
     CONSTRAINT uq_article_reviews_article UNIQUE (article_id),
 
     moderator_id UUID        NOT NULL,
     CONSTRAINT fk_article_reviews_moderator FOREIGN KEY (moderator_id) REFERENCES users (id),
+
+    decision     TEXT        NOT NULL,
+    CONSTRAINT ck_article_reviews_decision CHECK (decision IN ('PUBLISHED', 'ARCHIVED', 'CHANGE_REQUESTED')),
 
     notes        TEXT        NOT NULL,
 
@@ -218,7 +222,7 @@ CREATE INDEX idx_article_reviews_article ON article_reviews (article_id);
 CREATE TABLE article_politicians
 (
     article_id    UUID NOT NULL,
-    CONSTRAINT fk_article_politicians_article FOREIGN KEY (article_id) REFERENCES articles (id),
+    CONSTRAINT fk_article_politicians_article FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE,
 
     politician_id UUID NOT NULL,
     CONSTRAINT fk_article_politicians_politician FOREIGN KEY (politician_id) REFERENCES politicians (id),
@@ -234,11 +238,18 @@ VALUES ('de966b93-a885-45e9-8ed9-48074912de55', 'ADMIN'),
        ('02f0eccd-b0b2-42c0-aef1-6b306ca23005', 'MODERATOR'),
        ('86080136-8365-4541-a918-9ad8f1fd27ac', 'REDACTOR');
 
-INSERT INTO users (id, email, password)
-VALUES ('2d7c2090-179e-4084-9489-85b6a70934bc', 'user@test.com',
+INSERT INTO users (id, tag, email, password)
+VALUES ('2d7c2090-179e-4084-9489-85b6a70934bc', 'admin0123', 'admin@test.com',
         '$2a$12$oAvivQopMo3ZjlebA2BwgO4zENkTuf.4M5y4tDnDM.9YxrGmc.h42'); -- password: Test123!
 
 INSERT INTO user_roles (user_id, role_id)
 VALUES ('2d7c2090-179e-4084-9489-85b6a70934bc', 'de966b93-a885-45e9-8ed9-48074912de55'),
        ('2d7c2090-179e-4084-9489-85b6a70934bc', '02f0eccd-b0b2-42c0-aef1-6b306ca23005'),
        ('2d7c2090-179e-4084-9489-85b6a70934bc', '86080136-8365-4541-a918-9ad8f1fd27ac');
+
+INSERT INTO users (id, tag, email, password)
+VALUES ('eedbb792-190a-475f-8c17-6d7a1445e258', 'redactor0123', 'redactor@test.com',
+        '$2a$12$oAvivQopMo3ZjlebA2BwgO4zENkTuf.4M5y4tDnDM.9YxrGmc.h42'); -- password: Test123!
+
+INSERT INTO user_roles (user_id, role_id)
+VALUES ('eedbb792-190a-475f-8c17-6d7a1445e258', '86080136-8365-4541-a918-9ad8f1fd27ac');

@@ -20,6 +20,7 @@ import { Route as ModeratorArticlesIndexRouteImport } from './routes/moderator/a
 import { Route as RedactorArticlesNewRouteImport } from './routes/redactor/articles/new'
 import { Route as RedactorArticlesArticleRefRouteImport } from './routes/redactor/articles/$articleRef'
 import { Route as ModeratorArticlesPendingRouteImport } from './routes/moderator/articles/pending'
+import { Route as ModeratorArticlesArticleRefRouteImport } from './routes/moderator/articles/$articleRef'
 
 const SignUpRoute = SignUpRouteImport.update({
   id: '/sign-up',
@@ -78,6 +79,12 @@ const ModeratorArticlesPendingRoute =
     path: '/articles/pending',
     getParentRoute: () => ModeratorRouteRoute,
   } as any)
+const ModeratorArticlesArticleRefRoute =
+  ModeratorArticlesArticleRefRouteImport.update({
+    id: '/articles/$articleRef',
+    path: '/articles/$articleRef',
+    getParentRoute: () => ModeratorRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/moderator/articles/$articleRef': typeof ModeratorArticlesArticleRefRoute
   '/moderator/articles/pending': typeof ModeratorArticlesPendingRoute
   '/redactor/articles/$articleRef': typeof RedactorArticlesArticleRefRoute
   '/redactor/articles/new': typeof RedactorArticlesNewRoute
@@ -99,6 +107,7 @@ export interface FileRoutesByTo {
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/moderator/articles/$articleRef': typeof ModeratorArticlesArticleRefRoute
   '/moderator/articles/pending': typeof ModeratorArticlesPendingRoute
   '/redactor/articles/$articleRef': typeof RedactorArticlesArticleRefRoute
   '/redactor/articles/new': typeof RedactorArticlesNewRoute
@@ -113,6 +122,7 @@ export interface FileRoutesById {
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/moderator/articles/$articleRef': typeof ModeratorArticlesArticleRefRoute
   '/moderator/articles/pending': typeof ModeratorArticlesPendingRoute
   '/redactor/articles/$articleRef': typeof RedactorArticlesArticleRefRoute
   '/redactor/articles/new': typeof RedactorArticlesNewRoute
@@ -128,6 +138,7 @@ export interface FileRouteTypes {
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
+    | '/moderator/articles/$articleRef'
     | '/moderator/articles/pending'
     | '/redactor/articles/$articleRef'
     | '/redactor/articles/new'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
+    | '/moderator/articles/$articleRef'
     | '/moderator/articles/pending'
     | '/redactor/articles/$articleRef'
     | '/redactor/articles/new'
@@ -154,6 +166,7 @@ export interface FileRouteTypes {
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
+    | '/moderator/articles/$articleRef'
     | '/moderator/articles/pending'
     | '/redactor/articles/$articleRef'
     | '/redactor/articles/new'
@@ -249,15 +262,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModeratorArticlesPendingRouteImport
       parentRoute: typeof ModeratorRouteRoute
     }
+    '/moderator/articles/$articleRef': {
+      id: '/moderator/articles/$articleRef'
+      path: '/articles/$articleRef'
+      fullPath: '/moderator/articles/$articleRef'
+      preLoaderRoute: typeof ModeratorArticlesArticleRefRouteImport
+      parentRoute: typeof ModeratorRouteRoute
+    }
   }
 }
 
 interface ModeratorRouteRouteChildren {
+  ModeratorArticlesArticleRefRoute: typeof ModeratorArticlesArticleRefRoute
   ModeratorArticlesPendingRoute: typeof ModeratorArticlesPendingRoute
   ModeratorArticlesIndexRoute: typeof ModeratorArticlesIndexRoute
 }
 
 const ModeratorRouteRouteChildren: ModeratorRouteRouteChildren = {
+  ModeratorArticlesArticleRefRoute: ModeratorArticlesArticleRefRoute,
   ModeratorArticlesPendingRoute: ModeratorArticlesPendingRoute,
   ModeratorArticlesIndexRoute: ModeratorArticlesIndexRoute,
 }

@@ -9,4 +9,5 @@ type ResponseDTO struct {
 	AccessTokenExpiry  time.Time         `json:"accessTokenExpiry"`
 	RefreshTokenExpiry time.Time         `json:"refreshTokenExpiry"`
 	Roles              []models.RoleName `json:"roles,omitempty"`
+	Tag                string            `json:"tag"`
 }

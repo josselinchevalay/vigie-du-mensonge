@@ -7,7 +7,8 @@ import {ArticleStatuses, ArticleStatusLabels} from "@/core/models/articleStatus.
 import {RedactorArticleForm} from "@/core/components/redactor/RedactorArticleForm.tsx";
 import type {RedactorClient} from "@/core/dependencies/redactor/redactorClient.ts";
 import {
-    Dialog, DialogClose,
+    Dialog,
+    DialogClose,
     DialogContent,
     DialogFooter,
     DialogHeader,
@@ -29,7 +30,9 @@ export function RedactorArticlesByReference({redactorClient, articles}: Redactor
     const editable = selected.status === ArticleStatuses.DRAFT || selected.status === ArticleStatuses.CHANGE_REQUESTED;
 
     return <div className="flex flex-col items-center gap-4 min-w-0 py-2">
+
         <h1 className="text-xl font-bold">{selected.versionLabel}</h1>
+
         <div className="flex flex-row justify-center gap-8">
             <Button
                 disabled={index === articles.length - 1}
@@ -64,12 +67,12 @@ export function RedactorArticlesByReference({redactorClient, articles}: Redactor
                                 <DialogTitle>Toute modification non enregistrée sera perdue.</DialogTitle>
                             </DialogHeader>
                             <DialogFooter>
-                                    <DialogClose asChild>
-                                        <Button onClick={() => setEditMode(false)}>Passer en mode lecteur</Button>
-                                    </DialogClose>
-                                    <DialogClose asChild>
-                                        <Button>Rester en mode édition</Button>
-                                    </DialogClose>
+                                <DialogClose asChild>
+                                    <Button onClick={() => setEditMode(false)}>Passer en mode lecteur</Button>
+                                </DialogClose>
+                                <DialogClose asChild>
+                                    <Button>Rester en mode édition</Button>
+                                </DialogClose>
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>

@@ -3,6 +3,7 @@ import {useQuery} from "@tanstack/react-query";
 import {BasicProgress} from "@/core/components/BasicProgress.tsx";
 import {Link} from "@/core/utils/router.ts";
 import {ArticleOverviewGrid} from "@/core/components/article/ArticleOverviewGrid.tsx";
+import type {Article} from "@/core/models/article.ts";
 
 export const Route = createFileRoute('/moderator/articles/')({
     component: RouteComponent,
@@ -41,6 +42,27 @@ function RouteComponent() {
         >
             Voir les articles en attente de modération
         </Link>
-        <ArticleOverviewGrid articles={articles ?? []}/>
+
+        {
+            (!articles || articles.length === 0)
+
+                ? <p>Aucun article n'est actuellement sous votre modération.</p>
+
+                : <ArticleOverviewGrid articles={articles}
+                                       articleHeader={ArticleHeader}/>
+        }
+
+    </div>;
+}
+
+function ArticleHeader(article: Article) {
+    return <div className="flex sm:flex-row flex-col items-center justify-center gap-2">
+        <Link
+            to="/moderator/articles/$articleRef"
+            params={{articleRef: article.reference}}
+            className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
+        >
+            review
+        </Link>
     </div>;
 }

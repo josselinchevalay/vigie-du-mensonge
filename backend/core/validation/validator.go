@@ -21,6 +21,9 @@ func initValidator() *CustomValidator {
 	if err := v.RegisterValidation("email", validateEmail); err != nil {
 		log.Fatal(err)
 	}
+	if err := v.RegisterValidation("username", validateUsername); err != nil {
+		log.Fatal(err)
+	}
 	return &CustomValidator{validate: v}
 }
 

@@ -37,7 +37,7 @@ export class AuthClient {
         });
     }
 
-    async processSignUp(creds: { token: string, password: string }): Promise<Auth> {
+    async processSignUp(creds: { token: string, username: string, password: string }): Promise<Auth> {
         const res = await this.api
             .post("auth/sign-up/process", {
                 json: creds,

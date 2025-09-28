@@ -1,11 +1,13 @@
 import {Politician, type PoliticianJson} from "@/core/models/politician.ts";
 import {type ArticleCategory} from "@/core/models/articleCategory.ts";
-import {formatDate} from "@/core/utils/formatDate.ts";
 import {type ArticleStatus, ArticleStatuses} from "@/core/models/articleStatus.ts";
 
 export type ArticleJson = {
     id: string;
     reference: string;
+
+    redactorTag?: string;
+    moderatorTag?: string;
 
     title: string;
     body?: string;
@@ -28,6 +30,9 @@ export class Article {
     public id: string;
     public reference: string;
 
+    redactorTag?: string;
+    moderatorTag?: string;
+
     public title: string;
     public body?: string;
 
@@ -47,6 +52,8 @@ export class Article {
     constructor(
         id: string,
         reference: string,
+        redactorTag: string | undefined,
+        moderatorTag: string | undefined,
         title: string,
         body: string | undefined,
         category: ArticleCategory,
@@ -61,6 +68,8 @@ export class Article {
     ) {
         this.id = id;
         this.reference = reference;
+        this.redactorTag = redactorTag;
+        this.moderatorTag = moderatorTag;
         this.title = title;
         this.body = body;
         this.category = category;
@@ -99,10 +108,6 @@ export class Article {
         return this.politicians.map(p => p.id);
     }
 
-    public get formattedEventDate(): string {
-        return formatDate(this.eventDate);
-    }
-
     public get versionLabel(): string {
         const major = this.major ?? 0;
         const minor = this.minor ?? 0;
@@ -110,10 +115,11 @@ export class Article {
     }
 
     public static fromJson(json: ArticleJson): Article {
-
         return new Article(
             json.id,
             json.reference,
+            json.redactorTag,
+            json.moderatorTag,
             json.title,
             json.body,
             json.category,

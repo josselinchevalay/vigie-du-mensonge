@@ -2,12 +2,14 @@ export type AuthJson = {
     accessTokenExpiry: string;
     refreshTokenExpiry: string;
     roles?: string[];
+    tag: string;
 };
 
 export class Auth {
     public accessTokenExpiry: Date;
     public refreshTokenExpiry: Date;
     public roles: string[];
+    public tag: string;
 
     public static readonly STORAGE_KEY = 'vdm_auth';
 
@@ -15,10 +17,12 @@ export class Auth {
         accessTokenExpiry: Date,
         refreshTokenExpiry: Date,
         roles: string[],
+        tag: string,
     ) {
         this.accessTokenExpiry = accessTokenExpiry;
         this.refreshTokenExpiry = refreshTokenExpiry;
         this.roles = roles;
+        this.tag = tag;
     }
 
     get isRedactor(): boolean {
@@ -48,6 +52,7 @@ export class Auth {
             accessTokenExpiry,
             refreshTokenExpiry,
             json.roles ?? [],
+            json.tag,
         );
     }
 
@@ -61,6 +66,7 @@ export class Auth {
                 accessTokenExpiry: parsed.accessTokenExpiry,
                 refreshTokenExpiry: parsed.refreshTokenExpiry,
                 roles: parsed.roles ?? [],
+                tag: parsed.tag ?? '',
             });
         } catch {
             return null;
@@ -72,6 +78,7 @@ export class Auth {
             accessTokenExpiry: this.accessTokenExpiry.toISOString(),
             refreshTokenExpiry: this.refreshTokenExpiry.toISOString(),
             roles: this.roles,
+            tag: this.tag,
         };
     }
 

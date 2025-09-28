@@ -51,8 +51,11 @@ type Article struct {
 	Sources            []*ArticleSource     `gorm:"foreignKey:ArticleID"`
 	Review             *ArticleReview       `gorm:"foreignKey:ArticleID"`
 
-	RedactorID  uuid.UUID  `gorm:"column:redactor_id;type:uuid;not null"`
+	RedactorID uuid.UUID `gorm:"column:redactor_id;type:uuid;not null"`
+	Redactor   *User
+
 	ModeratorID *uuid.UUID `gorm:"column:moderator_id;type:uuid"`
+	Moderator   *User
 
 	Status    ArticleStatus   `gorm:"column:status;type:text;not null"`
 	Category  ArticleCategory `gorm:"column:category;type:text;not null"`

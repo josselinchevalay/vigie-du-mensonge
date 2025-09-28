@@ -31,10 +31,17 @@ func (r *repository) findArticle(articleID, redactorID uuid.UUID) (models.Articl
 
 func (r *repository) archiveOldVersionAndCreateNew(article *models.Article) error {
 	return r.db.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Model(&models.Article{}).
-			Where("id = ?", article.ID).
-			Update("status", models.ArticleStatusArchived).Error; err != nil {
-			return fmt.Errorf("failed to archive old version: %v", err)
+		if article.Major == 0 && article.Minor == 1 { // in this case, don't archive the first draft: just delete it
+			if err := tx.Unscoped(). // hard delete
+							Delete(&models.Article{ID: article.ID}).Error; err != nil {
+				return fmt.Errorf("failed to delete first draft: %v", err)
+			}
+		} else {
+			if err := tx.Model(&models.Article{}).
+				Where("id = ?", article.ID).
+				Update("status", models.ArticleStatusArchived).Error; err != nil {
+				return fmt.Errorf("failed to archive old version: %v", err)
+			}
 		}
 
 		article.ID = uuid.New()

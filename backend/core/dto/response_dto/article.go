@@ -11,6 +11,9 @@ type Article struct {
 	ID        uuid.UUID `json:"id"`
 	Reference uuid.UUID `json:"reference"`
 
+	RedactorTag  string `json:"redactorTag,omitempty"`
+	ModeratorTag string `json:"moderatorTag,omitempty"`
+
 	Title string `json:"title"`
 	Body  string `json:"body,omitempty"`
 
@@ -42,6 +45,14 @@ func NewArticle(entity models.Article) Article {
 		UpdatedAt: entity.UpdatedAt,
 		Minor:     entity.Minor,
 		Major:     entity.Major,
+	}
+
+	if entity.Redactor != nil {
+		dto.RedactorTag = entity.Redactor.Tag
+	}
+
+	if entity.Moderator != nil {
+		dto.ModeratorTag = entity.Moderator.Tag
 	}
 
 	if entity.Review != nil {

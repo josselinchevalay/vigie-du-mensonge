@@ -1,4 +1,4 @@
-package find_moderator_article
+package review_moderator_article
 
 import (
 	"vdm/core/fiberx"
@@ -9,12 +9,12 @@ import (
 )
 
 const (
-	Path   = "/:" + local_keys.ArticleReference
-	Method = fiber.MethodGet
+	Path   = "/:" + local_keys.ArticleID + "/review"
+	Method = fiber.MethodPost
 )
 
 func Route(db *gorm.DB) *fiberx.Route {
 	repo := &repository{db}
 	handler := &handler{repo}
-	return fiberx.NewRoute(Method, Path, handler.findArticlesByReferenceForModerator)
+	return fiberx.NewRoute(Method, Path, handler.reviewArticleForModerator)
 }

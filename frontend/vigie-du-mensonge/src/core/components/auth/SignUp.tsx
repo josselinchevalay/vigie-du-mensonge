@@ -9,7 +9,7 @@ export type SignUpProps = {
 export function SignUp({controller}: SignUpProps) {
     if (controller.token) {
         return <ProcessSignUp
-            submit={({password}) => controller.onProcess(password)}/>;
+            submit={({username, password}) => controller.onProcess(username, password)}/>;
     }
 
     return <InquireSignUp submit={({email}) => controller.onInquire(email)}/>;

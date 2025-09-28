@@ -2,9 +2,9 @@ import {createFileRoute} from "@tanstack/react-router";
 import {useQuery} from "@tanstack/react-query";
 import {BasicProgress} from "@/core/components/BasicProgress.tsx";
 import {Link} from "@/core/utils/router.ts";
-import {SquarePen} from "lucide-react";
 import {ArticleOverviewGrid} from "@/core/components/article/ArticleOverviewGrid.tsx";
 import {ArticleStatusDisplay} from "@/core/components/article/ArticleStatusDisplay";
+import type {Article} from "@/core/models/article.ts";
 
 export const Route = createFileRoute('/redactor/articles/')({
     component: RouteComponent,
@@ -44,20 +44,21 @@ function RouteComponent() {
             Ajouter un article
         </Link>
         <ArticleOverviewGrid articles={articles ?? []}
-                             articleHeader={(article) => ArticleStatusDisplay({status: article.status!})}
-                             articleNavButton={(article) => ArticleNavButton({articleRef: article.reference})}
+                             articleHeader={ArticleHeader}
         />
     </div>;
 }
 
-function ArticleNavButton(props: { articleRef: string }) {
-    return (
+
+function ArticleHeader(article: Article) {
+    return <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
         <Link
             to="/redactor/articles/$articleRef"
-            params={{articleRef: props.articleRef}}
-            className="inline-flex items-center"
+            params={{articleRef: article.reference}}
+            className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
         >
-            <SquarePen/>
+            Consulter
         </Link>
-    );
+        <ArticleStatusDisplay status={article.status!}/>
+    </div>;
 }

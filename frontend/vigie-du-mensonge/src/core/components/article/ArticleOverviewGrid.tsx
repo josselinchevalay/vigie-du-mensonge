@@ -5,11 +5,10 @@ import React from "react";
 export type ArticleOverviewGridProps = {
     articles: Article[];
     articleHeader?: (article: Article) => React.ReactNode;
-    articleNavButton?: (article: Article) => React.ReactNode;
     className?: string;
 };
 
-export function ArticleOverviewGrid({articles, articleHeader, articleNavButton, className}:
+export function ArticleOverviewGrid({articles, articleHeader, className}:
                                     ArticleOverviewGridProps) {
     return (
         <div
@@ -21,10 +20,9 @@ export function ArticleOverviewGrid({articles, articleHeader, articleNavButton, 
                 {articles.map((article) => (
                     <ArticleOverviewItem
                         key={article.id}
-                        navButton={articleNavButton}
                         article={article}
                         header={articleHeader}
-                        className="w-full sm:w-[20rem]" // 👈 fixed card width on sm+
+                        className="sm:w-[30rem]"
                     />
                 ))}
             </div>

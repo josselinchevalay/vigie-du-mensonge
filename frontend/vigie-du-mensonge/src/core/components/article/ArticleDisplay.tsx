@@ -1,15 +1,18 @@
 import type {Article} from "@/core/models/article.ts";
 import {ArticleCategoryLabels} from "@/core/models/articleCategory.ts";
+import {formatDateFR} from "@/core/utils/formatDate.ts";
 
 export function ArticleDisplay({article}: { article: Article }) {
     return (
         <article className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 py-6" aria-label={article.title}>
             <header className="mb-6">
                 <div className="mb-3 flex flex-wrap items-center gap-2 text-sm text-gray-600">
-                    <span className="inline-flex items-center rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-700">
-                        {ArticleCategoryLabels[article.category]}
-                    </span>
-                    <span aria-label="date de l'événement">{article.formattedEventDate}</span>
+                    <span className="text-sm font-bold">{ArticleCategoryLabels[article.category]}</span>
+                    {/*<span*/}
+                    {/*    className="inline-flex items-center rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-700">*/}
+                    {/*    {ArticleCategoryLabels[article.category]}*/}
+                    {/*</span>*/}
+                    <span aria-label="date de l'événement">le {formatDateFR(article.eventDate)}</span>
                     <span className="hidden sm:inline" aria-hidden>
                         ·
                     </span>

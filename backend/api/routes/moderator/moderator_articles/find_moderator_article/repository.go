@@ -23,6 +23,9 @@ func (r *repository) findArticlesByReference(reference uuid.UUID) ([]models.Arti
 		Preload("Sources").
 		Preload("Tags").
 		Preload("Review").
+		Preload("Moderator", func(db *gorm.DB) *gorm.DB {
+			return db.Select("id", "tag")
+		}).
 		Preload("Politicians", func(db *gorm.DB) *gorm.DB {
 			return db.Select("id", "first_name", "last_name")
 		}).

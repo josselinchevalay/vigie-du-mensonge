@@ -39,21 +39,21 @@ export default function AppBar() {
                             </>
                         ) : (
                             <>
+                                {auth.isModerator &&
+                                    <Link
+                                        to="/moderator/articles"
+                                        className="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
+                                    >
+                                        Espace modérateur
+                                    </Link>
+                                }
                                 {auth.isRedactor &&
-                                    <>
-                                        <Link
-                                            to="/moderator/articles"
-                                            className="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
-                                        >
-                                            Espace modérateur
-                                        </Link>
-                                        <Link
-                                            to="/redactor/articles"
-                                            className="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
-                                        >
-                                            Espace rédacteur
-                                        </Link>
-                                    </>
+                                    <Link
+                                        to="/redactor/articles"
+                                        className="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
+                                    >
+                                        Espace rédacteur
+                                    </Link>
                                 }
                                 <Button onClick={() => authManager.signOut()}>Déconnexion</Button>
                             </>

@@ -1,10 +1,10 @@
 export const ArticleStatuses = {
+    DRAFT: 'DRAFT',
     UNDER_REVIEW: 'UNDER_REVIEW',
     CHANGE_REQUESTED: 'CHANGE_REQUESTED',
-    DRAFT: 'DRAFT',
     ARCHIVED: 'ARCHIVED',
     PUBLISHED: 'PUBLISHED',
-};
+} as const;
 
 export type ArticleStatus = keyof typeof ArticleStatuses;
 

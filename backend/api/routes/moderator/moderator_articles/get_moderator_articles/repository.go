@@ -18,9 +18,12 @@ type repository struct {
 func (r *repository) getArticlesByModeratorID(moderatorID uuid.UUID) ([]models.Article, error) {
 	var articles []models.Article
 
-	if err := r.db.Where("moderator_id = ? AND status <> ?", moderatorID, models.ArticleStatusArchived).
+	if err := r.db.Where("moderator_id = ? AND status = ?", moderatorID, models.ArticleStatusUnderReview).
 		Order("created_at DESC").
-		Select("id", "reference", "title", "event_date", "updated_at", "category", "status").
+		Select("id", "redactor_id", "reference", "title", "event_date", "updated_at", "category", "status").
+		Preload("Redactor", func(db *gorm.DB) *gorm.DB {
+			return db.Select("id", "tag")
+		}).
 		Preload("Politicians", func(db *gorm.DB) *gorm.DB {
 			return db.Select("id", "first_name", "last_name")
 		}).

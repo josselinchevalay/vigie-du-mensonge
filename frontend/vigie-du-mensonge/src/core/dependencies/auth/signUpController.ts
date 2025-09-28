@@ -24,9 +24,9 @@ export class SignUpController {
         }
     }
 
-    async onProcess(password: string): Promise<boolean> {
+    async onProcess(username: string, password: string): Promise<boolean> {
         try {
-            const auth = await this.client.processSignUp({token: this.token!, password});
+            const auth = await this.client.processSignUp({token: this.token!, username: username, password: password});
             auth.saveToStorage();
             authManager.authStore.setState(() => auth);
             toast.success('Votre inscription est terminée!');

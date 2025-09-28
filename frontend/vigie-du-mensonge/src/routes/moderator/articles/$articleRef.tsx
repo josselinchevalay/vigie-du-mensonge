@@ -1,9 +1,9 @@
 import {createFileRoute} from '@tanstack/react-router';
 import {useQuery} from "@tanstack/react-query";
 import {BasicProgress} from "@/core/components/BasicProgress.tsx";
-import {RedactorArticlesByReference} from "@/core/components/redactor/RedactorArticlesByReference.tsx";
+import {ModeratorArticlesByReference} from "@/core/components/moderator/ModeratorArticlesByReference.tsx";
 
-export const Route = createFileRoute('/redactor/articles/$articleRef')({
+export const Route = createFileRoute('/moderator/articles/$articleRef')({
     beforeLoad: ({params}) => {
         const articleRef = params.articleRef;
         return {articleRef: articleRef};
@@ -13,11 +13,11 @@ export const Route = createFileRoute('/redactor/articles/$articleRef')({
 
 function RouteComponent() {
     const {articleRef} = Route.useParams();
-    const redactorClient = Route.useRouteContext().redactorClient;
+    const moderatorClient = Route.useRouteContext().moderatorClient;
 
     const {data: articles, isLoading, isError} = useQuery({
-        queryKey: ["redactor", "articles", articleRef],
-        queryFn: () => redactorClient.findRedactorArticlesByRef(articleRef),
+        queryKey: ["moderator", "articles", articleRef],
+        queryFn: () => moderatorClient.findModeratorArticlesByRef(articleRef),
     });
 
     if (isError) {
@@ -43,6 +43,5 @@ function RouteComponent() {
         );
     }
 
-    return <RedactorArticlesByReference redactorClient={redactorClient}
-                                        articles={articles}/>;
+    return <ModeratorArticlesByReference articles={articles} moderatorClient={moderatorClient}/>;
 }

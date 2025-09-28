@@ -36,5 +36,6 @@ func (h *handler) signIn(c *fiber.Ctx) error {
 		AccessTokenExpiry:  accessToken.Expiry,
 		RefreshTokenExpiry: refreshToken.Expiry,
 		Roles:              user.RoleNames(),
+		Tag:                user.Tag,
 	})
 }

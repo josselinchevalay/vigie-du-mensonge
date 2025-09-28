@@ -2,6 +2,7 @@ package process_sign_up
 
 import (
 	"fmt"
+	"math/rand"
 	"time"
 	"vdm/core/hmac_utils"
 	"vdm/core/jwt_utils"
@@ -36,6 +37,12 @@ func (s *service) createUserAndBuildTokens(req RequestDTO) (locals.AccessToken, 
 
 	user := &models.User{Email: tokenUser.Email}
 
+	if userTag, err := s.generateUserTag(req.Username); err != nil {
+		return locals.AccessToken{}, locals.RefreshToken{}, fmt.Errorf("failed to generate user tag: %v", err)
+	} else {
+		user.Tag = userTag
+	}
+
 	if hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost); err != nil {
 		return locals.AccessToken{}, locals.RefreshToken{}, fmt.Errorf("failed to hash password: %v", err)
 	} else {
@@ -63,4 +70,18 @@ func (s *service) createUserAndBuildTokens(req RequestDTO) (locals.AccessToken, 
 			Token:  rft,
 			Expiry: usrTok.Expiry,
 		}, nil
+}
+
+func (s *service) generateUserTag(username string) (string, error) {
+	generator := rand.New(rand.NewSource(time.Now().UnixNano()))
+
+	for {
+		tag := fmt.Sprintf("%s%d", username, generator.Intn(10_000))
+
+		if exists, err := s.repo.userExistsByTag(tag); err != nil {
+			return "", fmt.Errorf("failed to check if user tag exists: %v", err)
+		} else if !exists {
+			return tag, nil
+		}
+	}
 }
