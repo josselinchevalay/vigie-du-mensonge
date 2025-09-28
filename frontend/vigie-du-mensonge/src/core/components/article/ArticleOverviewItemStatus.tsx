@@ -10,7 +10,10 @@ const statusConfig: Record<ArticleStatus, { icon: React.ReactNode; label: string
     DRAFT: {icon: <File/>, label: ArticleStatusLabels.DRAFT},
 };
 
-export function ArticleStatusDisplay({status}: { status: ArticleStatus; }) {
+export function ArticleOverviewItemStatus({status}: { status?: ArticleStatus; }) {
+    if (!status) {
+        return null;
+    }
 
     const {icon, label} = statusConfig[status] ?? {icon: <FileQuestionMark/>, label: "Inconnu"};
 

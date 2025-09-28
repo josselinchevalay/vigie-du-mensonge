@@ -6,6 +6,7 @@ import {authManager} from '@/core/dependencies/auth/authManager.ts';
 import {AuthRefreshScheduler} from '@/core/dependencies/auth/authRefreshScheduler.ts';
 import AppBar from "@/core/components/AppBar.tsx";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {ThemeProvider} from "@/core/components/theme/ThemeProvider.tsx";
 
 const queryClient = new QueryClient();
 
@@ -35,21 +36,22 @@ const RootLayout = () => {
     }, []);
 
     return (
-        <QueryClientProvider client={queryClient}>
-            <div className="flex min-h-dvh w-full flex-col">
-                <AppBar/>
+        <ThemeProvider>
+            <QueryClientProvider client={queryClient}>
+                <div className="flex min-h-dvh w-full flex-col">
+                    <AppBar/>
 
-                <main id="main-content" role="main" className="flex-1 overflow-auto py-4">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <main id="main-content" role="main"
+                          className="flex-1 overflow-auto py-4">
                         <Outlet/>
-                    </div>
-                </main>
-            </div>
+                    </main>
+                </div>
 
-            <Toaster position="top-center" duration={3000}/>
+                <Toaster position="top-center" duration={3000}/>
 
-            {import.meta.env.DEV ? <TanStackRouterDevtools/> : null}
-        </QueryClientProvider>
+                {import.meta.env.DEV ? <TanStackRouterDevtools/> : null}
+            </QueryClientProvider>
+        </ThemeProvider>
     );
 };
 

@@ -2,9 +2,9 @@ import {createFileRoute} from "@tanstack/react-router";
 import {useQuery} from "@tanstack/react-query";
 import {BasicProgress} from "@/core/components/BasicProgress.tsx";
 import {Link} from "@/core/utils/router.ts";
-import {ArticleOverviewGrid} from "@/core/components/article/ArticleOverviewGrid.tsx";
-import {ArticleStatusDisplay} from "@/core/components/article/ArticleStatusDisplay";
+import {ArticleOverviewItem} from "@/core/components/article/ArticleOverviewItem.tsx";
 import type {Article} from "@/core/models/article.ts";
+import {ArticleOverviewItemStatus} from "@/core/components/article/ArticleOverviewItemStatus.tsx";
 
 export const Route = createFileRoute('/redactor/articles/')({
     component: RouteComponent,
@@ -39,26 +39,33 @@ function RouteComponent() {
     return <div className="flex flex-col items-center gap-8 min-w-0 py-2">
         <Link
             to="/redactor/articles/new" replace={true}
-            className="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
+            className="p-2 text-sm font-medium rounded-md hover:bg-accent"
         >
             Ajouter un article
         </Link>
-        <ArticleOverviewGrid articles={articles ?? []}
-                             articleHeader={ArticleHeader}
-        />
+
+        {
+            (articles && articles.length > 0) &&
+
+            <div className="flex flex-wrap justify-center gap-4 w-full">
+                {articles.map((article) => (
+                    <Link
+                        key={article.id}
+                        to="/redactor/articles/$articleRef"
+                        params={{articleRef: article.reference}}
+                        className="contents">
+                        <ArticleOverviewItem
+                            article={article}
+                            header={ArticleHeader}
+                        />
+                    </Link>
+                ))}
+            </div>
+        }
+
     </div>;
 }
 
-
 function ArticleHeader(article: Article) {
-    return <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
-        <Link
-            to="/redactor/articles/$articleRef"
-            params={{articleRef: article.reference}}
-            className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
-        >
-            Consulter
-        </Link>
-        <ArticleStatusDisplay status={article.status!}/>
-    </div>;
+    return <ArticleOverviewItemStatus status={article.status}/>;
 }

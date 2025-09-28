@@ -7,9 +7,6 @@ import './index.css';
 import {routeTree} from './routeTree.gen';
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
 
-const mq = window.matchMedia('(prefers-color-scheme: dark)');
-document.documentElement.classList.toggle('dark', mq.matches);
-
 // Create a new router instance
 export const router = createRouter({
     routeTree,
