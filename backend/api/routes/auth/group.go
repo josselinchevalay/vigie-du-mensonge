@@ -9,8 +9,6 @@ import (
 	"vdm/api/routes/auth/routes/sign_out"
 	"vdm/core/dependencies"
 	"vdm/core/fiberx"
-
-	"github.com/gofiber/fiber/v2/middleware/cache"
 )
 
 const Prefix = "/auth"
@@ -19,10 +17,6 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	group := fiberx.NewGroup(Prefix)
 
 	group.Add(
-		fiberx.NewMiddleware(cache.New(cache.Config{
-			CacheControl: false,
-		})),
-
 		inquire_sign_up.Route(deps.Config.Security, deps.Config.ClientURL, deps.GormDB(), deps.Mailer),
 
 		set_auth_cookies.Middleware(deps.Config.Security),

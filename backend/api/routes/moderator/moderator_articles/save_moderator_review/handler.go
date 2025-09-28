@@ -1,4 +1,4 @@
-package review_moderator_article
+package save_moderator_review
 
 import (
 	"vdm/core/locals"
@@ -11,14 +11,14 @@ import (
 )
 
 type Handler interface {
-	reviewArticleForModerator(c *fiber.Ctx) error
+	saveArticleReviewForModerator(c *fiber.Ctx) error
 }
 
 type handler struct {
 	repo Repository
 }
 
-func (h *handler) reviewArticleForModerator(c *fiber.Ctx) error {
+func (h *handler) saveArticleReviewForModerator(c *fiber.Ctx) error {
 	authedUser, ok := c.Locals("authedUser").(locals.AuthedUser)
 	if !ok {
 		return &fiber.Error{Code: fiber.StatusInternalServerError, Message: "can't locals authed user"}
@@ -56,7 +56,7 @@ func (h *handler) reviewArticleForModerator(c *fiber.Ctx) error {
 		review.Notes = reqDTO.Notes
 	}
 
-	if err := h.repo.createArticleReview(review); err != nil {
+	if err := h.repo.createReviewAndUpdateArticle(review); err != nil {
 		return err
 	}
 

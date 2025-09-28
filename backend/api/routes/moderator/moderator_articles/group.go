@@ -5,7 +5,7 @@ import (
 	"vdm/api/routes/moderator/moderator_articles/find_moderator_article"
 	"vdm/api/routes/moderator/moderator_articles/get_moderator_articles"
 	"vdm/api/routes/moderator/moderator_articles/get_pending_articles"
-	"vdm/api/routes/moderator/moderator_articles/review_moderator_article"
+	"vdm/api/routes/moderator/moderator_articles/save_moderator_review"
 	"vdm/core/dependencies"
 	"vdm/core/fiberx"
 )
@@ -20,7 +20,7 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 		get_pending_articles.Route(deps.GormDB()),
 		find_moderator_article.Route(deps.GormDB()),
 		claim_moderator_article.Route(deps.GormDB()),
-		review_moderator_article.Route(deps.GormDB()),
+		save_moderator_review.Route(deps.GormDB()),
 	)
 
 	return group

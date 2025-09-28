@@ -1,4 +1,4 @@
-package review_moderator_article
+package save_moderator_review
 
 import (
 	"vdm/core/fiberx"
@@ -16,5 +16,5 @@ const (
 func Route(db *gorm.DB) *fiberx.Route {
 	repo := &repository{db}
 	handler := &handler{repo}
-	return fiberx.NewRoute(Method, Path, handler.reviewArticleForModerator)
+	return fiberx.NewRoute(Method, Path, handler.saveArticleReviewForModerator)
 }

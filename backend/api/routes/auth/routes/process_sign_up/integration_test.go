@@ -69,7 +69,7 @@ func TestIntegration_Success(t *testing.T) {
 	Route(connector.GormDB(), dummyCfg).Register(app)
 
 	email := "user1@email.com"
-	reqDTO := RequestDTO{Password: "Test123!"}
+	reqDTO := RequestDTO{Username: "hello", Password: "Test123!"}
 
 	if jwt, err := jwt_utils.GenerateJWT(
 		locals.AuthedUser{ID: uuid.Nil, Email: email},

@@ -60,7 +60,7 @@ describe('SignUp integration (MSW)', () => {
             expect(url.pathname).toBe('/api/v1/auth/sign-up/process');
             expect(request.method).toBe('POST');
             const body = await request.json();
-            expect(body).toEqual({token: 'token-xyz', password: 'Abcdef1!'});
+            expect(body).toEqual({token: 'token-xyz', password: 'Abcdef1!', username: 'clemovitch'});
 
             const access = new Date();
             access.setMinutes(access.getMinutes() + 10);
@@ -85,6 +85,7 @@ describe('SignUp integration (MSW)', () => {
         const [passwordInput, confirmInput] = await screen.findAllByPlaceholderText('••••••••');
         await userEvent.type(passwordInput, 'Abcdef1!');
         await userEvent.type(confirmInput, 'Abcdef1!');
+        await userEvent.type(await screen.findByPlaceholderText('username'), 'clemovitch');
 
         await userEvent.click(screen.getByRole('button', {name: /créer le compte/i}));
 
@@ -105,9 +106,11 @@ describe('SignUp integration (MSW)', () => {
 
         render(<SignUp controller={controller}/>);
 
+
         const [passwordInput, confirmInput] = await screen.findAllByPlaceholderText('••••••••');
         await userEvent.type(passwordInput, 'Abcdef1!');
         await userEvent.type(confirmInput, 'Abcdef1!');
+        await userEvent.type(await screen.findByPlaceholderText('username'), 'clemovitch');
 
         await userEvent.click(screen.getByRole('button', {name: /créer le compte/i}));
 

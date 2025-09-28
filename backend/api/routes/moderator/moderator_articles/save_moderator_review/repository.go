@@ -1,4 +1,4 @@
-package review_moderator_article
+package save_moderator_review
 
 import (
 	"fmt"
@@ -8,14 +8,14 @@ import (
 )
 
 type Repository interface {
-	createArticleReview(review *models.ArticleReview) error
+	createReviewAndUpdateArticle(review *models.ArticleReview) error
 }
 
 type repository struct {
 	db *gorm.DB
 }
 
-func (r *repository) createArticleReview(review *models.ArticleReview) error {
+func (r *repository) createReviewAndUpdateArticle(review *models.ArticleReview) error {
 	return r.db.Transaction(func(tx *gorm.DB) error {
 		var article models.Article
 

@@ -1,4 +1,4 @@
-package review_moderator_article
+package save_moderator_review
 
 import "vdm/core/models"
 

@@ -45,19 +45,28 @@ func loadTestData(c context.Context, t *testing.T) (container testcontainers.Con
 		return
 	}
 
+	redactor := &models.User{Email: "redactor@test.com", Tag: "redactor0123"}
+
+	if err = connector.GormDB().Create(redactor).Error; err != nil {
+		return
+	}
+
 	data.articles = []*models.Article{
 		{
+			RedactorID:  redactor.ID,
 			Title:       "Article about Nicolas Sarkozy",
 			Politicians: []*models.Politician{data.politicians[0]},
 			Tags:        []*models.ArticleTag{{Tag: "Nicolas Sarkozy"}},
 			Status:      models.ArticleStatusPublished,
 		},
 		{
+			RedactorID:  redactor.ID,
 			Title:       "Article about François Hollande",
 			Politicians: []*models.Politician{data.politicians[1]},
 			Tags:        []*models.ArticleTag{{Tag: "François Hollande"}},
 			Status:      models.ArticleStatusPublished,
 		}, {
+			RedactorID:  redactor.ID,
 			Title:       "Article about Emmanuel Macron",
 			Politicians: []*models.Politician{data.politicians[2]},
 			Tags:        []*models.ArticleTag{{Tag: "Emmanuel Macron"}},
