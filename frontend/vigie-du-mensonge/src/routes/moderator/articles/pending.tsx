@@ -1,11 +1,11 @@
 import {createFileRoute} from '@tanstack/react-router';
 import {useQuery} from "@tanstack/react-query";
-import {BasicProgress} from "@/core/components/misc/BasicProgress.tsx";
 import {Link} from "@/core/utils/router.ts";
 import type {Article} from "@/core/models/article.ts";
 import {Separator} from "@/core/shadcn/components/ui/separator.tsx";
 import {ArticleOverviewItem} from "@/core/components/article/ArticleOverviewItem.tsx";
 import {fmtDate} from "@/core/utils/fmtDate.ts";
+import {Spinner} from "@/core/shadcn/components/ui/spinner.tsx";
 
 export const Route = createFileRoute('/moderator/articles/pending')({
     component: RouteComponent,
@@ -30,9 +30,9 @@ function RouteComponent() {
 
     if (isLoading) {
         return (
-            <div className="flex flex-col items-center justify-center h-screen">
+            <div className="flex flex-col gap-2 items-center justify-center h-screen">
                 Chargement en cours...
-                <BasicProgress/>
+                <Spinner/>
             </div>
         );
     }
