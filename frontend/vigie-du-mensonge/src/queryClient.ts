@@ -5,6 +5,7 @@ export const queryClient = new QueryClient();
 queryClient.removeQueries({
     predicate: (query) => {
         const key = query.queryKey[0];
+        console.log(key);
         return key === "redactor" || key === "moderator" || key === "admin";
     },
 });

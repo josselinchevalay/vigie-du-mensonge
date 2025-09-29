@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {type Theme, ThemeProviderContext} from "@/core/components/theme/theme-utils.tsx";
+import {type Theme, ThemeProviderContext} from "@/theme-provider/theme-provider.tsx";
 
-const STORAGE_KEY = "vdm-ui-theme";
+const STORAGE_KEY = "vdm-ui-theme-provider";
 
 type ThemeProviderProps = {
     children: React.ReactNode

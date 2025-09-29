@@ -126,7 +126,7 @@
     }
 }
 
-/* 200ms theme transition when .theme-transition is present; respects reduced motion */
+/* 200ms theme-provider transition when .theme-provider-transition is present; respects reduced motion */
 @media (prefers-reduced-motion: no-preference) {
     .theme-transition * {
         transition: background-color 200ms, color 200ms, border-color 200ms, fill 200ms, stroke 200ms, outline-color 200ms, box-shadow 200ms;

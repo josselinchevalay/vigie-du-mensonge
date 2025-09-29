@@ -6,6 +6,9 @@ import './index.css';
 // Import the generated route tree
 import {routeTree} from './routeTree.gen';
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
+import {queryClient} from "@/queryClient.ts";
+import {QueryClientProvider} from "@tanstack/react-query";
+import {ThemeProvider} from "@/theme-provider/ThemeProvider.tsx";
 
 // Create a new router instance
 export const router = createRouter({
@@ -37,7 +40,11 @@ if (rootElement && !rootElement.innerHTML) {
     const root = ReactDOM.createRoot(rootElement);
     root.render(
         <StrictMode>
-            <RouterProvider router={router}/>
+            <ThemeProvider>
+                <QueryClientProvider client={queryClient}>
+                    <RouterProvider router={router}/>
+                </QueryClientProvider>
+            </ThemeProvider>
         </StrictMode>,
     );
 }

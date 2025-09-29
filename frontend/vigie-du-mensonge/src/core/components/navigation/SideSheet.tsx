@@ -4,7 +4,7 @@ import {useStore} from "@tanstack/react-store";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
 import {Link} from "@/core/utils/router.ts";
 import {Menu} from "lucide-react";
-import {ThemeToggle} from "@/core/components/theme/ThemeToggle.tsx";
+import {ThemeToggle} from "@/core/components/misc/ThemeToggle.tsx";
 import {Separator} from "@/core/shadcn/components/ui/separator.tsx";
 
 export function SideSheet() {

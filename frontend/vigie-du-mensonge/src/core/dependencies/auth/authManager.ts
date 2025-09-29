@@ -64,7 +64,7 @@ class AuthManager {
         }
     }
 
-    signOut() {
+    signOut = () => {
         Auth.clearStorage();
         this.authStore.setState(() => null);
         void this.client.signOut();
@@ -75,7 +75,7 @@ class AuthManager {
                 return key === "redactor" || key === "moderator" || key === "admin";
             },
         });
-    }
+    };
 }
 
 export const authManager = new AuthManager(authClient);
