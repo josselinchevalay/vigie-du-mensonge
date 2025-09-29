@@ -31,13 +31,13 @@ export function InquirePasswordUpdate({submitForm}: InquirePasswordUpdateProps) 
     };
 
     if (success) {
-        return <>
+        return <p className="text-center p-1">
             L'email contenant le lien de modification a été envoyé.
-        </>;
+        </p>;
     }
 
     return (
-        <div className="mx-auto w-full max-w-sm">
+        <div className="mx-auto max-w-sm">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <div className="space-y-1">

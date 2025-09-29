@@ -14,7 +14,5 @@ export function PasswordUpdate({controller}: PasswordUpdateProps) {
         return <InquirePasswordUpdate submitForm={({email}) => controller.onInquire(email)}/>;
     }
 
-    return (
-        <ProcessPasswordUpdate submitForm={({password}) => controller.onProcess(password)}/>
-    );
+    return <ProcessPasswordUpdate submitForm={({password}) => controller.onProcess(password)}/>;
 }

@@ -12,5 +12,5 @@ export function SignUp({controller}: SignUpProps) {
             submit={({username, password}) => controller.onProcess(username, password)}/>;
     }
 
-    return <InquireSignUp submit={({email}) => controller.onInquire(email)}/>;
+    return <InquireSignUp submitForm={({email}) => controller.onInquire(email)}/>;
 }
