@@ -37,17 +37,17 @@ function RouteComponent() {
         );
     }
 
-    return <div className="flex flex-col items-center gap-8 min-w-0 py-2">
+    return <div className="flex flex-col items-center gap-8 min-w-0 p-2">
         <Link
             to="/moderator/articles" replace={true}
-            className="inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent"
+            className="p-2 text-sm font-medium rounded-md hover:bg-accent"
         >
             Voir les articles sous votre modération
         </Link>
         {
             (!articles || articles.length === 0)
 
-                ? <p>Aucun article n'est actuellement en attente de modération.</p>
+                ? <p className="italic">Aucun article n'est actuellement en attente de modération.</p>
 
                 : <div className="flex flex-wrap justify-center gap-4 w-full">
                     {articles.map((article) => (

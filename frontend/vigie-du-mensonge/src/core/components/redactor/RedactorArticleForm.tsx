@@ -164,7 +164,7 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
     }
 
     return (
-        <div className="mx-auto w-full max-w-[80rem] p-2">
+        <div className="mx-auto w-full max-w-7xl p-2">
 
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

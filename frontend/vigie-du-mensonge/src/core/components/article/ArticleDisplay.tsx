@@ -4,22 +4,25 @@ import {fmtDate} from "@/core/utils/fmtDate.ts";
 
 export function ArticleDisplay({article}: { article: Article }) {
     return (
-        <article className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 py-6" aria-label={article.title}>
+        <article className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-6" aria-label={article.title}>
+
             <header className="mb-6">
-                <div className="mb-3 flex flex-wrap items-center gap-2 text-sm text-gray-600">
+                <div className="mb-3 flex flex-wrap items-center gap-2 text-sm text-primary">
                     <span className="text-sm font-bold">{ArticleCategoryLabels[article.category]}</span>
                     <span aria-label="date de l'événement">le {fmtDate(article.eventDate)}</span>
                     <span className="hidden sm:inline" aria-hidden>
                         ·
                     </span>
-                    <span className="text-xs sm:text-sm text-gray-500" aria-label="dernière mise à jour">
+                    <span className="text-xs sm:text-sm" aria-label="dernière mise à jour">
                         Mis à jour le {new Intl.DateTimeFormat("fr-FR", {dateStyle: "medium"}).format(article.updatedAt)}
                     </span>
                 </div>
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight text-gray-900">
+
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
                     {article.title}
                 </h1>
-                {article.politicians?.length ? (
+
+                {article.politicians?.length && (
                     <div className="mt-3 flex flex-wrap gap-2">
                         {article.politicians.map((pol, idx) => (
                             <span
@@ -30,24 +33,24 @@ export function ArticleDisplay({article}: { article: Article }) {
                             </span>
                         ))}
                     </div>
-                ) : null}
+                )}
             </header>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12">
                 <section className="md:col-span-8">
                     {article.body ? (
-                        <div className="prose prose-sm sm:prose sm:max-w-none text-gray-800 whitespace-pre-line">
+                        <div className="prose prose-sm sm:prose sm:max-w-none whitespace-pre-line">
                             {article.body}
                         </div>
                     ) : (
-                        <p className="text-gray-500 italic">Aucun contenu disponible.</p>
+                        <p className="italic">Aucun contenu disponible.</p>
                     )}
                 </section>
 
                 <aside className="md:col-span-4">
                     {article.tags?.length ? (
                         <div className="mb-6">
-                            <h2 className="mb-2 text-sm font-semibold text-gray-700">Tags</h2>
+                            <h2 className="mb-2 text-sm font-semibold">Tags</h2>
                             <div className="flex flex-wrap gap-2">
                                 {article.tags.map((tag, idx) => (
                                     <span
@@ -63,7 +66,7 @@ export function ArticleDisplay({article}: { article: Article }) {
 
                     {article.sources?.length ? (
                         <div className="mb-2">
-                            <h2 className="mb-2 text-sm font-semibold text-gray-700">Sources</h2>
+                            <h2 className="mb-2 text-sm font-semibold">Sources</h2>
                             <ul className="space-y-2">
                                 {article.sources.map((src, idx) => (
                                     <li key={`${src}-${idx}`} className="break-words">
@@ -71,7 +74,7 @@ export function ArticleDisplay({article}: { article: Article }) {
                                             href={src}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-blue-600 hover:text-blue-700 hover:underline"
+                                            className="hover:underline"
                                         >
                                             {src}
                                         </a>

@@ -16,7 +16,7 @@ export default function AppBar() {
             <div className="flex flex-row min-h-14 items-center justify-between">
 
                 <div className="md:flex flex-row items-center gap-2 min-w-0 p-4">
-                    <Link to="/" className="px-6 font-semibold text-lg">
+                    <Link to="/" className="font-semibold text-lg">
                         Vigie du mensonge
                     </Link>
 
@@ -62,7 +62,7 @@ export default function AppBar() {
                             </Link>
                         </>
                         : <Button
-                                  onClick={() => authManager.signOut()}>Déconnexion</Button>
+                            onClick={() => authManager.signOut()}>Déconnexion</Button>
                     }
 
                 </div>

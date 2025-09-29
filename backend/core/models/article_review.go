@@ -10,9 +10,12 @@ import (
 // ArticleReview represents the article_reviews table
 
 type ArticleReview struct {
-	ID          uuid.UUID `gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
-	ArticleID   uuid.UUID `gorm:"column:article_id;type:uuid;not null"`
+	ID uuid.UUID `gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
+
+	ArticleID uuid.UUID `gorm:"column:article_id;type:uuid;not null"`
+
 	ModeratorID uuid.UUID `gorm:"column:moderator_id;type:uuid;not null"`
+	Moderator   *User     `gorm:"foreignKey:ModeratorID"`
 
 	Decision ArticleStatus `gorm:"column:decision;not null"`
 	Notes    string        `gorm:"column:notes;not null"`

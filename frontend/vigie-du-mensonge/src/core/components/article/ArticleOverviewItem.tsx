@@ -31,7 +31,7 @@ export function ArticleOverviewItem({article, header}: ArticleOverviewItemProps)
                     {article.politicians.map((pol, idx) => (
                         <span
                             key={`${pol.fullName}-${idx}`}
-                            className="inline-block rounded-md border px-2 py-0.5 text-xs text-gray-700 bg-gray-50">
+                            className="inline-block rounded-md border px-2 py-0.5 text-sm text-foreground bg-background">
                             {pol.fullName}
                         </span>
                     ))}
@@ -43,7 +43,7 @@ export function ArticleOverviewItem({article, header}: ArticleOverviewItemProps)
                     {article.tags.map((tag, idx) => (
                         <span
                             key={`${tag}-${idx}`}
-                            className="inline-block rounded-md border px-2 py-0.5 text-xs text-gray-700 bg-gray-50"
+                            className="inline-block rounded-md border px-2 py-0.5 text-xs text-foreground bg-background"
                         >
                             {tag}
                         </span>

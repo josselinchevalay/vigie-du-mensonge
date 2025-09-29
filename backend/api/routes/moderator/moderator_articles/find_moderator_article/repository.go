@@ -22,7 +22,11 @@ func (r *repository) findArticlesByReference(reference uuid.UUID) ([]models.Arti
 		Order("created_at DESC").
 		Preload("Sources").
 		Preload("Tags").
-		Preload("Review").
+		Preload("Review", func(db *gorm.DB) *gorm.DB {
+			return db.Preload("Moderator", func(db *gorm.DB) *gorm.DB {
+				return db.Select("id", "tag")
+			}).Select("moderator_id", "article_id", "notes", "decision")
+		}).
 		Preload("Moderator", func(db *gorm.DB) *gorm.DB {
 			return db.Select("id", "tag")
 		}).

@@ -26,7 +26,7 @@ type Article struct {
 	Minor int16 `json:"minor,omitempty"`
 	Major int16 `json:"major,omitempty"`
 
-	ReviewNotes string `json:"reviewNotes,omitempty"`
+	Review *ArticleReview `json:"review,omitempty"`
 
 	Sources     []string     `json:"sources,omitempty"`
 	Politicians []Politician `json:"politicians,omitempty"`
@@ -56,7 +56,8 @@ func NewArticle(entity models.Article) Article {
 	}
 
 	if entity.Review != nil {
-		dto.ReviewNotes = entity.Review.Notes
+		reviewDTO := NewArticleReview(*entity.Review)
+		dto.Review = &reviewDTO
 	}
 
 	if len(entity.Sources) > 0 {

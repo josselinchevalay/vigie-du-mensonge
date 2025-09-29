@@ -1,6 +1,7 @@
 import {Politician, type PoliticianJson} from "@/core/models/politician.ts";
 import {type ArticleCategory} from "@/core/models/articleCategory.ts";
 import {type ArticleStatus, ArticleStatuses} from "@/core/models/articleStatus.ts";
+import {ArticleReview, type ArticleReviewJson} from "@/core/models/articleReview.ts";
 
 export type ArticleJson = {
     id: string;
@@ -14,6 +15,7 @@ export type ArticleJson = {
 
     category: ArticleCategory;
     status: ArticleStatus;
+    review?: ArticleReviewJson;
 
     eventDate: string;
     updatedAt: string;
@@ -38,6 +40,7 @@ export class Article {
 
     public category: ArticleCategory;
     public status?: ArticleStatus;
+    public review?: ArticleReview;
 
     public eventDate: Date;
     public updatedAt: Date;
@@ -58,6 +61,7 @@ export class Article {
         body: string | undefined,
         category: ArticleCategory,
         status: ArticleStatus | undefined,
+        review: ArticleReview | undefined,
         eventDate: Date,
         updatedAt: Date,
         minor: number | undefined,
@@ -74,6 +78,7 @@ export class Article {
         this.body = body;
         this.category = category;
         this.status = status;
+        this.review = review;
         this.eventDate = eventDate;
         this.updatedAt = updatedAt;
         this.minor = minor;
@@ -124,6 +129,7 @@ export class Article {
             json.body,
             json.category,
             json.status,
+            json.review ? ArticleReview.fromJson(json.review) : undefined,
             new Date(json.eventDate),
             new Date(json.updatedAt),
             json.minor,

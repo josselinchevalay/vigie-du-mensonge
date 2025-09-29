@@ -14,7 +14,7 @@ export function SideSheet() {
         <SheetTrigger asChild>
             <Button variant="ghost"><Menu/></Button>
         </SheetTrigger>
-        <SheetContent side="right" className="w-64">
+        <SheetContent aria-describedby={undefined} side="right" className="w-64">
             <div className="flex flex-col items-center gap-4 mt-8 mx-4">
 
                 <ThemeToggle/>

@@ -22,7 +22,9 @@ func (r *repository) findRedactorArticlesByReference(redactorID, reference uuid.
 		Order("created_at DESC").
 		Preload("Sources").
 		Preload("Tags").
-		Preload("Review").
+		Preload("Review", func(db *gorm.DB) *gorm.DB {
+			return db.Select("article_id", "notes", "decision")
+		}).
 		Preload("Politicians", func(db *gorm.DB) *gorm.DB {
 			return db.Select("id", "first_name", "last_name")
 		}).

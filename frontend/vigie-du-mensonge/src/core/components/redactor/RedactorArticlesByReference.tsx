@@ -15,6 +15,7 @@ import {
     DialogTitle,
     DialogTrigger
 } from "@/core/shadcn/components/ui/dialog.tsx";
+import {ArticleReviewCard} from "@/core/components/article/ArticleReviewCard.tsx";
 
 export type RedactorArticlesByReferenceProps = {
     redactorClient: RedactorClient;
@@ -50,9 +51,11 @@ export function RedactorArticlesByReference({redactorClient, articles}: Redactor
 
         {!editable &&
             <div className="mb-4 p-4 rounded-md border bg-primary text-primary-foreground">
-                {`Les articles dont le statut est [${ArticleStatusLabels[selected!.status!]}] ne peuvent pas être modifiés.`}
+                {`Les articles dont le statut est [ ${ArticleStatusLabels[selected!.status!]} ] ne peuvent pas être modifiés.`}
             </div>
         }
+
+        {selected.review && <ArticleReviewCard review={selected.review}/>}
 
         {editable &&
             (

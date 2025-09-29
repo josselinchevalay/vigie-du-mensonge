@@ -8,6 +8,7 @@ import {ArticleStatuses} from "@/core/models/articleStatus.ts";
 import {ModeratorArticleClaimButton} from "@/core/components/moderator/ModeratorArticleClaimButton.tsx";
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
 import {ModeratorArticleReviewForm} from "@/core/components/moderator/ModeratorArticleReviewForm.tsx";
+import {ArticleReviewCard} from "@/core/components/article/ArticleReviewCard.tsx";
 
 export type ModeratorArticlesByReferenceProps = {
     moderatorClient: ModeratorClient;
@@ -52,6 +53,10 @@ export function ModeratorArticlesByReference({moderatorClient, articles}: Modera
                 <ArrowRight></ArrowRight>
             </Button>
         </div>
+
+        {selected.review && <div className="px-2">
+            <ArticleReviewCard review={selected.review}/>
+        </div>}
 
         <ArticleDisplay article={articles[index]}/>
 
