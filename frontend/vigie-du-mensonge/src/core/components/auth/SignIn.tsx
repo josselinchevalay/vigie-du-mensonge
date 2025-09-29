@@ -30,14 +30,12 @@ export function SignIn({controller}: SignInProps) {
     const [showPassword, setShowPassword] = React.useState(false);
 
     return (
-        <div className="mx-auto w-full max-w-sm">
+        <div className="mx-auto max-w-sm px-1">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(({email, password}) => controller.onSignIn(email, password))}
                       className="space-y-4">
-                    <div className="space-y-1">
-                        <h1 className="text-xl font-semibold">Connexion</h1>
-                        <p className="text-sm text-muted-foreground">Connectez-vous à Vigie du mensonge</p>
-                    </div>
+
+                    <h1 className="text-xl font-semibold">Connexion</h1>
 
                     <FormField
                         control={form.control}
@@ -97,7 +95,7 @@ export function SignIn({controller}: SignInProps) {
             <br/>
 
             <Link to="/password-update" search={{token: undefined}} disabled={form.formState.isSubmitting}
-                  className="justify-self-center rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+                  className="p-2 text-sm font-medium rounded-md hover:bg-accent">
                 Mot de passe oublié
             </Link>
         </div>
