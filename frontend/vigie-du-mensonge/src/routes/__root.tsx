@@ -5,6 +5,8 @@ import {useEffect, useRef} from 'react';
 import {authManager} from '@/core/dependencies/auth/authManager.ts';
 import {AuthRefreshScheduler} from '@/core/dependencies/auth/authRefreshScheduler.ts';
 import AppBar from "@/core/components/navigation/AppBar.tsx";
+import {ArticleClient} from "@/core/dependencies/article/articleClient.ts";
+import {api} from "@/core/dependencies/api.ts";
 
 const RootLayout = () => {
     const schedulerRef = useRef<AuthRefreshScheduler | null>(null);
@@ -56,4 +58,10 @@ const RootLayout = () => {
     );
 };
 
-export const Route = createRootRoute({component: RootLayout});
+export const Route = createRootRoute({
+    beforeLoad: () => {
+        const articleClient = new ArticleClient(api);
+        return {articleClient};
+    },
+    component: RootLayout,
+});

@@ -16,6 +16,14 @@ export class ArticleClient {
 
         return res.map((json) => Article.fromJson(json));
     }
+
+    async findById(id: string): Promise<Article> {
+        const res = await this.api
+            .get(`articles/${id}`)
+            .json<ArticleJson>();
+
+        return Article.fromJson(res);
+    }
 }
 
 export const articleClient = new ArticleClient(api);

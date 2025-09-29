@@ -4,10 +4,6 @@ import {RedactorArticlesByReference} from "@/core/components/redactor/RedactorAr
 import {Spinner} from "@/core/shadcn/components/ui/spinner.tsx";
 
 export const Route = createFileRoute('/redactor/articles/$articleRef')({
-    beforeLoad: ({params}) => {
-        const articleRef = params.articleRef;
-        return {articleRef: articleRef};
-    },
     component: RouteComponent,
 });
 

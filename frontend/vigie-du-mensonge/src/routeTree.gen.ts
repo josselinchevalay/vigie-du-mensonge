@@ -15,6 +15,7 @@ import { Route as PasswordUpdateRouteImport } from './routes/password-update'
 import { Route as RedactorRouteRouteImport } from './routes/redactor/route'
 import { Route as ModeratorRouteRouteImport } from './routes/moderator/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ArticlesArticleIdRouteImport } from './routes/articles/$articleId'
 import { Route as RedactorArticlesIndexRouteImport } from './routes/redactor/articles/index'
 import { Route as ModeratorArticlesIndexRouteImport } from './routes/moderator/articles/index'
 import { Route as RedactorArticlesNewRouteImport } from './routes/redactor/articles/new'
@@ -50,6 +51,11 @@ const ModeratorRouteRoute = ModeratorRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesArticleIdRoute = ArticlesArticleIdRouteImport.update({
+  id: '/articles/$articleId',
+  path: '/articles/$articleId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RedactorArticlesIndexRoute = RedactorArticlesIndexRouteImport.update({
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/articles/$articleId': typeof ArticlesArticleIdRoute
   '/moderator/articles/$articleRef': typeof ModeratorArticlesArticleRefRoute
   '/moderator/articles/pending': typeof ModeratorArticlesPendingRoute
   '/redactor/articles/$articleRef': typeof RedactorArticlesArticleRefRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/articles/$articleId': typeof ArticlesArticleIdRoute
   '/moderator/articles/$articleRef': typeof ModeratorArticlesArticleRefRoute
   '/moderator/articles/pending': typeof ModeratorArticlesPendingRoute
   '/redactor/articles/$articleRef': typeof RedactorArticlesArticleRefRoute
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
+  '/articles/$articleId': typeof ArticlesArticleIdRoute
   '/moderator/articles/$articleRef': typeof ModeratorArticlesArticleRefRoute
   '/moderator/articles/pending': typeof ModeratorArticlesPendingRoute
   '/redactor/articles/$articleRef': typeof RedactorArticlesArticleRefRoute
@@ -138,6 +147,7 @@ export interface FileRouteTypes {
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
+    | '/articles/$articleId'
     | '/moderator/articles/$articleRef'
     | '/moderator/articles/pending'
     | '/redactor/articles/$articleRef'
@@ -152,6 +162,7 @@ export interface FileRouteTypes {
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
+    | '/articles/$articleId'
     | '/moderator/articles/$articleRef'
     | '/moderator/articles/pending'
     | '/redactor/articles/$articleRef'
@@ -166,6 +177,7 @@ export interface FileRouteTypes {
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
+    | '/articles/$articleId'
     | '/moderator/articles/$articleRef'
     | '/moderator/articles/pending'
     | '/redactor/articles/$articleRef'
@@ -181,6 +193,7 @@ export interface RootRouteChildren {
   PasswordUpdateRoute: typeof PasswordUpdateRoute
   SignInRoute: typeof SignInRoute
   SignUpRoute: typeof SignUpRoute
+  ArticlesArticleIdRoute: typeof ArticlesArticleIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -225,6 +238,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles/$articleId': {
+      id: '/articles/$articleId'
+      path: '/articles/$articleId'
+      fullPath: '/articles/$articleId'
+      preLoaderRoute: typeof ArticlesArticleIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/redactor/articles/': {
@@ -311,6 +331,7 @@ const rootRouteChildren: RootRouteChildren = {
   PasswordUpdateRoute: PasswordUpdateRoute,
   SignInRoute: SignInRoute,
   SignUpRoute: SignUpRoute,
+  ArticlesArticleIdRoute: ArticlesArticleIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

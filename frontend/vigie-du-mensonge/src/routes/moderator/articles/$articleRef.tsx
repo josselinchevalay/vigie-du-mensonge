@@ -4,10 +4,6 @@ import {ModeratorArticlesByReference} from "@/core/components/moderator/Moderato
 import {Spinner} from "@/core/shadcn/components/ui/spinner.tsx";
 
 export const Route = createFileRoute('/moderator/articles/$articleRef')({
-    beforeLoad: ({params}) => {
-        const articleRef = params.articleRef;
-        return {articleRef: articleRef};
-    },
     component: RouteComponent,
 });
 

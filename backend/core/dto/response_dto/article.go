@@ -36,7 +36,6 @@ type Article struct {
 func NewArticle(entity models.Article) Article {
 	dto := Article{
 		ID:        entity.ID,
-		Reference: entity.Reference,
 		Title:     entity.Title,
 		Body:      entity.Body,
 		Category:  entity.Category,
@@ -45,6 +44,10 @@ func NewArticle(entity models.Article) Article {
 		UpdatedAt: entity.UpdatedAt,
 		Minor:     entity.Minor,
 		Major:     entity.Major,
+	}
+
+	if entity.Reference != uuid.Nil {
+		dto.Reference = entity.Reference
 	}
 
 	if entity.Redactor != nil {
