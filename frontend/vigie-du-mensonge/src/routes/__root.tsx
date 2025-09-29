@@ -4,7 +4,7 @@ import {TanStackRouterDevtools} from '@tanstack/react-router-devtools';
 import {useEffect, useRef} from 'react';
 import {authManager} from '@/core/dependencies/auth/authManager.ts';
 import {AuthRefreshScheduler} from '@/core/dependencies/auth/authRefreshScheduler.ts';
-import AppBar from "@/core/components/AppBar.tsx";
+import AppBar from "@/core/components/navigation/AppBar.tsx";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {ThemeProvider} from "@/core/components/theme/ThemeProvider.tsx";
 

@@ -11,14 +11,14 @@ import (
 // TODO: test EVERY use case
 
 type Service interface {
-	saveArticleForRedactor(publish bool, newArticle models.Article) error
+	saveArticleForRedactor(publish bool, newArticle models.Article) (uuid.UUID, error)
 }
 
 type service struct {
 	repo Repository
 }
 
-func (s *service) saveArticleForRedactor(publish bool, newArticle models.Article) error {
+func (s *service) saveArticleForRedactor(publish bool, newArticle models.Article) (uuid.UUID, error) {
 	if newArticle.ID == uuid.Nil {
 		newArticle.Reference = uuid.New()
 		if publish {
@@ -27,23 +27,23 @@ func (s *service) saveArticleForRedactor(publish bool, newArticle models.Article
 		} else {
 			newArticle.Status = models.ArticleStatusDraft
 		}
-		return s.repo.createArticle(&newArticle)
+		return newArticle.Reference, s.repo.createArticle(&newArticle)
 	}
 
 	oldArticle, err := s.repo.findArticle(newArticle.ID, newArticle.RedactorID)
 	if err != nil {
-		return err
+		return uuid.Nil, err
 	}
 
 	if oldArticle.Status != models.ArticleStatusDraft &&
 		oldArticle.Status != models.ArticleStatusChangeRequested { // do NOT allow update if status is not DRAFT or CHANGE_REQUESTED
-		return &fiber.Error{Code: fiber.StatusConflict, Message: fmt.Sprintf("expected one of [%s, %s], got [%s]",
+		return uuid.Nil, &fiber.Error{Code: fiber.StatusConflict, Message: fmt.Sprintf("expected one of [%s, %s], got [%s]",
 			models.ArticleStatusDraft, models.ArticleStatusChangeRequested, oldArticle.Status)}
 	}
 
 	if !publish {
 		// does not update status, minor, major, or reference so we don't need to set them
-		return s.repo.updateArticle(&newArticle)
+		return oldArticle.Reference, s.repo.updateArticle(&newArticle)
 	}
 
 	newArticle.ModeratorID = oldArticle.ModeratorID
@@ -52,5 +52,9 @@ func (s *service) saveArticleForRedactor(publish bool, newArticle models.Article
 	newArticle.Minor = oldArticle.Minor + 1 // increment minor version each time user submits for publication
 	newArticle.Status = models.ArticleStatusUnderReview
 
-	return s.repo.archiveOldVersionAndCreateNew(&newArticle)
+	if err = s.repo.archiveOldVersionAndCreateNew(&newArticle); err != nil {
+		return uuid.Nil, err
+	}
+
+	return newArticle.Reference, nil
 }

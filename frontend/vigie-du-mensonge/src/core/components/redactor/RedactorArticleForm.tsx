@@ -13,16 +13,17 @@ import {politiciansManager} from "@/core/dependencies/politician/politiciansMana
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/core/shadcn/components/ui/select.tsx";
 import {RedactorClient, type SaveRedactorArticle} from "@/core/dependencies/redactor/redactorClient.ts";
 import type {Article} from "@/core/models/article.ts";
-import {formatDateEN} from "@/core/utils/formatDate.ts";
+import {DatePicker} from "@/core/components/misc/DatePicker.tsx";
 
 export type RedactorArticleFormProps = {
     redactorClient: RedactorClient
     article?: Article
+    onSubmitSuccess?: (articleRef?: string) => void
 }
 
 const publishSchema = z.object({
     title: z.string().min(1, "Titre requis").max(100, "100 caractères maximum").min(20, "20 caractères minimum"),
-    eventDate: z.string().min(1, "Date de l'événement requise"), // we'll convert to Date on submit
+    eventDate: z.date().nonoptional("Date de l'évènement requise"),
     category: z.enum(Object.values(ArticleCategories)).nonoptional(),
     body: z.string().min(1, "Contenu requis").max(2000, "2000 caractères maximum").min(200, "200 caractères minimum"),
     tags: z.array(z.string().min(1).max(25)).min(1, "Au moins 1 tag").max(5, "5 tags maximum"),
@@ -32,7 +33,7 @@ const publishSchema = z.object({
 
 const draftSchema = z.object({
     title: z.string().min(1, "Titre requis").max(100, "100 caractères maximum").min(20, "20 caractères minimum"),
-    eventDate: z.string().min(1, "Date de l'événement requise"), // we'll convert to Date on submit
+    eventDate: z.date().nonoptional("Date de l'évènement requise"),
     category: z.enum(Object.values(ArticleCategories)).nonoptional(),
     body: z.string().max(2000, "2000 caractères maximum"),
     tags: z.array(z.string().min(1).max(25)).max(5, "5 tags maximum"),
@@ -60,13 +61,14 @@ function mapInput(input: RedactorArticleFormInput, articleId?: string): SaveReda
     };
 }
 
-export function RedactorArticleForm({redactorClient, article}: RedactorArticleFormProps) {
+export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
+                                    RedactorArticleFormProps) {
     const form = useForm<RedactorArticleFormInput>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             mode: "draft",
             title: article?.title ?? "",
-            eventDate: article?.eventDate ? formatDateEN(article.eventDate) : "",
+            eventDate: article?.eventDate ?? new Date(),
             body: article?.body ?? "",
             category: article?.category ?? ArticleCategories.FALSEHOOD,
             tags: article?.tags ?? [],
@@ -78,13 +80,19 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
     const queryClient = useQueryClient();
     const mutation = useMutation({
         mutationFn: async (input: RedactorArticleFormInput) => {
-            return redactorClient.saveArticle(input.mode === "publish", mapInput(input, article?.id));
+            return await redactorClient.saveArticle(input.mode === "publish", mapInput(input, article?.id));
         },
-        onSuccess:  () => {
+        onSuccess: async (articleRef: string) => {
             toast.success("Votre article a été enregistré.");
+
+            if (onSubmitSuccess) {
+                onSubmitSuccess(articleRef);
+            }
+
             if (article) {
                 void queryClient.invalidateQueries({queryKey: ["redactor", "articles", article.reference]});
             }
+
             void queryClient.invalidateQueries({queryKey: ["redactor", "articles"]});
         },
         onError: () => {
@@ -156,7 +164,7 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
     }
 
     return (
-        <div className="mx-auto w-full max-w-2xl">
+        <div className="mx-auto w-full max-w-[80rem] p-2">
 
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -182,44 +190,46 @@ export function RedactorArticleForm({redactorClient, article}: RedactorArticleFo
                         )}
                     />
 
-                    <FormField
-                        control={form.control}
-                        name="eventDate"
-                        render={({field}) => (
-                            <FormItem>
-                                <FormLabel>Date de l'événement</FormLabel>
-                                <FormControl>
-                                    <Input type="date" {...field} />
-                                </FormControl>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                    />
+                    <div className="flex flex-row gap-4">
+                        <FormField
+                            control={form.control}
+                            name="eventDate"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel>Date de l'événement</FormLabel>
+                                    <FormControl>
+                                        <DatePicker date={field.value} setDate={field.onChange}/>
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
 
-                    <FormField
-                        control={form.control}
-                        name="category"
-                        render={({field}) => (
-                            <FormItem>
-                                <FormLabel>Catégorie</FormLabel>
-                                <FormControl>
-                                    <Select onValueChange={(selected) => {
-                                        field.onChange(selected);
-                                    }}>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder={ArticleCategoryLabels[field.value]}/>
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {Object.entries(ArticleCategoryLabels).map(([value, label]) => (
-                                                <SelectItem key={value} value={value}>{label}</SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                </FormControl>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                    />
+                        <FormField
+                            control={form.control}
+                            name="category"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel>Catégorie</FormLabel>
+                                    <FormControl>
+                                        <Select onValueChange={(selected) => {
+                                            field.onChange(selected);
+                                        }}>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder={ArticleCategoryLabels[field.value]}/>
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {Object.entries(ArticleCategoryLabels).map(([value, label]) => (
+                                                    <SelectItem key={value} value={value}>{label}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
+                    </div>
 
                     <FormField
                         control={form.control}

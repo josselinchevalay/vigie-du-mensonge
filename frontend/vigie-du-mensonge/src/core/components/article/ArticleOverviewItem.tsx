@@ -1,7 +1,7 @@
 import type {Article} from "@/core/models/article.ts";
 import React from "react";
 import {ArticleCategoryLabels} from "@/core/models/articleCategory.ts";
-import {formatDateFR} from "@/core/utils/formatDate.ts";
+import {fmtDate} from "@/core/utils/fmtDate.ts";
 
 export type ArticleOverviewItemProps = {
     article: Article;
@@ -21,10 +21,10 @@ export function ArticleOverviewItem({article, header}: ArticleOverviewItemProps)
 
             <div className="flex flex-row items-center justify-center gap-2 my-1">
                 <span className="text-sm font-bold">{ArticleCategoryLabels[article.category]}</span>
-                <span className="text-sm">le {formatDateFR(article.eventDate)}</span>
+                <span className="text-sm">le {fmtDate(article.eventDate)}</span>
             </div>
 
-            <h3 className="text-lg font-bold">{article.title}</h3>
+            <h3 className="text-lg font-bold overflow-hidden text-clip">{article.title}</h3>
 
             {article.politicians?.length ? (
                 <div className="mt-2 flex flex-wrap gap-2">

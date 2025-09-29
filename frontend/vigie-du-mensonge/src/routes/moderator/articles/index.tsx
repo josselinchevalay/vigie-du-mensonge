@@ -1,6 +1,6 @@
 import {createFileRoute} from '@tanstack/react-router';
 import {useQuery} from "@tanstack/react-query";
-import {BasicProgress} from "@/core/components/BasicProgress.tsx";
+import {BasicProgress} from "@/core/components/misc/BasicProgress.tsx";
 import {Link} from "@/core/utils/router.ts";
 import {ArticleOverviewItem} from "@/core/components/article/ArticleOverviewItem.tsx";
 

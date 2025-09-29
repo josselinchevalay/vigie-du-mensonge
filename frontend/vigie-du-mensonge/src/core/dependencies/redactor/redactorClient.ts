@@ -27,8 +27,12 @@ export class RedactorClient {
         return res.map((json) => Article.fromJson(json));
     }
 
-    async saveArticle(publish: boolean, dto: SaveRedactorArticle): Promise<void> {
-        await this.api.post(`redactor/articles?publish=${publish}`, {json: dto});
+    async saveArticle(publish: boolean, dto: SaveRedactorArticle): Promise<string> {
+        const res = await this.api
+            .post(`redactor/articles?publish=${publish}`, {json: dto})
+            .json<{ articleReference: string }>();
+
+        return res.articleReference;
     }
 
     async findRedactorArticlesByRef(ref: string): Promise<Article[]> {

@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import {beforeAll, beforeEach, describe, expect, it, vi} from 'vitest';
-import {authManager} from '@/core/dependencies/auth/authManager';
-import {Auth} from '@/core/models/auth';
+import {authManager} from '@/core/dependencies/auth/authManager.ts';
+import {Auth} from '@/core/models/auth.ts';
 
 // Mock TanStack Router's Link to avoid needing a RouterProvider
 
@@ -47,7 +47,7 @@ describe('AppBar', () => {
         // Ensure store is empty
         authManager.authStore.setState(() => null);
 
-        const {default: AppBar} = await import('./AppBar');
+        const {default: AppBar} = await import('./AppBar.tsx');
         render(<AppBar/>);
 
         expect(screen.getByText('Connexion')).toBeInTheDocument();
@@ -62,11 +62,12 @@ describe('AppBar', () => {
             accessTokenExpiry: new Date(now + 60 * 60 * 1000).toISOString(),
             refreshTokenExpiry: new Date(now + 2 * 60 * 60 * 1000).toISOString(),
             roles: [],
+            tag: 'clemovitch0123',
         });
 
         authManager.authStore.setState(() => auth);
 
-        const {default: AppBar} = await import('./AppBar');
+        const {default: AppBar} = await import('./AppBar.tsx');
         render(<AppBar/>);
 
         expect(screen.getByText('Déconnexion')).toBeInTheDocument();

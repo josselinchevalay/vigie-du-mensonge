@@ -43,11 +43,14 @@ func (h *handler) saveArticleForRedactor(c *fiber.Ctx) error {
 		}
 	}
 
-	if err = h.svc.saveArticleForRedactor(publish, article); err != nil {
+	articleRef, err := h.svc.saveArticleForRedactor(publish, article)
+	if err != nil {
 		return err
 	}
 
-	return c.SendStatus(fiber.StatusNoContent)
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"articleReference": articleRef.String(),
+	})
 }
 
 func validateForPublication(article models.Article) error {

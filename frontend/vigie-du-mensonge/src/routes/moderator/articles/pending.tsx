@@ -1,11 +1,11 @@
 import {createFileRoute} from '@tanstack/react-router';
 import {useQuery} from "@tanstack/react-query";
-import {BasicProgress} from "@/core/components/BasicProgress.tsx";
+import {BasicProgress} from "@/core/components/misc/BasicProgress.tsx";
 import {Link} from "@/core/utils/router.ts";
 import type {Article} from "@/core/models/article.ts";
-import {formatDateFR} from "@/core/utils/formatDate.ts";
 import {Separator} from "@/core/shadcn/components/ui/separator.tsx";
 import {ArticleOverviewItem} from "@/core/components/article/ArticleOverviewItem.tsx";
+import {fmtDate} from "@/core/utils/fmtDate.ts";
 
 export const Route = createFileRoute('/moderator/articles/pending')({
     component: RouteComponent,
@@ -59,7 +59,6 @@ function RouteComponent() {
                             <ArticleOverviewItem
                                 article={article}
                                 header={ArticleHeader}
-                                showStatus={true}
                             />
                         </Link>
                     ))}
@@ -73,7 +72,7 @@ function ArticleHeader(article: Article) {
     return (
         <div className="flex flex-col items-center gap-2 w-full">
             <p className="text-sm">Rédigé par {article.redactorTag}</p>
-            <p className="text-sm">En attente depuis le {formatDateFR(article.updatedAt)}</p>
+            <p className="text-sm">En attente depuis le {fmtDate(article.updatedAt)}</p>
             <Separator/>
         </div>
     );

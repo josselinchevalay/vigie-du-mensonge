@@ -62,7 +62,7 @@ export function RedactorArticlesByReference({redactorClient, articles}: Redactor
                         <DialogTrigger asChild>
                             <Button><Eye/></Button>
                         </DialogTrigger>
-                        <DialogContent>
+                        <DialogContent aria-describedby={undefined}>
                             <DialogHeader>
                                 <DialogTitle>Toute modification non enregistrée sera perdue.</DialogTitle>
                             </DialogHeader>
@@ -79,7 +79,8 @@ export function RedactorArticlesByReference({redactorClient, articles}: Redactor
             )
         }
 
-        {editMode ? <RedactorArticleForm article={selected} redactorClient={redactorClient}/> :
+        {editMode ? <RedactorArticleForm article={selected} redactorClient={redactorClient}
+                                         onSubmitSuccess={() => setEditMode(false)}/> :
             <ArticleDisplay article={articles[index]}/>}
     </div>;
 }

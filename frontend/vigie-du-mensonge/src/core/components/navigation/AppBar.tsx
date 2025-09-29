@@ -1,8 +1,8 @@
 import {authManager} from "@/core/dependencies/auth/authManager.ts";
 import {useStore} from "@tanstack/react-store";
-import {Button} from "../shadcn/components/ui/button";
+import {Button} from "../../shadcn/components/ui/button.tsx";
 import {Link} from "@/core/utils/router.ts";
-import {SideSheet} from "@/core/components/SideSheet.tsx";
+import {SideSheet} from "@/core/components/navigation/SideSheet.tsx";
 import {ThemeToggle} from "@/core/components/theme/ThemeToggle.tsx";
 
 
