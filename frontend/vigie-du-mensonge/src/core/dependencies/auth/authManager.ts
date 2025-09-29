@@ -2,6 +2,7 @@ import {Auth} from "@/core/models/auth.ts";
 import {Store} from "@tanstack/react-store";
 import {authClient, AuthClient} from "@/core/dependencies/auth/authClient.ts";
 import {toast} from "@/core/utils/toast";
+import {queryClient} from "@/queryClient.ts";
 
 class AuthManager {
     private readonly client: AuthClient;
@@ -67,6 +68,13 @@ class AuthManager {
         Auth.clearStorage();
         this.authStore.setState(() => null);
         void this.client.signOut();
+
+        queryClient.removeQueries({
+            predicate: (query) => {
+                const key = query.queryKey[0];
+                return key === "redactor" || key === "moderator" || key === "admin";
+            },
+        });
     }
 }
 

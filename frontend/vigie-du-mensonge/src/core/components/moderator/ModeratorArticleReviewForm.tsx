@@ -25,15 +25,14 @@ const formSchema = z
     .object({
         decision: z.enum(AllowedDecisions),
         notes: z.string().optional(),
-    });
-    // .refine(
-    //     (data) => data.decision === ArticleStatuses.PUBLISHED ||
-    //         (data.notes !== undefined && data.notes.trim().length > 30 && data.notes.trim().length < 200),
-    //     {
-    //         error: "Vous devez fournir des notes (30 à 200 caractères) pour expliquer votre décision.",
-    //         path: ["notes"],
-    //     }
-    // );
+    }).refine(
+        (data) => data.decision === ArticleStatuses.PUBLISHED ||
+            (data.notes !== undefined && data.notes.trim().length > 30 && data.notes.trim().length < 200),
+        {
+            error: "Vous devez fournir des notes (30 à 200 caractères) pour expliquer votre décision.",
+            path: ["notes"],
+        }
+    );
 
 export type ModeratorArticleReviewFormInput = z.infer<typeof formSchema>;
 
@@ -105,8 +104,7 @@ export function ModeratorArticleReviewForm({moderatorClient, articleId, articleR
                     render={({field}) => (
                         <FormItem>
                             <FormLabel>
-                                Notes {form.getValues("decision") !== ArticleStatuses.PUBLISHED &&
-                                <span className="text-muted-foreground">(obligatoire)</span>}
+                                Notes
                             </FormLabel>
                             <FormControl>
                 <textarea

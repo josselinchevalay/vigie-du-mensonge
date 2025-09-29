@@ -5,7 +5,6 @@ import {Link} from "@/core/utils/router.ts";
 import {SideSheet} from "@/core/components/navigation/SideSheet.tsx";
 import {ThemeToggle} from "@/core/components/theme/ThemeToggle.tsx";
 
-
 export default function AppBar() {
     const auth = useStore(authManager.authStore);
 
@@ -62,7 +61,7 @@ export default function AppBar() {
                             </Link>
                         </>
                         : <Button
-                            onClick={() => authManager.signOut()}>Déconnexion</Button>
+                            onClick={authManager.signOut}>Déconnexion</Button>
                     }
 
                 </div>
