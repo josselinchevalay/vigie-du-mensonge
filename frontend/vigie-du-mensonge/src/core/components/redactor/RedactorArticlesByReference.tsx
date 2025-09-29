@@ -32,18 +32,19 @@ export function RedactorArticlesByReference({redactorClient, articles}: Redactor
 
     return <div className="flex flex-col items-center gap-4 min-w-0 py-2">
 
-        <h1 className="text-xl font-bold">{selected.versionLabel}</h1>
-
         <div className="flex flex-row justify-center gap-8">
-            <Button
-                disabled={index === articles.length - 1}
-                onClick={() => setIndex(index + 1)}
+            <Button variant="ghost"
+                    disabled={index === articles.length - 1}
+                    onClick={() => setIndex(index + 1)}
             >
                 <ArrowLeft></ArrowLeft>
             </Button>
-            <Button
-                disabled={index === 0}
-                onClick={() => setIndex(index - 1)}
+
+            <h1 className="text-xl font-bold">{selected.versionLabel}</h1>
+
+            <Button variant="ghost"
+                    disabled={index === 0}
+                    onClick={() => setIndex(index - 1)}
             >
                 <ArrowRight></ArrowRight>
             </Button>
@@ -55,15 +56,18 @@ export function RedactorArticlesByReference({redactorClient, articles}: Redactor
             </div>
         }
 
-        {selected.review && <ArticleReviewCard review={selected.review}/>}
+        {selected.review && <div className="px-2">
+            <ArticleReviewCard review={selected.review}/>
+        </div>}
 
         {editable &&
             (
                 !editMode
-                    ? <Button onClick={() => setEditMode(true)}><SquarePen/></Button>
+                    ? <Button variant="ghost"
+                              onClick={() => setEditMode(true)}><SquarePen/></Button>
                     : <Dialog>
                         <DialogTrigger asChild>
-                            <Button><Eye/></Button>
+                            <Button variant="ghost"><Eye/></Button>
                         </DialogTrigger>
                         <DialogContent aria-describedby={undefined}>
                             <DialogHeader>

@@ -167,7 +167,21 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
         <div className="mx-auto w-full max-w-7xl p-2">
 
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <form onSubmit={form.handleSubmit(onSubmit)}
+                      onKeyDown={(e) => {
+                          if (e.key !== "Enter") {
+                              return;
+                          }
+                          const target = e.target as HTMLElement;
+                          const tag = target.tagName.toLowerCase();
+                          const isButton = tag === "button";
+                          // Prevent form submission on Enter when focus is not a button
+                          if (!isButton) {
+                              e.preventDefault();
+                          }
+                      }}
+                      className="space-y-6"
+                >
                     <div className="space-y-1">
                         <h1 className="text-xl font-semibold">
                             {article ? "Modifier l'article" : "Créer un article"}
@@ -183,7 +197,13 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
                             <FormItem>
                                 <FormLabel>Titre</FormLabel>
                                 <FormControl>
-                                    <Input type="text" placeholder="Titre de l'article" {...field} />
+                                    <textarea
+                                        className="border-input w-full min-h-12 rounded-md border bg-transparent px-3 py-2 text-sm"
+                                        placeholder="Titre de l'article"
+                                        maxLength={100}
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                    />
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
@@ -286,7 +306,7 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
                     <FormField
                         control={form.control}
                         name="body"
-                        render={({field}) => (
+                        render={({field}) =>
                             <FormItem>
                                 <FormLabel>Contenu</FormLabel>
                                 <FormControl>
@@ -300,7 +320,7 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
-                        )}
+                        }
                     />
 
                     <FormField
@@ -321,7 +341,9 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
                                             }
                                         }}
                                     />
+
                                     <Button type="button" onClick={addTag} variant="secondary">Ajouter</Button>
+
                                 </div>
                                 <div className="flex flex-wrap gap-2 pt-2">
                                     {form.getValues("tags").map(tag => (
@@ -334,6 +356,7 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
                                         </span>
                                     ))}
                                 </div>
+
                                 <FormMessage/>
                             </FormItem>
                         )}
@@ -378,23 +401,26 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
                         )}
                     />
 
-                    <div className="flex flex-row gap-8 items-center justify-center">
-                        <Button
-                            type="submit"
-                            disabled={form.formState.isSubmitting}
-                            onClick={() => form.setValue("mode", "draft", {shouldValidate: false})}
-                        >
-                            Enregistrer
-                        </Button>
-                        {article &&
+                    <div className="flex flex-row items-center justify-center mb-16">
+                        <div
+                            className="fixed bottom-8 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border rounded-full p-2 shadow-lg">
                             <Button
-                                type="submit"
+                                type="submit" variant="ghost"
                                 disabled={form.formState.isSubmitting}
-                                onClick={() => form.setValue("mode", "publish", {shouldValidate: false})}
+                                onClick={() => form.setValue("mode", "draft", {shouldValidate: false})}
                             >
-                                Publier
+                                Enregistrer
                             </Button>
-                        }
+                            {article &&
+                                <Button
+                                    type="submit" variant="ghost"
+                                    disabled={form.formState.isSubmitting}
+                                    onClick={() => form.setValue("mode", "publish", {shouldValidate: false})}
+                                >
+                                    Publier
+                                </Button>
+                            }
+                        </div>
                     </div>
 
                 </form>

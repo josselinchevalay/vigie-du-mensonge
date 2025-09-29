@@ -47,7 +47,7 @@ function RouteComponent() {
         {
             (articles && articles.length > 0) &&
 
-            <div className="flex flex-wrap justify-center gap-4 w-full">
+            <div className="flex flex-wrap justify-center gap-8 w-full">
                 {articles.map((article) => (
                     <Link
                         key={article.id}
