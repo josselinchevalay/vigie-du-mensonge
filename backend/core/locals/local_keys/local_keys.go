@@ -8,3 +8,5 @@ const CsrfToken = "csrfToken"
 
 const ArticleReference = "articleReference"
 const ArticleID = "articleID"
+
+const UserTag = "userTag"

@@ -2,7 +2,7 @@ import {Auth} from "@/core/models/auth.ts";
 import {Store} from "@tanstack/react-store";
 import {authClient, AuthClient} from "@/core/dependencies/auth/authClient.ts";
 import {toast} from "@/core/utils/toast";
-import {queryClient} from "@/queryClient.ts";
+import {queryClient} from "@/core/dependencies/queryClient.ts";
 
 class AuthManager {
     private readonly client: AuthClient;

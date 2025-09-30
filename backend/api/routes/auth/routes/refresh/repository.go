@@ -20,7 +20,9 @@ func (r *repository) findValidRefreshToken(hash string) (models.UserToken, error
 	var rft models.UserToken
 	if err := r.db.Model(&models.UserToken{}).
 		Where("hash = ? AND category = ? AND expiry > NOW()", hash, models.UserTokenCategoryRefresh).
-		Preload("User.Roles").
+		Preload("User.Roles", func(db *gorm.DB) *gorm.DB {
+			return db.Select("id", "name")
+		}).
 		First(&rft).Error; err != nil {
 		return models.UserToken{}, err
 	}

@@ -14,14 +14,17 @@ import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as PasswordUpdateRouteImport } from './routes/password-update'
 import { Route as RedactorRouteRouteImport } from './routes/redactor/route'
 import { Route as ModeratorRouteRouteImport } from './routes/moderator/route'
+import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ArticlesArticleIdRouteImport } from './routes/articles/$articleId'
 import { Route as RedactorArticlesIndexRouteImport } from './routes/redactor/articles/index'
 import { Route as ModeratorArticlesIndexRouteImport } from './routes/moderator/articles/index'
+import { Route as AdminUsersIndexRouteImport } from './routes/admin/users/index'
 import { Route as RedactorArticlesNewRouteImport } from './routes/redactor/articles/new'
 import { Route as RedactorArticlesArticleRefRouteImport } from './routes/redactor/articles/$articleRef'
 import { Route as ModeratorArticlesPendingRouteImport } from './routes/moderator/articles/pending'
 import { Route as ModeratorArticlesArticleRefRouteImport } from './routes/moderator/articles/$articleRef'
+import { Route as AdminUsersUserTagRouteImport } from './routes/admin/users/$userTag'
 
 const SignUpRoute = SignUpRouteImport.update({
   id: '/sign-up',
@@ -48,6 +51,11 @@ const ModeratorRouteRoute = ModeratorRouteRouteImport.update({
   path: '/moderator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -67,6 +75,11 @@ const ModeratorArticlesIndexRoute = ModeratorArticlesIndexRouteImport.update({
   id: '/articles/',
   path: '/articles/',
   getParentRoute: () => ModeratorRouteRoute,
+} as any)
+const AdminUsersIndexRoute = AdminUsersIndexRouteImport.update({
+  id: '/users/',
+  path: '/users/',
+  getParentRoute: () => AdminRouteRoute,
 } as any)
 const RedactorArticlesNewRoute = RedactorArticlesNewRouteImport.update({
   id: '/articles/new',
@@ -91,50 +104,64 @@ const ModeratorArticlesArticleRefRoute =
     path: '/articles/$articleRef',
     getParentRoute: () => ModeratorRouteRoute,
   } as any)
+const AdminUsersUserTagRoute = AdminUsersUserTagRouteImport.update({
+  id: '/users/$userTag',
+  path: '/users/$userTag',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/moderator': typeof ModeratorRouteRouteWithChildren
   '/redactor': typeof RedactorRouteRouteWithChildren
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/articles/$articleId': typeof ArticlesArticleIdRoute
+  '/admin/users/$userTag': typeof AdminUsersUserTagRoute
   '/moderator/articles/$articleRef': typeof ModeratorArticlesArticleRefRoute
   '/moderator/articles/pending': typeof ModeratorArticlesPendingRoute
   '/redactor/articles/$articleRef': typeof RedactorArticlesArticleRefRoute
   '/redactor/articles/new': typeof RedactorArticlesNewRoute
+  '/admin/users': typeof AdminUsersIndexRoute
   '/moderator/articles': typeof ModeratorArticlesIndexRoute
   '/redactor/articles': typeof RedactorArticlesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/moderator': typeof ModeratorRouteRouteWithChildren
   '/redactor': typeof RedactorRouteRouteWithChildren
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/articles/$articleId': typeof ArticlesArticleIdRoute
+  '/admin/users/$userTag': typeof AdminUsersUserTagRoute
   '/moderator/articles/$articleRef': typeof ModeratorArticlesArticleRefRoute
   '/moderator/articles/pending': typeof ModeratorArticlesPendingRoute
   '/redactor/articles/$articleRef': typeof RedactorArticlesArticleRefRoute
   '/redactor/articles/new': typeof RedactorArticlesNewRoute
+  '/admin/users': typeof AdminUsersIndexRoute
   '/moderator/articles': typeof ModeratorArticlesIndexRoute
   '/redactor/articles': typeof RedactorArticlesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/moderator': typeof ModeratorRouteRouteWithChildren
   '/redactor': typeof RedactorRouteRouteWithChildren
   '/password-update': typeof PasswordUpdateRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
   '/articles/$articleId': typeof ArticlesArticleIdRoute
+  '/admin/users/$userTag': typeof AdminUsersUserTagRoute
   '/moderator/articles/$articleRef': typeof ModeratorArticlesArticleRefRoute
   '/moderator/articles/pending': typeof ModeratorArticlesPendingRoute
   '/redactor/articles/$articleRef': typeof RedactorArticlesArticleRefRoute
   '/redactor/articles/new': typeof RedactorArticlesNewRoute
+  '/admin/users/': typeof AdminUsersIndexRoute
   '/moderator/articles/': typeof ModeratorArticlesIndexRoute
   '/redactor/articles/': typeof RedactorArticlesIndexRoute
 }
@@ -142,52 +169,62 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/moderator'
     | '/redactor'
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
     | '/articles/$articleId'
+    | '/admin/users/$userTag'
     | '/moderator/articles/$articleRef'
     | '/moderator/articles/pending'
     | '/redactor/articles/$articleRef'
     | '/redactor/articles/new'
+    | '/admin/users'
     | '/moderator/articles'
     | '/redactor/articles'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/moderator'
     | '/redactor'
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
     | '/articles/$articleId'
+    | '/admin/users/$userTag'
     | '/moderator/articles/$articleRef'
     | '/moderator/articles/pending'
     | '/redactor/articles/$articleRef'
     | '/redactor/articles/new'
+    | '/admin/users'
     | '/moderator/articles'
     | '/redactor/articles'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/moderator'
     | '/redactor'
     | '/password-update'
     | '/sign-in'
     | '/sign-up'
     | '/articles/$articleId'
+    | '/admin/users/$userTag'
     | '/moderator/articles/$articleRef'
     | '/moderator/articles/pending'
     | '/redactor/articles/$articleRef'
     | '/redactor/articles/new'
+    | '/admin/users/'
     | '/moderator/articles/'
     | '/redactor/articles/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
   ModeratorRouteRoute: typeof ModeratorRouteRouteWithChildren
   RedactorRouteRoute: typeof RedactorRouteRouteWithChildren
   PasswordUpdateRoute: typeof PasswordUpdateRoute
@@ -233,6 +270,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModeratorRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -260,6 +304,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/moderator/articles'
       preLoaderRoute: typeof ModeratorArticlesIndexRouteImport
       parentRoute: typeof ModeratorRouteRoute
+    }
+    '/admin/users/': {
+      id: '/admin/users/'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
     }
     '/redactor/articles/new': {
       id: '/redactor/articles/new'
@@ -289,8 +340,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModeratorArticlesArticleRefRouteImport
       parentRoute: typeof ModeratorRouteRoute
     }
+    '/admin/users/$userTag': {
+      id: '/admin/users/$userTag'
+      path: '/users/$userTag'
+      fullPath: '/admin/users/$userTag'
+      preLoaderRoute: typeof AdminUsersUserTagRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
   }
 }
+
+interface AdminRouteRouteChildren {
+  AdminUsersUserTagRoute: typeof AdminUsersUserTagRoute
+  AdminUsersIndexRoute: typeof AdminUsersIndexRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminUsersUserTagRoute: AdminUsersUserTagRoute,
+  AdminUsersIndexRoute: AdminUsersIndexRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
 
 interface ModeratorRouteRouteChildren {
   ModeratorArticlesArticleRefRoute: typeof ModeratorArticlesArticleRefRoute
@@ -326,6 +398,7 @@ const RedactorRouteRouteWithChildren = RedactorRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
   ModeratorRouteRoute: ModeratorRouteRouteWithChildren,
   RedactorRouteRoute: RedactorRouteRouteWithChildren,
   PasswordUpdateRoute: PasswordUpdateRoute,

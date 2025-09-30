@@ -19,6 +19,14 @@ export default function AppBar() {
                         Vigie du mensonge
                     </Link>
 
+                    {auth?.isAdmin &&
+                        <Link
+                            to="/admin/users"
+                            className="hidden md:flex p-2 text-sm font-medium rounded-md hover:bg-accent"
+                        >
+                            Espace administrateur
+                        </Link>
+                    }
                     {auth?.isModerator &&
                         <Link
                             to="/moderator/articles"

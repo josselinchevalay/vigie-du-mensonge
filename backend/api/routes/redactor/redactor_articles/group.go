@@ -1,9 +1,9 @@
 package redactor_articles
 
 import (
-	"vdm/api/routes/redactor/redactor_articles/find_redactor_article"
-	"vdm/api/routes/redactor/redactor_articles/get_redactor_articles"
-	"vdm/api/routes/redactor/redactor_articles/save_redactor_article"
+	"vdm/api/routes/redactor/redactor_articles/redactor_find_article"
+	"vdm/api/routes/redactor/redactor_articles/redactor_get_articles"
+	"vdm/api/routes/redactor/redactor_articles/redactor_save_article"
 	"vdm/core/dependencies"
 	"vdm/core/fiberx"
 )
@@ -14,9 +14,9 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	group := fiberx.NewGroup(Prefix)
 
 	group.Add(
-		get_redactor_articles.Route(deps.GormDB()),
-		save_redactor_article.Route(deps.GormDB()),
-		find_redactor_article.Route(deps.GormDB()),
+		redactor_get_articles.Route(deps.GormDB()),
+		redactor_save_article.Route(deps.GormDB()),
+		redactor_find_article.Route(deps.GormDB()),
 	)
 
 	return group

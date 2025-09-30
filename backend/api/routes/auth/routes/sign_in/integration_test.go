@@ -25,7 +25,7 @@ var testRoles = []*models.Role{
 	{Name: "ADMIN"},
 	{Name: "MODERATOR"},
 }
-var testUser = &models.User{Email: "signin_user0@email.com", Roles: testRoles}
+var testUser = &models.User{Email: "signin_user0@email.com", Tag: "user0123", Roles: testRoles}
 
 func loadTestData(c context.Context, t *testing.T) (container testcontainers.Container, connector database.Connector) {
 	container, connector = test_utils.NewTestContainerConnector(c, t)

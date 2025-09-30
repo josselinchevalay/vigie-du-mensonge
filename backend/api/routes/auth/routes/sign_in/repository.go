@@ -20,7 +20,10 @@ func (r *repository) findUserByEmail(email string) (models.User, error) {
 	var user models.User
 	if err := r.db.Model(&models.User{}).
 		Where("email = ?", email).
-		Preload("Roles").
+		Preload("Roles", func(db *gorm.DB) *gorm.DB {
+			return db.Select("id", "name")
+		}).
+		Select("id", "email", "password", "tag", "created_at", "updated_at", "deleted_at").
 		First(&user).Error; err != nil {
 		return models.User{}, err
 	}

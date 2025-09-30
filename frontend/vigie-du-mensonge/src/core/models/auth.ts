@@ -1,14 +1,16 @@
+import {type UserRole, UserRoles} from "@/core/models/userRole.ts";
+
 export type AuthJson = {
     accessTokenExpiry: string;
     refreshTokenExpiry: string;
-    roles?: string[];
+    roles?: UserRole[];
     tag: string;
 };
 
 export class Auth {
     public accessTokenExpiry: Date;
     public refreshTokenExpiry: Date;
-    public roles: string[];
+    public roles: UserRole[];
     public tag: string;
 
     public static readonly STORAGE_KEY = 'vdm_auth';
@@ -16,7 +18,7 @@ export class Auth {
     constructor(
         accessTokenExpiry: Date,
         refreshTokenExpiry: Date,
-        roles: string[],
+        roles: UserRole[],
         tag: string,
     ) {
         this.accessTokenExpiry = accessTokenExpiry;
@@ -26,11 +28,15 @@ export class Auth {
     }
 
     get isRedactor(): boolean {
-        return this.roles.includes('REDACTOR');
+        return this.roles.includes(UserRoles.REDACTOR);
     }
 
     get isModerator(): boolean {
-        return this.roles.includes('MODERATOR');
+        return this.roles.includes(UserRoles.MODERATOR);
+    }
+
+    get isAdmin(): boolean {
+        return this.roles.includes(UserRoles.ADMIN);
     }
 
     get accessTokenExpired(): boolean {

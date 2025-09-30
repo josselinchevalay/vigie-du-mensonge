@@ -26,6 +26,10 @@ type User struct {
 func (User) TableName() string { return "users" }
 
 func (u User) RoleNames() []RoleName {
+	if u.Roles == nil {
+		return nil
+	}
+
 	var roles []RoleName
 	for _, r := range u.Roles {
 		if r == nil {

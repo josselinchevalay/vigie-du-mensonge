@@ -1,11 +1,11 @@
 package moderator_articles
 
 import (
-	"vdm/api/routes/moderator/moderator_articles/claim_moderator_article"
-	"vdm/api/routes/moderator/moderator_articles/find_moderator_article"
-	"vdm/api/routes/moderator/moderator_articles/get_moderator_articles"
-	"vdm/api/routes/moderator/moderator_articles/get_pending_articles"
-	"vdm/api/routes/moderator/moderator_articles/save_moderator_review"
+	"vdm/api/routes/moderator/moderator_articles/moderator_claim_article"
+	"vdm/api/routes/moderator/moderator_articles/moderator_find_article"
+	"vdm/api/routes/moderator/moderator_articles/moderator_get_claimed_articles"
+	"vdm/api/routes/moderator/moderator_articles/moderator_get_pending_articles"
+	"vdm/api/routes/moderator/moderator_articles/moderator_save_review"
 	"vdm/core/dependencies"
 	"vdm/core/fiberx"
 )
@@ -16,11 +16,11 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	group := fiberx.NewGroup(Prefix)
 
 	group.Add(
-		get_moderator_articles.Route(deps.GormDB()),
-		get_pending_articles.Route(deps.GormDB()),
-		find_moderator_article.Route(deps.GormDB()),
-		claim_moderator_article.Route(deps.GormDB()),
-		save_moderator_review.Route(deps.GormDB()),
+		moderator_get_claimed_articles.Route(deps.GormDB()),
+		moderator_get_pending_articles.Route(deps.GormDB()),
+		moderator_find_article.Route(deps.GormDB()),
+		moderator_claim_article.Route(deps.GormDB()),
+		moderator_save_review.Route(deps.GormDB()),
 	)
 
 	return group
