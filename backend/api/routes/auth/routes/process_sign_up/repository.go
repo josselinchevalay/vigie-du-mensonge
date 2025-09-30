@@ -1,11 +1,9 @@
 package process_sign_up
 
 import (
-	"errors"
 	"vdm/core/logger"
 	"vdm/core/models"
 
-	"github.com/jackc/pgx/v5/pgconn"
 	"gorm.io/gorm"
 )
 
@@ -25,11 +23,6 @@ func (r *repository) createUserAndRefreshToken(user *models.User, rft *models.Us
 		if err != nil {
 			if rbErr := tx.Rollback().Error; rbErr != nil {
 				logger.Error("failed to rollback transaction", logger.Err(rbErr))
-			}
-
-			var pgErr *pgconn.PgError
-			if errors.As(err, &pgErr) && pgErr.Code == "23505" {
-				err = gorm.ErrDuplicatedKey // email already exists
 			}
 
 			return

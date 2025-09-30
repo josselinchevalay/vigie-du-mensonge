@@ -1,4 +1,4 @@
-package redactor_find_article
+package moderator_find_article
 
 import (
 	"context"
@@ -9,7 +9,6 @@ import (
 	"vdm/core/dependencies/database"
 	"vdm/core/dto/response_dto"
 	"vdm/core/fiberx"
-	"vdm/core/locals"
 	"vdm/core/models"
 	"vdm/test_utils"
 
@@ -31,7 +30,6 @@ func loadTestData(c context.Context, t *testing.T) (container testcontainers.Con
 	container, connector = test_utils.NewTestContainerConnector(c, t)
 
 	var err error
-
 	defer func() {
 		if err != nil {
 			test_utils.CleanUpTestData(c, t, container, connector)
@@ -65,19 +63,11 @@ func loadTestData(c context.Context, t *testing.T) (container testcontainers.Con
 			Reference:   data.ref,
 		},
 		{
-			RedactorID:  data.redactor.ID,
-			Title:       "Article v2",
+			RedactorID:  data.other.ID,
+			Title:       "Other redactor v2",
 			Politicians: []*models.Politician{data.politicians[0]},
 			Tags:        []*models.ArticleTag{{Tag: "Macron"}},
 			Status:      models.ArticleStatusUnderReview,
-			Reference:   data.ref,
-		},
-		{
-			RedactorID:  data.other.ID,
-			Title:       "Other's article same ref",
-			Politicians: []*models.Politician{data.politicians[0]},
-			Tags:        []*models.ArticleTag{{Tag: "Macron"}},
-			Status:      models.ArticleStatusDraft,
 			Reference:   data.ref,
 		},
 	}
@@ -86,25 +76,15 @@ func loadTestData(c context.Context, t *testing.T) (container testcontainers.Con
 	return
 }
 
-func newAppWithAuthedUser(redactorID uuid.UUID) *fiber.App {
-	app := fiberx.NewApp()
-	app.Use(func(c *fiber.Ctx) error {
-		c.Locals("authedUser", locals.AuthedUser{ID: redactorID})
-		return c.Next()
-	})
-	return app
-}
-
 func TestIntegration_Success(t *testing.T) {
 	c := context.Background()
 	container, connector, data := loadTestData(c, t)
 	t.Cleanup(func() { test_utils.CleanUpTestData(c, t, container, connector) })
 
-	app := newAppWithAuthedUser(data.redactor.ID)
+	app := fiberx.NewApp()
 	Route(connector.GormDB()).Register(app)
 
 	req := httptest.NewRequest(Method, "/"+data.ref.String(), nil)
-
 	res, err := app.Test(req)
 	if err != nil {
 		t.Fatal(err)
@@ -115,92 +95,35 @@ func TestIntegration_Success(t *testing.T) {
 		t.Fatalf("Expected status code 200, got %d", res.StatusCode)
 	}
 
-	resBody, err := io.ReadAll(res.Body)
+	b, err := io.ReadAll(res.Body)
 	if err != nil {
 		t.Fatal(err)
 	}
-
-	var resDTO []response_dto.Article
-	if err = json.Unmarshal(resBody, &resDTO); err != nil {
+	var dtos []response_dto.Article
+	if err = json.Unmarshal(b, &dtos); err != nil {
 		t.Fatal(err)
 	}
-
-	// Only the two articles belonging to the redactor with the same reference should be returned
-	assert.Equal(t, 2, len(resDTO))
-	for i := range resDTO {
-		assert.Equal(t, 1, len(resDTO[i].Politicians))
-		assert.Equal(t, 1, len(resDTO[i].Tags))
+	assert.Equal(t, 2, len(dtos))
+	for i := range dtos {
+		assert.Equal(t, 1, len(dtos[i].Politicians))
+		assert.Equal(t, 1, len(dtos[i].Tags))
 	}
 }
 
 func TestIntegration_ErrNotFound(t *testing.T) {
 	c := context.Background()
-	container, connector, data := loadTestData(c, t)
+	container, connector, _ := loadTestData(c, t)
 	t.Cleanup(func() { test_utils.CleanUpTestData(c, t, container, connector) })
 
-	app := newAppWithAuthedUser(data.redactor.ID)
+	app := fiberx.NewApp()
 	Route(connector.GormDB()).Register(app)
 
 	req := httptest.NewRequest(Method, "/"+uuid.New().String(), nil)
-
 	res, err := app.Test(req)
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer res.Body.Close()
 
-	assert.Equal(t, fiber.StatusNotFound, res.StatusCode)
-}
-
-func TestIntegration_BadRequest(t *testing.T) {
-	c := context.Background()
-	container, connector, data := loadTestData(c, t)
-	t.Cleanup(func() { test_utils.CleanUpTestData(c, t, container, connector) })
-
-	app := newAppWithAuthedUser(data.redactor.ID)
-	Route(connector.GormDB()).Register(app)
-
-	req := httptest.NewRequest(Method, "/not-a-uuid", nil)
-
-	res, err := app.Test(req)
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer res.Body.Close()
-
-	assert.Equal(t, fiber.StatusBadRequest, res.StatusCode)
-}
-
-func TestIntegration_WrongRedactor(t *testing.T) {
-	c := context.Background()
-	container, connector, data := loadTestData(c, t)
-	t.Cleanup(func() { test_utils.CleanUpTestData(c, t, container, connector) })
-
-	// Create an article for the other redactor with a unique reference
-	otherRef := uuid.New()
-	extra := &models.Article{
-		RedactorID:  data.other.ID,
-		Title:       "Other redactor unique ref",
-		Politicians: []*models.Politician{data.politicians[0]},
-		Tags:        []*models.ArticleTag{{Tag: "Other"}},
-		Status:      models.ArticleStatusDraft,
-		Reference:   otherRef,
-	}
-	if err := connector.GormDB().Create(extra).Error; err != nil {
-		t.Fatal(err)
-	}
-
-	app := newAppWithAuthedUser(data.redactor.ID)
-	Route(connector.GormDB()).Register(app)
-
-	req := httptest.NewRequest(Method, "/"+otherRef.String(), nil)
-
-	res, err := app.Test(req)
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer res.Body.Close()
-
-	// The authed redactor should not see other redactor's articles, expect 404
 	assert.Equal(t, fiber.StatusNotFound, res.StatusCode)
 }
