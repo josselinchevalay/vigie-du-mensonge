@@ -13,9 +13,11 @@ export const Route = createFileRoute('/redactor/articles/')({
 function RouteComponent() {
     const redactorClient = Route.useRouteContext().redactorClient;
 
+    const {queryKey, queryFn} = redactorClient.getRedactorArticles();
+
     const {data: articles, isLoading, isError} = useQuery({
-        queryKey: ["redactor", "articles"],
-        queryFn: () => redactorClient.getRedactorArticles(),
+        queryKey: queryKey,
+        queryFn: () => queryFn(),
         staleTime: 60 * 60 * 1000,
     });
 

@@ -11,9 +11,11 @@ export const Route = createFileRoute('/moderator/articles/')({
 function RouteComponent() {
     const moderatorClient = Route.useRouteContext().moderatorClient;
 
+    const {queryKey, queryFn} = moderatorClient.getModeratorArticles();
+
     const {data: articles, isLoading, isError} = useQuery({
-        queryKey: ["moderator", "articles"],
-        queryFn: () => moderatorClient.getModeratorArticles(),
+        queryKey: queryKey,
+        queryFn: () => queryFn(),
         staleTime: 60 * 60 * 1000,
     });
 

@@ -12,10 +12,12 @@ export const Route = createFileRoute('/')({
 function RouteComponent() {
     const articleClient = Route.useRouteContext().articleClient;
 
+    const {queryKey, queryFn} = articleClient.getAll();
+
     const {data: articles, isLoading, isError} = useQuery({
-        queryKey: ["articles"],
-        queryFn: () => articleClient.getAll(),
-        staleTime: 60 * 60 * 1000,
+        queryKey: queryKey,
+        queryFn: () => queryFn(),
+        staleTime: 24 * 60 * 60 * 1000,
     });
 
     if (isError) {

@@ -50,7 +50,7 @@ export function ModeratorArticleReviewForm({moderatorClient, articleId, articleR
 
     const mutation = useMutation({
         mutationFn: async (input: ModeratorArticleReviewFormInput) => {
-            return moderatorClient.reviewModeratorArticle(articleId, {
+            return moderatorClient.saveModeratorReview(articleId, {
                 decision: input.decision,
                 notes: input.notes,
             });

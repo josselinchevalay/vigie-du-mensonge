@@ -7,6 +7,7 @@ import {AuthRefreshScheduler} from '@/core/dependencies/auth/authRefreshSchedule
 import AppBar from "@/core/components/navigation/AppBar.tsx";
 import {ArticleClient} from "@/core/dependencies/article/articleClient.ts";
 import {api} from "@/core/dependencies/api.ts";
+import {PoliticianClient} from "@/core/dependencies/politician/politicianClient.ts";
 
 const RootLayout = () => {
     const schedulerRef = useRef<AuthRefreshScheduler | null>(null);
@@ -61,7 +62,8 @@ const RootLayout = () => {
 export const Route = createRootRoute({
     beforeLoad: () => {
         const articleClient = new ArticleClient(api);
-        return {articleClient};
+        const politicianClient = new PoliticianClient(api);
+        return {articleClient, politicianClient};
     },
     component: RootLayout,
 });

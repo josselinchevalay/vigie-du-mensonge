@@ -10,10 +10,13 @@ export const Route = createFileRoute('/redactor/articles/$articleRef')({
 function RouteComponent() {
     const {articleRef} = Route.useParams();
     const redactorClient = Route.useRouteContext().redactorClient;
+    const politicianClient = Route.useRouteContext().politicianClient;
+
+    const {queryKey, queryFn} = redactorClient.findRedactorArticlesByRef(articleRef);
 
     const {data: articles, isLoading, isError} = useQuery({
-        queryKey: ["redactor", "articles", articleRef],
-        queryFn: () => redactorClient.findRedactorArticlesByRef(articleRef),
+        queryKey: queryKey,
+        queryFn: () => queryFn(),
     });
 
     if (isError) {
@@ -40,5 +43,5 @@ function RouteComponent() {
     }
 
     return <RedactorArticlesByReference redactorClient={redactorClient}
-                                        articles={articles}/>;
+                                        politicianClient={politicianClient} articles={articles}/>;
 }

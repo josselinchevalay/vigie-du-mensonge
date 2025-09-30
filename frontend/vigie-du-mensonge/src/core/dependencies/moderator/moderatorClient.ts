@@ -2,7 +2,7 @@ import type {KyInstance} from "ky";
 import {Article, type ArticleJson} from "@/core/models/article.ts";
 import type {ArticleStatus} from "@/core/models/articleStatus.ts";
 
-export type ModeratorReview = {
+export type SaveModeratorReview = {
     decision: ArticleStatus;
     notes?: string;
 }
@@ -14,7 +14,7 @@ export class ModeratorClient {
         this.api = api;
     }
 
-    async getModeratorArticles(): Promise<Article[]> {
+    private async _getModeratorArticles(): Promise<Article[]> {
         const res = await this.api
             .get("moderator/articles")
             .json<ArticleJson[]>();
@@ -22,7 +22,14 @@ export class ModeratorClient {
         return res.map((json) => Article.fromJson(json));
     }
 
-    async getPendingArticles(): Promise<Article[]> {
+    getModeratorArticles = (): { queryKey: string[], queryFn: () => Promise<Article[]> } => {
+        return {
+            queryKey: ["moderator", "articles"],
+            queryFn: () => this._getModeratorArticles(),
+        };
+    };
+
+    private async _getPendingArticles(): Promise<Article[]> {
         const res = await this.api
             .get("moderator/articles/pending")
             .json<ArticleJson[]>();
@@ -30,7 +37,14 @@ export class ModeratorClient {
         return res.map((json) => Article.fromJson(json));
     }
 
-    async findModeratorArticlesByRef(ref: string): Promise<Article[]> {
+    getPendingArticles = (): { queryKey: string[], queryFn: () => Promise<Article[]> } => {
+        return {
+            queryKey: ["moderator", "articles", "pending"],
+            queryFn: () => this._getPendingArticles(),
+        };
+    };
+
+    private async _findModeratorArticlesByRef(ref: string): Promise<Article[]> {
         const res = await this.api
             .get(`moderator/articles/${ref}`)
             .json<ArticleJson[]>();
@@ -38,11 +52,18 @@ export class ModeratorClient {
         return res.map((json) => Article.fromJson(json));
     }
 
+    findModeratorArticlesByRef = (ref: string): { queryKey: string[], queryFn: () => Promise<Article[]> } => {
+        return {
+            queryKey: ["moderator", "articles", ref],
+            queryFn: () => this._findModeratorArticlesByRef(ref),
+        };
+    };
+
     async claimModeratorArticle(articleID: string): Promise<void> {
         await this.api.post(`moderator/articles/${articleID}/claim`);
     }
 
-    async reviewModeratorArticle(articleID: string, review: ModeratorReview): Promise<void> {
+    async saveModeratorReview(articleID: string, review: SaveModeratorReview): Promise<void> {
         await this.api.post(`moderator/articles/${articleID}/review`, {json: review});
     }
 }

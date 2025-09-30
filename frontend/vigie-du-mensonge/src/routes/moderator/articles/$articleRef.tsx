@@ -11,9 +11,11 @@ function RouteComponent() {
     const {articleRef} = Route.useParams();
     const moderatorClient = Route.useRouteContext().moderatorClient;
 
+    const {queryKey, queryFn} = moderatorClient.findModeratorArticlesByRef(articleRef);
+
     const {data: articles, isLoading, isError} = useQuery({
-        queryKey: ["moderator", "articles", articleRef],
-        queryFn: () => moderatorClient.findModeratorArticlesByRef(articleRef),
+        queryKey: queryKey,
+        queryFn: () => queryFn(),
     });
 
     if (isError) {

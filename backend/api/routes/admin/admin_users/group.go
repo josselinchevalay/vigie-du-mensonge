@@ -1,6 +1,7 @@
 package admin_users
 
 import (
+	"vdm/api/routes/admin/admin_users/admin_search_users"
 	"vdm/core/dependencies"
 	"vdm/core/fiberx"
 )
@@ -11,7 +12,7 @@ func Group(deps *dependencies.Dependencies) *fiberx.Group {
 	group := fiberx.NewGroup(Prefix)
 
 	group.Add(
-	//TODO: impl routes
+		admin_search_users.Route(deps.GormDB()),
 	)
 
 	return group

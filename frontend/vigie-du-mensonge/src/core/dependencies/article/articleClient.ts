@@ -9,7 +9,7 @@ export class ArticleClient {
         this.api = api;
     }
 
-    async getAll(): Promise<Article[]> {
+    private async _getAll(): Promise<Article[]> {
         const res = await this.api
             .get("articles")
             .json<ArticleJson[]>();
@@ -17,13 +17,27 @@ export class ArticleClient {
         return res.map((json) => Article.fromJson(json));
     }
 
-    async findById(id: string): Promise<Article> {
+    getAll = (): { queryKey: string[], queryFn: () => Promise<Article[]> } => {
+        return {
+            queryKey: ["articles"],
+            queryFn: () => this._getAll(),
+        };
+    };
+
+    private async _findById(id: string): Promise<Article> {
         const res = await this.api
             .get(`articles/${id}`)
             .json<ArticleJson>();
 
         return Article.fromJson(res);
     }
+
+    findById = (id: string): { queryKey: string[], queryFn: () => Promise<Article> } => {
+        return {
+            queryKey: ["articles", id],
+            queryFn: () => this._findById(id),
+        };
+    };
 }
 
 export const articleClient = new ArticleClient(api);

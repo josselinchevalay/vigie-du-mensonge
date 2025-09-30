@@ -4,7 +4,6 @@ import {Button} from "@/core/shadcn/components/ui/button.tsx";
 import {ArrowLeft, ArrowRight, Eye, SquarePen} from "lucide-react";
 import {ArticleDisplay} from "@/core/components/article/ArticleDisplay.tsx";
 import {ArticleStatuses, ArticleStatusLabels} from "@/core/models/articleStatus.ts";
-import {RedactorArticleForm} from "@/core/components/redactor/RedactorArticleForm.tsx";
 import type {RedactorClient} from "@/core/dependencies/redactor/redactorClient.ts";
 import {
     Dialog,
@@ -16,13 +15,17 @@ import {
     DialogTrigger
 } from "@/core/shadcn/components/ui/dialog.tsx";
 import {ArticleReviewCard} from "@/core/components/article/ArticleReviewCard.tsx";
+import {RedactorArticleFormLoader} from "@/core/components/redactor/RedactorArticleFormLoader.tsx";
+import type {PoliticianClient} from "@/core/dependencies/politician/politicianClient.ts";
 
 export type RedactorArticlesByReferenceProps = {
     redactorClient: RedactorClient;
+    politicianClient: PoliticianClient;
     articles: Article[];
 }
 
-export function RedactorArticlesByReference({redactorClient, articles}: RedactorArticlesByReferenceProps) {
+export function RedactorArticlesByReference({redactorClient, politicianClient, articles}:
+                                            RedactorArticlesByReferenceProps) {
     const [index, setIndex] = useState<number>(0);
     const [editMode, setEditMode] = useState<boolean>(false);
 
@@ -35,8 +38,7 @@ export function RedactorArticlesByReference({redactorClient, articles}: Redactor
         <div className="flex flex-row justify-center gap-8">
             <Button variant="ghost"
                     disabled={index === articles.length - 1}
-                    onClick={() => setIndex(index + 1)}
-            >
+                    onClick={() => setIndex(index + 1)}>
                 <ArrowLeft></ArrowLeft>
             </Button>
 
@@ -86,8 +88,9 @@ export function RedactorArticlesByReference({redactorClient, articles}: Redactor
             )
         }
 
-        {editMode ? <RedactorArticleForm article={selected} redactorClient={redactorClient}
-                                         onSubmitSuccess={() => setEditMode(false)}/> :
+        {editMode ? <RedactorArticleFormLoader article={selected} redactorClient={redactorClient}
+                                               politicianClient={politicianClient}
+                                               onSubmitSuccess={() => setEditMode(false)}/> :
             <ArticleDisplay article={articles[index]}/>}
     </div>;
 }

@@ -19,13 +19,20 @@ export class RedactorClient {
         this.api = api;
     }
 
-    async getRedactorArticles(): Promise<Article[]> {
+    private async _getRedactorArticles(): Promise<Article[]> {
         const res = await this.api
             .get("redactor/articles")
             .json<ArticleJson[]>();
 
         return res.map((json) => Article.fromJson(json));
     }
+
+    getRedactorArticles = (): { queryKey: string[], queryFn: () => Promise<Article[]> } => {
+        return {
+            queryKey: ["redactor", "articles"],
+            queryFn: () => this._getRedactorArticles(),
+        };
+    };
 
     async saveArticle(publish: boolean, dto: SaveRedactorArticle): Promise<string> {
         const res = await this.api
@@ -35,11 +42,18 @@ export class RedactorClient {
         return res.articleReference;
     }
 
-    async findRedactorArticlesByRef(ref: string): Promise<Article[]> {
+    private async _findRedactorArticlesByRef(ref: string): Promise<Article[]> {
         const res = await this.api
             .get(`redactor/articles/${ref}`)
             .json<ArticleJson[]>();
 
         return res.map((json) => Article.fromJson(json));
     }
+
+    findRedactorArticlesByRef = (ref: string): { queryKey: string[], queryFn: () => Promise<Article[]> } => {
+        return {
+            queryKey: ["redactor", "articles", ref],
+            queryFn: () => this._findRedactorArticlesByRef(ref),
+        };
+    };
 }

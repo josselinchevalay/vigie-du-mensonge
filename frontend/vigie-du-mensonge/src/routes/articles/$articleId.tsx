@@ -11,9 +11,11 @@ function RouteComponent() {
     const {articleId} = Route.useParams();
     const articleClient = Route.useRouteContext().articleClient;
 
+    const {queryKey, queryFn} = articleClient.findById(articleId);
+
     const {data: article, isLoading, isError} = useQuery({
-        queryKey: ["articles", articleId],
-        queryFn: () => articleClient.findById(articleId),
+        queryKey: queryKey,
+        queryFn: () => queryFn(),
     });
 
     if (isError) {

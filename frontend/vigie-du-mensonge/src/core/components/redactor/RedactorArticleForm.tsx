@@ -8,15 +8,15 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Input} from "@/core/shadcn/components/ui/input.tsx";
 import {Button} from "@/core/shadcn/components/ui/button.tsx";
 import {ArticleCategories, ArticleCategoryLabels} from "@/core/models/articleCategory.ts";
-import {useStore} from "@tanstack/react-store";
-import {politiciansManager} from "@/core/dependencies/politician/politiciansManager.ts";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/core/shadcn/components/ui/select.tsx";
 import {RedactorClient, type SaveRedactorArticle} from "@/core/dependencies/redactor/redactorClient.ts";
 import type {Article} from "@/core/models/article.ts";
 import {DatePicker} from "@/core/components/misc/DatePicker.tsx";
+import type {Politician} from "@/core/models/politician.ts";
 
 export type RedactorArticleFormProps = {
     redactorClient: RedactorClient
+    politicians: Politician[]
     article?: Article
     onSubmitSuccess?: (articleRef?: string) => void
 }
@@ -61,7 +61,7 @@ function mapInput(input: RedactorArticleFormInput, articleId?: string): SaveReda
     };
 }
 
-export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
+export function RedactorArticleForm({redactorClient, politicians, article, onSubmitSuccess}:
                                     RedactorArticleFormProps) {
     const form = useForm<RedactorArticleFormInput>({
         resolver: zodResolver(formSchema),
@@ -90,10 +90,10 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
             }
 
             if (article) {
-                await queryClient.invalidateQueries({queryKey: ["redactor", "articles", article.reference]});
+                await queryClient.invalidateQueries({queryKey: redactorClient.findRedactorArticlesByRef(articleRef).queryKey});
             }
 
-            await queryClient.invalidateQueries({queryKey: ["redactor", "articles"]});
+            await queryClient.invalidateQueries({queryKey: redactorClient.getRedactorArticles().queryKey});
         },
         onError: () => {
             toast.error("Une erreur est survenue. Veuillez réessayer.");
@@ -101,19 +101,19 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
     });
 
     // Politicians search/select
-    const allPoliticians = useStore(politiciansManager.politiciansStore);
     const [search, setSearch] = React.useState("");
 
     const selectedPoliticians = form.watch("politicians");
 
     const filtered = React.useMemo(() => {
         const q = search.trim().toLowerCase();
-        if (!q) return allPoliticians.filter(p => !selectedPoliticians.includes(p.id));
-        return allPoliticians.filter(p => !selectedPoliticians.includes(p.id) && p.fullName.toLowerCase().includes(q));
-    }, [allPoliticians, search, selectedPoliticians]);
+        if (!q) return politicians.filter(p => !selectedPoliticians.includes(p.id));
+        return politicians.filter(p => !selectedPoliticians.includes(p.id) && p.fullName.toLowerCase().includes(q));
+    }, [politicians, search, selectedPoliticians]);
 
     function addPolitician(id: string) {
         const current = form.getValues("politicians");
+        setSearch("");
         if (current.length >= 5) return;
         if (!current.includes(id)) form.setValue("politicians", [...current, id], {shouldValidate: true});
     }
@@ -121,6 +121,7 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
     function removePolitician(id: string) {
         const current = form.getValues("politicians");
         form.setValue("politicians", current.filter(p => p !== id), {shouldValidate: true});
+
     }
 
     // Simple add input for tags and sources
@@ -291,7 +292,7 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
                                     </div>
                                     <div className="flex flex-wrap gap-2">
                                         {selectedPoliticians.map(id => {
-                                            const p = allPoliticians.find(pp => pp.id === id);
+                                            const p = politicians.find(pp => pp.id === id);
                                             if (!p) return null;
                                             return (
                                                 <span key={id}
@@ -356,7 +357,7 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
                                     {form.getValues("tags").map(tag => (
                                         <span key={tag}
                                               className="inline-flex items-center gap-2 rounded-md border px-2 py-1 text-xs">
-                                            #{tag}
+                                            {tag}
                                             <button type="button"
                                                     className="text-muted-foreground hover:text-foreground"
                                                     onClick={() => removeTag(tag)}>&times;</button>
