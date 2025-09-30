@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {type Theme, ThemeProviderContext} from "@/theme-provider/theme-provider.tsx";
+import {type Theme, ThemeProviderContext} from "@/core/theme-provider/theme-provider.tsx";
 
 const STORAGE_KEY = "vdm-ui-theme-provider";
 
