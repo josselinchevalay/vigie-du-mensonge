@@ -3,6 +3,7 @@ import {useQuery} from "@tanstack/react-query";
 import {Spinner} from "@/core/shadcn/components/ui/spinner.tsx";
 import {Link} from "@/core/utils/router.ts";
 import {ArticleOverviewItem} from "@/core/components/article/ArticleOverviewItem.tsx";
+import {Separator} from "@/core/shadcn/components/ui/separator.tsx";
 
 export const Route = createFileRoute('/')({
     component: RouteComponent,
@@ -34,7 +35,19 @@ function RouteComponent() {
         );
     }
 
-    return <div className="flex flex-col items-center gap-8 min-w-0 py-2">
+    return <div className="flex flex-col items-center gap-4 min-w-0 py-2">
+
+        <div className="flex flex-col gap-4 max-w-7xl px-4">
+            <p>
+                Ce site a pour mission de recenser, analyser et documenter les contre-vérités, manipulations et discours
+                officiels souvent contestables des gouvernements successifs sous la présidence d’Emmanuel Macron. Notre
+                objectif est d’offrir aux citoyens une source fiable, factuelle et accessible pour comprendre les enjeux
+                réels derrière les déclarations publiques, afin de favoriser un débat éclairé et critique. Ici, vous
+                trouverez des entrées détaillées accompagnées de citations, faits et commentaires pour décrypter les
+                discours politiques et mieux armer votre regard face à la communication gouvernementale.
+            </p>
+            <Separator/>
+        </div>
 
         {
             (articles && articles.length > 0) &&

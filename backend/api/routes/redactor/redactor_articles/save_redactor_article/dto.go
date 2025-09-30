@@ -10,7 +10,7 @@ import (
 
 type RequestDTO struct {
 	ID            uuid.UUID              `json:"id"`
-	Title         string                 `json:"title" validate:"required,min=20,max=100"`
+	Title         string                 `json:"title" validate:"required,min=20,max=200"`
 	EventDate     time.Time              `json:"eventDate" validate:"required"`
 	Category      models.ArticleCategory `json:"category" validate:"required"`
 	Body          string                 `json:"body,omitempty"`

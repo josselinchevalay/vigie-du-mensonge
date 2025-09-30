@@ -24,12 +24,12 @@ const AllowedDecisions = [
 const formSchema = z
     .object({
         decision: z.enum(AllowedDecisions),
-        notes: z.string().optional(),
+        notes: z.string().trim().optional(),
     }).refine(
         (data) => data.decision === ArticleStatuses.PUBLISHED ||
             (data.notes !== undefined && data.notes.trim().length > 30 && data.notes.trim().length < 200),
         {
-            error: "Vous devez fournir des notes (30 à 200 caractères) pour expliquer votre décision.",
+            message: "Vous devez fournir des notes (30 à 200 caractères) pour expliquer votre décision.",
             path: ["notes"],
         }
     );
@@ -55,10 +55,10 @@ export function ModeratorArticleReviewForm({moderatorClient, articleId, articleR
                 notes: input.notes,
             });
         },
-        onSuccess: () => {
+        onSuccess: async () => {
             toast.success("Votre review a été enregistrée.");
-            void queryClient.invalidateQueries({queryKey: ["moderator", "articles", articleRef]});
-            void queryClient.invalidateQueries({queryKey: ["moderator", "articles"]});
+            await queryClient.invalidateQueries({queryKey: ["moderator", "articles", articleRef]});
+            await queryClient.invalidateQueries({queryKey: ["moderator", "articles"]});
         },
         onError: () => {
             toast.error("Une erreur est survenue. Veuillez réessayer.");
@@ -112,8 +112,6 @@ export function ModeratorArticleReviewForm({moderatorClient, articleId, articleR
                     rows={4}
                     className="border-input focus-visible:border-ring focus-visible:ring-ring/50 dark:bg-input/30 dark:hover:bg-input/50 w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50"
                     placeholder="Expliquez brièvement votre décision (30 à 200 caractères, optionnel si vous choisissez [ Publié ])"
-                    minLength={30}
-                    maxLength={200}
                     disabled={mutation.isPending}
                 />
                             </FormControl>

@@ -21,11 +21,10 @@ const formSchema = z.object({
         .regex(/[0-9]/, "Au moins un chiffre (0-9)")
         .regex(/[^A-Za-z0-9]/, "Au moins un caractère spécial (ex: &!$?;:#@)"),
     confirmPassword: z.string(),
-})
-    .refine((data) => data.password === data.confirmPassword, {
-        message: "Les mots de passe ne correspondent pas",
-        path: ["confirmPassword"],
-    });
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Les mots de passe ne correspondent pas",
+    path: ["confirmPassword"],
+});
 
 export type ProcessPasswordUpdateInput = z.infer<typeof formSchema>;
 

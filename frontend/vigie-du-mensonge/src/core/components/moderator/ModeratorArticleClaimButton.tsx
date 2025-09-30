@@ -17,11 +17,11 @@ export function ModeratorArticleClaimButton({moderatorClient, articleId, article
         mutationFn: async () => {
             return moderatorClient.claimModeratorArticle(articleId);
         },
-        onSuccess: () => {
+        onSuccess: async () => {
             toast.success("Vous avez revendiqué la modération de cet article.");
-            void queryClient.invalidateQueries({queryKey: ["moderator", "articles"]});
-            void queryClient.invalidateQueries({queryKey: ["moderator", "articles", "pending"]});
-            void queryClient.invalidateQueries({queryKey: ["moderator", "articles", articleRef]});
+            await queryClient.invalidateQueries({queryKey: ["moderator", "articles"]});
+            await queryClient.invalidateQueries({queryKey: ["moderator", "articles", "pending"]});
+            await queryClient.invalidateQueries({queryKey: ["moderator", "articles", articleRef]});
         },
         onError: () => {
             toast.error("Une erreur est survenue. Veuillez réessayer.");

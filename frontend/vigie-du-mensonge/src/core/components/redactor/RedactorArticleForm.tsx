@@ -22,20 +22,20 @@ export type RedactorArticleFormProps = {
 }
 
 const publishSchema = z.object({
-    title: z.string().min(1, "Titre requis").max(100, "100 caractères maximum").min(20, "20 caractères minimum"),
+    title: z.string().trim().min(1, "Titre requis").max(200, "100 caractères maximum").min(20, "20 caractères minimum"),
     eventDate: z.date().nonoptional("Date de l'évènement requise"),
     category: z.enum(Object.values(ArticleCategories)).nonoptional(),
-    body: z.string().min(1, "Contenu requis").max(2000, "2000 caractères maximum").min(200, "200 caractères minimum"),
+    body: z.string().trim().min(1, "Contenu requis").max(2000, "2000 caractères maximum").min(200, "200 caractères minimum"),
     tags: z.array(z.string().min(1).max(25)).min(1, "Au moins 1 tag").max(5, "5 tags maximum"),
     sources: z.array(z.url("URL invalide")).min(1, "Au moins 1 source").max(5, "5 sources maximum"),
     politicians: z.array(z.string()).max(5, "5 politiciens maximum"),
 });
 
 const draftSchema = z.object({
-    title: z.string().min(1, "Titre requis").max(100, "100 caractères maximum").min(20, "20 caractères minimum"),
+    title: z.string().trim().min(1, "Titre requis").max(200, "100 caractères maximum").min(20, "20 caractères minimum"),
     eventDate: z.date().nonoptional("Date de l'évènement requise"),
     category: z.enum(Object.values(ArticleCategories)).nonoptional(),
-    body: z.string().max(2000, "2000 caractères maximum"),
+    body: z.string().trim().max(2000, "2000 caractères maximum"),
     tags: z.array(z.string().min(1).max(25)).max(5, "5 tags maximum"),
     sources: z.array(z.url("URL invalide")).max(5, "5 sources maximum"),
     politicians: z.array(z.string()).max(5, "5 politiciens maximum"),
@@ -90,10 +90,10 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
             }
 
             if (article) {
-                void queryClient.invalidateQueries({queryKey: ["redactor", "articles", article.reference]});
+                await queryClient.invalidateQueries({queryKey: ["redactor", "articles", article.reference]});
             }
 
-            void queryClient.invalidateQueries({queryKey: ["redactor", "articles"]});
+            await queryClient.invalidateQueries({queryKey: ["redactor", "articles"]});
         },
         onError: () => {
             toast.error("Une erreur est survenue. Veuillez réessayer.");
@@ -144,8 +144,14 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
     }
 
     function addSource() {
-        const v = sourceInput.trim();
+        let v = sourceInput.trim();
         if (!v) return;
+
+        // auto-prefix <https://> if missing
+        if (!/^https?:\/\//i.test(v)) {
+            v = "https://" + v;
+        }
+
         const sources = form.getValues("sources");
         if (sources.length >= 5) return;
         if (!sources.includes(v)) {
@@ -174,9 +180,10 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
                           }
                           const target = e.target as HTMLElement;
                           const tag = target.tagName.toLowerCase();
+                          const isTextArea = tag === "textarea";
                           const isButton = tag === "button";
                           // Prevent form submission on Enter when focus is not a button
-                          if (!isButton) {
+                          if (!isButton && !isTextArea) {
                               e.preventDefault();
                           }
                       }}
@@ -200,7 +207,7 @@ export function RedactorArticleForm({redactorClient, article, onSubmitSuccess}:
                                     <textarea
                                         className="border-input w-full min-h-12 rounded-md border bg-transparent px-3 py-2 text-sm"
                                         placeholder="Titre de l'article"
-                                        maxLength={100}
+                                        maxLength={200}
                                         value={field.value}
                                         onChange={field.onChange}
                                     />
