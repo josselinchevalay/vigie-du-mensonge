@@ -233,23 +233,25 @@ CREATE TABLE article_politicians
 CREATE INDEX idx_article_politicians_article ON article_politicians (article_id);
 CREATE INDEX idx_article_politicians_politician ON article_politicians (politician_id);
 
+-- TEST DATA
+
 INSERT INTO roles (id, name)
 VALUES ('de966b93-a885-45e9-8ed9-48074912de55', 'ADMIN'),
        ('02f0eccd-b0b2-42c0-aef1-6b306ca23005', 'MODERATOR'),
        ('86080136-8365-4541-a918-9ad8f1fd27ac', 'REDACTOR');
 
 INSERT INTO users (id, tag, email, password)
-VALUES ('2d7c2090-179e-4084-9489-85b6a70934bc', 'admin0123', 'admin@test.com',
+VALUES ('2d7c2090-179e-4084-9489-85b6a70934bc', 'admin0123', 'admin@vdm.com',
+        '$2a$12$oAvivQopMo3ZjlebA2BwgO4zENkTuf.4M5y4tDnDM.9YxrGmc.h42'), -- password: Test123!
+       ('6df0b4ab-9ad4-408c-9eca-f337136a6ede', 'moderator0123', 'moderator@vdm.com',
+        '$2a$12$oAvivQopMo3ZjlebA2BwgO4zENkTuf.4M5y4tDnDM.9YxrGmc.h42'), -- password: Test123!
+       ('15611c31-a7b6-4cf7-affc-db2a49072d63', 'redactor0123', 'redactor@vdm.com',
         '$2a$12$oAvivQopMo3ZjlebA2BwgO4zENkTuf.4M5y4tDnDM.9YxrGmc.h42'); -- password: Test123!
 
 INSERT INTO user_roles (user_id, role_id)
-VALUES ('2d7c2090-179e-4084-9489-85b6a70934bc', 'de966b93-a885-45e9-8ed9-48074912de55'),
-       ('2d7c2090-179e-4084-9489-85b6a70934bc', '02f0eccd-b0b2-42c0-aef1-6b306ca23005'),
-       ('2d7c2090-179e-4084-9489-85b6a70934bc', '86080136-8365-4541-a918-9ad8f1fd27ac');
-
-INSERT INTO users (id, tag, email, password)
-VALUES ('eedbb792-190a-475f-8c17-6d7a1445e258', 'redactor0123', 'redactor@test.com',
-        '$2a$12$oAvivQopMo3ZjlebA2BwgO4zENkTuf.4M5y4tDnDM.9YxrGmc.h42'); -- password: Test123!
-
-INSERT INTO user_roles (user_id, role_id)
-VALUES ('eedbb792-190a-475f-8c17-6d7a1445e258', '86080136-8365-4541-a918-9ad8f1fd27ac');
+VALUES ('2d7c2090-179e-4084-9489-85b6a70934bc', 'de966b93-a885-45e9-8ed9-48074912de55'), -- admin0123 role ADMIN
+       ('2d7c2090-179e-4084-9489-85b6a70934bc', '02f0eccd-b0b2-42c0-aef1-6b306ca23005'), -- admin0123 role MODERATOR
+       ('2d7c2090-179e-4084-9489-85b6a70934bc', '86080136-8365-4541-a918-9ad8f1fd27ac'), -- admin0123 role REDACTOR
+       ('6df0b4ab-9ad4-408c-9eca-f337136a6ede', '02f0eccd-b0b2-42c0-aef1-6b306ca23005'), -- moderator0123 role MODERATOR
+       ('6df0b4ab-9ad4-408c-9eca-f337136a6ede', '86080136-8365-4541-a918-9ad8f1fd27ac'), -- moderator0123 role REDACTOR
+       ('15611c31-a7b6-4cf7-affc-db2a49072d63', '86080136-8365-4541-a918-9ad8f1fd27ac'); -- redactor0123 role REDACTOR

@@ -17,9 +17,10 @@ majeur au portage des articles qui auront été rédigés sur ce projet vers le 
 Ce README est destiné au grand public et ne contient donc aucun détail technique. Pour cela, je vous invite à vous
 référer aux liens suivants :
 
-- [FRONTEND](./frontend/README.md) - module client
-- [BACKEND](./backend/README.md) - module serveur
+- [FRONTEND](./frontend/README.md)
+- [BACKEND](./backend/README.md)
 - [DATA_IMPORT](./data_import/README.md) - module d'import de jeux de données data.gouv
+- [DATABASE](./database/README.md)
 
 ## Fonctionnalités actuelles
 
