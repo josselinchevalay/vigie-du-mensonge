@@ -16,21 +16,36 @@ services:
       timeout: 5s
       retries: 5
 
-#  frontend:
-#   build:
-#     context: frontend/vigie-du-mensonge
-#   container_name: vdm_frontend
-#   ports:
-#      - "5173:8080"
+  frontend:
+   image: node:24.8.0-alpine
+   working_dir: /app
+   container_name: vdm_frontend
+   volumes:
+     - ./frontend/vigie-du-mensonge:/app
+     - /app/node_modules
+   command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+   ports:
+      - "5173:5173"
+
+  openapi:
+    build:
+      context: openapi
+    container_name: vdm_openapi
+    restart: no
+    volumes:
+      - vdm_openapi_docs:/app/docs
 
   backend:
     build:
       context: backend
     container_name: vdm_backend
+    volumes:
+      - vdm_openapi_docs:/app/docs
     ports:
       - "8080:8080"
     env_file:
       - .backend.env
+      - .db.env
     depends_on:
       db:
         condition: service_healthy
@@ -41,10 +56,11 @@ services:
     container_name: vdm_data_import
     restart: no
     env_file:
-      - .backend.env # Réutilise la configuration de la DB
+      - .db.env
     depends_on:
       db:
         condition: service_healthy
 
 volumes:
   vdm_pg_data:
+  vdm_openapi_docs:

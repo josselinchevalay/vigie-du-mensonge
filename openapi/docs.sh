@@ -1,3 +1,2 @@
 #!/bin/bash
-
-npx @redocly/cli build-docs openapi.yml --o ../backend/docs.html
+npx @redocly/cli build-docs openapi.yml --o /app/docs/docs.html

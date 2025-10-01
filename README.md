@@ -14,7 +14,8 @@ majeur au portage des articles qui auront été rédigés sur ce projet vers le 
 
 ## Vue d'ensemble
 
-Ce README est destiné au grand public et ne contient donc aucun détail technique. Pour cela, je vous invite à vous
+Ce README est destiné au grand public et ne contient donc aucun détail technique
+(en dehors de la section de [lancement de l'application](#lancement-de-lapplication)). Pour cela, je vous invite à vous
 référer aux liens suivants :
 
 - [FRONTEND](./frontend/README.md)
@@ -66,6 +67,28 @@ référer aux liens suivants :
 - Page dédiée à un politique avec l'ensemble des articles le concernant ainsi que ses 
 différentes fonctions au sein des gouvernements
 
+
+## Lancement de l'application
+
+### Prérequis
+
+- **Docker** et **Docker Compose** installés sur votre machine
+- Aucun service en cours d’exécution sur les ports utilisés par défaut
+    - 5173 pour le frontend
+    - 8080 pour le backend
+    - 5432 pour la base de données
+
+### Démarrage
+
+À la racine du projet, lancer simplement :
+
+```sh
+docker compose up --build
+```
+
+### Openapi
+
+L'application expose un openapi sur http://localhost:8080/docs pour la documentation de l'API.
 
 ## Pour conclure
 
