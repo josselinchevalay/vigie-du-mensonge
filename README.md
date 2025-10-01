@@ -1,51 +1,72 @@
 # Vigie du mensonge
 
-Bonjour ! J'ajoute ce petit readme pour indiquer comment run le projet rapidement, je détaillerai plus tard l'archi et les patterns de dev. 
-En attendant pour les curieux, vous pouvez déjà trouver quelques infos sous .junie/guidelines.md, ainsi que sur la doc openapi et database/schema.md (à consulter sur github pour le render mermaid). 
+https://vigiedumensonge.gocorp.fr/
 
-Merci à josselin.chevalay pour ta contribution sur docker <3
+## IMPORTANT
 
-## BDD et Backend
+Ce repo est à l'origine une initiative personnelle de ma part en tant que membre du discord de la
+communauté de **Clemovitch** et n'a rien d'**officiel**.
 
-### Prérequis
+Il s'agit simplement d'une proposition alternative qui vise à mettre en place une plateforme permettant
+de référencer les mensonges, les contre-vérités, les manipulations, et la désinformation des gouvernements
+français en attendant qu'une version officielle soit mise en place. Le cas échéant, je ne vois aucun obstacle
+majeur au portage des articles qui auront été rédigés sur ce projet vers le projet officiel.
 
-docker installé
+## Vue d'ensemble
 
-### Lancement
+Ce README est destiné au grand public et ne contient donc aucun détail technique. Pour cela, je vous invite à vous
+référer aux liens suivants :
 
-depuis la racine du projet :
+- [FRONTEND](./frontend/README.md) - module client
+- [BACKEND](./backend/README.md) - module serveur
+- [DATA_IMPORT](./data_import/README.md) - module d'import de jeux de données data.gouv
 
-```bash
-docker compose up -d --build
-```
+## Fonctionnalités actuelles
 
-### Shutdown
+### Visiteurs
 
-```bash
-docker compose down --rmi all
-```
+- Inscription & connexion sécurisée (sessions persistantes)
+- Consultation des articles publiés ➡️ [page d'accueil](./docs/screenshots/home.png)
+- Consultation du contenu détaillé d'un article ➡️ [page d'un article](./docs/screenshots/article_visitor.png)
 
-## Frontend
+### Rédacteurs
 
-### Prérequis
+- Accéder à un **espace rédacteur**
+  ➡️ [sur le web](./docs/screenshots/access_redactor_web.png) / [sur mobile](./docs/screenshots/access_redactor_mobile.png)
+- Consulter ses propres articles dans l'espace rédacteur
+  ➡️ [page d'accueil de l'espace rédacteur](./docs/screenshots/redactor_home.png)
+- Créer un nouveau brouillon d'article
+  ➡️ [formulaire de création d'un article](./docs/screenshots/redactor_article_form.png)
+- Modification avec versioning des articles et notes de la modération
+  ➡️ [consulter/modifier un de ses articles](./docs/screenshots/redactor_articles_version.png)
 
-npm installé
+### Modérateurs
 
-### Lancement
+- Accéder à un **espace modérateur**
+  ➡️ [sur le web](./docs/screenshots/access_moderator_web.png) / [sur mobile](./docs/screenshots/access_moderator_mobile.png)
+- Consulter les articles sous sa propre modération
+  ➡️ [page d'accueil de l'espace modérateur](./docs/screenshots/moderator_home.png)
+- Approuver/refuser la publication d'articles sous sa modération
+  ➡️ [formulaire de review du modérateur](./docs/screenshots/moderator_review_form.png)
+- Consulter les articles en attente de modération
+  ➡️ [page des articles en attente de modération](./docs/screenshots/moderator_pending_articles.png)
+- Revendiquer la modération d'un article
+  ➡️ [page d'un article en attente de modération](./docs/screenshots/moderator_claims_pending_article.png)
 
-depuis le dossier frontend/vigie-du-mensonge :
 
-```base
-npm run dev
-```
+## Fonctionnalités à venir 
 
-## Et voilà ! 
-Vous pouvez vous connecter avec les identifiants suivants :
+- Espace administrateur pour : 
+  - rechercher un utilisateur à partir de son nom d'utilisateur dans une barre de recherche
+  - afficher le profil d'un utilisateur avec son historique d'activités (rédaction, modération d'articles...)
+  - ajouter / retirer les autorisations d'un utilisateur (rédacteur, modérateur)
 
-email: user@test.com -------- mdp: Test123!
+- Page dédiée au top des politiques les plus mentionnés dans les articles
+- Page dédiée à un politique avec l'ensemble des articles le concernant ainsi que ses 
+différentes fonctions au sein des gouvernements
 
-Note: il est normal que vous ne puissiez ni modifier le mot de passe ni créer un compte sur la version locale.
-En revanche, vous le pouvez faire sur la version live.
 
-## Version live
-Si vous voulez testez la version live -> https://vigiedumensonge.gocorp.fr
+## Pour conclure
+
+Toutes les suggestions sont les bienvenues, et l’ensemble du projet reste entièrement revisitable en fonction des retours de la communauté.
+Vous pouvez ouvrir une GitHub issue pour signaler un bug ou suggérer une amélioration / modification / nouvelle feature.
