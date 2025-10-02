@@ -86,6 +86,16 @@ différentes fonctions au sein des gouvernements
 docker compose up --build
 ```
 
+### Identifiants de connexion
+
+Une fois le projet lancé, vous pouvez vous connecter avec les identifiants suivants :
+
+admin@vdm.com Test123! (utilisateur avec les rôles ADMIN, MODERATOR et REDACTOR)
+
+moderator@vdm.com Test123! (utilisateur avec les rôles MODERATOR et REDACTOR)
+
+redactor@vdm.com Test123! (utilisateur avec le rôle REDACTOR uniquement)
+
 ### Openapi
 
 L'application expose un openapi sur http://localhost:8080/docs pour la documentation de l'API.
